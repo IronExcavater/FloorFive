@@ -192,9 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5319d5639c7d1bb4c958d20a5286f788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 3
   jumpForce: 3
-  mouseSensitivity: {x: 10, y: 10}
+  mouseSensitivity: {x: 1, y: 1}
   airMoveReduction: 0.5
   worldLayer:
     serializedVersion: 2
@@ -530,7 +530,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
