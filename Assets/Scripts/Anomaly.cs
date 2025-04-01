@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class Anomaly : MonoBehaviour
 {
-    [SerializeField] private Renderer rend;
+    [SerializeField] private List<Renderer> rends;
     
     [SerializeField] private List<AnomalyState> anomalyStates;
 
@@ -19,7 +19,6 @@ public class Anomaly : MonoBehaviour
         _originalPosition = transform.localPosition;
         _originalRotation = transform.localRotation;
         _originalScale = transform.localScale;
-        _originalColor = rend.material.color;
     }
 
     public void ApplyRandomAnomaly()
@@ -31,7 +30,11 @@ public class Anomaly : MonoBehaviour
         transform.localPosition = _originalPosition + state.positionOffset;
         transform.localRotation = _originalRotation * Quaternion.Euler(state.rotationOffset);
         transform.localScale = Vector3.Scale(_originalScale, state.scaleMultiplier); 
-        rend.material.color = state.color;
+        
+        rends.ForEach(rend =>
+        {
+            rend.material.color = state.color;
+        });
         gameObject.SetActive(!state.hidden);
     }
 }
