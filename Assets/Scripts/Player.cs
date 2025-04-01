@@ -31,13 +31,14 @@ public class Player : MonoBehaviour
     private void Update()
     {
         var lookInput = InputManager.FindAction("Look").ReadValue<Vector2>();
+        lookInput = new Vector2(lookInput.x / Screen.width, lookInput.y / Screen.height);
         
         // Add lookInput (-y, x) and clamp x to -90 and 90 degrees
-        _lookRotation += Time.deltaTime * new Vector2(-lookInput.y, lookInput.x) * mouseSensitivity;
+        _lookRotation += new Vector2(-lookInput.y, lookInput.x) * mouseSensitivity / Time.deltaTime;
         _lookRotation.x = Mathf.Clamp(_lookRotation.x, -90f, 90f);
         
         // Apply rotation of xy to camera and y to body
-        camTrans.position = transform.position;
+        camTrans.position = transform.position + new Vector3(0, capCol.height / 4, 0);
         camTrans.rotation = Quaternion.Euler(_lookRotation.x, _lookRotation.y, 0);
         transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
     }
