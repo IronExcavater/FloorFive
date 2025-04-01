@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
         _lookRotation.x = Mathf.Clamp(_lookRotation.x, -90f, 90f);
         
         // Apply rotation of xy to camera and y to body
-        camTrans.position = transform.position;
+        camTrans.position = transform.position + new Vector3(0, capCol.height / 4f, 0);
         camTrans.rotation = Quaternion.Euler(_lookRotation.x, _lookRotation.y, 0);
         transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
     }

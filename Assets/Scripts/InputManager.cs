@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager Input { get; private set; }
+    private static InputManager Input { get; set; }
     
     public PlayerInput playerInput;
 
