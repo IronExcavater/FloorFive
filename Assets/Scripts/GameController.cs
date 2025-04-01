@@ -1,5 +1,6 @@
-using Unity.Mathematics.Geometry;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class GameController : MonoBehaviour
     
     [SerializeField] private GameObject[] checkpointPrefabs;
     [SerializeField] private GameObject[] roomPrefabs;
+
+    public static Action<int> OnScoreChanged;
     
     public int numberOfRooms;
     public int score;
@@ -53,5 +56,6 @@ public class GameController : MonoBehaviour
         Debug.Log("Room completed, successful = " + isSuccessful);
         if (isSuccessful) Game.score++;
         else Game.score = 0;
+        OnScoreChanged?.Invoke(Game.score);
     }
 }
