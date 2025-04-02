@@ -23,10 +23,15 @@ public class Connector : MonoBehaviour
 
     private Area GetActiveArea(Vector3 playerPosition)
     {
-        var playerToArea = Vector3.Distance(playerPosition, area.transform.position);
-        var selfToArea = Vector3.Distance(transform.position, area.transform.position);
-
-        return playerToArea < selfToArea ? area : connection.area;
+        var axis = transform.forward;
+        
+        var playerToArea = playerPosition - area.transform.position;
+        var selfToArea = transform.position - area.transform.position;
+        
+        var playerDistance = Vector3.Dot(playerToArea, axis);
+        var selfDistance = Vector3.Dot(selfToArea, axis);
+        
+        return Math.Abs(playerDistance) < Math.Abs(selfDistance) ? area : connection.area;
     }
 
     public void Connect(Connector connector)
@@ -37,7 +42,7 @@ public class Connector : MonoBehaviour
 
     public void Disconnect()
     {
-        connection.connection = null;
+        if (connection) connection.connection = null;
         connection = null;
     }
     

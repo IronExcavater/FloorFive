@@ -43,13 +43,19 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Broken due to null errors that shouldn't logically exist
         var room = connector.area as Room;
-        var hallway = room.GetOppositeConnector(connector).connection.area as Hallway;
+        var hallway = room?.GetOppositeConnector(connector)?.connection?.area as Hallway;
 
-        room.DisconnectAll();
-        hallway.DisconnectAll();
-        
-        Game.roomPool.Release(room);
-        Game.hallwayPool.Release(hallway);
+        if (room)
+        {
+            room.DisconnectAll();
+            Game.roomPool.Release(room);
+        }
+
+        if (hallway)
+        {
+            hallway.DisconnectAll();
+            Game.hallwayPool.Release(hallway);
+        }
     }
 
     private static void ConnectConnectors(Transform newArea, Transform newConnector, Transform existingConnector)
