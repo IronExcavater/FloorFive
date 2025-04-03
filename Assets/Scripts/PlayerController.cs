@@ -1,0 +1,94 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    [Header("Parameters")]
+    public float walkSpeed;
+    public float runSpeed;
+
+    public float animationBlend;
+    public bool animationBusy;
+    
+    public float mouseSensitivity;
+    public Vector2 xLookLimits;
+    
+    public float jumpForce;
+    public LayerMask worldLayer;
+    
+    private bool IsGrounded => Physics.Raycast(
+        transform.position, 
+        Vector3.down, 
+        capCol.height / 2f + 0.2f, worldLayer);
+
+    private Vector2 _currentVel;
+    private Vector2 _lookRotation;
+    
+    [Header("Components")]
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator ani;
+    [SerializeField] private AnimatorCache aniCache;
+    [SerializeField] private CapsuleCollider capCol;
+    [SerializeField] private Transform camTrans;
+    [SerializeField] private Transform camRootTrans;
+
+    private void Start()
+    {
+        LockCursor();
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void Update()
+    {
+        Look();
+    }
+
+    private void Move()
+    {
+        var input = InputManager.Move;
+        var speed = input == Vector2.zero ? 0 : InputManager.Run ? runSpeed : walkSpeed;
+        
+        _currentVel = Vector3.Lerp(_currentVel, input * speed, Time.fixedDeltaTime * animationBlend);
+        var worldVel = transform.TransformVector(new Vector3(_currentVel.x, 0, _currentVel.y));
+        var deltaVel = worldVel - new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        
+        rb.AddForce(deltaVel, ForceMode.VelocityChange);
+        
+        ani.SetFloat(aniCache.GetHash("xVel"), _currentVel.x);
+        ani.SetFloat(aniCache.GetHash("yVel"), _currentVel.y);
+    }
+
+    private void Look()
+    {
+        var input = InputManager.Look;
+        
+        // Add lookInput (-y, x) and clamp x to -90 and 90 degrees
+        var deltaRot = mouseSensitivity * Time.smoothDeltaTime * new Vector2(-input.y, input.x);
+        _lookRotation += deltaRot;
+        _lookRotation.x = Mathf.Clamp(_lookRotation.x, xLookLimits.x, xLookLimits.y);
+        
+        // Apply rotation of xy to camera and y to body
+        camTrans.position = camRootTrans.position;
+        camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
+        transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (!IsGrounded) return;
+        
+        // Remove y velocity and apply jump force
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+}

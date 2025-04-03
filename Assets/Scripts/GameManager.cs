@@ -2,38 +2,38 @@
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Game { get; private set; }
+    private static GameManager _instance;
 
     public Room roomPrefab;
     public Hallway hallwayPrefab;
     public Transform levelTrans;
     
-    private ObjectPool<Room> roomPool;
-    private ObjectPool<Hallway> hallwayPool;
+    private ObjectPool<Room> _roomPool;
+    private ObjectPool<Hallway> _hallwayPool;
     
     private void Awake()
     {
-        if (Game == null)
+        if (_instance == null)
         {
-            Game = this;
+            _instance = this;
             DontDestroyOnLoad(this);
 
-            roomPool = new ObjectPool<Room>(roomPrefab, 2, levelTrans);
-            hallwayPool = new ObjectPool<Hallway>(hallwayPrefab, 3, levelTrans);
+            _roomPool = new ObjectPool<Room>(roomPrefab, 2, levelTrans);
+            _hallwayPool = new ObjectPool<Hallway>(hallwayPrefab, 3, levelTrans);
         }
         else Destroy(gameObject);
     }
 
     public static void CreateSection(Connector connector)
     {
-        var room = Game.roomPool.Get();
+        var room = _instance._roomPool.Get();
         var roomConnector = room.GetRandomConnector();
         ConnectConnectors(room.transform, roomConnector.transform, connector.transform);
         connector.Connect(roomConnector);
         
         var otherRoomConnector = room.GetOppositeConnector(roomConnector);
 
-        var hallway = Game.hallwayPool.Get();
+        var hallway = _instance._hallwayPool.Get();
         var hallwayConnector = hallway.GetRandomConnector();
         ConnectConnectors(hallway.transform, hallwayConnector.transform, otherRoomConnector.transform);
         otherRoomConnector.Connect(hallwayConnector);
@@ -41,20 +41,19 @@ public class GameManager : MonoBehaviour
 
     public static void DeleteSection(Connector connector)
     {
-        // TODO: Broken due to null errors that shouldn't logically exist
         var room = connector.area as Room;
         var hallway = room?.GetOppositeConnector(connector)?.connection?.area as Hallway;
 
         if (room)
         {
             room.DisconnectAll();
-            Game.roomPool.Release(room);
+            _instance._roomPool.Release(room);
         }
 
         if (hallway)
         {
             hallway.DisconnectAll();
-            Game.hallwayPool.Release(hallway);
+            _instance._hallwayPool.Release(hallway);
         }
     }
 
