@@ -12,14 +12,6 @@ public class PlayerController : MonoBehaviour
     
     public float mouseSensitivity;
     public Vector2 xLookLimits;
-    
-    public float jumpForce;
-    public LayerMask worldLayer;
-    
-    private bool IsGrounded => Physics.Raycast(
-        transform.position, 
-        Vector3.down, 
-        capCol.height / 2f + 0.2f, worldLayer);
 
     private Vector2 _currentVel;
     private Vector2 _lookRotation;
@@ -45,12 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-    }
-
-    private void Update()
-    {
         Look();
+        Move();
     }
 
     private void Move()
@@ -73,22 +61,12 @@ public class PlayerController : MonoBehaviour
         var input = InputManager.Look;
         
         // Add lookInput (-y, x) and clamp x to -90 and 90 degrees
-        var deltaRot = mouseSensitivity * Time.smoothDeltaTime * new Vector2(-input.y, input.x);
-        _lookRotation += deltaRot;
+        _lookRotation += mouseSensitivity * Time.smoothDeltaTime * new Vector2(-input.y, input.x);
         _lookRotation.x = Mathf.Clamp(_lookRotation.x, xLookLimits.x, xLookLimits.y);
         
         // Apply rotation of xy to camera and y to body
+        transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
         camTrans.position = camRootTrans.position;
         camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
-        transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (!IsGrounded) return;
-        
-        // Remove y velocity and apply jump force
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 }
