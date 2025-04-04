@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Parameters")]
-    public float walkSpeed;
-    public float runSpeed;
+    public float walkSpeed = 2;
+    public float runSpeed = 4;
 
-    public float animationBlend;
-    public bool animationBusy;
+    public float animationBlend = 4;
     
-    public float mouseSensitivity;
-    public Vector2 xLookLimits;
+    public float mouseSensitivity = 20;
+    public float maxMouseDelta = 5;
+    public Vector2 xLookLimits = new(-70, 70);
 
     private Vector2 _currentVel;
     private Vector2 _lookRotation;
@@ -52,8 +52,14 @@ public class PlayerController : MonoBehaviour
         
         rb.AddForce(deltaVel, ForceMode.VelocityChange);
         
-        ani.SetFloat(aniCache.GetHash("xVel"), _currentVel.x);
-        ani.SetFloat(aniCache.GetHash("yVel"), _currentVel.y);
+        var actualSpeed = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude;
+        var blend = _currentVel.magnitude > 0 ? Mathf.Clamp01(actualSpeed / _currentVel.magnitude) : 0;
+
+        var prevXVel = ani.GetFloat(aniCache.GetHash("xVel"));
+        var prevYVel = ani.GetFloat(aniCache.GetHash("yVel"));
+        
+        ani.SetFloat(aniCache.GetHash("xVel"), Mathf.Lerp(prevXVel, _currentVel.x * blend, Time.deltaTime * 10));
+        ani.SetFloat(aniCache.GetHash("yVel"), Mathf.Lerp(prevYVel, _currentVel.y * blend, Time.deltaTime * 10));
     }
 
     private void Look()
@@ -61,7 +67,11 @@ public class PlayerController : MonoBehaviour
         var input = InputManager.Look;
         
         // Add lookInput (-y, x) and clamp x to -90 and 90 degrees
-        _lookRotation += mouseSensitivity * Time.smoothDeltaTime * new Vector2(-input.y, input.x);
+        var lookDelta = mouseSensitivity * Time.smoothDeltaTime * new Vector2(-input.y, input.x);
+        lookDelta.x = Mathf.Clamp(lookDelta.x, -maxMouseDelta, maxMouseDelta);
+        lookDelta.y = Mathf.Clamp(lookDelta.y, -maxMouseDelta, maxMouseDelta);
+        
+        _lookRotation += lookDelta;
         _lookRotation.x = Mathf.Clamp(_lookRotation.x, xLookLimits.x, xLookLimits.y);
         
         // Apply rotation of xy to camera and y to body

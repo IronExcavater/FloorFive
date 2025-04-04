@@ -288,6 +288,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726325959c0cb064597e2f1bd5eb6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockLeftFoot: 0
+  lockRightFoot: 0
+  stepping: 0
+  leftStepProgress: 0
+  rightStepProgress: 0
+  stepDuration: 0.2
+  stepLiftHeight: 0.1
+  maxLockAngleDiff: 50
+  maxLockDistance: 0.2
   lengthFromHeelToToes: 0.18
   maxRotationAngle: 45
   ankleHeightOffset: 0.035

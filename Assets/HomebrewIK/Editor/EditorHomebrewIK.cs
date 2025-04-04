@@ -2,7 +2,7 @@
  * Created :    Spring 2022
  * Author :     SeungGeon Kim (keithrek@hanmail.net)
  * Project :    HomebrewIK
- * Filename :   editorHomebrewIK.cs (custom editor module)
+ * Filename :   EditorHomebrewIK.cs (custom editor module)
  * 
  * All Content (C) 2022 Unlimited Fischl Works, all rights reserved.
  */
@@ -15,16 +15,16 @@ using UnityEditor;  // Editor
 
 
 
-namespace FischlWorks
+namespace HomebrewIK.Editor
 {
 
 
 
-    [CustomEditor(typeof(csHomebrewIK))]
+    [CustomEditor(typeof(CsHomebrewIK))]
     [CanEditMultipleObjects]
-    public class editorHomebrewIK : Editor
+    public class EditorHomebrewIK : UnityEditor.Editor
     {
-        private csHomebrewIK homebrewIK = null;
+        private CsHomebrewIK homebrewIK = null;
 
         private Rect glDisplay = new Rect();
 
@@ -41,7 +41,7 @@ namespace FischlWorks
         // OnEnable is being used here because the unity manual does so
         void OnEnable()
         {
-            homebrewIK = (csHomebrewIK)target;
+            homebrewIK = (CsHomebrewIK)target;
 
             glMaterial = new Material(Shader.Find("Hidden/Internal-Colored"));
         }

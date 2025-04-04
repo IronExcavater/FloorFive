@@ -2,7 +2,7 @@
  * Created :    Spring 2022
  * Author :     SeungGeon Kim (keithrek@hanmail.net)
  * Project :    HomebrewIK
- * Filename :   csHomebrewIK.cs (non-static monobehaviour module)
+ * Filename :   CsHomebrewIK.cs (non-static monobehaviour module)
  * 
  * All Content (C) 2022 Unlimited Fischl Works, all rights reserved.
  */
@@ -15,10 +15,38 @@ using UnityEditor;  // Handles
 
 
 
-namespace FischlWorks
+namespace HomebrewIK
 {
-    public class csHomebrewIK : MonoBehaviour
+    public class CsHomebrewIK : MonoBehaviour
     {
+        private bool lockLeftFoot;
+        private bool lockRightFoot;
+        
+        private enum SteppingFoot { None, Left, Right }
+        private SteppingFoot stepping = SteppingFoot.None;
+        private SteppingFoot prevStepping = SteppingFoot.None;
+        private float timeSinceLastStep;
+
+        private float leftStepProgress;
+        private float rightStepProgress;
+
+        public float stepDuration = 0.2f;
+        public float stepLiftHeight = 0.1f;
+
+        private bool moving;
+        private float previousYaw;
+        
+        public float maxLockAngleDiff = 30;
+        public float maxLockDistance = 1;
+
+        private AnimatorCache aniCache;
+        
+        private Quaternion leftFootIKSourceRotationTarget;
+        private Quaternion leftFootIKSourceRotationBuffer;
+        
+        private Quaternion rightFootIKSourceRotationTarget;
+        private Quaternion rightFootIKSourceRotationBuffer;
+        
         private Animator playerAnimator = null;
 
         private Transform leftFootTransform = null;
@@ -199,8 +227,8 @@ namespace FischlWorks
         private Vector3 leftFootIKPositionTarget = new Vector3();
         private Vector3 rightFootIKPositionTarget = new Vector3();
 
-        private float leftFootHeightLerpVelocity = 0;
-        private float rightFootHeightLerpVelocity = 0;
+        private Vector3 leftFootHeightLerpVelocity;
+        private Vector3 rightFootHeightLerpVelocity;
 
         private Vector3 leftFootIKRotationBuffer = new Vector3();
         private Vector3 rightFootIKRotationBuffer = new Vector3();
@@ -210,6 +238,9 @@ namespace FischlWorks
 
         private Vector3 leftFootRotationLerpVelocity = new Vector3();
         private Vector3 rightFootRotationLerpVelocity = new Vector3();
+        
+        private Vector3 leftFootSourceRotationLerpVelocity = new Vector3();
+        private Vector3 rightFootSourceRotationLerpVelocity = new Vector3();
 
         private GUIStyle helperTextStyle = null;
 
@@ -233,14 +264,14 @@ namespace FischlWorks
             UpdateFootProjection();
 
             UpdateRayHitInfo();
-
+            
             UpdateIKPositionTarget();
             UpdateIKRotationTarget();
         }
 
 
 
-        private void OnAnimatorIK()
+        private void OnAnimatorIK(int layerIndex)
         {
             LerpIKBufferToTarget();
 
@@ -257,9 +288,25 @@ namespace FischlWorks
         private void InitializeVariables()
         {
             playerAnimator = GetComponent<Animator>();
+            aniCache = GetComponent<AnimatorCache>();
+            
+            previousYaw = transform.eulerAngles.y;
+            timeSinceLastStep = Time.time;
 
             leftFootTransform = playerAnimator.GetBoneTransform(HumanBodyBones.LeftFoot);
             rightFootTransform = playerAnimator.GetBoneTransform(HumanBodyBones.RightFoot);
+            
+            leftFootIKSourceRotationTarget = leftFootTransform.rotation;
+            leftFootIKSourceRotationBuffer = leftFootTransform.rotation;
+            
+            rightFootIKSourceRotationTarget = rightFootTransform.rotation;
+            rightFootIKSourceRotationBuffer = rightFootTransform.rotation;
+            
+            leftFootIKPositionTarget = leftFootTransform.position;
+            leftFootIKPositionBuffer = leftFootTransform.position;
+            
+            rightFootIKPositionTarget = rightFootTransform.position;
+            rightFootIKPositionBuffer = rightFootTransform.position;
 
             // This is for faster development iteration purposes
             if (groundLayers.value == 0)
@@ -469,7 +516,7 @@ namespace FischlWorks
             }
 
             /* Application of calculated position */
-
+            
             leftFootIKPositionTarget.y = leftFootRayHitHeight + leftFootHeightOffset + _WorldHeightOffset;
             rightFootIKPositionTarget.y = rightFootRayHitHeight + rightFootHeightOffset + _WorldHeightOffset;
         }
@@ -480,12 +527,14 @@ namespace FischlWorks
         {
             if (leftFootRayHitInfo.collider != null)
             {
+                var upAngleDiff = Vector3.Angle(transform.up, leftFootRayHitInfo.normal);
+
                 leftFootIKRotationTarget = Vector3.Slerp(
                     transform.up,
                     leftFootRayHitInfo.normal,
-                    Mathf.Clamp(Vector3.Angle(transform.up, leftFootRayHitInfo.normal), 0, maxRotationAngle) /
+                    Mathf.Clamp(upAngleDiff, 0, maxRotationAngle) /
                     // Addition of 1 is to prevent division by zero, not a perfect solution but somehow works
-                    (Vector3.Angle(transform.up, leftFootRayHitInfo.normal) + 1));
+                    (upAngleDiff + 1));
             }
             else
             {
@@ -494,12 +543,14 @@ namespace FischlWorks
 
             if (rightFootRayHitInfo.collider != null)
             {
+                var upAngleDiff = Vector3.Angle(transform.up, rightFootRayHitInfo.normal);
+
                 rightFootIKRotationTarget = Vector3.Slerp(
                     transform.up,
                     rightFootRayHitInfo.normal,
-                    Mathf.Clamp(Vector3.Angle(transform.up, rightFootRayHitInfo.normal), 0, maxRotationAngle) /
+                    Mathf.Clamp(upAngleDiff, 0, maxRotationAngle) /
                     // Addition of 1 is to prevent division by zero, not a perfect solution but somehow works
-                    (Vector3.Angle(transform.up, rightFootRayHitInfo.normal) + 1));
+                    (upAngleDiff + 1));
             }
             else
             {
@@ -512,22 +563,22 @@ namespace FischlWorks
         private void LerpIKBufferToTarget()
         {
             /* Instead of wrangling with weights, we switch the lerp targets to make movement smooth */
-
+            
             if (enableFootLifting == true &&
                 playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot).y >=
                 leftFootIKPositionTarget.y + floorRange)
             {
-                leftFootIKPositionBuffer.y = Mathf.SmoothDamp(
-                    leftFootIKPositionBuffer.y,
-                    playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot).y,
+                leftFootIKPositionBuffer = Vector3.SmoothDamp(
+                    leftFootIKPositionBuffer,
+                    playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
                     ref leftFootHeightLerpVelocity,
                     smoothTime);
             }
             else 
             {
-                leftFootIKPositionBuffer.y = Mathf.SmoothDamp(
-                    leftFootIKPositionBuffer.y,
-                    leftFootIKPositionTarget.y,
+                leftFootIKPositionBuffer = Vector3.SmoothDamp(
+                    leftFootIKPositionBuffer,
+                    leftFootIKPositionTarget,
                     ref leftFootHeightLerpVelocity,
                     smoothTime);
             }
@@ -536,17 +587,17 @@ namespace FischlWorks
                 playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot).y >=
                 rightFootIKPositionTarget.y + floorRange)
             {
-                rightFootIKPositionBuffer.y = Mathf.SmoothDamp(
-                    rightFootIKPositionBuffer.y,
-                    playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot).y,
+                rightFootIKPositionBuffer = Vector3.SmoothDamp(
+                    rightFootIKPositionBuffer,
+                    playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
                     ref rightFootHeightLerpVelocity,
                     smoothTime);
             }
             else 
             {
-                rightFootIKPositionBuffer.y = Mathf.SmoothDamp(
-                    rightFootIKPositionBuffer.y,
-                    rightFootIKPositionTarget.y,
+                rightFootIKPositionBuffer = Vector3.SmoothDamp(
+                    rightFootIKPositionBuffer,
+                    rightFootIKPositionTarget,
                     ref rightFootHeightLerpVelocity,
                     smoothTime);
             }
@@ -562,54 +613,170 @@ namespace FischlWorks
                 rightFootIKRotationTarget,
                 ref rightFootRotationLerpVelocity,
                 smoothTime);
-        }
-
-
-
-        private void ApplyFootIK()
-        {
-            /* Weight designation */
-
-            playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
-            playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
             
-            playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
-            playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
-
-            /* Position handling */
-
-            CopyByAxis(ref leftFootIKPositionBuffer, playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
-                true, false, true);
-
-            CopyByAxis(ref rightFootIKPositionBuffer, playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
-                true, false, true);
-
-            if (enableIKPositioning == true)
-            {
-                playerAnimator.SetIKPosition(AvatarIKGoal.LeftFoot, leftFootIKPositionBuffer);
-                playerAnimator.SetIKPosition(AvatarIKGoal.RightFoot, rightFootIKPositionBuffer);
-            }
-
-            /* Rotation handling */
-
-            /* This part may be a bit tricky to understand intuitively, refer to docs for an explanation in depth */
-
-            // FromToRotation is used because we need the delta, not the final target orientation
-            Quaternion leftFootRotation =
-                Quaternion.FromToRotation(transform.up, leftFootIKRotationBuffer) *
-                playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
-
-            // FromToRotation is used because we need the delta, not the final target orientation
-            Quaternion rightFootRotation =
-                Quaternion.FromToRotation(transform.up, rightFootIKRotationBuffer) *
-                playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
-
-            if (enableIKRotating == true)
-            {
-                playerAnimator.SetIKRotation(AvatarIKGoal.LeftFoot, leftFootRotation);
-                playerAnimator.SetIKRotation(AvatarIKGoal.RightFoot, rightFootRotation);
-            }
+            leftFootIKSourceRotationBuffer = SmoothDampQuaternion(
+                leftFootIKSourceRotationBuffer,
+                leftFootIKSourceRotationTarget,
+                ref leftFootSourceRotationLerpVelocity,
+                smoothTime);
+            
+            rightFootIKSourceRotationBuffer = SmoothDampQuaternion(
+                rightFootIKSourceRotationBuffer,
+                rightFootIKSourceRotationTarget,
+                ref rightFootSourceRotationLerpVelocity,
+                smoothTime);
         }
+        
+        public static Quaternion SmoothDampQuaternion(Quaternion current, Quaternion target, ref Vector3 currentVelocity, float smoothTime)
+        {
+            var c = current.eulerAngles;
+            var t = target.eulerAngles;
+            return Quaternion.Euler(
+                Mathf.SmoothDampAngle(c.x, t.x, ref currentVelocity.x, smoothTime),
+                Mathf.SmoothDampAngle(c.y, t.y, ref currentVelocity.y, smoothTime),
+                Mathf.SmoothDampAngle(c.z, t.z, ref currentVelocity.z, smoothTime)
+            );
+        }
+        
+         private void ApplyFootIK()
+         {
+             /* Weight designation */
+
+             playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
+             playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
+             
+             playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
+             playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
+
+             Quaternion leftFootRotation, rightFootRotation;
+             
+             var velocity = new Vector2(
+                 playerAnimator.GetFloat(aniCache.GetHash("xVel")),
+                 playerAnimator.GetFloat(aniCache.GetHash("yVel")));
+            
+             moving = velocity.magnitude > 0.1f;
+             
+             if (!lockLeftFoot)
+             {
+                 CopyByAxis(ref leftFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
+                     true, false, true);
+                 leftFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, leftFootIKRotationTarget)
+                                                  * playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
+             }
+             
+             if (!lockRightFoot)
+             {
+                 CopyByAxis(ref rightFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
+                     true, false, true); 
+                 rightFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, rightFootIKRotationTarget)
+                                                   * playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
+             }
+             
+                 
+             var leftDistanceDelta = Vector3.Distance(leftFootIKPositionTarget,
+                 playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot));
+             var leftAngleDelta = Mathf.DeltaAngle(leftFootIKSourceRotationTarget.eulerAngles.y,
+                 playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot).eulerAngles.y);
+                 
+             var rightDistanceDelta = Vector3.Distance(rightFootIKPositionTarget,
+                 playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot));
+             var rightAngleDelta = Mathf.DeltaAngle(rightFootIKSourceRotationTarget.eulerAngles.y,
+                 playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot).eulerAngles.y);
+
+             lockLeftFoot = leftDistanceDelta < maxLockDistance && Mathf.Abs(leftAngleDelta) < maxLockAngleDiff;
+             lockRightFoot = rightDistanceDelta < maxLockDistance && Mathf.Abs(rightAngleDelta) < maxLockAngleDiff;
+             
+             
+             var yaw = transform.eulerAngles.y;
+             var yawDelta = Mathf.DeltaAngle(previousYaw, yaw);
+             previousYaw = yaw;
+
+             var isTurningRight = yawDelta > 1f;
+             var isTurningLeft = yawDelta < -1f;
+            
+             
+             if (stepping == SteppingFoot.None)
+             {
+                 if (isTurningRight || isTurningLeft) 
+                     stepping = prevStepping == SteppingFoot.Left ? SteppingFoot.Right : SteppingFoot.Left;
+             }
+
+             if (Time.time - timeSinceLastStep > 3f && leftStepProgress == 0 && rightStepProgress == 0)
+             {
+                 stepping = SteppingFoot.None;
+                 timeSinceLastStep = Time.time;
+             }
+             
+
+             if (stepping == SteppingFoot.Left) lockRightFoot = true;
+             if (stepping == SteppingFoot.Right) lockLeftFoot = true;
+
+             
+             
+             if (stepping == SteppingFoot.Left)
+             {
+                 if (!lockLeftFoot) leftStepProgress = 0.01f;
+                 if (leftStepProgress >= 1)
+                 {
+                     leftStepProgress = 0;
+                     prevStepping = stepping;
+                     stepping = SteppingFoot.None;
+                 }
+             }
+
+             if (stepping == SteppingFoot.Right)
+             {
+                 if (!lockRightFoot) rightStepProgress = 0.01f;
+                 if (rightStepProgress >= 1)
+                 {
+                     rightStepProgress = 0;
+                     prevStepping = stepping;
+                     stepping = SteppingFoot.None;
+                 }
+             }
+             
+             
+             if (leftStepProgress > 0) leftStepProgress = Mathf.Clamp01(leftStepProgress + Time.deltaTime / stepDuration);
+             if (rightStepProgress > 0) rightStepProgress = Mathf.Clamp01(rightStepProgress + Time.deltaTime / stepDuration);
+             
+             var leftArc = new Vector3(0, Mathf.Sin(leftStepProgress * Mathf.PI) * stepLiftHeight, 0);
+             var rightArc = new Vector3(0, Mathf.Sin(rightStepProgress * Mathf.PI) * stepLiftHeight, 0);
+             
+             if (moving)
+             {
+                 lockLeftFoot = false;
+                 lockRightFoot = false;
+                 
+                 // FromToRotation is used because we need the delta, not the final target orientation
+                 leftFootRotation =
+                     Quaternion.FromToRotation(transform.up, leftFootIKRotationBuffer) *
+                     playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
+
+                 // FromToRotation is used because we need the delta, not the final target orientation
+                 rightFootRotation =
+                     Quaternion.FromToRotation(transform.up, rightFootIKRotationBuffer) *
+                     playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
+             }
+             else
+             {
+                 leftFootRotation = leftFootIKSourceRotationBuffer;
+                 rightFootRotation = rightFootIKSourceRotationBuffer;
+             }
+             
+             
+             
+             if (enableIKPositioning)
+             {
+                 playerAnimator.SetIKPosition(AvatarIKGoal.LeftFoot, leftFootIKPositionBuffer + leftArc);
+                 playerAnimator.SetIKPosition(AvatarIKGoal.RightFoot, rightFootIKPositionBuffer + rightArc);
+             }
+             
+             if (enableIKRotating)
+             {
+                 playerAnimator.SetIKRotation(AvatarIKGoal.LeftFoot, leftFootRotation);
+                 playerAnimator.SetIKRotation(AvatarIKGoal.RightFoot, rightFootRotation);
+             }
+         }
 
 
 
