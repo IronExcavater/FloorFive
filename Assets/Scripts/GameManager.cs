@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public static void DeleteSection(Connector connector)
     {
-        var room = connector.area as Room;
+        var room = connector?.area as Room;
         var hallway = room?.GetOppositeConnector(connector)?.connection?.area as Hallway;
 
         if (room)
