@@ -19,22 +19,20 @@ namespace HomebrewIK
 {
     public class CsHomebrewIK : MonoBehaviour
     {
-
+        public AudioSource leftFootAudioSource;
+        public AudioSource rightFootAudioSource;
+        
         public bool enableFootLocking = true;
         private bool lockLeftFoot;
         private bool lockRightFoot;
         public Action<bool> OnStep; // bool => isRightFoot
-
-        public AudioSource leftFootAudioSource;
-        public AudioSource rightFootAudioSource;
         
         private enum SteppingFoot { None, Left, Right }
         private SteppingFoot stepping = SteppingFoot.None;
         private SteppingFoot prevStepping = SteppingFoot.None;
-        private float timeSinceLastStep;
         
-        public bool prevLeftGrounded;
-        public bool prevRightGrounded;
+        private bool prevLeftGrounded;
+        private bool prevRightGrounded;
 
         private float leftStepProgress;
         private float rightStepProgress;
@@ -44,6 +42,7 @@ namespace HomebrewIK
 
         private bool moving;
         private float previousYaw;
+        private SteppingFoot prevTurn = SteppingFoot.None;
         
         public float maxLockAngleDiff = 30;
         public float maxLockDistance = 1;
@@ -300,7 +299,6 @@ namespace HomebrewIK
             aniCache = GetComponent<AnimatorCache>();
             
             previousYaw = transform.eulerAngles.y;
-            timeSinceLastStep = Time.time;
 
             leftFootTransform = playerAnimator.GetBoneTransform(HumanBodyBones.LeftFoot);
             rightFootTransform = playerAnimator.GetBoneTransform(HumanBodyBones.RightFoot);
@@ -649,10 +647,14 @@ namespace HomebrewIK
         
          private void ApplyFootIK()
          {
-             /* Weight designation */
+             var velocity = new Vector2(
+                 playerAnimator.GetFloat(aniCache.GetHash("xVel")),
+                 playerAnimator.GetFloat(aniCache.GetHash("yVel")));
+            
+             moving = velocity.magnitude > 0.1f;
 
-             var leftGrounding = playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded"));
-             var rightGrounding = playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded"));
+             var leftGrounding = moving ? playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded")) : 1;
+             var rightGrounding = moving ? playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded")) : 1;
 
              playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight * leftGrounding);
              playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight * rightGrounding);
@@ -673,31 +675,6 @@ namespace HomebrewIK
                  prevRightGrounded = true;
              }
              if (rightGrounding < 0.1) prevRightGrounded = false;
-
-             Quaternion leftFootRotation, rightFootRotation;
-             
-             var velocity = new Vector2(
-                 playerAnimator.GetFloat(aniCache.GetHash("xVel")),
-                 playerAnimator.GetFloat(aniCache.GetHash("yVel")));
-            
-             moving = velocity.magnitude > 0.1f;
-             
-             if (!lockLeftFoot)
-             {
-                 CopyByAxis(ref leftFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
-                     true, false, true);
-                 leftFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, leftFootIKRotationTarget)
-                                                  * playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
-             }
-             
-             if (!lockRightFoot)
-             {
-                 CopyByAxis(ref rightFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
-                     true, false, true); 
-                 rightFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, rightFootIKRotationTarget)
-                                                   * playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
-             }
-             
                  
              var leftDistanceDelta = Vector3.Distance(leftFootIKPositionTarget,
                  playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot));
@@ -715,29 +692,43 @@ namespace HomebrewIK
              
              var yaw = transform.eulerAngles.y;
              var yawDelta = Mathf.DeltaAngle(previousYaw, yaw);
-             previousYaw = yaw;
 
              var isTurningRight = yawDelta > 1f;
              var isTurningLeft = yawDelta < -1f;
-            
              
              if (!moving && stepping == SteppingFoot.None)
              {
-                 if (isTurningRight || isTurningLeft) 
-                     stepping = prevStepping == SteppingFoot.Left ? SteppingFoot.Right : SteppingFoot.Left;
+                 if (isTurningRight || isTurningLeft)
+                 {
+                     var turn = isTurningRight ? SteppingFoot.Right : SteppingFoot.Left;
+                     
+                     if (prevStepping != SteppingFoot.None && prevTurn == turn)
+                     {
+                         stepping = prevStepping == SteppingFoot.Left ? SteppingFoot.Right : SteppingFoot.Left;
+                     }
+                     else stepping = isTurningRight ? SteppingFoot.Right : SteppingFoot.Left;
+                     
+                     prevTurn = turn;
+                 }
              }
-
-             if (Time.time - timeSinceLastStep > 3f && leftStepProgress == 0 && rightStepProgress == 0)
+             
+             if (!enableFootLocking || !lockLeftFoot || stepping == SteppingFoot.Left && leftStepProgress > 0)
              {
-                 stepping = SteppingFoot.None;
-                 timeSinceLastStep = Time.time;
+                 lockRightFoot = true;
+                 CopyByAxis(ref leftFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
+                     true, false, true);
+                 leftFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, leftFootIKRotationTarget)
+                                                  * playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
              }
              
-
-             if (stepping == SteppingFoot.Left) lockRightFoot = true;
-             if (stepping == SteppingFoot.Right) lockLeftFoot = true;
-
-             
+             if (!enableFootLocking || !lockRightFoot || stepping == SteppingFoot.Right && rightStepProgress > 0)
+             {
+                 lockLeftFoot = true;
+                 CopyByAxis(ref rightFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
+                     true, false, true); 
+                 rightFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, rightFootIKRotationTarget)
+                                                   * playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
+             }
              
              if (stepping == SteppingFoot.Left)
              {
@@ -776,6 +767,8 @@ namespace HomebrewIK
              var leftArc = new Vector3(0, enableFootLocking ? Mathf.Sin(leftStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
              var rightArc = new Vector3(0, enableFootLocking ? Mathf.Sin(rightStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
              
+             
+             Quaternion leftFootRotation, rightFootRotation;
              if (moving || !enableFootLocking)
              {
                  lockLeftFoot = false;
@@ -797,6 +790,7 @@ namespace HomebrewIK
                  rightFootRotation = rightFootIKSourceRotationBuffer;
              }
              
+             previousYaw = yaw;
              
              
              if (enableIKPositioning)

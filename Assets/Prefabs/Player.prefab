@@ -392,13 +392,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726325959c0cb064597e2f1bd5eb6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableFootLocking: 1
   leftFootAudioSource: {fileID: 4130991648517256727}
   rightFootAudioSource: {fileID: 6450073919348359806}
-  prevLeftGrounded: 0
-  prevRightGrounded: 0
+  enableFootLocking: 1
   stepDuration: 0.2
-  stepLiftHeight: 0.1
+  stepLiftHeight: 0.05
   maxLockAngleDiff: 50
   maxLockDistance: 0.2
   lengthFromHeelToToes: 0.18
