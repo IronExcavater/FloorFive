@@ -1,3 +1,4 @@
+using HomebrewIK;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,10 +24,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CapsuleCollider capCol;
     [SerializeField] private Transform camTrans;
     [SerializeField] private Transform camRootTrans;
+    [SerializeField] private CsHomebrewIK footIK;
 
     private void Start()
     {
         LockCursor();
+    }
+
+    private void OnEnable()
+    {
+        footIK.OnStep += OnStep;
+    }
+
+    private void OnDisable()
+    {
+        footIK.OnStep -= OnStep;
     }
 
     public void LockCursor()
@@ -78,5 +90,12 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
         camTrans.position = camRootTrans.position;
         camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
+    }
+
+    private void OnStep(bool isRightFoot)
+    {
+        var audioSource = isRightFoot ? footIK.leftFootAudioSource : footIK.rightFootAudioSource;
+        var audioClip = AudioManager.GetRandomClip(AudioManager.Audio.step);
+        audioSource.PlayOneShot(audioClip);
     }
 }

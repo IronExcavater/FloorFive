@@ -19,13 +19,22 @@ namespace HomebrewIK
 {
     public class CsHomebrewIK : MonoBehaviour
     {
+
+        public bool enableFootLocking = true;
         private bool lockLeftFoot;
         private bool lockRightFoot;
+        public Action<bool> OnStep; // bool => isRightFoot
+
+        public AudioSource leftFootAudioSource;
+        public AudioSource rightFootAudioSource;
         
         private enum SteppingFoot { None, Left, Right }
         private SteppingFoot stepping = SteppingFoot.None;
         private SteppingFoot prevStepping = SteppingFoot.None;
         private float timeSinceLastStep;
+        
+        public bool prevLeftGrounded;
+        public bool prevRightGrounded;
 
         private float leftStepProgress;
         private float rightStepProgress;
@@ -642,11 +651,28 @@ namespace HomebrewIK
          {
              /* Weight designation */
 
-             playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
-             playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
+             var leftGrounding = playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded"));
+             var rightGrounding = playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded"));
+
+             playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight * leftGrounding);
+             playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight * rightGrounding);
              
-             playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight);
-             playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight);
+             playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight * leftGrounding);
+             playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight * rightGrounding);
+
+             if (leftGrounding > 0.9 && !prevLeftGrounded)
+             {
+                 OnStep?.Invoke(false);
+                 prevLeftGrounded = true;
+             }
+             if (leftGrounding < 0.1) prevLeftGrounded = false;
+
+             if (rightGrounding > 0.9 && !prevRightGrounded)
+             {
+                 OnStep?.Invoke(true);
+                 prevRightGrounded = true;
+             }
+             if (rightGrounding < 0.1) prevRightGrounded = false;
 
              Quaternion leftFootRotation, rightFootRotation;
              
@@ -695,7 +721,7 @@ namespace HomebrewIK
              var isTurningLeft = yawDelta < -1f;
             
              
-             if (stepping == SteppingFoot.None)
+             if (!moving && stepping == SteppingFoot.None)
              {
                  if (isTurningRight || isTurningLeft) 
                      stepping = prevStepping == SteppingFoot.Left ? SteppingFoot.Right : SteppingFoot.Left;
@@ -715,7 +741,11 @@ namespace HomebrewIK
              
              if (stepping == SteppingFoot.Left)
              {
-                 if (!lockLeftFoot) leftStepProgress = 0.01f;
+                 if (!lockLeftFoot)
+                 {
+                     leftStepProgress = 0.01f;
+                     OnStep?.Invoke(false);
+                 }
                  if (leftStepProgress >= 1)
                  {
                      leftStepProgress = 0;
@@ -726,7 +756,11 @@ namespace HomebrewIK
 
              if (stepping == SteppingFoot.Right)
              {
-                 if (!lockRightFoot) rightStepProgress = 0.01f;
+                 if (!lockRightFoot)
+                 {
+                     rightStepProgress = 0.01f;
+                     OnStep?.Invoke(true);
+                 }
                  if (rightStepProgress >= 1)
                  {
                      rightStepProgress = 0;
@@ -739,10 +773,10 @@ namespace HomebrewIK
              if (leftStepProgress > 0) leftStepProgress = Mathf.Clamp01(leftStepProgress + Time.deltaTime / stepDuration);
              if (rightStepProgress > 0) rightStepProgress = Mathf.Clamp01(rightStepProgress + Time.deltaTime / stepDuration);
              
-             var leftArc = new Vector3(0, Mathf.Sin(leftStepProgress * Mathf.PI) * stepLiftHeight, 0);
-             var rightArc = new Vector3(0, Mathf.Sin(rightStepProgress * Mathf.PI) * stepLiftHeight, 0);
+             var leftArc = new Vector3(0, enableFootLocking ? Mathf.Sin(leftStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
+             var rightArc = new Vector3(0, enableFootLocking ? Mathf.Sin(rightStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
              
-             if (moving)
+             if (moving || !enableFootLocking)
              {
                  lockLeftFoot = false;
                  lockRightFoot = false;
