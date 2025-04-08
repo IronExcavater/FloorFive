@@ -23,12 +23,10 @@ namespace HomebrewIK
         public AudioSource rightFootAudioSource;
         
         public bool enableFootLocking = true;
-        private bool lockLeftFoot;
-        private bool lockRightFoot;
         public Action<bool> OnStep; // bool => isRightFoot
         
-        private enum SteppingFoot { None, Left, Right }
-        private SteppingFoot stepping = SteppingFoot.None;
+        public enum SteppingFoot { None, Left, Right }
+        public SteppingFoot stepping = SteppingFoot.None;
         private SteppingFoot prevStepping = SteppingFoot.None;
         
         private bool prevLeftGrounded;
@@ -653,8 +651,8 @@ namespace HomebrewIK
             
              moving = velocity.magnitude > 0.1f;
 
-             var leftGrounding = moving ? playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded")) : 1;
-             var rightGrounding = moving ? playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded")) : 1;
+             var leftGrounding = playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded"));
+             var rightGrounding = playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded"));
 
              playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, globalWeight * leftFootWeight * leftGrounding);
              playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, globalWeight * rightFootWeight * rightGrounding);
@@ -685,10 +683,6 @@ namespace HomebrewIK
                  playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot));
              var rightAngleDelta = Mathf.DeltaAngle(rightFootIKSourceRotationTarget.eulerAngles.y,
                  playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot).eulerAngles.y);
-
-             lockLeftFoot = leftDistanceDelta < maxLockDistance && Mathf.Abs(leftAngleDelta) < maxLockAngleDiff;
-             lockRightFoot = rightDistanceDelta < maxLockDistance && Mathf.Abs(rightAngleDelta) < maxLockAngleDiff;
-             
              
              var yaw = transform.eulerAngles.y;
              var yawDelta = Mathf.DeltaAngle(previousYaw, yaw);
@@ -696,9 +690,9 @@ namespace HomebrewIK
              var isTurningRight = yawDelta > 1f;
              var isTurningLeft = yawDelta < -1f;
              
-             if (!moving && stepping == SteppingFoot.None)
+             if (!moving)
              {
-                 if (isTurningRight || isTurningLeft)
+                 if (stepping == SteppingFoot.None && (isTurningRight || isTurningLeft))
                  {
                      var turn = isTurningRight ? SteppingFoot.Right : SteppingFoot.Left;
                      
@@ -710,70 +704,67 @@ namespace HomebrewIK
                      
                      prevTurn = turn;
                  }
+                 
+                 if (leftDistanceDelta > maxLockDistance || Mathf.Abs(leftAngleDelta) > maxLockAngleDiff)
+                 {
+                     if (stepping == SteppingFoot.None) stepping = SteppingFoot.Left;
+                     if (stepping == SteppingFoot.Left)
+                     {
+                         leftStepProgress = 0.01f;
+                         OnStep?.Invoke(false);
+                     }
+                 }
+
+                 if (rightDistanceDelta > maxLockDistance || Mathf.Abs(rightAngleDelta) > maxLockAngleDiff)
+                 {
+                     if (stepping == SteppingFoot.None) stepping = SteppingFoot.Right;
+                     if (stepping == SteppingFoot.Right)
+                     {
+                         rightStepProgress = 0.01f;
+                         OnStep?.Invoke(true);
+                     }
+                 }
              }
              
-             if (!enableFootLocking || !lockLeftFoot || stepping == SteppingFoot.Left && leftStepProgress > 0)
+             if (leftStepProgress > 0) leftStepProgress += Time.deltaTime / stepDuration;
+             if (leftStepProgress >= 2)
              {
-                 lockRightFoot = true;
+                 leftStepProgress = 0;
+                 prevStepping = stepping;
+                 stepping = SteppingFoot.None;
+             }
+             
+             if (rightStepProgress > 0) rightStepProgress += Time.deltaTime / stepDuration;
+             if (rightStepProgress >= 2)
+             {
+                 rightStepProgress = 0;
+                 prevStepping = stepping;
+                 stepping = SteppingFoot.None;
+             }
+             
+             if (!enableFootLocking || moving || stepping == SteppingFoot.Left && leftStepProgress > 0)
+             {
                  CopyByAxis(ref leftFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot),
                      true, false, true);
                  leftFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, leftFootIKRotationTarget)
                                                   * playerAnimator.GetIKRotation(AvatarIKGoal.LeftFoot);
              }
              
-             if (!enableFootLocking || !lockRightFoot || stepping == SteppingFoot.Right && rightStepProgress > 0)
+             if (!enableFootLocking || moving || stepping == SteppingFoot.Right && rightStepProgress > 0)
              {
-                 lockLeftFoot = true;
                  CopyByAxis(ref rightFootIKPositionTarget, playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot),
                      true, false, true); 
                  rightFootIKSourceRotationTarget = Quaternion.FromToRotation(transform.up, rightFootIKRotationTarget)
                                                    * playerAnimator.GetIKRotation(AvatarIKGoal.RightFoot);
              }
              
-             if (stepping == SteppingFoot.Left)
-             {
-                 if (!lockLeftFoot)
-                 {
-                     leftStepProgress = 0.01f;
-                     OnStep?.Invoke(false);
-                 }
-                 if (leftStepProgress >= 1)
-                 {
-                     leftStepProgress = 0;
-                     prevStepping = stepping;
-                     stepping = SteppingFoot.None;
-                 }
-             }
-
-             if (stepping == SteppingFoot.Right)
-             {
-                 if (!lockRightFoot)
-                 {
-                     rightStepProgress = 0.01f;
-                     OnStep?.Invoke(true);
-                 }
-                 if (rightStepProgress >= 1)
-                 {
-                     rightStepProgress = 0;
-                     prevStepping = stepping;
-                     stepping = SteppingFoot.None;
-                 }
-             }
-             
-             
-             if (leftStepProgress > 0) leftStepProgress = Mathf.Clamp01(leftStepProgress + Time.deltaTime / stepDuration);
-             if (rightStepProgress > 0) rightStepProgress = Mathf.Clamp01(rightStepProgress + Time.deltaTime / stepDuration);
-             
-             var leftArc = new Vector3(0, enableFootLocking ? Mathf.Sin(leftStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
-             var rightArc = new Vector3(0, enableFootLocking ? Mathf.Sin(rightStepProgress * Mathf.PI) * stepLiftHeight : 0, 0);
+             var leftArc = new Vector3(0, enableFootLocking ? Mathf.Sin(Mathf.Min(leftStepProgress, 1) * Mathf.PI) * stepLiftHeight : 0, 0);
+             var rightArc = new Vector3(0, enableFootLocking ? Mathf.Sin(Mathf.Min(rightStepProgress, 1) * Mathf.PI) * stepLiftHeight : 0, 0);
              
              
              Quaternion leftFootRotation, rightFootRotation;
              if (moving || !enableFootLocking)
              {
-                 lockLeftFoot = false;
-                 lockRightFoot = false;
-                 
                  // FromToRotation is used because we need the delta, not the final target orientation
                  leftFootRotation =
                      Quaternion.FromToRotation(transform.up, leftFootIKRotationBuffer) *
