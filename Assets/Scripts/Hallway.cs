@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Hallway : Area
 {
-    private void Start()
+    private void OnEnable()
     {
         connectors.ToList().ForEach(connector =>
         {
-            connector.OnPlayerEnter += area =>
+            Action<Area> onEnter = area =>
             {
                 if (area.Equals(this))
                 {
@@ -16,11 +17,11 @@ public class Hallway : Area
                 else
                 {
                     Debug.Log("ENTERING HALLWAY: Creating section");
-                    GameManager.CreateSection(GetOppositeConnector(connector));
+                    GameManager.CreateSection(connector);
                 }
             };
 
-            connector.OnPlayerExit += area =>
+            Action<Area> onExit = area =>
             {
                 if (area.Equals(this))
                 {
@@ -32,6 +33,12 @@ public class Hallway : Area
                     GameManager.DeleteSection(GetOppositeConnector(connector).connection);
                 }
             };
+
+            connector.OnPlayerEnter += onEnter;
+            connector.OnPlayerExit += onExit;
+            
+            _enterHandlers.Add((connector, onEnter));
+            _exitHandlers.Add((connector, onExit));
         });
     }
 }

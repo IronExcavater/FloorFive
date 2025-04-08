@@ -1,12 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Room : Area
 {
-    
-    private void Start()
+    public void Activate(Connector startConnector)
     {
-        Connector startConnector = null;
+        Debug.Log("ENTERING ROOM: Starting room");
         var isComplete = false;
         
         connectors.ToList().ForEach(connector =>
@@ -15,7 +15,7 @@ public class Room : Area
             var hallway = closeConnector.area;
             var farConnector = hallway.GetOppositeConnector(closeConnector);
             
-            closeConnector.OnPlayerExit += area =>
+            Action<Area> onCloseExit = area =>
             {
                 if (!area.Equals(hallway)) return;
                 
@@ -26,21 +26,22 @@ public class Room : Area
                 }
             };
 
-            farConnector.OnPlayerExit += area =>
+            Action<Area> onFarExit = area =>
             {
                 if (area.Equals(hallway)) return;
 
-                if (!startConnector)
-                {
-                    Debug.Log("ENTERING ROOM: Starting room");
-                    startConnector = closeConnector;
-                }
-                else if (!isComplete && startConnector.Equals(farConnector))
+                if (startConnector && !isComplete && startConnector.Equals(farConnector))
                 {
                     Debug.Log("LEAVING ROOM: Finishing room (same side as start)");
                     isComplete = true;
                 }
             };
+            
+            closeConnector.OnPlayerExit += onCloseExit;
+            farConnector.OnPlayerExit += onFarExit;
+            
+            _exitHandlers.Add((closeConnector, onCloseExit));
+            _exitHandlers.Add((farConnector, onFarExit));
         });
     }
 }

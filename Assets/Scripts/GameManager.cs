@@ -26,10 +26,12 @@ public class GameManager : MonoBehaviour
 
     public static void CreateSection(Connector connector)
     {
+        var oppositeConnector = connector.area.GetOppositeConnector(connector);
+        
         var room = _instance._roomPool.Get();
         var roomConnector = room.GetRandomConnector();
-        ConnectConnectors(room.transform, roomConnector.transform, connector.transform);
-        connector.Connect(roomConnector);
+        ConnectConnectors(room.transform, roomConnector.transform, oppositeConnector.transform);
+        oppositeConnector.Connect(roomConnector);
         
         var otherRoomConnector = room.GetOppositeConnector(roomConnector);
 
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
         var hallwayConnector = hallway.GetRandomConnector();
         ConnectConnectors(hallway.transform, hallwayConnector.transform, otherRoomConnector.transform);
         otherRoomConnector.Connect(hallwayConnector);
+        
+        room.Activate(connector);
     }
 
     public static void DeleteSection(Connector connector)
@@ -44,23 +48,14 @@ public class GameManager : MonoBehaviour
         var room = connector?.area as Room;
         var hallway = room?.GetOppositeConnector(connector)?.connection?.area as Hallway;
 
-        if (room)
-        {
-            room.DisconnectAll();
-            _instance._roomPool.Release(room);
-        }
-
-        if (hallway)
-        {
-            hallway.DisconnectAll();
-            _instance._hallwayPool.Release(hallway);
-        }
+        if (room) _instance._roomPool.Release(room);
+        else connector?.area.gameObject.SetActive(false);
+        
+        if (hallway) _instance._hallwayPool.Release(hallway);
     }
 
     private static void ConnectConnectors(Transform newArea, Transform newConnector, Transform existingConnector)
     {
-        Debug.Log("Connecting " + newArea.name);
-        
         var toTarget = Quaternion.LookRotation(-existingConnector.forward, existingConnector.up);
         var rotOffset = toTarget * Quaternion.Inverse(newConnector.rotation);
         
