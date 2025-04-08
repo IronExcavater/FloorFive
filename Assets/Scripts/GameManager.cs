@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,21 @@ public class GameManager : MonoBehaviour
     
     private ObjectPool<Room> _roomPool;
     private ObjectPool<Hallway> _hallwayPool;
+    
+    private int _score;
+    public static Action<int> OnScoreChange;
+    public static int Score
+    {
+        get => _instance._score;
+        set
+        {
+            if (_instance._score != value)
+            {
+                _instance._score = value;
+                OnScoreChange?.Invoke(value);
+            }
+        }
+    }
     
     private void Awake()
     {
@@ -45,11 +61,13 @@ public class GameManager : MonoBehaviour
 
     public static void DeleteSection(Connector connector)
     {
-        var room = connector?.area as Room;
-        var hallway = room?.GetOppositeConnector(connector)?.connection?.area as Hallway;
+        var oppositeConnector = connector.area.GetOppositeConnector(connector).connection;
+        
+        var room = oppositeConnector?.area as Room;
+        var hallway = room?.GetOppositeConnector(oppositeConnector)?.connection?.area as Hallway;
 
         if (room) _instance._roomPool.Release(room);
-        else connector?.area.gameObject.SetActive(false);
+        else oppositeConnector?.area.gameObject.SetActive(false);
         
         if (hallway) _instance._hallwayPool.Release(hallway);
     }

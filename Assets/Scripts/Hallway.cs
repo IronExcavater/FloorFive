@@ -10,28 +10,18 @@ public class Hallway : Area
         {
             Action<Area> onEnter = area =>
             {
-                if (area.Equals(this))
-                {
-                    
-                }
-                else
-                {
-                    Debug.Log("ENTERING HALLWAY: Creating section");
-                    GameManager.CreateSection(connector);
-                }
+                if (!area.Equals(this)) return;
+                
+                Debug.Log("ENTERING HALLWAY: Creating section");
+                GameManager.CreateSection(connector);
             };
 
             Action<Area> onExit = area =>
             {
-                if (area.Equals(this))
-                {
-                    
-                }
-                else
-                {
-                    Debug.Log("LEAVING HALLWAY: Deleting section");
-                    GameManager.DeleteSection(GetOppositeConnector(connector).connection);
-                }
+                if (!area.Equals(this)) return;
+                
+                Debug.Log("LEAVING HALLWAY: Deleting section");
+                GameManager.DeleteSection(connector);
             };
 
             connector.OnPlayerEnter += onEnter;
