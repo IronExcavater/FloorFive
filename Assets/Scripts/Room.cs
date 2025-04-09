@@ -77,8 +77,8 @@ public class Room : Area
             closeConnector.OnPlayerExit += onCloseExit;
             farConnector.OnPlayerExit += onFarExit;
             
-            _exitHandlers.Add((closeConnector, onCloseExit));
-            _exitHandlers.Add((farConnector, onFarExit));
+            ExitHandlers.Add((closeConnector, onCloseExit));
+            ExitHandlers.Add((farConnector, onFarExit));
         });
     }
 }

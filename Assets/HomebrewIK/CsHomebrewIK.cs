@@ -38,7 +38,7 @@ namespace HomebrewIK
         public float stepDuration = 0.2f;
         public float stepLiftHeight = 0.1f;
 
-        private bool moving;
+        private bool previousMoving;
         private float previousYaw;
         private SteppingFoot prevTurn = SteppingFoot.None;
         
@@ -649,7 +649,7 @@ namespace HomebrewIK
                  playerAnimator.GetFloat(aniCache.GetHash("xVel")),
                  playerAnimator.GetFloat(aniCache.GetHash("yVel")));
             
-             moving = velocity.magnitude > 0.1f;
+             var moving = velocity.magnitude > 0.1f;
 
              var leftGrounding = playerAnimator.GetFloat(aniCache.GetHash("leftFootGrounded"));
              var rightGrounding = playerAnimator.GetFloat(aniCache.GetHash("rightFootGrounded"));
@@ -665,14 +665,14 @@ namespace HomebrewIK
                  OnStep?.Invoke(false);
                  prevLeftGrounded = true;
              }
-             if (leftGrounding < 0.1) prevLeftGrounded = false;
+             if (leftGrounding < 0.2 || (moving && !previousMoving)) prevLeftGrounded = false;
 
              if (rightGrounding > 0.9 && !prevRightGrounded)
              {
                  OnStep?.Invoke(true);
                  prevRightGrounded = true;
              }
-             if (rightGrounding < 0.1) prevRightGrounded = false;
+             if (rightGrounding < 0.2 || (moving && !previousMoving)) prevRightGrounded = false;
                  
              var leftDistanceDelta = Vector3.Distance(leftFootIKPositionTarget,
                  playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot));
@@ -782,7 +782,7 @@ namespace HomebrewIK
              }
              
              previousYaw = yaw;
-             
+             previousMoving = moving;
              
              if (enableIKPositioning)
              {

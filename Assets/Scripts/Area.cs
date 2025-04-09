@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 public class Area : MonoBehaviour
 {
     public Connector[] connectors;
-    protected readonly List<(Connector connector, Action<Area> handler)> _enterHandlers = new();
-    protected readonly List<(Connector connector, Action<Area> handler)> _exitHandlers = new();
+    protected readonly List<(Connector connector, Action<Area> handler)> EnterHandlers = new();
+    protected readonly List<(Connector connector, Action<Area> handler)> ExitHandlers = new();
 
     public Connector GetOppositeConnector(Connector connector)
     {
@@ -24,10 +24,10 @@ public class Area : MonoBehaviour
     {
         foreach (var connector in connectors) connector.Disconnect();
         
-        foreach (var (connector, handler) in _enterHandlers) connector.OnPlayerEnter -= handler;
-        _enterHandlers.Clear();
+        foreach (var (connector, handler) in EnterHandlers) connector.OnPlayerEnter -= handler;
+        EnterHandlers.Clear();
         
-        foreach (var (connector, handler) in _exitHandlers) connector.OnPlayerExit -= handler;
-        _exitHandlers.Clear();
+        foreach (var (connector, handler) in ExitHandlers) connector.OnPlayerExit -= handler;
+        ExitHandlers.Clear();
     }
 }

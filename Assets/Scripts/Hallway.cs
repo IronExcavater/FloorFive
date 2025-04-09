@@ -10,7 +10,7 @@ public class Hallway : Area
         {
             Action<Area> onEnter = area =>
             {
-                if (!area.Equals(this)) return;
+                if (area.Equals(this)) return;
                 
                 Debug.Log("ENTERING HALLWAY: Creating section");
                 GameManager.CreateSection(connector);
@@ -18,7 +18,7 @@ public class Hallway : Area
 
             Action<Area> onExit = area =>
             {
-                if (!area.Equals(this)) return;
+                if (area.Equals(this)) return;
                 
                 Debug.Log("LEAVING HALLWAY: Deleting section");
                 GameManager.DeleteSection(connector);
@@ -27,8 +27,8 @@ public class Hallway : Area
             connector.OnPlayerEnter += onEnter;
             connector.OnPlayerExit += onExit;
             
-            _enterHandlers.Add((connector, onEnter));
-            _exitHandlers.Add((connector, onExit));
+            EnterHandlers.Add((connector, onEnter));
+            ExitHandlers.Add((connector, onExit));
         });
     }
 }

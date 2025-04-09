@@ -3,26 +3,26 @@ using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    private readonly Queue<T> pool = new();
-    private readonly T prefab;
-    private readonly Transform parent;
+    private readonly Queue<T> _pool = new();
+    private readonly T _prefab;
+    private readonly Transform _parent;
 
     public ObjectPool(T prefab, int initialSize, Transform parent = null)
     {
-        this.prefab = prefab;
-        this.parent = parent;
+        _prefab = prefab;
+        _parent = parent;
 
         for (var i = 0; i < initialSize; i++)
         {
             var obj = Object.Instantiate(prefab, parent);
             obj.gameObject.SetActive(false);
-            pool.Enqueue(obj);
+            _pool.Enqueue(obj);
         }
     }
 
     public T Get()
     {
-        var obj = pool.Count > 0 ? pool.Dequeue() : Object.Instantiate(prefab, parent);
+        var obj = _pool.Count > 0 ? _pool.Dequeue() : Object.Instantiate(_prefab, _parent);
         obj.gameObject.SetActive(true);
         return obj;
     }
@@ -30,6 +30,6 @@ public class ObjectPool<T> where T : MonoBehaviour
     public void Release(T obj)
     {
         obj.gameObject.SetActive(false);
-        pool.Enqueue(obj);
+        _pool.Enqueue(obj);
     }
 }

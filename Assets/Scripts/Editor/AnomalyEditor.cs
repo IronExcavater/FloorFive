@@ -1,7 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using Matrix4x4 = UnityEngine.Matrix4x4;
-using Quaternion = UnityEngine.Quaternion;
 
 [CustomEditor(typeof(Room))]
 public class AnomalyEditor : Editor

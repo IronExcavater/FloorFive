@@ -19,11 +19,10 @@ public class GameManager : MonoBehaviour
         get => _instance._score;
         set
         {
-            if (_instance._score != value)
-            {
-                _instance._score = value;
-                OnScoreChange?.Invoke(value);
-            }
+            if (_instance._score == value) return;
+            
+            _instance._score = value;
+            OnScoreChange?.Invoke(value);
         }
     }
     
