@@ -27,7 +27,8 @@ public class Anomaly
     public float seenAngle = 100;
     
     public bool visible = true;
-    public float transitionTime = 2;
+    public float animationDuration = 2;
+    public Easing animationEasing = Easing.EaseInOutCubic;
     public float triggerDelay = 2;
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
@@ -112,22 +113,11 @@ public class Anomaly
         
         Debug.Log("ANOMALY TRIGGERED");
         
-        time = 0f;
-        while (time < transitionTime)
-        {
-            var t = time / transitionTime;
-
-            _trans.localPosition = Vector3.Lerp(startPos, endPos, t);
-            _trans.localRotation = Quaternion.Slerp(startRot, endRot, t);
-            _trans.localScale = Vector3.Lerp(startScale, endScale, t);
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        _trans.localPosition = endPos;
-        _trans.localRotation = endRot;
-        _trans.localScale = endScale;
+        AnimationManager.Create(target, v => _trans.localPosition = v, startPos, endPos, animationDuration, animationEasing);
+        AnimationManager.Create(target, r => _trans.localRotation = r, startRot, endRot, animationDuration, animationEasing);
+        AnimationManager.Create(target, s => _trans.localScale = s, startScale, endScale, animationDuration, animationEasing);
+        
+        yield return new WaitForSeconds(animationDuration);
         target.SetActive(endVisible);
     }
 

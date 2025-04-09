@@ -4,7 +4,7 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(Anomaly))]
 public class AnomalyDrawer : PropertyDrawer
 {
-    private string[] _properties = {"target", "trigger", "mode", "triggerDelay", "transitionTime",
+    private string[] _properties = {"target", "trigger", "mode", "triggerDelay", "animationDuration", "animationEasing",
         "visible", "positionOffset", "rotationOffset", "scaleOffset"};
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
