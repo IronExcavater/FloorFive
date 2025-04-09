@@ -8,24 +8,32 @@ public class AnomalyEditor : Editor
     {
         var room = (Room) target;
 
-        foreach (var anomaly in room.anomalies)
+        foreach (var group in room.anomalies)
         {
-            foreach (var target in anomaly.targets)
+            foreach (var anomaly in group.anomalies)
             {
-                var trans = target.gameObject.transform;
+                if (!anomaly.target) continue;
+                
+                var trans = anomaly.target.transform;
                 var rend = trans.GetComponent<MeshRenderer>();
                 
-                var position = trans.position + trans.TransformDirection(target.positionOffset);
-                var rotation = trans.rotation * Quaternion.Euler(target.rotationOffset);
-                var scale = trans.localScale + target.scaleOffset;
+                var position = trans.position + trans.TransformDirection(anomaly.positionOffset);
+                var rotation = trans.rotation * Quaternion.Euler(anomaly.rotationOffset);
+                var scale = trans.localScale + anomaly.scaleOffset;
                 
                 Handles.color = Color.cyan;
                 Handles.DrawDottedLine(trans.position, position, 10f);
                 if (rend)
                 {
-                    Handles.matrix = Matrix4x4.TRS(position, rotation, scale);
-                    Handles.DrawWireCube(Vector3.zero, rend.bounds.size);
-                    Handles.matrix = Matrix4x4.identity;
+                    var worldScale = Vector3.Scale(trans.lossyScale, Vector3.one + anomaly.scaleOffset);
+
+                    // Build matrix for drawing the cube in world space
+                    var matrix = Matrix4x4.TRS(position, rotation, worldScale);
+
+                    using (new Handles.DrawingScope(Color.cyan, matrix))
+                    {
+                        Handles.DrawWireCube(rend.localBounds.center, rend.localBounds.size);
+                    }
                 }
                 
                 EditorGUI.BeginChangeCheck();
@@ -48,10 +56,10 @@ public class AnomalyEditor : Editor
                 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Undo.RecordObject(room, "Edit Anomaly Target");
-                    target.positionOffset = trans.InverseTransformDirection(position - trans.position);
-                    target.rotationOffset = (Quaternion.Inverse(trans.rotation) * rotation).eulerAngles;
-                    target.scaleOffset = scale - trans.localScale;
+                    Undo.RecordObject(room, "Edit Anomaly");
+                    anomaly.positionOffset = trans.InverseTransformDirection(position - trans.position);
+                    anomaly.rotationOffset = (Quaternion.Inverse(trans.rotation) * rotation).eulerAngles;
+                    anomaly.scaleOffset = scale - trans.localScale;
                 }
             }
         }

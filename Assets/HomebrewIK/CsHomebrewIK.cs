@@ -25,8 +25,8 @@ namespace HomebrewIK
         public bool enableFootLocking = true;
         public Action<bool> OnStep; // bool => isRightFoot
         
-        public enum SteppingFoot { None, Left, Right }
-        public SteppingFoot stepping = SteppingFoot.None;
+        private enum SteppingFoot { None, Left, Right }
+        private SteppingFoot stepping = SteppingFoot.None;
         private SteppingFoot prevStepping = SteppingFoot.None;
         
         private bool prevLeftGrounded;

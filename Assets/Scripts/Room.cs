@@ -6,18 +6,18 @@ using Random = UnityEngine.Random;
 
 public class Room : Area
 {
-    public List<Anomaly> anomalies;
+    public List<AnomalyGroup> anomalies;
 
     private bool _isComplete;
     private int _numberOfAnomalies;
     
     public void Activate(Connector startConnector)
     {
-        Debug.Log("ENTERING ROOM: Starting room");
         _isComplete = false;
 
         TriggerAnomalies();
         HandleTriggers(startConnector);
+        Debug.Log($"ENTERING ROOM: room has {_numberOfAnomalies} anomalies");
     }
 
     private void TriggerAnomalies()
@@ -48,37 +48,24 @@ public class Room : Area
             var hallway = closeConnector.area;
             var farConnector = hallway.GetOppositeConnector(closeConnector);
             
-            Action<Area> onCloseExit = area =>
-            {
-                if (!area.Equals(hallway)) return;
-                
-                if (startConnector && !_isComplete && !startConnector.Equals(farConnector))
-                {
-                    Debug.Log("LEAVING ROOM: Finishing room (opposite side of start)");
-                    _isComplete = true;
-                    if (_numberOfAnomalies > 0) GameManager.Score++;
-                    else GameManager.Score = 0;
-                }
-            };
-
-            Action<Area> onFarExit = area =>
+            Action<Area> onCloseEnter = area =>
             {
                 if (area.Equals(hallway)) return;
-
-                if (startConnector && !_isComplete && startConnector.Equals(farConnector))
+                
+                if (startConnector && !_isComplete)
                 {
-                    Debug.Log("LEAVING ROOM: Finishing room (same side as start)");
                     _isComplete = true;
-                    if (_numberOfAnomalies == 0) GameManager.Score++;
-                    else GameManager.Score = 0;
+                    
+                    var exitedSameSide = startConnector.Equals(farConnector);
+                    var correctExit = exitedSameSide ? _numberOfAnomalies > 0 : _numberOfAnomalies == 0;
+                    GameManager.Score = correctExit ? GameManager.Score + 1 : 0;
+                    
+                    Debug.Log($"EXITING ROOM: Anomalies: {_numberOfAnomalies}, Score: {GameManager.Score}");
                 }
             };
             
-            closeConnector.OnPlayerExit += onCloseExit;
-            farConnector.OnPlayerExit += onFarExit;
-            
-            ExitHandlers.Add((closeConnector, onCloseExit));
-            ExitHandlers.Add((farConnector, onFarExit));
+            closeConnector.OnPlayerEnter += onCloseEnter;
+            EnterHandlers.Add((closeConnector, onCloseEnter));
         });
     }
 }
