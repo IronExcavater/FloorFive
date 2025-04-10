@@ -42,7 +42,7 @@ public class Room : Area
 
     private void HandleTriggers(Connector startConnector)
     {
-        connectors.ToList().ForEach(connector =>
+        Connectors.ToList().ForEach(connector =>
         {
             var closeConnector = connector.connection;
             var hallway = closeConnector.area;
@@ -52,7 +52,7 @@ public class Room : Area
             {
                 if (area.Equals(hallway)) return;
                 
-                if (startConnector && !_isComplete)
+                if (!_isComplete)
                 {
                     _isComplete = true;
                     
@@ -64,7 +64,7 @@ public class Room : Area
                 }
             };
             
-            closeConnector.OnPlayerEnter += onCloseEnter;
+            closeConnector.OnAreaEnter += onCloseEnter;
             EnterHandlers.Add((closeConnector, onCloseEnter));
         });
     }

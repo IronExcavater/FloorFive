@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private ObjectPool<Checkpoint> _checkpointPool;
     
     private int _score;
+    private bool _canCheckpoint;
     public static Action<int> OnScoreChange;
     public static int Score
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
             if (_instance._score == value) return;
             
             _instance._score = value;
+            _instance._canCheckpoint = true;
             OnScoreChange?.Invoke(value);
         }
     }
@@ -46,7 +48,8 @@ public class GameManager : MonoBehaviour
     public static void CreateSection(Connector connector)
     {
         var oppositeConnector = connector.area.GetOppositeConnector(connector);
-        var isCheckpoint = _instance._score % 3 == 0;
+        var isCheckpoint = _instance._score % 3 == 0 && _instance._canCheckpoint;
+        if (isCheckpoint) _instance._canCheckpoint = false;
         
         Area area = isCheckpoint ? _instance._checkpointPool.Get() : _instance._roomPool.Get();
         var areaConnector = area.GetRandomConnector();
@@ -66,11 +69,21 @@ public class GameManager : MonoBehaviour
     {
         var oppositeConnector = connector.area.GetOppositeConnector(connector).connection;
         
-        var room = oppositeConnector?.area as Room;
-        var hallway = room?.GetOppositeConnector(oppositeConnector)?.connection?.area as Hallway;
+        var area = oppositeConnector?.area;
+        var hallway = area?.GetOppositeConnector(oppositeConnector)?.connection?.area as Hallway;
 
-        if (room) _instance._roomPool.Release(room);
-        else oppositeConnector?.area.gameObject.SetActive(false);
+        switch (area)
+        {
+            case Room room:
+                _instance._roomPool.Release(room);
+                break;
+            case Checkpoint checkpoint:
+                _instance._checkpointPool.Release(checkpoint);
+                break;
+            case not null:
+                area.gameObject.SetActive(false);
+                break;
+        }
         
         if (hallway) _instance._hallwayPool.Release(hallway);
     }

@@ -6,7 +6,7 @@ public class Hallway : Area
 {
     private void OnEnable()
     {
-        connectors.ToList().ForEach(connector =>
+        Connectors.ToList().ForEach(connector =>
         {
             Action<Area> onExit = area =>
             {
@@ -22,7 +22,7 @@ public class Hallway : Area
                 }
             };
 
-            connector.OnPlayerExit += onExit;
+            connector.OnAreaExit += onExit;
             ExitHandlers.Add((connector, onExit));
         });
     }
