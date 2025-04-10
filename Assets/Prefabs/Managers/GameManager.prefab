@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab:
   - {fileID: 2697980041893692765, guid: 25645ff1e91907d489ec37215b81e723, type: 3}
-  hallwayPrefab:
-  - {fileID: 2751137247871603231, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
-  checkpointPrefab: {fileID: 2136621314384728091, guid: 62009108829ee47c8b1b19d48b2a1880, type: 3}
+  checkpointPrefab:
+  - {fileID: 4180989071121385890, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
   levelTrans: {fileID: 0}

@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5611219046881370208, guid: 49f25881138f736428f684b998ddaee7, type: 3}
+      propertyPath: connection
+      value: 
+      objectReference: {fileID: 1571661863}
     - target: {fileID: 7760533123794315110, guid: 49f25881138f736428f684b998ddaee7, type: 3}
       propertyPath: 'connectors.Array.data[0]'
       value: 
@@ -564,6 +568,17 @@ Transform:
   - {fileID: 146633213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571661863 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1171245975738276643, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
+  m_PrefabInstance: {fileID: 8574444630386963472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf99f14468e34d248a6368b41c798038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1593103959
 Mesh:
   m_ObjectHideFlags: 0
@@ -1291,14 +1306,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2109749410551414244, guid: 834e21b810119c842b57023ebb884793, type: 3}
-      propertyPath: maxMouseDelta
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2109749410551414244, guid: 834e21b810119c842b57023ebb884793, type: 3}
-      propertyPath: mouseSensitivity
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 3399629759320471663, guid: 834e21b810119c842b57023ebb884793, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1346,7 +1353,7 @@ PrefabInstance:
       objectReference: {fileID: 2136116914}
     - target: {fileID: 1423046506687196267, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
       propertyPath: m_Name
-      value: Hallway
+      value: Checkpoint
       objectReference: {fileID: 0}
     - target: {fileID: 1780591730650527791, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
       propertyPath: m_Mesh
@@ -1447,7 +1454,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2641382399456741193, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

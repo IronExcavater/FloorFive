@@ -7,26 +7,22 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     public List<Room> roomPrefab;
-    public List<Hallway> hallwayPrefab;
-    public Checkpoint checkpointPrefab;
+    public List<Checkpoint> checkpointPrefab;
     public Transform levelTrans;
     
     private ObjectPool<Room> _roomPool;
-    private ObjectPool<Hallway> _hallwayPool;
     private ObjectPool<Checkpoint> _checkpointPool;
     
-    private int _score;
-    private bool _canCheckpoint;
+    private static int _score;
     public static Action<int> OnScoreChange;
     public static int Score
     {
-        get => _instance._score;
+        get => _score;
         set
         {
-            if (_instance._score == value) return;
+            if (_score == value) return;
             
-            _instance._score = value;
-            _instance._canCheckpoint = true;
+            _score = value;
             OnScoreChange?.Invoke(value);
         }
     }
@@ -39,39 +35,27 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
 
             _roomPool = new ObjectPool<Room>(roomPrefab, 2, levelTrans);
-            _hallwayPool = new ObjectPool<Hallway>(hallwayPrefab, 3, levelTrans);
-            _checkpointPool = new ObjectPool<Checkpoint>(checkpointPrefab, 1, levelTrans);
+            _checkpointPool = new ObjectPool<Checkpoint>(checkpointPrefab, 2, levelTrans);
         }
         else Destroy(gameObject);
     }
 
-    public static void CreateSection(Connector connector)
+    public static void CreateArea(Area area, Connector connector)
     {
-        var oppositeConnector = connector.area.GetOppositeConnector(connector);
-        var isCheckpoint = _instance._score % 3 == 0 && _instance._canCheckpoint;
-        if (isCheckpoint) _instance._canCheckpoint = false;
+        var isCheckpoint = area is Checkpoint;
         
-        Area area = isCheckpoint ? _instance._checkpointPool.Get() : _instance._roomPool.Get();
-        var areaConnector = area.GetRandomConnector();
-        ConnectConnectors(area.transform, areaConnector.transform, oppositeConnector.transform);
-        oppositeConnector.Connect(areaConnector);
-        var otherAreaConnector = area.GetOppositeConnector(areaConnector);
-
-        var hallway = _instance._hallwayPool.Get();
-        var hallwayConnector = hallway.GetRandomConnector();
-        ConnectConnectors(hallway.transform, hallwayConnector.transform, otherAreaConnector.transform);
-        otherAreaConnector.Connect(hallwayConnector);
-        
-        (area as Room)?.Activate(connector);
+        Area newArea = isCheckpoint ? _instance._roomPool.Get() : _instance._checkpointPool.Get();
+        Debug.Log($"CREATING AREA: {newArea.name}");
+        var newConnector = newArea.GetRandomConnector();
+            
+        Connect(newArea.transform, newConnector.transform, connector.transform);
+        connector.Connect(newConnector);
     }
 
-    public static void DeleteSection(Connector connector)
+    public static void DeleteArea(Area area)
     {
-        var oppositeConnector = connector.area.GetOppositeConnector(connector).connection;
+        Debug.Log($"DELETING AREA: {area.name}");
         
-        var area = oppositeConnector?.area;
-        var hallway = area?.GetOppositeConnector(oppositeConnector)?.connection?.area as Hallway;
-
         switch (area)
         {
             case Room room:
@@ -80,15 +64,18 @@ public class GameManager : MonoBehaviour
             case Checkpoint checkpoint:
                 _instance._checkpointPool.Release(checkpoint);
                 break;
-            case not null:
+            default:
                 area.gameObject.SetActive(false);
                 break;
         }
-        
-        if (hallway) _instance._hallwayPool.Release(hallway);
+
+        foreach (var connector in area.connectors)
+        {
+            connector.Disconnect();
+        }
     }
 
-    private static void ConnectConnectors(Transform newArea, Transform newConnector, Transform existingConnector)
+    private static void Connect(Transform newArea, Transform newConnector, Transform existingConnector)
     {
         var toTarget = Quaternion.LookRotation(-existingConnector.forward, existingConnector.up);
         var rotOffset = toTarget * Quaternion.Inverse(newConnector.rotation);

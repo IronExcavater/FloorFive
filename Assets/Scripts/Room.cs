@@ -8,16 +8,34 @@ public class Room : Area
 {
     public List<AnomalyGroup> anomalies;
 
-    private bool _isComplete;
+    private bool _isActive;
     private int _numberOfAnomalies;
-    
-    public void Activate(Connector startConnector)
-    {
-        _isComplete = false;
 
-        TriggerAnomalies();
-        HandleTriggers(startConnector);
-        Debug.Log($"ENTERING ROOM: room has {_numberOfAnomalies} anomalies");
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        Connector startConnector = null;
+        OnViewChange += isViewed =>
+        {
+            if (isViewed && !_isActive) // Start room
+            {
+                _isActive = true;
+                startConnector = GetClosestConnector();
+                TriggerAnomalies();
+                Debug.Log($"ENTERING ROOM: room has {_numberOfAnomalies} anomalies");
+            }
+
+            if (!isViewed && _isActive) // End room
+            {
+                _isActive = false;
+                var exitedSameSide = startConnector == GetClosestConnector();
+                var correctExit = exitedSameSide ? _numberOfAnomalies > 0 : _numberOfAnomalies == 0;
+                GameManager.Score = correctExit ? GameManager.Score + 1 : 0;
+                
+                Debug.Log($"EXITING ROOM: changed score to {GameManager.Score}");
+            }
+        };
     }
 
     private void TriggerAnomalies()
@@ -38,34 +56,5 @@ public class Room : Area
         if (score <= 2) return 1;
         if (score <= 4) return 2;
         return 3;
-    }
-
-    private void HandleTriggers(Connector startConnector)
-    {
-        Connectors.ToList().ForEach(connector =>
-        {
-            var closeConnector = connector.connection;
-            var hallway = closeConnector.area;
-            var farConnector = hallway.GetOppositeConnector(closeConnector);
-            
-            Action<Area> onCloseEnter = area =>
-            {
-                if (area.Equals(hallway)) return;
-                
-                if (!_isComplete)
-                {
-                    _isComplete = true;
-                    
-                    var exitedSameSide = startConnector.Equals(farConnector);
-                    var correctExit = exitedSameSide ? _numberOfAnomalies > 0 : _numberOfAnomalies == 0;
-                    GameManager.Score = correctExit ? GameManager.Score + 1 : 0;
-                    
-                    Debug.Log($"EXITING ROOM: Anomalies: {_numberOfAnomalies}, Score: {GameManager.Score}");
-                }
-            };
-            
-            closeConnector.OnAreaEnter += onCloseEnter;
-            EnterHandlers.Add((closeConnector, onCloseEnter));
-        });
     }
 }

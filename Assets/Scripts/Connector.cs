@@ -1,51 +1,38 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Connector : MonoBehaviour
 {
-    [HideInInspector] public Area area;
-    private Trigger _trigger;
     public Connector connection;
     
-    public Action<Area> OnAreaEnter;
-    public Action<Area> OnAreaExit;
-
-    private Action<Collider> _onPlayerEnter;
-    private Action<Collider> _onPlayerExit;
-
-    private void Awake()
+    public bool IsViewed
     {
-        area = GetComponentInParent<Area>();
-        _trigger = GetComponentInChildren<Trigger>();
+        get
+        {
+            var camera = Camera.main;
+            if (!camera) return false;
 
-        _onPlayerEnter = other => OnAreaEnter?.Invoke(GetActiveArea(other.transform.position));
-        _onPlayerExit = other => OnAreaExit?.Invoke(GetActiveArea(other.transform.position));
-    }
+            var axis = transform.forward;
+            var origin = transform.position;
+            origin.y = camera.transform.position.y;
+            
+            var direction = camera.transform.position - origin;
+            var distanceOnAxis = Vector3.Dot(direction, axis);
+            var sign = Mathf.Sign(distanceOnAxis);
+            
+            if (direction.magnitude > 30) return false;
+            if (direction.magnitude < 2) return true;
 
-    private void OnEnable()
-    {
-        _trigger.OnPlayerEnter += _onPlayerEnter;
-        _trigger.OnPlayerExit += _onPlayerExit;
-    }
+            origin += transform.forward * (distanceOnAxis * 0.3f * sign);
+            direction = camera.transform.position - origin;
 
-    private void OnDisable()
-    {
-        _trigger.OnPlayerEnter -= _onPlayerEnter;
-        _trigger.OnPlayerExit -= _onPlayerExit;
-    }
-
-    private Area GetActiveArea(Vector3 playerPosition)
-    {
-        var axis = _trigger.transform.forward;
-        
-        var playerToArea = playerPosition - area.transform.position;
-        var triggerToArea = _trigger.transform.position - area.transform.position;
-        
-        var playerDistance = Vector3.Dot(playerToArea, axis);
-        var triggerDistance = Vector3.Dot(triggerToArea, axis);
-        
-        Debug.Log($"playerToArea: {playerDistance}, triggerToArea: {triggerDistance}");
-        return Math.Abs(playerDistance) < Math.Abs(triggerDistance) ? area : connection.area;
+            if (Physics.Raycast(origin, direction.normalized, out var hit, direction.magnitude))
+            {
+                Debug.DrawRay(origin, direction.normalized * hit.distance,
+                    hit.collider.CompareTag("Player") ? Color.green : Color.red);
+                return hit.collider.CompareTag("Player");
+            }
+            return false;
+        }
     }
 
     public void Connect(Connector connector)
