@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         set
         {
             if (_score == value) return;
-            
             _score = value;
             OnScoreChange?.Invoke(value);
         }

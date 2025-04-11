@@ -6,9 +6,9 @@ using Random = UnityEngine.Random;
 
 public class Area : MonoBehaviour
 {
-    [HideInInspector] public Connector[] connectors;
+    public List<Connector> connectors;
 
-    public bool _isViewed;
+    private bool _isViewed;
     public Action<bool> OnViewChange;
     public bool IsViewed
     {
@@ -23,7 +23,7 @@ public class Area : MonoBehaviour
 
     protected virtual void Awake()
     {
-        connectors = GetComponentsInChildren<Connector>();
+        connectors = GetComponentsInChildren<Connector>().ToList();
 
         OnViewChange += isViewed =>
         {
@@ -35,18 +35,21 @@ public class Area : MonoBehaviour
     {
         var camera = Camera.main;
         if (camera == null) return;
-        
-        IsViewed = connectors.Any(connector =>
+
+        var roomViewed = false;
+        connectors.ForEach(connector =>
         {
-            var isViewed = connector.IsViewed;
-            if (isViewed && connector.connection == null) GameManager.CreateArea(this, connector);
-            return isViewed;
-        }) || Vector3.Distance(camera.transform.position, transform.position) < 10;
+            if (!connector.IsViewed) return;
+            if (connector.connection == null) GameManager.CreateArea(this, connector);
+            roomViewed = true;
+        });
+
+        IsViewed = roomViewed || Vector3.Distance(camera.transform.position, transform.position) < 10;
     }
     
     public Connector GetRandomConnector()
     {
-        return connectors[Random.Range(0, connectors.Length)];
+        return connectors[Random.Range(0, connectors.Count)];
     }
 
     public Connector GetClosestConnector()

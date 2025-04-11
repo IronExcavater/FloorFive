@@ -13,9 +13,8 @@ public class InputManager : MonoBehaviour
     public static bool Run { get; private set; }
 
     private InputActionMap _currentMap;
-    private InputAction _moveAction;
-    private InputAction _lookAction;
-    private InputAction _runAction;
+
+    private InputAction _move, _look, _run;
     
     private void Awake()
     {
@@ -23,45 +22,53 @@ public class InputManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this);
-            
-            _currentMap = playerInput.currentActionMap;
-            _moveAction = _currentMap.FindAction("Move");
-            _lookAction = _currentMap.FindAction("Look");
-            _runAction = _currentMap.FindAction("Run");
-            
-            _moveAction.performed += OnMove;
-            _lookAction.performed += OnLook;
-            _runAction.performed += OnRun;
 
-            _moveAction.canceled += OnMove;
-            _lookAction.canceled += OnLook;
-            _runAction.canceled += OnRun;
+            SetupInputs();
         }
         else Destroy(gameObject);
     }
 
-    private void OnMove(InputAction.CallbackContext context)
-    {
-        Move = context.ReadValue<Vector2>().normalized;
-    }
-
-    private void OnLook(InputAction.CallbackContext context)
-    {
-        Look = context.ReadValue<Vector2>();
-    }
-
-    private void OnRun(InputAction.CallbackContext context)
-    {
-        Run = context.ReadValueAsButton();
-    }
-
     private void OnEnable()
     {
-        _currentMap.Enable();
+        SetupInputs();
+        EnableInputs(true);
     }
 
     private void OnDisable()
     {
-        _currentMap.Disable();
+        EnableInputs(false);
+    }
+
+    private void SetupInputs()
+    {
+        if (!playerInput || playerInput.currentActionMap == null) return;
+
+        _move = SetupAction("Move", ctx => Move = ctx.ReadValue<Vector2>().normalized);
+        _look = SetupAction("Look", ctx => Look = ctx.ReadValue<Vector2>());
+        _run = SetupAction("Run", ctx => Run = ctx.ReadValueAsButton());
+    }
+
+    private InputAction SetupAction(string name, Action<InputAction.CallbackContext> handler)
+    {
+        var action = playerInput.currentActionMap.FindAction(name);
+        if (action == null) return null;
+        
+        action.performed += handler.Invoke;
+        action.canceled += handler.Invoke;
+        return action;
+    }
+
+    private void EnableInputs(bool enable)
+    {
+        EnableAction(_move, enable);
+        EnableAction(_look, enable);
+        EnableAction(_run, enable);
+    }
+
+    private void EnableAction(InputAction action, bool enable)
+    {
+        if (action == null) return;
+        if (enable) action.Enable();
+        else action.Disable();
     }
 }

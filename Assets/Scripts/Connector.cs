@@ -8,6 +8,8 @@ public class Connector : MonoBehaviour
     {
         get
         {
+            Debug.DrawLine(transform.position, transform.position + Vector3.up, Color.cyan);
+            
             var camera = Camera.main;
             if (!camera) return false;
 
@@ -17,18 +19,19 @@ public class Connector : MonoBehaviour
             
             var direction = camera.transform.position - origin;
             var distanceOnAxis = Vector3.Dot(direction, axis);
-            var sign = Mathf.Sign(distanceOnAxis);
             
             if (direction.magnitude > 30) return false;
             if (direction.magnitude < 2) return true;
 
-            origin += transform.forward * (distanceOnAxis * 0.3f * sign);
+            origin += transform.forward * (distanceOnAxis * 0.4f);
             direction = camera.transform.position - origin;
+            
+            Debug.DrawRay(origin, (transform.position - origin), Color.yellow, 0.1f);
 
             if (Physics.Raycast(origin, direction.normalized, out var hit, direction.magnitude))
             {
                 Debug.DrawRay(origin, direction.normalized * hit.distance,
-                    hit.collider.CompareTag("Player") ? Color.green : Color.red);
+                    hit.collider.CompareTag("Player") ? Color.green : Color.red, 0.1f);
                 return hit.collider.CompareTag("Player");
             }
             return false;
