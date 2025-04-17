@@ -26,7 +26,7 @@ public class Connector : MonoBehaviour
             origin += transform.forward * (distanceOnAxis * 0.4f);
             direction = camera.transform.position - origin;
             
-            Debug.DrawRay(origin, (transform.position - origin), Color.yellow, 0.1f);
+            Debug.DrawRay(origin, transform.position - origin, Color.yellow, 0.1f);
 
             if (Physics.Raycast(origin, direction.normalized, out var hit, direction.magnitude))
             {

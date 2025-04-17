@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1072827741804483820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3042809193530697734}
+  m_Layer: 0
+  m_Name: Flashlight Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3042809193530697734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072827741804483820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.0289, y: 0.0264, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2420427609108088227}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+--- !u!1 &1109295036766265795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2420427609108088227}
+  m_Layer: 0
+  m_Name: Flashlight Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2420427609108088227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109295036766265795}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000037748947, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0.1, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3042809193530697734}
+  m_Father: {fileID: 2659112870112046219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3399629759320471663
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,13 +167,15 @@ MonoBehaviour:
   mouseSensitivity: 20
   maxMouseDelta: 5
   xLookLimits: {x: -70, y: 70}
-  rb: {fileID: 4434256994169750816}
-  ani: {fileID: 6902395707099704311}
-  aniCache: {fileID: 2915408413457782596}
-  capCol: {fileID: 7013259405216427312}
+  interactDistance: 3
+  interactRadius: 0.5
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 1
   camTrans: {fileID: 263236137092464850}
-  camRootTrans: {fileID: 1206399585192768113}
-  footIK: {fileID: 5371192748386289504}
+  camTarget: {fileID: 1206399585192768113}
+  flashlightTarget: {fileID: 2420427609108088227}
+  flashlightOffset: {fileID: 3042809193530697734}
 --- !u!1 &5528812890245014747
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +415,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3046606996148714221, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2420427609108088227}
     - targetCorrespondingSourceObject: {fileID: -9039934505387580143, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1206399585192768113}
@@ -360,6 +428,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5371192748386289504}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2224646335714945165}
     - targetCorrespondingSourceObject: {fileID: 683188670051597968, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4130991648517256727}
@@ -427,6 +498,18 @@ MonoBehaviour:
   stretchRange: 0
   giveWorldHeightOffset: 0
   worldHeightOffset: 0
+--- !u!114 &2224646335714945165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171629552321588023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfbac041e857b7438b0a84cbc648654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &566192976118966518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 683188670051597968, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
@@ -641,8 +724,8 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &6902395707099704311 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
+--- !u!4 &2659112870112046219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3046606996148714221, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
   m_PrefabInstance: {fileID: 1054029207352071782}
   m_PrefabAsset: {fileID: 0}
