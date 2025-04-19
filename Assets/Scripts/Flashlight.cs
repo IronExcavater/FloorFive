@@ -46,7 +46,7 @@ public class Flashlight : MonoBehaviour, IInteractable
             _flickerDuration -= Time.deltaTime;
             _flickerCooldown -= Time.deltaTime;
 
-            _light.intensity = _flickerDuration > 0 ? 0.01f : intensity;
+            _light.intensity = _flickerDuration > 0 ? 0.6f : intensity;
         }
         else
         {
@@ -56,7 +56,6 @@ public class Flashlight : MonoBehaviour, IInteractable
 
     private void OnFlashlight(bool value)
     {
-        Debug.Log("Flashlight changed");
         _light.enabled = value;
     }
 

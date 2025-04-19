@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Animator _ani;
     private AnimatorCache _aniCache;
-    [SerializeField] private Transform camTrans;
+    private Transform _camTrans;
     [SerializeField] private Transform camTarget;
     private AnimatorIK _animatorIK;
     private CsHomebrewIK _footIK;
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponentInChildren<Rigidbody>();
         _ani = GetComponentInChildren<Animator>();
         _aniCache = GetComponentInChildren<AnimatorCache>();
+        _camTrans = Camera.main.transform;
         _animatorIK = GetComponentInChildren<AnimatorIK>();
         _footIK = GetComponentInChildren<CsHomebrewIK>();
 
@@ -85,16 +86,16 @@ public class PlayerController : MonoBehaviour
         
         // Apply rotation of xy to camera and y to body
         transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
-        camTrans.position = camTarget.position;
-        camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
+        _camTrans.position = camTarget.position;
+        _camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
     }
 
     private void Move()
     {
         // Apply camera rotation of xy to camera and y to body
         transform.rotation = Quaternion.Euler(0, _lookRotation.y, 0);
-        camTrans.position = camTarget.position;
-        camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
+        _camTrans.position = camTarget.position;
+        _camTrans.localRotation = Quaternion.Euler(_lookRotation.x, 0, 0);
         
         var input = InputManager.Move;
         var speed = input == Vector2.zero ? 0 : InputManager.Run ? runSpeed : walkSpeed;
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
     private void OnInteract(bool value)
     {
         if (!value) return;
-        var ray = new Ray(camTrans.position, camTrans.forward);
+        var ray = new Ray(_camTrans.position, _camTrans.forward);
         if (Physics.SphereCast(ray, interactRadius, out var hit, interactDistance, interactMask))
         {
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable)) interactable.Interact(gameObject);
@@ -144,7 +145,6 @@ public class PlayerController : MonoBehaviour
     private void FlashlightIK(int layerIndex)
     {
         var hasFlashlight = _flashlight != null;
-        Debug.Log("hasFlashlight: " + hasFlashlight);
         
         _ani.SetIKPositionWeight(AvatarIKGoal.RightHand, hasFlashlight ? 1 : 0);
         _ani.SetIKRotationWeight(AvatarIKGoal.RightHand, hasFlashlight ? 1 : 0);

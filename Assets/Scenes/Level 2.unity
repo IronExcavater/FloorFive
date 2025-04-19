@@ -20,10 +20,10 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.011171191, g: 0.011221031, b: 0.01132071, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.06
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -1199,6 +1199,22 @@ PrefabInstance:
       propertyPath: levelTrans
       value: 
       objectReference: {fileID: 1340474426}
+    - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      propertyPath: roomPrefab.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      propertyPath: 'roomPrefab.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2697980041893692765, guid: 5ed96a0574abab541a3a8bc434147e86, type: 3}
+    - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      propertyPath: 'roomPrefab.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2697980041893692765, guid: 4d5706e80eebdde42b8dc488bdd16ba0, type: 3}
+    - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      propertyPath: 'roomPrefab.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2697980041893692765, guid: 206c88edef4a33b4fa42202ba71884f9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1492,6 +1508,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 340
       objectReference: {fileID: 0}
+    - target: {fileID: 3865571571994079727, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4176968319807008532, guid: 8120d55eb8293c141b1da67f2fa90012, type: 3}
       propertyPath: m_Mesh
       value: 
