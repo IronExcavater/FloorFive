@@ -48,8 +48,8 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(true);
         dialogueText.text = dialogueLines[currentLine];
 
-        //if (playerController != null)
-        //    playerController.SetMovement(false);
+        if (playerController != null)
+            playerController.SetMovement(false);
     }
 
     private void LoadDialogueFromFile(TextAsset file)
