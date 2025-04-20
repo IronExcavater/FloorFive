@@ -1,6 +1,5 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 
 public class UIController : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private float fadeDuration = 0.5f;
 
-    private bool isLevelSelectVisible = false;
+    private bool isLevelSelectVisible = false; // level selection visibility state
     private bool isSettingsVisible = false;
     private bool isCreditsVisible = false;
 
@@ -21,11 +20,11 @@ public class UIController : MonoBehaviour
     {
         if (isLevelSelectVisible)
         {
-            FadeOut(levelSelectCanvasGroup);
+            FadeOut(levelSelectCanvasGroup); // Hide Level Select UI
         }
         else
         {
-            FadeIn(levelSelectCanvasGroup);
+            FadeIn(levelSelectCanvasGroup); // Show Level Select UI
         }
     }
 
@@ -34,11 +33,11 @@ public class UIController : MonoBehaviour
     {
         if (isSettingsVisible)
         {
-            FadeOut(settingsCanvasGroup);
+            FadeOut(settingsCanvasGroup); // Hide Settings UI
         }
         else
         {
-            FadeIn(settingsCanvasGroup);
+            FadeIn(settingsCanvasGroup); // Show Settings UI
         }
     }
 
@@ -47,11 +46,11 @@ public class UIController : MonoBehaviour
     {
         if (isCreditsVisible)
         {
-            FadeOut(creditsCanvasGroup);
+            FadeOut(creditsCanvasGroup); // Hide Credits UI
         }
         else
         {
-            FadeIn(creditsCanvasGroup);
+            FadeIn(creditsCanvasGroup); // Show Credits UI
         }
     }
 
@@ -61,8 +60,8 @@ public class UIController : MonoBehaviour
         if (canvasGroup == null) return;
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
 
-        canvasGroup.gameObject.SetActive(true);
-        currentCoroutine = StartCoroutine(FadeCoroutine(canvasGroup, 0f, 1f));
+        canvasGroup.gameObject.SetActive(true); // Activate the GameObject first
+        currentCoroutine = StartCoroutine(FadeCoroutine(canvasGroup, 0f, 1f)); // Start fade in
     }
 
     // Fade out a CanvasGroup
@@ -71,7 +70,7 @@ public class UIController : MonoBehaviour
         if (canvasGroup == null) return;
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
 
-        currentCoroutine = StartCoroutine(FadeCoroutine(canvasGroup, 1f, 0f));
+        currentCoroutine = StartCoroutine(FadeCoroutine(canvasGroup, 1f, 0f)); // Start fade out
     }
 
     // Coroutine to handle fade effect
@@ -94,7 +93,21 @@ public class UIController : MonoBehaviour
 
         if (endAlpha == 0f)
         {
-            canvasGroup.gameObject.SetActive(false);
+            canvasGroup.gameObject.SetActive(false); // Deactivate the GameObject when completely faded out
+        }
+
+        // Update visibility state based on fade direction
+        if (canvasGroup == levelSelectCanvasGroup)
+        {
+            isLevelSelectVisible = (endAlpha == 1f); // Update the visibility flag
+        }
+        else if (canvasGroup == settingsCanvasGroup)
+        {
+            isSettingsVisible = (endAlpha == 1f);
+        }
+        else if (canvasGroup == creditsCanvasGroup)
+        {
+            isCreditsVisible = (endAlpha == 1f);
         }
 
         currentCoroutine = null;
