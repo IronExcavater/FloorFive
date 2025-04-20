@@ -1,69 +1,90 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-/// <summary>
-/// This code controls the elevator functionality,
-/// the range of dections, and the area where the player must be to trigger the elevator.
-/// and elevator lead player to the next level.
-/// </summary>
 public class ElevatorController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float detectionRange = 3f;         // Player detection range
-    [SerializeField] private string playerTag = "Player";       // Tag used to identify the player
-    [SerializeField] private Transform platformArea;            // Area where player must be to trigger elevator
-    [SerializeField] private float platformRadius = 2f;         // Area radius to check if player is on platform
+    [SerializeField] private string playerTag = "Player";
+    [SerializeField] private Transform platformArea;
+    [SerializeField] private float platformRadius = 2f;
+
+    [Header("Feedback")]
+    [SerializeField] private GameObject interactionUI;
+    [SerializeField] private AudioClip elevatorSound;
 
     [Header("Gizmos")]
-    [SerializeField] private Color platformGizmoColor = Color.green;   // Gizmo color for platform area
-    [SerializeField] private Color detectionGizmoColor = Color.yellow; // Gizmo color for detection range
+    [SerializeField] private Color platformGizmoColor = Color.green;
 
     private bool _isPlayerOnPlatform = false;
     private int _currentLevel = 1;
 
-    private void Update()
+    private void Start()
     {
-        if (platformArea != null)
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(platformArea.position, platformRadius);
-            _isPlayerOnPlatform = System.Array.Exists(hitColliders, col => col.CompareTag(playerTag));
-        }
-
-        if (_isPlayerOnPlatform && Input.GetKeyDown(KeyCode.E))
-        {
-            LoadNextLevel();
-        }
+        ParseCurrentLevel();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag(playerTag))
+        DetectPlayer();
+        HandleInteraction();
+    }
+
+    private void ParseCurrentLevel()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (!int.TryParse(currentScene.Replace("Level", ""), out _currentLevel))
+            Debug.LogError("Scene Name: it should follow 'LevelX' format ");
+    }
+
+    private void DetectPlayer()
+    {
+        if (platformArea == null) return;
+
+        Collider[] hitColliders = Physics.OverlapSphere(
+            platformArea.position,
+            platformRadius
+        );
+
+        _isPlayerOnPlatform = System.Array.Exists(
+            hitColliders,
+            col => col.CompareTag(playerTag)
+        );
+
+        interactionUI.SetActive(_isPlayerOnPlatform);
+    }
+
+    private void HandleInteraction()
+    {
+        if (_isPlayerOnPlatform && Input.GetButtonDown("Interact"))
         {
-            Debug.Log("[Elevator] You are on the platform. Press 'E' to move to the next floor.");
+            AudioSource.PlayClipAtPoint(elevatorSound, transform.position);
+            LoadNextLevel();
         }
     }
 
     public void LoadNextLevel()
     {
-        _currentLevel = Mathf.Clamp(_currentLevel + 1, 1, 5);
-        SceneManager.LoadScene($"Level{_currentLevel}");
-    }
+        _currentLevel++;
+        string sceneName = $"Level{_currentLevel}";
 
-    private void OnDrawGizmos()
-    {
-        // Show detection range around this elevator object
-        Gizmos.color = detectionGizmoColor;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        if (_currentLevel > 5)
+        {
+            Debug.Log("Game Compelete, you've made it here!.");
+            return;
+        }
+
+        if (Application.CanStreamedLevelBeLoaded(sceneName))
+            SceneManager.LoadScene(sceneName);
+        else
+            Debug.LogError($"씬 '{sceneName}'을 찾을 수 없습니다!");
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Show platform detection area more clearly when selected
-        if (platformArea != null)
-        {
-            Gizmos.color = platformGizmoColor;
-            Gizmos.DrawWireSphere(platformArea.position, platformRadius);
-        }
+        if (platformArea == null) return;
+
+        Gizmos.color = platformGizmoColor;
+        Gizmos.DrawWireSphere(platformArea.position, platformRadius);
     }
-}
+};
+
