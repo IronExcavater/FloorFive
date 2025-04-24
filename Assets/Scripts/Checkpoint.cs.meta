@@ -1,3 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 29eb463962b348999f5dbf5d99aed837
 timeCreated: 1743477046
+=======
+guid: 8ce1c2b92d1a4a858a0465417961c1ac
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 420
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> feature/MenuAndUI

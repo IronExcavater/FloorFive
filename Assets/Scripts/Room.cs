@@ -1,41 +1,63 @@
+<<<<<<< HEAD
+
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Room : MonoBehaviour
+public class Room : Area
 {
-    public List<GameObject> objects;
-    public List<Trigger> triggers;
+    public List<AnomalyGroup> anomalies;
 
-    private Trigger _entryTrigger;
-    private Anomaly _anomaly;
-    private bool _isComplete;
+    private bool _isActive;
+    private int _numberOfAnomalies;
 
-    private bool HasAnomaly => _anomaly != null;
-
-    private void Start()
+    protected override void Awake()
     {
-        triggers.ForEach(trigger =>
-        {
-            trigger.OnPlayerEnter += () =>
-            {
-                if (_entryTrigger == null) _entryTrigger = trigger;
-                else
-                {
-                    if (!_isComplete)
-                    {
-                        GameController.RoomCompleted(_entryTrigger.Equals(trigger) && HasAnomaly
-                                                     || !_entryTrigger.Equals(trigger) && !HasAnomaly);
-                        _isComplete = true;
-                    }
-                }
-                
-            };
-        });
+        base.Awake();
         
-        // 50% chance of anomaly
-        if (Random.Range(0, 100) < 50 || objects.Count == 0) return;
-        var anomalyObj = objects[Random.Range(0, objects.Count)];
-        _anomaly = anomalyObj.GetComponent<Anomaly>();
-        _anomaly.ApplyRandomAnomaly();
+        Connector startConnector = null;
+        OnViewChange += isViewed =>
+        {
+            if (isViewed && !_isActive) // Start room
+            {
+                _isActive = true;
+                startConnector = GetClosestConnector();
+                TriggerAnomalies();
+                Debug.Log($"ENTERING ROOM: room has {_numberOfAnomalies} anomalies");
+            }
+
+            if (!isViewed && _isActive) // End room
+            {
+                _isActive = false;
+                var exitedSameSide = startConnector == GetClosestConnector();
+                var correctExit = exitedSameSide ? _numberOfAnomalies > 0 : _numberOfAnomalies == 0;
+                GameManager.Score = correctExit ? GameManager.Score + 1 : 0;
+                
+                Debug.Log($"EXITING ROOM: changed score to {GameManager.Score}");
+            }
+        };
+    }
+
+    private void TriggerAnomalies()
+    {
+        _numberOfAnomalies = Random.Range(0, GetMaxAnomalies());
+        var shuffled = anomalies.OrderBy(_ => Random.value).ToList();
+        
+        for (var i = 0; i < Mathf.Min(_numberOfAnomalies, shuffled.Count); i++)
+        {
+            shuffled[i].Trigger(this);
+        }
+    }
+
+    private int GetMaxAnomalies()
+    {
+        var score = GameManager.Score;
+        if (score <= 0) return 0;
+        if (score <= 2) return 1;
+        if (score <= 4) return 2;
+        return 3;
+>>>>>>> feature/MenuAndUI
     }
 }
