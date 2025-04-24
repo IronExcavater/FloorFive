@@ -1,4 +1,3 @@
-using UnityEngine;
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +40,7 @@ public class Area : MonoBehaviour
         connectors.ForEach(connector =>
         {
             if (!connector.IsViewed) return;
-            if (connector.connection == null) GameManager.CreateArea(this, connector, _instance, _instance);
+            if (connector.connection == null) GameManager.CreateArea(this, connector);
             roomViewed = true;
         });
 

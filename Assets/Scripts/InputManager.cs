@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-
-    private static InputManager _instance;  
+    private static InputManager _instance;
     
     [SerializeField] private PlayerInput playerInput;
     

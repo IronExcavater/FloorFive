@@ -1,6 +1,6 @@
-
-﻿using System;
+using System;
 using UnityEngine;
+
 public class Trigger : MonoBehaviour
 {
     public Action OnPlayerEnter;
@@ -11,7 +11,7 @@ public class Trigger : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         OnPlayerEnter?.Invoke();
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;

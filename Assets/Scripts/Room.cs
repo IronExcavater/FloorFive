@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +56,5 @@ public class Room : Area
         if (score <= 2) return 1;
         if (score <= 4) return 2;
         return 3;
->>>>>>> feature/MenuAndUI
     }
 }

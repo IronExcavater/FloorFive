@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-﻿fileFormatVersion: 2
-guid: 5281a77f7a504ca187c6d2ab4a8416a1
-timeCreated: 1743463022
-=======
 fileFormatVersion: 2
 guid: caa152b728f5421d9e099c493ab0f0fa
 MonoImporter:
@@ -14,4 +9,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
->>>>>>> feature/MenuAndUI

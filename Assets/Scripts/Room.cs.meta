@@ -1,8 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 50c3d59f91494986b3e9b5092a5f8fbd
-timeCreated: 1743475453
-=======
 guid: 6587a03d86f74e768851cbd857f04031
 MonoImporter:
   externalObjects: {}
@@ -13,4 +9,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
->>>>>>> feature/MenuAndUI
