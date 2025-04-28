@@ -766,7 +766,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1340917191402999042, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526508079}
+    - targetCorrespondingSourceObject: {fileID: 1340917191402999042, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1526508081}
   m_SourcePrefab: {fileID: 100100000, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+--- !u!20 &1163279599 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9190420878604992445, guid: 834e21b810119c842b57023ebb884793, type: 3}
+  m_PrefabInstance: {fileID: 1265756658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1265756658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,6 +969,22 @@ MonoBehaviour:
   scaleShiftStrength: 0.2
   numberOfAnomalies: 20
   _affectedObjects: []
+--- !u!114 &1526508081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526508078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e67c11dc0be9234d84ef94cf531f943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRayDistance: 100
+  showDebugRay: 1
+  _anomalySystem: {fileID: 1526508079}
+  _mainCamera: {fileID: 1163279599}
 --- !u!1001 &4927439727976837388
 PrefabInstance:
   m_ObjectHideFlags: 0
