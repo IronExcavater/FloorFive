@@ -24,7 +24,7 @@ public class RaycastDetector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // More reliable than string version
+        if (Input.GetMouseButtonDown(0)) // More reliable than string version
         {
             Debug.Log("check");
             PerformRaycast();
@@ -51,18 +51,31 @@ public class RaycastDetector : MonoBehaviour
 
             if (_anomalySystem != null)
             {
-                // Check current object + 3 parent levels
                 Transform current = hit.transform;
                 int levelsChecked = 0;
+                bool restored = false;
 
-                while (current != null && levelsChecked < 4)
+                while (current != null && levelsChecked < 4 && !restored)
                 {
                     Debug.Log($"Checking: {current.name}");
-                    _anomalySystem.RestoreSpecificObject(current.name);
 
-                    // Move up hierarchy
+                    // Store name before potentially nulling current
+                    string currentName = current.name;
+
+                    // Check if this object is in the anomaly list
+                    if (_anomalySystem.IsObjectAnomalous(currentName))
+                    {
+                        _anomalySystem.RestoreSpecificObject(currentName);
+                        restored = true;
+                    }
+
                     current = current.parent;
                     levelsChecked++;
+                }
+
+                if (!restored)
+                {
+                    Debug.Log("No valid anomaly found in hierarchy");
                 }
             }
         }
