@@ -96,6 +96,10 @@ public class AnomalySystem : MonoBehaviour
         // Scale
         float scaleFactor = 1 + Random.Range(-scaleShiftStrength, scaleShiftStrength);
         obj.transform.localScale = original.scale * scaleFactor;
+        //========This is added=========
+        obj.layer = LayerMask.NameToLayer("Anomalies");
+        //================================
+
     }
 
     public void RestoreAllObjects()
@@ -120,7 +124,7 @@ public class AnomalySystem : MonoBehaviour
             if (obj.name == objectName)
             {
                 if (_originalTransforms.TryGetValue(obj, out OriginalTransform original))
-                {
+                {   
                     obj.transform.localPosition = original.position;
                     obj.transform.localRotation = original.rotation;
                     obj.transform.localScale = original.scale;
