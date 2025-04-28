@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e8b9880a656da594ca6814ff9177bc1c
-timeCreated: 1536047585
+guid: 2733057fdfdc3394bb27c77a4a5f5c5e
+timeCreated: 1536048706
 licenseType: Store
 NativeFormatImporter:
   externalObjects: {}
@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 127772
   packageName: Voxel Office Props
   packageVersion: 1.0
-  assetPath: Assets/Level 1 assets/Level1Prefabs/desk2.prefab
+  assetPath: Assets/ADI/Voxel Office Props/Prefabs/fillingCabinet.prefab
   uploadId: 267845

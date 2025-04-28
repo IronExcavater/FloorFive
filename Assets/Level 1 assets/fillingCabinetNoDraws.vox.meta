@@ -1,10 +1,8 @@
 fileFormatVersion: 2
-guid: e8b9880a656da594ca6814ff9177bc1c
-timeCreated: 1536047585
+guid: a8adad8159fa5104fbb4b3493588758b
+timeCreated: 1536044443
 licenseType: Store
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 100100000
+DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -13,5 +11,5 @@ AssetOrigin:
   productId: 127772
   packageName: Voxel Office Props
   packageVersion: 1.0
-  assetPath: Assets/Level 1 assets/Level1Prefabs/desk2.prefab
+  assetPath: Assets/ADI/Voxel Office Props/Vox Files/fillingCabinetNoDraws.vox
   uploadId: 267845

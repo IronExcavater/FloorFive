@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 70e696659d8e2a643b9641b8b2437910
-timeCreated: 1536047479
+guid: 34bae1490d55ab64db70e07599ca8ca8
+timeCreated: 1536048622
 licenseType: Store
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: desk2
+    100000: fillingCabinetDraw
     100002: //RootNode
-    400000: desk2
+    400000: fillingCabinetDraw
     400002: //RootNode
-    2300000: desk2
-    3300000: desk2
-    4300000: desk2
+    2300000: fillingCabinetDraw
+    3300000: fillingCabinetDraw
+    4300000: fillingCabinetDraw
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: desk2Mat
-    second: {fileID: 2100000, guid: 08d31c7f73b6ec842a4dc03facfbc528, type: 2}
+      name: fillingCabinetDrawMat
+    second: {fileID: 2100000, guid: 4a557f2f79ca00d4b94806ba0bf73c62, type: 2}
   materials:
     importMaterials: 0
     materialName: 0
@@ -47,7 +47,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.02
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -100,5 +100,5 @@ AssetOrigin:
   productId: 127772
   packageName: Voxel Office Props
   packageVersion: 1.0
-  assetPath: Assets/Level 1 assets/Level1Prefabs/desk2.obj
+  assetPath: Assets/ADI/Voxel Office Props/Models/fillingCabinetDraw.obj
   uploadId: 267845
