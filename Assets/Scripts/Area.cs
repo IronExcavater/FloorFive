@@ -1,62 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using UnityEngine;
+//using Random = UnityEngine.Random;
 
-public class Area : MonoBehaviour
-{
-    public List<Connector> connectors;
+//public class Area : MonoBehaviour
+//{
+//    public List<Connector> connectors;
 
-    private bool _isViewed;
-    public Action<bool> OnViewChange;
-    public bool IsViewed
-    {
-        get => _isViewed;
-        private set
-        {
-            if (_isViewed == value) return;
-            _isViewed = value;
-            OnViewChange?.Invoke(value);
-        }
-    }
+//    private bool _isViewed;
+//    public Action<bool> OnViewChange;
+//    public bool IsViewed
+//    {
+//        get => _isViewed;
+//        private set
+//        {
+//            if (_isViewed == value) return;
+//            _isViewed = value;
+//            OnViewChange?.Invoke(value);
+//        }
+//    }
 
-    protected virtual void Awake()
-    {
-        connectors = GetComponentsInChildren<Connector>().ToList();
+//    protected virtual void Awake()
+//    {
+//        connectors = GetComponentsInChildren<Connector>().ToList();
 
-        OnViewChange += isViewed =>
-        {
-            if (!isViewed) GameManager.DeleteArea(this);
-        };
-    }
+//        OnViewChange += isViewed =>
+//        {
+//            if (!isViewed) GameManager.DeleteArea(this);
+//        };
+//    }
 
-    private void Update()
-    {
-        var camera = Camera.main;
-        if (camera == null) return;
+//    private void Update()
+//    {
+//        var camera = Camera.main;
+//        if (camera == null) return;
 
-        var roomViewed = false;
-        connectors.ForEach(connector =>
-        {
-            if (!connector.IsViewed) return;
-            if (connector.connection == null) GameManager.CreateArea(this, connector);
-            roomViewed = true;
-        });
+//        var roomViewed = false;
+//        connectors.ForEach(connector =>
+//        {
+//            if (!connector.IsViewed) return;
+//            if (connector.connection == null) GameManager.CreateArea(this, connector);
+//            roomViewed = true;
+//        });
 
-        IsViewed = roomViewed || Vector3.Distance(camera.transform.position, transform.position) < 10;
-    }
+//        IsViewed = roomViewed || Vector3.Distance(camera.transform.position, transform.position) < 10;
+//    }
     
-    public Connector GetRandomConnector()
-    {
-        return connectors[Random.Range(0, connectors.Count)];
-    }
+//    public Connector GetRandomConnector()
+//    {
+//        return connectors[Random.Range(0, connectors.Count)];
+//    }
 
-    public Connector GetClosestConnector()
-    {
-        var camera = Camera.main;
-        if (camera == null) return connectors[0];
+//    public Connector GetClosestConnector()
+//    {
+//        var camera = Camera.main;
+//        if (camera == null) return connectors[0];
         
-        return connectors.OrderBy(connector => Vector3.Distance(connector.transform.position, camera.transform.position)).First();
-    }
-}
+//        return connectors.OrderBy(connector => Vector3.Distance(connector.transform.position, camera.transform.position)).First();
+//    }
+//}

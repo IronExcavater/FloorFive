@@ -1829,6 +1829,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987219649490763639, guid: 498a4692dee42aa499a1d7844469a777, type: 3}
       propertyPath: levelTrans
       value: 
       objectReference: {fileID: 1340474426}
