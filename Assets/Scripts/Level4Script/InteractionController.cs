@@ -6,13 +6,14 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactDistance = 3f;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private GameObject promptPanelPrefab; // 이름 변경 (명확하게)
+    [SerializeField] private GameObject promptPanelPrefab;
     [SerializeField] private Text promptText;
     [SerializeField] private Color highlightColor = Color.green;
 
     private IInteractable currentTarget;
     private IInteractable previousTarget;
-    private GameObject promptPanelInstance; // 이름 변경
+    private GameObject promptPanelInstance;
+    private CanvasGroup promptCanvasGroup;
 
     void Update()
     {
@@ -25,7 +26,13 @@ public class InteractionController : MonoBehaviour
         if (promptPanelInstance == null)
         {
             promptPanelInstance = Instantiate(promptPanelPrefab, transform.position, Quaternion.identity);
+            promptCanvasGroup = promptPanelInstance.GetComponent<CanvasGroup>();
+            if (promptCanvasGroup == null)
+            {
+                promptCanvasGroup = promptPanelInstance.AddComponent<CanvasGroup>(); // 없으면 추가
+            }
         }
+
         promptPanelInstance.SetActive(true);
     }
 
@@ -45,10 +52,23 @@ public class InteractionController : MonoBehaviour
             var interactable = hit.collider.GetComponent<IInteractable>();
             if (interactable != null && interactable.CanInteract)
             {
-                UpdateCurrentTarget(interactable);
-                return;
+                float distanceToInteractable = Vector3.Distance(playerCamera.transform.position, hit.point);
+
+                if (distanceToInteractable <= interactDistance)
+                {
+                    UpdateCurrentTarget(interactable);
+
+                    if (promptCanvasGroup != null)
+                    {
+                        float alpha = 1f - (distanceToInteractable / interactDistance);
+                        promptCanvasGroup.alpha = Mathf.Clamp01(alpha);
+                    }
+
+                    return;
+                }
             }
         }
+
         ClearCurrentTarget();
     }
 
@@ -62,7 +82,10 @@ public class InteractionController : MonoBehaviour
             currentTarget.OnStartHighlight(highlightColor);
 
             ShowPromptPanel();
-            promptText.text = currentTarget.InteractMessage;
+            if (promptText != null)
+            {
+                promptText.text = currentTarget.InteractMessage;
+            }
         }
     }
 
