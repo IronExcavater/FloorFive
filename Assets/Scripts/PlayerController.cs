@@ -1,4 +1,5 @@
 using HomebrewIK;
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -96,5 +97,10 @@ public class PlayerController : MonoBehaviour
         var audioSource = isRightFoot ? footIK.leftFootAudioSource : footIK.rightFootAudioSource;
         var audioClip = AudioManager.GetRandomClip(AudioManager.Audio.step);
         audioSource.PlayOneShot(audioClip);
+    }
+
+    internal void ToggleControl(bool v)
+    {
+        throw new NotImplementedException();
     }
 }
