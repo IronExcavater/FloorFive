@@ -969,7 +969,6 @@ MonoBehaviour:
   scaleShiftStrength: 0.2
   numberOfAnomalies: 20
   _affectedObjects: []
-  SceneToLoadIndex: 0
 --- !u!114 &1526508081
 MonoBehaviour:
   m_ObjectHideFlags: 0

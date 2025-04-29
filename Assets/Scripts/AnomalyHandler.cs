@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AnomalySystem : MonoBehaviour
 {
@@ -16,10 +15,6 @@ public class AnomalySystem : MonoBehaviour
 
     private Dictionary<GameObject, OriginalTransform> _originalTransforms = new();
     [SerializeField] private List<GameObject> _affectedObjects = new();
-
-    [Header("Scene Management")]
-    public int SceneToLoadIndex;
-    private int _originalAnomalyCount;
 
     [System.Serializable]
     private struct OriginalTransform
@@ -37,7 +32,6 @@ public class AnomalySystem : MonoBehaviour
             return;
         }
         StoreOriginalTransforms();
-        _originalAnomalyCount = _originalTransforms.Count;
         TriggerAnomaly();
     }
 
@@ -136,23 +130,5 @@ public class AnomalySystem : MonoBehaviour
                 _affectedObjects.RemoveAt(i);
             }
         }
-        CheckAnomalyThreshold();
-    }
-    private void CheckAnomalyThreshold()
-    {
-        if (_originalAnomalyCount == 0) return;
-
-        float currentPercentage = (float)_originalTransforms.Count / _originalAnomalyCount;
-
-        if (currentPercentage < 0.25f)
-        {
-            Debug.Log($"Loading scene: {SceneToLoadIndex}");
-            SceneManager.LoadScene(SceneToLoadIndex);
-        }
-    }
-
-    public bool IsObjectAnomalous(string objectName)
-    {
-        return _affectedObjects.Exists(obj => obj.name == objectName);
     }
 }
