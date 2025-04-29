@@ -35,10 +35,10 @@ public class CameraController : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         photoCamera.cullingMask = normalLayerMask;
 
-        // 하이라이트 머티리얼 생성
-        highlightMaterial = new Material(Shader.Find("Custom/HighlightShader"));
-        highlightMaterial.SetColor("_HighlightColor", anomalyHighlightColor);
-        highlightMaterial.SetFloat("_Intensity", highlightIntensity);
+        //// 하이라이트 머티리얼 생성
+        //highlightMaterial = new Material(Shader.Find("Custom/HighlightShader"));
+        //highlightMaterial.SetColor("_HighlightColor", anomalyHighlightColor);
+        //highlightMaterial.SetFloat("_Intensity", highlightIntensity);
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
     }
 
     void HandlePhotoInput()
-    {
+    {   //Get a mouse buttons
         if (Input.GetMouseButtonDown(0) && Time.time > lastPhotoTime + photoCooldown)
         {
             StartCoroutine(TakePhotoWithAnomalies());
