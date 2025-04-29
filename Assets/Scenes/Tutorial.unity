@@ -969,6 +969,7 @@ MonoBehaviour:
   scaleShiftStrength: 0.2
   numberOfAnomalies: 20
   _affectedObjects: []
+  SceneToLoadIndex: 0
 --- !u!114 &1526508081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,7 +1000,7 @@ PrefabInstance:
       objectReference: {fileID: 544651715}
     - target: {fileID: 1898214468010489280, guid: 81b17288e699b6544b1884ccd84ed573, type: 3}
       propertyPath: m_VersionIndex
-      value: 1000
+      value: 1003
       objectReference: {fileID: 0}
     - target: {fileID: 2699756872844454985, guid: 81b17288e699b6544b1884ccd84ed573, type: 3}
       propertyPath: m_Mesh
@@ -1067,7 +1068,7 @@ PrefabInstance:
       objectReference: {fileID: 1005861030}
     - target: {fileID: 7668432681187575315, guid: 81b17288e699b6544b1884ccd84ed573, type: 3}
       propertyPath: m_VersionIndex
-      value: 3012
+      value: 3015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
