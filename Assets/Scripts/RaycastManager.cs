@@ -41,8 +41,10 @@ public class RaycastDetector : MonoBehaviour
 
     private void PerformRaycast()
     {
-        Debug.Log("raycast");
-        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (_mainCamera == null) return;
+
+        // Create ray through center of screen (better for first-person)
+        Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
         if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance))
         {
@@ -51,7 +53,9 @@ public class RaycastDetector : MonoBehaviour
 
             if (_anomalySystem != null)
             {
-                // Check current object + 3 parent levels
+
+                _anomalySystem.RestoreSpecificObject(hitObject.name);
+
                 Transform current = hit.transform;
                 int levelsChecked = 0;
 
@@ -65,6 +69,10 @@ public class RaycastDetector : MonoBehaviour
                     levelsChecked++;
                 }
             }
+        }
+        else
+        {
+            Debug.Log("Raycast didn't hit anything");
         }
     }
 }

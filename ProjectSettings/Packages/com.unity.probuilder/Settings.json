@@ -118,8 +118,13 @@
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+<<<<<<< HEAD
                 "key": "SelectMaterial.restrictToSelectedObjects",
                 "value": "{\"m_Value\":false}"
+=======
+                "key": "editor.stripProBuilderScriptsOnBuild",
+                "value": "{\"m_Value\":true}"
+>>>>>>> 9cff1716814a56d8a1170ff561695a65535edd3a
             },
             {
                 "type": "UnityEngine.ProBuilder.SelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
