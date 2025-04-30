@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b8a8adc359eaf5c4c8794102c24d6ddb
+timeCreated: 1486326126
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 25144
+  packageName: Easy Elevator Model
+  packageVersion: 2.1
+  assetPath: Assets/Easy Elevator Model V2/Elevator/Models/Materials/elevDoors.mat
+  uploadId: 242169

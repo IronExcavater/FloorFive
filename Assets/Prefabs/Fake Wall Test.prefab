@@ -367,5 +367,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   highlightColor: {r: 0, g: 1, b: 0, a: 0.5}

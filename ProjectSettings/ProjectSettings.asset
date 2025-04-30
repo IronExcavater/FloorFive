@@ -847,6 +847,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
+    Standalone: UNITY_PIPELINE_URP
     WebGL: UNITY_PIPELINE_URP
   additionalCompilerArguments: {}
   platformArchitecture: {}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 21649005826ff4a479de25d28ecde757
+timeCreated: 1486326126
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 25144
+  packageName: Easy Elevator Model
+  packageVersion: 2.1
+  assetPath: Assets/Easy Elevator Model V2/Elevator/Models/Materials/elevDetails.mat
+  uploadId: 242169

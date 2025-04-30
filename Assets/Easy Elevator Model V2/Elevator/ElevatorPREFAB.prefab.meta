@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd695b6474465e14da6eff0d6d2dd1d5
+timeCreated: 1486345810
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 25144
+  packageName: Easy Elevator Model
+  packageVersion: 2.1
+  assetPath: Assets/Easy Elevator Model V2/Elevator/ElevatorPREFAB.prefab
+  uploadId: 242169
