@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4876850774260593520}
   - component: {fileID: 1166763975073353573}
   - component: {fileID: 9010025856907757989}
+  - component: {fileID: -6108690716274178706}
   m_Layer: 9
   m_Name: Fake Wall Test
   m_TagString: Untagged
@@ -369,3 +370,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   highlightColor: {r: 0, g: 1, b: 0, a: 0.5}
+--- !u!114 &-6108690716274178706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375457551263327235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8672af0d2ea04646b1c51babd53561f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
