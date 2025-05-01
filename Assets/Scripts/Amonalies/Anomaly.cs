@@ -33,8 +33,20 @@ public class Anomaly : MonoBehaviour
     private bool _isFixed = false;
 
     [Header("Type-Specific Settings")]
-    public ParticleSystem fireEffect;      
+    public ParticleSystem fireEffect;
 
+    public enum Trigger
+    {
+        Default,
+        AfterSeen, // Wait until seen for x seconds
+        AfterUnseen, // Wait until seen then unseen
+    }
+
+    public enum Mode
+    {
+        EndAsAnomaly,
+        BeginAsAnomaly,
+    }
 
     private void Awake()
     {
