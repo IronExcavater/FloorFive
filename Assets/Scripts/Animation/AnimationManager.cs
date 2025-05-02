@@ -4,17 +4,19 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public enum Easing
+namespace Animation
 {
-    Linear,
-    EaseInCubic,
-    EaseOutCubic,
-    EaseInOutCubic,
-    EaseOutElastic,
-    EaseOutBounce
-}
-
-public class AnimationManager : MonoBehaviour
+    public enum Easing
+    {
+        Linear,
+        EaseInCubic,
+        EaseOutCubic,
+        EaseInOutCubic,
+        EaseOutElastic,
+        EaseOutBounce
+    }
+    
+    public class AnimationManager : MonoBehaviour
 {
     private static AnimationManager _instance;
     
@@ -141,4 +143,6 @@ public class AnimationManager : MonoBehaviour
         },
         _ => t
     };
+}
+
 }

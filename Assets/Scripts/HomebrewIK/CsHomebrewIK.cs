@@ -9,7 +9,9 @@
 
 
 
-using System;       // Convert
+using System;
+using Animation;
+using Audio; // Convert
 using UnityEngine;  // Monobehaviour
 using UnityEditor;  // Handles
 
@@ -62,6 +64,23 @@ namespace HomebrewIK
         private Transform rightFootOrientationReference = null;
 
         private Vector3 initialForwardVector = new Vector3();
+
+        private void StepSFX(bool isRightFoot)
+        {
+            var audioSource = isRightFoot ? leftFootAudioSource : rightFootAudioSource;
+            var audioClip = AudioManager.GetRandomClip(AudioManager.Audio.step);
+            audioSource.PlayOneShot(audioClip);
+        }
+
+        private void OnEnable()
+        {
+            OnStep += StepSFX;
+        }
+
+        private void OnDisable()
+        {
+            OnStep -= StepSFX;
+        }
 
         public float _LengthFromHeelToToes {
             get { return lengthFromHeelToToes; }
