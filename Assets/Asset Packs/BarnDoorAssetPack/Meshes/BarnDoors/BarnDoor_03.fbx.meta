@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 3129010b4976f1e448386abf7354ced8
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272809
+  packageName: Barn Door Asset Pack
+  packageVersion: 01.0.0
+  assetPath: Assets/Asset Packs/BarnDoorAssetPack/Meshes/BarnDoors/BarnDoor_03.fbx
+  uploadId: 638823
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -48,7 +53,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 272809
-  packageName: Barn Door Asset Pack
-  packageVersion: 01.0.0
-  assetPath: Assets/Asset Packs/BarnDoorAssetPack/Meshes/BarnDoors/BarnDoor_03.fbx
-  uploadId: 638823

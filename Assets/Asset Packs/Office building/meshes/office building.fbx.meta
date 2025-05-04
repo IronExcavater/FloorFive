@@ -1,1392 +1,4133 @@
 fileFormatVersion: 2
 guid: 18cd780e6948a554a850b2d047ebf8fb
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82282
+  packageName: POLYGON office building
+  packageVersion: 1.0
+  assetPath: Assets/Enviroment/enviroment/Office building/meshes/office building.fbx
+  uploadId: 252208
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: Back entry
-    100002: Back entry RIG
-    100004: Bone
-    100006: Bone 1
-    100008: Bone 10
-    100010: Bone 11
-    100012: Bone 12
-    100014: Bone 13
-    100016: Bone 14
-    100018: Bone 15
-    100020: Bone 16
-    100022: Bone 17
-    100024: Bone 2
-    100026: Bone 3
-    100028: Bone 4
-    100030: Bone 5
-    100032: Bone 6
-    100034: Bone 7
-    100036: Bone 8
-    100038: Bone 9
-    100040: Bone.001
-    100042: Bone.001 1
-    100044: Bone.001 10
-    100046: Bone.001 2
-    100048: Bone.001 3
-    100050: Bone.001 4
-    100052: Bone.001 5
-    100054: Bone.001 6
-    100056: Bone.001 7
-    100058: Bone.001 8
-    100060: Bone.001 9
-    100062: Bone.001_end
-    100064: Bone.001_end 1
-    100066: Bone.001_end 2
-    100068: Bone.001_end 3
-    100070: Bone.001_end 4
-    100072: Bone.001_end 5
-    100074: Bone.002
-    100076: Bone.002 1
-    100078: Bone.002_end
-    100080: Bone.002_end 1
-    100082: Bone.003
-    100084: Bone.003 1
-    100086: Bone.003 2
-    100088: Bone.003 3
-    100090: Bone.003 4
-    100092: Bone.003_end
-    100094: Bone.003_end 1
-    100096: Bone.003_end 2
-    100098: Bone.003_end 3
-    100100: Bone.003_end 4
-    100102: Bone.004
-    100104: Bone.004 1
-    100106: Bone.004 2
-    100108: Bone.004 3
-    100110: Bone.004 4
-    100112: Bone.004_end
-    100114: Bone.004_end 1
-    100116: Bone.004_end 2
-    100118: Bone.004_end 3
-    100120: Bone.004_end 4
-    100122: Bone_end
-    100124: Bone_end 1
-    100126: Bone_end 10
-    100128: Bone_end 2
-    100130: Bone_end 3
-    100132: Bone_end 4
-    100134: Bone_end 5
-    100136: Bone_end 6
-    100138: Bone_end 7
-    100140: Bone_end 8
-    100142: Bone_end 9
-    100144: Door 00.7 RIG
-    100146: Door RIG.001
-    100148: Door Roof
-    100150: Door Roof RIG
-    100152: Door.001
-    100154: Door.001 RIG
-    100156: Door.002
-    100158: Door.002 RIG
-    100160: Door.003
-    100162: Door.003 RIG
-    100164: Door.004
-    100166: Door.004 RIG
-    100168: Door.005
-    100170: Door.005 RIG
-    100172: Door.006
-    100174: Door.007
-    100176: Elevator Right
-    100178: Elevator Right RIG
-    100180: Enery room door
-    100182: Enery room door RIG
-    100184: Entry door 1
-    100186: Entry door 1 RIG
-    100188: F 1
-    100190: F 1_end
-    100192: F 2
-    100194: F 2_end
-    100196: F 3
-    100198: F 3_end
-    100200: F 4
-    100202: F 4_end
-    100204: F 5
-    100206: F 5_end
-    100208: F 6
-    100210: F 6_end
-    100212: F1
-    100214: F1_end
-    100216: F2
-    100218: F2_end
-    100220: F3
-    100222: F3_end
-    100224: F4
-    100226: F4_end
-    100228: F5
-    100230: F5_end
-    100232: F6
-    100234: F6_end
-    100236: Glass
-    100238: Glass door
-    100240: Glass door RIG
-    100242: Glass door.001
-    100244: Glass door.001 RIG
-    100246: Glass door.002
-    100248: Glass door.002 RIG
-    100250: Glass door.003
-    100252: Glass door.003 RIG
-    100254: Glass door.004
-    100256: Glass door.004 RIG
-    100258: Glass door.005
-    100260: Glass door.005 RIG
-    100262: Glass door.006
-    100264: Glass door.006 RIG
-    100266: Glass.001
-    100268: Glass.002
-    100270: Glass.003
-    100272: Glass.004
-    100274: Glass.005
-    100276: Glass.006
-    100278: Glass.007
-    100280: Glass.008
-    100282: Glass.009
-    100284: Glass.010
-    100286: In door left
-    100288: In door left_end
-    100290: In door right
-    100292: In door right_end
-    100294: Metal 1
-    100296: Office building
-    100298: //RootNode
-    100300: 'Out facade 1 '
-    100302: Railing
-    100304: reception
-    100306: ventilation 1
-    100308: ventilation 2
-    100310: ventilation 3
-    100312: ventilation 4
-    100314: ventilation 6
-    100316: ventilation5
-    100318: Window
-    100320: Wood sitting
-    100322: ABC puzzle floor
-    100324: Bone 18
-    100326: Bone 19
-    100328: Bone.001 11
-    100330: Bone.001_end 6
-    100332: Bone.002 2
-    100334: Bone.002_end 2
-    100336: Bone_end 11
-    100338: Climb poles
-    100340: Computer
-    100342: Computer chair
-    100344: conference table
-    100346: Cupboard kitchen
-    100348: Cylinder
-    100350: File cupboard
-    100352: File cupboard 2
-    100354: filing A
-    100356: filing B
-    100358: Folder
-    100360: Fridge
-    100362: keyboard
-    100364: Kindergarten chair
-    100366: Kindergarten cupboard A
-    100368: Kindergarten Cupboard B
-    100370: Kindergarten picture wall
-    100372: Kindergarten table
-    100374: Kitchen Chair
-    100376: Kitchen oven
-    100378: Kitchen sink
-    100380: Kitchen Table A
-    100382: Kitchen Table B
-    100384: Lamp A
-    100386: Lamp B
-    100388: Lamp C
-    100390: Locker
-    100392: mattress
-    100394: Metal cupboard
-    100396: Mirror bath
-    100398: Office chair
-    100400: Office chair.001
-    100402: Office table
-    100404: partition wall
-    100406: phone
-    100408: Phone B
-    100410: Printer A
-    100412: securety computer screen
-    100414: Securety desk
-    100416: Securety room mouse
-    100418: Server
-    100420: shelving A
-    100422: Sign securety only
-    100424: Sink
-    100426: Storage box
-    100428: table B
-    100430: Toilet
-    100432: Toilet cabine
-    100434: Toilet cabine RIG
-    100436: Toilet RIG
-    100438: urinal
-    100440: Urinal wall
-    100442: Ventilation.001
-    100444: Building
-    100446: Floor 1
-    100448: Floor 2
-    100450: Floor 3
-    100452: Floor 4
-    100454: Floor 5
-    100456: Floor 6
-    100458: Kindergarten carpet
-    100460: Lights
-    100462: Roof
-    100464: Bone.001 12
-    100466: Bone.001 13
-    100468: Bone.001 14
-    100470: Bone.001 15
-    100472: Bone.001 16
-    100474: Bone.001 17
-    100476: Bone.001 18
-    100478: Bone.001_end 10
-    100480: Bone.001_end 11
-    100482: Bone.001_end 12
-    100484: Bone.001_end 13
-    100486: Bone.001_end 7
-    100488: Bone.001_end 8
-    100490: Bone.001_end 9
-    100492: Bone.002 10
-    100494: Bone.002 11
-    100496: Bone.002 12
-    100498: Bone.002 13
-    100500: Bone.002 3
-    100502: Bone.002 4
-    100504: Bone.002 5
-    100506: Bone.002 6
-    100508: Bone.002 7
-    100510: Bone.002 8
-    100512: Bone.002 9
-    100514: Bone.002_end 10
-    100516: Bone.002_end 11
-    100518: Bone.002_end 12
-    100520: Bone.002_end 13
-    100522: Bone.002_end 3
-    100524: Bone.002_end 4
-    100526: Bone.002_end 5
-    100528: Bone.002_end 6
-    100530: Bone.002_end 7
-    100532: Bone.002_end 8
-    100534: Bone.002_end 9
-    100536: F1.001
-    100538: F1.001_end
-    100540: Wood
-    100542: Back entry.001
-    100544: Door Roof.001
-    100546: Door.000
-    100548: Door.008
-    100550: Door.009
-    100552: Door.010
-    100554: Door.011
-    100556: Door.012
-    100558: Door.013
-    100560: Door.014
-    100562: Door.015
-    100564: Door.016
-    100566: Door.017
-    100568: Door.018
-    100570: Door.019
-    100572: Elevator Cabin
-    100574: Enery room door.001
-    100576: Entry door 1.001
-    100578: Entry door 1.002
-    100580: Glass.011
-    100582: Glass.012
-    100584: Glass.013
-    100586: Glass.014
-    100588: Glass.015
-    100590: Glass.016
-    100592: Glass.017
-    100594: Glass.018
-    100596: Glass.019
-    100598: Glass.020
-    100600: Glass.021
-    100602: Toilet cabine.001
-    100604: Toilet.001
-    100606: Toilet.002
-    100608: Bone.002 14
-    100610: Bone.002_end 14
-    100612: Back entry.002
-    100614: Door Roof.000
-    100616: Door Roof.002
-    100618: Door.020
-    100620: Door.021
-    100622: Door.022
-    100624: Door.023
-    100626: Door.024
-    100628: Door.025
-    100630: Door.026
-    100632: Door.027
-    100634: Door.028
-    100636: Door.029
-    100638: Glass door.007
-    100640: Glass door.008
-    100642: Glass door.009
-    100644: Glass door.010
-    100646: Glass door.011
-    100648: Glass door.012
-    100650: Glass door.013
-    100652: Glass door.014
-    100654: Glass door.015
-    100656: Glass door.016
-    100658: Glass door.017
-    100660: Glass door.018
-    100662: Glass door.019
-    100664: Glass door.020
-    100666: Glass door.021
-    100668: Glass door.022
-    100670: Toilet cabine.002
-    100672: F 1_end_end
-    100674: F 2_end_end
-    100676: F 3_end_end
-    100678: F 4_end_end
-    100680: F 5_end_end
-    100682: F 6_end_end
-    100684: F1.001_end_end
-    100686: F1_end_end
-    100688: F2_end_end
-    100690: F3_end_end
-    100692: F4_end_end
-    100694: F5_end_end
-    100696: F6_end_end
-    100698: In door left_end_end
-    100700: In door right_end_end
-    400000: Back entry
-    400002: Back entry RIG
-    400004: Bone
-    400006: Bone 1
-    400008: Bone 10
-    400010: Bone 11
-    400012: Bone 12
-    400014: Bone 13
-    400016: Bone 14
-    400018: Bone 15
-    400020: Bone 16
-    400022: Bone 17
-    400024: Bone 2
-    400026: Bone 3
-    400028: Bone 4
-    400030: Bone 5
-    400032: Bone 6
-    400034: Bone 7
-    400036: Bone 8
-    400038: Bone 9
-    400040: Bone.001
-    400042: Bone.001 1
-    400044: Bone.001 10
-    400046: Bone.001 2
-    400048: Bone.001 3
-    400050: Bone.001 4
-    400052: Bone.001 5
-    400054: Bone.001 6
-    400056: Bone.001 7
-    400058: Bone.001 8
-    400060: Bone.001 9
-    400062: Bone.001_end
-    400064: Bone.001_end 1
-    400066: Bone.001_end 2
-    400068: Bone.001_end 3
-    400070: Bone.001_end 4
-    400072: Bone.001_end 5
-    400074: Bone.002
-    400076: Bone.002 1
-    400078: Bone.002_end
-    400080: Bone.002_end 1
-    400082: Bone.003
-    400084: Bone.003 1
-    400086: Bone.003 2
-    400088: Bone.003 3
-    400090: Bone.003 4
-    400092: Bone.003_end
-    400094: Bone.003_end 1
-    400096: Bone.003_end 2
-    400098: Bone.003_end 3
-    400100: Bone.003_end 4
-    400102: Bone.004
-    400104: Bone.004 1
-    400106: Bone.004 2
-    400108: Bone.004 3
-    400110: Bone.004 4
-    400112: Bone.004_end
-    400114: Bone.004_end 1
-    400116: Bone.004_end 2
-    400118: Bone.004_end 3
-    400120: Bone.004_end 4
-    400122: Bone_end
-    400124: Bone_end 1
-    400126: Bone_end 10
-    400128: Bone_end 2
-    400130: Bone_end 3
-    400132: Bone_end 4
-    400134: Bone_end 5
-    400136: Bone_end 6
-    400138: Bone_end 7
-    400140: Bone_end 8
-    400142: Bone_end 9
-    400144: Door 00.7 RIG
-    400146: Door RIG.001
-    400148: Door Roof
-    400150: Door Roof RIG
-    400152: Door.001
-    400154: Door.001 RIG
-    400156: Door.002
-    400158: Door.002 RIG
-    400160: Door.003
-    400162: Door.003 RIG
-    400164: Door.004
-    400166: Door.004 RIG
-    400168: Door.005
-    400170: Door.005 RIG
-    400172: Door.006
-    400174: Door.007
-    400176: Elevator Right
-    400178: Elevator Right RIG
-    400180: Enery room door
-    400182: Enery room door RIG
-    400184: Entry door 1
-    400186: Entry door 1 RIG
-    400188: F 1
-    400190: F 1_end
-    400192: F 2
-    400194: F 2_end
-    400196: F 3
-    400198: F 3_end
-    400200: F 4
-    400202: F 4_end
-    400204: F 5
-    400206: F 5_end
-    400208: F 6
-    400210: F 6_end
-    400212: F1
-    400214: F1_end
-    400216: F2
-    400218: F2_end
-    400220: F3
-    400222: F3_end
-    400224: F4
-    400226: F4_end
-    400228: F5
-    400230: F5_end
-    400232: F6
-    400234: F6_end
-    400236: Glass
-    400238: Glass door
-    400240: Glass door RIG
-    400242: Glass door.001
-    400244: Glass door.001 RIG
-    400246: Glass door.002
-    400248: Glass door.002 RIG
-    400250: Glass door.003
-    400252: Glass door.003 RIG
-    400254: Glass door.004
-    400256: Glass door.004 RIG
-    400258: Glass door.005
-    400260: Glass door.005 RIG
-    400262: Glass door.006
-    400264: Glass door.006 RIG
-    400266: Glass.001
-    400268: Glass.002
-    400270: Glass.003
-    400272: Glass.004
-    400274: Glass.005
-    400276: Glass.006
-    400278: Glass.007
-    400280: Glass.008
-    400282: Glass.009
-    400284: Glass.010
-    400286: In door left
-    400288: In door left_end
-    400290: In door right
-    400292: In door right_end
-    400294: Metal 1
-    400296: Office building
-    400298: //RootNode
-    400300: 'Out facade 1 '
-    400302: Railing
-    400304: reception
-    400306: ventilation 1
-    400308: ventilation 2
-    400310: ventilation 3
-    400312: ventilation 4
-    400314: ventilation 6
-    400316: ventilation5
-    400318: Window
-    400320: Wood sitting
-    400322: ABC puzzle floor
-    400324: Bone 18
-    400326: Bone 19
-    400328: Bone.001 11
-    400330: Bone.001_end 6
-    400332: Bone.002 2
-    400334: Bone.002_end 2
-    400336: Bone_end 11
-    400338: Climb poles
-    400340: Computer
-    400342: Computer chair
-    400344: conference table
-    400346: Cupboard kitchen
-    400348: Cylinder
-    400350: File cupboard
-    400352: File cupboard 2
-    400354: filing A
-    400356: filing B
-    400358: Folder
-    400360: Fridge
-    400362: keyboard
-    400364: Kindergarten chair
-    400366: Kindergarten cupboard A
-    400368: Kindergarten Cupboard B
-    400370: Kindergarten picture wall
-    400372: Kindergarten table
-    400374: Kitchen Chair
-    400376: Kitchen oven
-    400378: Kitchen sink
-    400380: Kitchen Table A
-    400382: Kitchen Table B
-    400384: Lamp A
-    400386: Lamp B
-    400388: Lamp C
-    400390: Locker
-    400392: mattress
-    400394: Metal cupboard
-    400396: Mirror bath
-    400398: Office chair
-    400400: Office chair.001
-    400402: Office table
-    400404: partition wall
-    400406: phone
-    400408: Phone B
-    400410: Printer A
-    400412: securety computer screen
-    400414: Securety desk
-    400416: Securety room mouse
-    400418: Server
-    400420: shelving A
-    400422: Sign securety only
-    400424: Sink
-    400426: Storage box
-    400428: table B
-    400430: Toilet
-    400432: Toilet cabine
-    400434: Toilet cabine RIG
-    400436: Toilet RIG
-    400438: urinal
-    400440: Urinal wall
-    400442: Ventilation.001
-    400444: Building
-    400446: Floor 1
-    400448: Floor 2
-    400450: Floor 3
-    400452: Floor 4
-    400454: Floor 5
-    400456: Floor 6
-    400458: Kindergarten carpet
-    400460: Lights
-    400462: Roof
-    400464: Bone.001 12
-    400466: Bone.001 13
-    400468: Bone.001 14
-    400470: Bone.001 15
-    400472: Bone.001 16
-    400474: Bone.001 17
-    400476: Bone.001 18
-    400478: Bone.001_end 10
-    400480: Bone.001_end 11
-    400482: Bone.001_end 12
-    400484: Bone.001_end 13
-    400486: Bone.001_end 7
-    400488: Bone.001_end 8
-    400490: Bone.001_end 9
-    400492: Bone.002 10
-    400494: Bone.002 11
-    400496: Bone.002 12
-    400498: Bone.002 13
-    400500: Bone.002 3
-    400502: Bone.002 4
-    400504: Bone.002 5
-    400506: Bone.002 6
-    400508: Bone.002 7
-    400510: Bone.002 8
-    400512: Bone.002 9
-    400514: Bone.002_end 10
-    400516: Bone.002_end 11
-    400518: Bone.002_end 12
-    400520: Bone.002_end 13
-    400522: Bone.002_end 3
-    400524: Bone.002_end 4
-    400526: Bone.002_end 5
-    400528: Bone.002_end 6
-    400530: Bone.002_end 7
-    400532: Bone.002_end 8
-    400534: Bone.002_end 9
-    400536: F1.001
-    400538: F1.001_end
-    400540: Wood
-    400542: Back entry.001
-    400544: Door Roof.001
-    400546: Door.000
-    400548: Door.008
-    400550: Door.009
-    400552: Door.010
-    400554: Door.011
-    400556: Door.012
-    400558: Door.013
-    400560: Door.014
-    400562: Door.015
-    400564: Door.016
-    400566: Door.017
-    400568: Door.018
-    400570: Door.019
-    400572: Elevator Cabin
-    400574: Enery room door.001
-    400576: Entry door 1.001
-    400578: Entry door 1.002
-    400580: Glass.011
-    400582: Glass.012
-    400584: Glass.013
-    400586: Glass.014
-    400588: Glass.015
-    400590: Glass.016
-    400592: Glass.017
-    400594: Glass.018
-    400596: Glass.019
-    400598: Glass.020
-    400600: Glass.021
-    400602: Toilet cabine.001
-    400604: Toilet.001
-    400606: Toilet.002
-    400608: Bone.002 14
-    400610: Bone.002_end 14
-    400612: Back entry.002
-    400614: Door Roof.000
-    400616: Door Roof.002
-    400618: Door.020
-    400620: Door.021
-    400622: Door.022
-    400624: Door.023
-    400626: Door.024
-    400628: Door.025
-    400630: Door.026
-    400632: Door.027
-    400634: Door.028
-    400636: Door.029
-    400638: Glass door.007
-    400640: Glass door.008
-    400642: Glass door.009
-    400644: Glass door.010
-    400646: Glass door.011
-    400648: Glass door.012
-    400650: Glass door.013
-    400652: Glass door.014
-    400654: Glass door.015
-    400656: Glass door.016
-    400658: Glass door.017
-    400660: Glass door.018
-    400662: Glass door.019
-    400664: Glass door.020
-    400666: Glass door.021
-    400668: Glass door.022
-    400670: Toilet cabine.002
-    400672: F 1_end_end
-    400674: F 2_end_end
-    400676: F 3_end_end
-    400678: F 4_end_end
-    400680: F 5_end_end
-    400682: F 6_end_end
-    400684: F1.001_end_end
-    400686: F1_end_end
-    400688: F2_end_end
-    400690: F3_end_end
-    400692: F4_end_end
-    400694: F5_end_end
-    400696: F6_end_end
-    400698: In door left_end_end
-    400700: In door right_end_end
-    2100000: Default
-    2100002: No Name
-    2100004: Cement 2
-    2100006: Material.010
-    2100008: Material.005
-    2100010: Material.008
-    2100012: Material.009
-    2100014: Material.007
-    2100016: Material.006
-    2100018: Material.001
-    2100020: Material.002
-    2100022: Material
-    2100024: Facade 2
-    2100026: concrete
-    2100028: Wall
-    2100030: A
-    2100032: Floor Tiles
-    2100034: cement
-    2100036: Roof  1
-    2100038: Roof 2
-    2100040: Floor 2
-    2100042: carpet
-    2100044: Cover tile
-    2100046: Toilet Wall
-    2100048: Toilet floor
-    2100050: Wood cover
-    2100052: Material.004
-    2100054: Material.003
-    2100056: Material.011
-    2100058: Material.060
-    2100060: Material.059
-    2100062: Material.058
-    2100064: Material.057
-    2100066: Material.056
-    2100068: Material.055
-    2100070: Material.054
-    2100072: Material.053
-    2100074: Material.051
-    2100076: Material.050
-    2100078: Material.049
-    2100080: Material.048
-    2100082: Material.052
-    2100084: Material.046
-    2100086: Material.045
-    2100088: Material.044
-    2100090: Material.043
-    2100092: Material.042
-    2100094: Material.041
-    2100096: Material.040
-    2100098: Material.039
-    2100100: Material.038
-    2100102: Material.037
-    2100104: Material.036
-    2100106: Material.035
-    2100108: Material.034
-    2100110: Material.033
-    2100112: Material.032
-    2100114: Material.031
-    2100116: Material.016
-    2100118: Material.027
-    2100120: Material.025
-    2100122: Material.029
-    2100124: Material.028
-    2100126: Material.024
-    2100128: Material.022
-    2100130: Material.026
-    2100132: Material.023
-    2100134: Material.021
-    2100136: Material.030
-    2100138: Material.019
-    2100140: Material.020
-    2100142: Material.018
-    2100144: Material.017
-    2100146: Material.014
-    2100148: Material.013
-    2100150: Material.012
-    2100152: Material.015
-    2100154: Material.047
-    2100156: Material.061
-    2300000: Glass
-    2300002: Glass.001
-    2300004: Glass.006
-    2300006: Glass.009
-    2300008: Metal 1
-    2300010: Office building
-    2300012: 'Out facade 1 '
-    2300014: Railing
-    2300016: reception
-    2300018: ventilation 1
-    2300020: ventilation 2
-    2300022: ventilation 3
-    2300024: ventilation 4
-    2300026: ventilation 6
-    2300028: ventilation5
-    2300030: Window
-    2300032: Wood sitting
-    2300034: ABC puzzle floor
-    2300036: Climb poles
-    2300038: Computer
-    2300040: Computer chair
-    2300042: conference table
-    2300044: Cupboard kitchen
-    2300046: Cylinder
-    2300048: File cupboard
-    2300050: File cupboard 2
-    2300052: filing A
-    2300054: filing B
-    2300056: Folder
-    2300058: Fridge
-    2300060: keyboard
-    2300062: Kindergarten chair
-    2300064: Kindergarten cupboard A
-    2300066: Kindergarten Cupboard B
-    2300068: Kindergarten picture wall
-    2300070: Kindergarten table
-    2300072: Kitchen Chair
-    2300074: Kitchen oven
-    2300076: Kitchen sink
-    2300078: Kitchen Table A
-    2300080: Kitchen Table B
-    2300082: Lamp A
-    2300084: Lamp B
-    2300086: Lamp C
-    2300088: Locker
-    2300090: mattress
-    2300092: Metal cupboard
-    2300094: Mirror bath
-    2300096: Office chair
-    2300098: Office chair.001
-    2300100: Office table
-    2300102: partition wall
-    2300104: phone
-    2300106: Phone B
-    2300108: Printer A
-    2300110: securety computer screen
-    2300112: Securety desk
-    2300114: Securety room mouse
-    2300116: Server
-    2300118: shelving A
-    2300120: Sign securety only
-    2300122: Sink
-    2300124: Storage box
-    2300126: table B
-    2300128: urinal
-    2300130: Urinal wall
-    2300132: Ventilation.001
-    2300134: Building
-    2300136: Floor 1
-    2300138: Floor 2
-    2300140: Floor 3
-    2300142: Floor 4
-    2300144: Floor 5
-    2300146: Floor 6
-    2300148: Kindergarten carpet
-    2300150: Lights
-    2300152: Roof
-    2300154: Wood
-    2300156: Glass.002
-    2300158: Glass.004
-    2300160: Back entry
-    2300162: Back entry.001
-    2300164: Back entry.002
-    2300166: Door Roof.000
-    2300168: Door Roof.001
-    2300170: Door Roof.002
-    2300172: Door.000
-    2300174: Door.001
-    2300176: Door.002
-    2300178: Door.003
-    2300180: Door.004
-    2300182: Door.005
-    2300184: Door.006
-    2300186: Door.007
-    2300188: Door.008
-    2300190: Door.009
-    2300192: Door.010
-    2300194: Door.011
-    2300196: Door.012
-    2300198: Door.013
-    2300200: Door.014
-    2300202: Door.015
-    2300204: Door.016
-    2300206: Door.017
-    2300208: Door.018
-    2300210: Door.019
-    2300212: Door.020
-    2300214: Door.021
-    2300216: Door.022
-    2300218: Door.023
-    2300220: Door.024
-    2300222: Door.025
-    2300224: Door.026
-    2300226: Door.027
-    2300228: Door.028
-    2300230: Door.029
-    2300232: Enery room door
-    2300234: Enery room door.001
-    2300236: Entry door 1
-    2300238: Entry door 1.001
-    2300240: Entry door 1.002
-    2300242: Glass door
-    2300244: Glass door.001
-    2300246: Glass door.002
-    2300248: Glass door.003
-    2300250: Glass door.004
-    2300252: Glass door.005
-    2300254: Glass door.006
-    2300256: Glass door.007
-    2300258: Glass door.008
-    2300260: Glass door.009
-    2300262: Glass door.010
-    2300264: Glass door.011
-    2300266: Glass door.012
-    2300268: Glass door.013
-    2300270: Glass door.014
-    2300272: Glass door.015
-    2300274: Glass door.016
-    2300276: Glass door.017
-    2300278: Glass door.018
-    2300280: Glass door.019
-    2300282: Glass door.020
-    2300284: Glass door.021
-    2300286: Glass door.022
-    2300288: Glass.003
-    2300290: Glass.005
-    2300292: Glass.007
-    2300294: Glass.008
-    2300296: Glass.011
-    2300298: Glass.012
-    2300300: Glass.013
-    2300302: Glass.014
-    2300304: Glass.015
-    2300306: Glass.016
-    2300308: Glass.017
-    2300310: Toilet
-    2300312: Toilet cabine
-    2300314: Toilet cabine.001
-    2300316: Toilet cabine.002
-    2300318: Toilet.001
-    2300320: Toilet.002
-    2300322: Elevator Cabin
-    3300000: Glass
-    3300002: Glass.001
-    3300004: Glass.006
-    3300006: Glass.009
-    3300008: Metal 1
-    3300010: Office building
-    3300012: 'Out facade 1 '
-    3300014: Railing
-    3300016: reception
-    3300018: ventilation 1
-    3300020: ventilation 2
-    3300022: ventilation 3
-    3300024: ventilation 4
-    3300026: ventilation 6
-    3300028: ventilation5
-    3300030: Window
-    3300032: Wood sitting
-    3300034: ABC puzzle floor
-    3300036: Climb poles
-    3300038: Computer
-    3300040: Computer chair
-    3300042: conference table
-    3300044: Cupboard kitchen
-    3300046: Cylinder
-    3300048: File cupboard
-    3300050: File cupboard 2
-    3300052: filing A
-    3300054: filing B
-    3300056: Folder
-    3300058: Fridge
-    3300060: keyboard
-    3300062: Kindergarten chair
-    3300064: Kindergarten cupboard A
-    3300066: Kindergarten Cupboard B
-    3300068: Kindergarten picture wall
-    3300070: Kindergarten table
-    3300072: Kitchen Chair
-    3300074: Kitchen oven
-    3300076: Kitchen sink
-    3300078: Kitchen Table A
-    3300080: Kitchen Table B
-    3300082: Lamp A
-    3300084: Lamp B
-    3300086: Lamp C
-    3300088: Locker
-    3300090: mattress
-    3300092: Metal cupboard
-    3300094: Mirror bath
-    3300096: Office chair
-    3300098: Office chair.001
-    3300100: Office table
-    3300102: partition wall
-    3300104: phone
-    3300106: Phone B
-    3300108: Printer A
-    3300110: securety computer screen
-    3300112: Securety desk
-    3300114: Securety room mouse
-    3300116: Server
-    3300118: shelving A
-    3300120: Sign securety only
-    3300122: Sink
-    3300124: Storage box
-    3300126: table B
-    3300128: urinal
-    3300130: Urinal wall
-    3300132: Ventilation.001
-    3300134: Building
-    3300136: Floor 1
-    3300138: Floor 2
-    3300140: Floor 3
-    3300142: Floor 4
-    3300144: Floor 5
-    3300146: Floor 6
-    3300148: Kindergarten carpet
-    3300150: Lights
-    3300152: Roof
-    3300154: Wood
-    3300156: Glass.002
-    3300158: Glass.004
-    3300160: Back entry
-    3300162: Back entry.001
-    3300164: Back entry.002
-    3300166: Door Roof.000
-    3300168: Door Roof.001
-    3300170: Door Roof.002
-    3300172: Door.000
-    3300174: Door.001
-    3300176: Door.002
-    3300178: Door.003
-    3300180: Door.004
-    3300182: Door.005
-    3300184: Door.006
-    3300186: Door.007
-    3300188: Door.008
-    3300190: Door.009
-    3300192: Door.010
-    3300194: Door.011
-    3300196: Door.012
-    3300198: Door.013
-    3300200: Door.014
-    3300202: Door.015
-    3300204: Door.016
-    3300206: Door.017
-    3300208: Door.018
-    3300210: Door.019
-    3300212: Door.020
-    3300214: Door.021
-    3300216: Door.022
-    3300218: Door.023
-    3300220: Door.024
-    3300222: Door.025
-    3300224: Door.026
-    3300226: Door.027
-    3300228: Door.028
-    3300230: Door.029
-    3300232: Enery room door
-    3300234: Enery room door.001
-    3300236: Entry door 1
-    3300238: Entry door 1.001
-    3300240: Entry door 1.002
-    3300242: Glass door
-    3300244: Glass door.001
-    3300246: Glass door.002
-    3300248: Glass door.003
-    3300250: Glass door.004
-    3300252: Glass door.005
-    3300254: Glass door.006
-    3300256: Glass door.007
-    3300258: Glass door.008
-    3300260: Glass door.009
-    3300262: Glass door.010
-    3300264: Glass door.011
-    3300266: Glass door.012
-    3300268: Glass door.013
-    3300270: Glass door.014
-    3300272: Glass door.015
-    3300274: Glass door.016
-    3300276: Glass door.017
-    3300278: Glass door.018
-    3300280: Glass door.019
-    3300282: Glass door.020
-    3300284: Glass door.021
-    3300286: Glass door.022
-    3300288: Glass.003
-    3300290: Glass.005
-    3300292: Glass.007
-    3300294: Glass.008
-    3300296: Glass.011
-    3300298: Glass.012
-    3300300: Glass.013
-    3300302: Glass.014
-    3300304: Glass.015
-    3300306: Glass.016
-    3300308: Glass.017
-    3300310: Toilet
-    3300312: Toilet cabine
-    3300314: Toilet cabine.001
-    3300316: Toilet cabine.002
-    3300318: Toilet.001
-    3300320: Toilet.002
-    3300322: Elevator Cabin
-    4300000: Back entry
-    4300002: Glass.010
-    4300004: Glass door.006
-    4300006: Door Roof
-    4300008: Enery room door
-    4300010: Door.003
-    4300012: Door.004
-    4300014: Glass.008
-    4300016: Glass door.004
-    4300018: Door.001
-    4300020: Glass.007
-    4300022: Glass door.005
-    4300024: Glass.005
-    4300026: Glass door
-    4300028: Glass.003
-    4300030: Glass door.003
-    4300032: Door.002
-    4300034: Door.005
-    4300036: Door.007
-    4300038: Glass.004
-    4300040: Glass door.001
-    4300042: Door.006
-    4300044: Glass.002
-    4300046: Glass door.002
-    4300048: Entry door 1
-    4300050: Window
-    4300052: Elevator Right
-    4300054: ventilation 2
-    4300056: ventilation 3
-    4300058: ventilation 4
-    4300060: ventilation5
-    4300062: ventilation 6
-    4300064: ventilation 1
-    4300066: Railing
-    4300068: Metal 1
-    4300070: 'Out facade 1 '
-    4300072: Glass.006
-    4300074: Glass
-    4300076: Glass.001
-    4300078: Glass.009
-    4300080: Office building
-    4300082: Wood sitting
-    4300084: reception
-    4300086: File cupboard 2
-    4300088: Ventilation.001
-    4300090: File cupboard
-    4300092: Office chair.001
-    4300094: conference table
-    4300096: partition wall
-    4300098: Computer
-    4300100: table B
-    4300102: Mirror bath
-    4300104: Urinal wall
-    4300106: urinal
-    4300108: Toilet cabine
-    4300110: Toilet
-    4300112: Sink
-    4300114: Locker
-    4300116: Metal cupboard
-    4300118: Office chair
-    4300120: Office table
-    4300122: mattress
-    4300124: Climb poles
-    4300126: Cylinder
-    4300128: Kindergarten picture wall
-    4300130: Kindergarten chair
-    4300132: Kindergarten table
-    4300134: Kindergarten Cupboard B
-    4300136: Kindergarten cupboard A
-    4300138: ABC puzzle floor
-    4300140: Storage box
-    4300142: shelving A
-    4300144: Sign securety only
-    4300146: Server
-    4300148: Computer chair
-    4300150: filing B
-    4300152: Printer A
-    4300154: filing A
-    4300156: Folder
-    4300158: Securety room mouse
-    4300160: phone
-    4300162: keyboard
-    4300164: securety computer screen
-    4300166: Securety desk
-    4300168: Kitchen Chair
-    4300170: Kitchen Table B
-    4300172: Kitchen oven
-    4300174: Cupboard kitchen
-    4300176: Kitchen sink
-    4300178: Kitchen Table A
-    4300180: Lamp C
-    4300182: Lamp B
-    4300184: Lamp A
-    4300186: Fridge
-    4300188: Phone B
-    4300190: Lights
-    4300192: Roof
-    4300194: Floor 6
-    4300196: Floor 5
-    4300198: Floor 4
-    4300200: Floor 3
-    4300202: Floor 2
-    4300204: Floor 1
-    4300206: Building
-    4300208: Kindergarten carpet
-    4300210: Wood
-    4300212: Back entry.001
-    4300214: Door.015
-    4300216: Door.014
-    4300218: Door.009
-    4300220: Door Roof.001
-    4300222: Door.013
-    4300224: Door.012
-    4300226: Door.011
-    4300228: Door.010
-    4300230: Door.017
-    4300232: Door.016
-    4300234: Door.019
-    4300236: Door.018
-    4300238: Door.008
-    4300240: Door.000
-    4300242: Elevator Cabin
-    4300244: Enery room door.001
-    4300246: Entry door 1.002
-    4300248: Entry door 1.001
-    4300250: Glass.018
-    4300252: Glass.017
-    4300254: Glass.014
-    4300256: Glass.013
-    4300258: Glass.012
-    4300260: Glass.011
-    4300262: Glass.020
-    4300264: Glass.019
-    4300266: Glass.015
-    4300268: Glass.016
-    4300270: Glass.021
-    4300272: Toilet.002
-    4300274: Toilet.001
-    4300276: Toilet cabine.001
-    4300278: Glass door.008
-    4300280: Glass door.007
-    4300282: Glass door.009
-    4300284: Back entry.002
-    4300286: Door Roof.000
-    4300288: Door Roof.002
-    4300290: Door.025
-    4300292: Door.024
-    4300294: Door.023
-    4300296: Door.022
-    4300298: Door.026
-    4300300: Door.027
-    4300302: Door.029
-    4300304: Door.028
-    4300306: Door.021
-    4300308: Door.020
-    4300310: Glass door.015
-    4300312: Glass door.014
-    4300314: Glass door.012
-    4300316: Glass door.010
-    4300318: Glass door.011
-    4300320: Glass door.013
-    4300322: Glass door.019
-    4300324: Glass door.017
-    4300326: Glass door.018
-    4300328: Glass door.016
-    4300330: Glass door.021
-    4300332: Glass door.022
-    4300334: Glass door.020
-    4300336: Toilet cabine.002
-    7400000: Elevator Right RIG|Elevator inside Close
-    7400002: Elevator Right RIG|Elevator inside Open
-    7400004: Elevator Right RIG|Floor 1 Close
-    7400006: Elevator Right RIG|Floor 1 Open
-    7400008: Elevator Right RIG|Floor 2 Close
-    7400010: Elevator Right RIG|Floor 2 Open
-    7400012: Elevator Right RIG|Floor 3 Close
-    7400014: Elevator Right RIG|Floor 3 Open
-    7400016: Elevator Right RIG|Floor 4 close
-    7400018: Elevator Right RIG|Floor 4 Open
-    7400020: Elevator Right RIG|Floor 5 Close
-    7400022: Elevator Right RIG|Floor 5 Open
-    7400024: Elevator Right RIG|Floor 6 Close
-    7400026: Elevator Right RIG|Floor 6 Close.001
-    7400028: Elevator Right RIG|Floor 6 Open
-    7400030: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Elevator inside
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Back entry
+  - first:
+      1: 100002
+    second: Back entry RIG
+  - first:
+      1: 100004
+    second: Bone
+  - first:
+      1: 100006
+    second: Bone 1
+  - first:
+      1: 100008
+    second: Bone 10
+  - first:
+      1: 100010
+    second: Bone 11
+  - first:
+      1: 100012
+    second: Bone 12
+  - first:
+      1: 100014
+    second: Bone 13
+  - first:
+      1: 100016
+    second: Bone 14
+  - first:
+      1: 100018
+    second: Bone 15
+  - first:
+      1: 100020
+    second: Bone 16
+  - first:
+      1: 100022
+    second: Bone 17
+  - first:
+      1: 100024
+    second: Bone 2
+  - first:
+      1: 100026
+    second: Bone 3
+  - first:
+      1: 100028
+    second: Bone 4
+  - first:
+      1: 100030
+    second: Bone 5
+  - first:
+      1: 100032
+    second: Bone 6
+  - first:
+      1: 100034
+    second: Bone 7
+  - first:
+      1: 100036
+    second: Bone 8
+  - first:
+      1: 100038
+    second: Bone 9
+  - first:
+      1: 100040
+    second: Bone.001
+  - first:
+      1: 100042
+    second: Bone.001 1
+  - first:
+      1: 100044
+    second: Bone.001 10
+  - first:
+      1: 100046
+    second: Bone.001 2
+  - first:
+      1: 100048
+    second: Bone.001 3
+  - first:
+      1: 100050
+    second: Bone.001 4
+  - first:
+      1: 100052
+    second: Bone.001 5
+  - first:
+      1: 100054
+    second: Bone.001 6
+  - first:
+      1: 100056
+    second: Bone.001 7
+  - first:
+      1: 100058
+    second: Bone.001 8
+  - first:
+      1: 100060
+    second: Bone.001 9
+  - first:
+      1: 100062
+    second: Bone.001_end
+  - first:
+      1: 100064
+    second: Bone.001_end 1
+  - first:
+      1: 100066
+    second: Bone.001_end 2
+  - first:
+      1: 100068
+    second: Bone.001_end 3
+  - first:
+      1: 100070
+    second: Bone.001_end 4
+  - first:
+      1: 100072
+    second: Bone.001_end 5
+  - first:
+      1: 100074
+    second: Bone.002
+  - first:
+      1: 100076
+    second: Bone.002 1
+  - first:
+      1: 100078
+    second: Bone.002_end
+  - first:
+      1: 100080
+    second: Bone.002_end 1
+  - first:
+      1: 100082
+    second: Bone.003
+  - first:
+      1: 100084
+    second: Bone.003 1
+  - first:
+      1: 100086
+    second: Bone.003 2
+  - first:
+      1: 100088
+    second: Bone.003 3
+  - first:
+      1: 100090
+    second: Bone.003 4
+  - first:
+      1: 100092
+    second: Bone.003_end
+  - first:
+      1: 100094
+    second: Bone.003_end 1
+  - first:
+      1: 100096
+    second: Bone.003_end 2
+  - first:
+      1: 100098
+    second: Bone.003_end 3
+  - first:
+      1: 100100
+    second: Bone.003_end 4
+  - first:
+      1: 100102
+    second: Bone.004
+  - first:
+      1: 100104
+    second: Bone.004 1
+  - first:
+      1: 100106
+    second: Bone.004 2
+  - first:
+      1: 100108
+    second: Bone.004 3
+  - first:
+      1: 100110
+    second: Bone.004 4
+  - first:
+      1: 100112
+    second: Bone.004_end
+  - first:
+      1: 100114
+    second: Bone.004_end 1
+  - first:
+      1: 100116
+    second: Bone.004_end 2
+  - first:
+      1: 100118
+    second: Bone.004_end 3
+  - first:
+      1: 100120
+    second: Bone.004_end 4
+  - first:
+      1: 100122
+    second: Bone_end
+  - first:
+      1: 100124
+    second: Bone_end 1
+  - first:
+      1: 100126
+    second: Bone_end 10
+  - first:
+      1: 100128
+    second: Bone_end 2
+  - first:
+      1: 100130
+    second: Bone_end 3
+  - first:
+      1: 100132
+    second: Bone_end 4
+  - first:
+      1: 100134
+    second: Bone_end 5
+  - first:
+      1: 100136
+    second: Bone_end 6
+  - first:
+      1: 100138
+    second: Bone_end 7
+  - first:
+      1: 100140
+    second: Bone_end 8
+  - first:
+      1: 100142
+    second: Bone_end 9
+  - first:
+      1: 100144
+    second: Door 00.7 RIG
+  - first:
+      1: 100146
+    second: Door RIG.001
+  - first:
+      1: 100148
+    second: Door Roof
+  - first:
+      1: 100150
+    second: Door Roof RIG
+  - first:
+      1: 100152
+    second: Door.001
+  - first:
+      1: 100154
+    second: Door.001 RIG
+  - first:
+      1: 100156
+    second: Door.002
+  - first:
+      1: 100158
+    second: Door.002 RIG
+  - first:
+      1: 100160
+    second: Door.003
+  - first:
+      1: 100162
+    second: Door.003 RIG
+  - first:
+      1: 100164
+    second: Door.004
+  - first:
+      1: 100166
+    second: Door.004 RIG
+  - first:
+      1: 100168
+    second: Door.005
+  - first:
+      1: 100170
+    second: Door.005 RIG
+  - first:
+      1: 100172
+    second: Door.006
+  - first:
+      1: 100174
+    second: Door.007
+  - first:
+      1: 100176
+    second: Elevator Right
+  - first:
+      1: 100178
+    second: Elevator Right RIG
+  - first:
+      1: 100180
+    second: Enery room door
+  - first:
+      1: 100182
+    second: Enery room door RIG
+  - first:
+      1: 100184
+    second: Entry door 1
+  - first:
+      1: 100186
+    second: Entry door 1 RIG
+  - first:
+      1: 100188
+    second: F 1
+  - first:
+      1: 100190
+    second: F 1_end
+  - first:
+      1: 100192
+    second: F 2
+  - first:
+      1: 100194
+    second: F 2_end
+  - first:
+      1: 100196
+    second: F 3
+  - first:
+      1: 100198
+    second: F 3_end
+  - first:
+      1: 100200
+    second: F 4
+  - first:
+      1: 100202
+    second: F 4_end
+  - first:
+      1: 100204
+    second: F 5
+  - first:
+      1: 100206
+    second: F 5_end
+  - first:
+      1: 100208
+    second: F 6
+  - first:
+      1: 100210
+    second: F 6_end
+  - first:
+      1: 100212
+    second: F1
+  - first:
+      1: 100214
+    second: F1_end
+  - first:
+      1: 100216
+    second: F2
+  - first:
+      1: 100218
+    second: F2_end
+  - first:
+      1: 100220
+    second: F3
+  - first:
+      1: 100222
+    second: F3_end
+  - first:
+      1: 100224
+    second: F4
+  - first:
+      1: 100226
+    second: F4_end
+  - first:
+      1: 100228
+    second: F5
+  - first:
+      1: 100230
+    second: F5_end
+  - first:
+      1: 100232
+    second: F6
+  - first:
+      1: 100234
+    second: F6_end
+  - first:
+      1: 100236
+    second: Glass
+  - first:
+      1: 100238
+    second: Glass door
+  - first:
+      1: 100240
+    second: Glass door RIG
+  - first:
+      1: 100242
+    second: Glass door.001
+  - first:
+      1: 100244
+    second: Glass door.001 RIG
+  - first:
+      1: 100246
+    second: Glass door.002
+  - first:
+      1: 100248
+    second: Glass door.002 RIG
+  - first:
+      1: 100250
+    second: Glass door.003
+  - first:
+      1: 100252
+    second: Glass door.003 RIG
+  - first:
+      1: 100254
+    second: Glass door.004
+  - first:
+      1: 100256
+    second: Glass door.004 RIG
+  - first:
+      1: 100258
+    second: Glass door.005
+  - first:
+      1: 100260
+    second: Glass door.005 RIG
+  - first:
+      1: 100262
+    second: Glass door.006
+  - first:
+      1: 100264
+    second: Glass door.006 RIG
+  - first:
+      1: 100266
+    second: Glass.001
+  - first:
+      1: 100268
+    second: Glass.002
+  - first:
+      1: 100270
+    second: Glass.003
+  - first:
+      1: 100272
+    second: Glass.004
+  - first:
+      1: 100274
+    second: Glass.005
+  - first:
+      1: 100276
+    second: Glass.006
+  - first:
+      1: 100278
+    second: Glass.007
+  - first:
+      1: 100280
+    second: Glass.008
+  - first:
+      1: 100282
+    second: Glass.009
+  - first:
+      1: 100284
+    second: Glass.010
+  - first:
+      1: 100286
+    second: In door left
+  - first:
+      1: 100288
+    second: In door left_end
+  - first:
+      1: 100290
+    second: In door right
+  - first:
+      1: 100292
+    second: In door right_end
+  - first:
+      1: 100294
+    second: Metal 1
+  - first:
+      1: 100296
+    second: Office building
+  - first:
+      1: 100298
+    second: //RootNode
+  - first:
+      1: 100300
+    second: 'Out facade 1 '
+  - first:
+      1: 100302
+    second: Railing
+  - first:
+      1: 100304
+    second: reception
+  - first:
+      1: 100306
+    second: ventilation 1
+  - first:
+      1: 100308
+    second: ventilation 2
+  - first:
+      1: 100310
+    second: ventilation 3
+  - first:
+      1: 100312
+    second: ventilation 4
+  - first:
+      1: 100314
+    second: ventilation 6
+  - first:
+      1: 100316
+    second: ventilation5
+  - first:
+      1: 100318
+    second: Window
+  - first:
+      1: 100320
+    second: Wood sitting
+  - first:
+      1: 100322
+    second: ABC puzzle floor
+  - first:
+      1: 100324
+    second: Bone 18
+  - first:
+      1: 100326
+    second: Bone 19
+  - first:
+      1: 100328
+    second: Bone.001 11
+  - first:
+      1: 100330
+    second: Bone.001_end 6
+  - first:
+      1: 100332
+    second: Bone.002 2
+  - first:
+      1: 100334
+    second: Bone.002_end 2
+  - first:
+      1: 100336
+    second: Bone_end 11
+  - first:
+      1: 100338
+    second: Climb poles
+  - first:
+      1: 100340
+    second: Computer
+  - first:
+      1: 100342
+    second: Computer chair
+  - first:
+      1: 100344
+    second: conference table
+  - first:
+      1: 100346
+    second: Cupboard kitchen
+  - first:
+      1: 100348
+    second: Cylinder
+  - first:
+      1: 100350
+    second: File cupboard
+  - first:
+      1: 100352
+    second: File cupboard 2
+  - first:
+      1: 100354
+    second: filing A
+  - first:
+      1: 100356
+    second: filing B
+  - first:
+      1: 100358
+    second: Folder
+  - first:
+      1: 100360
+    second: Fridge
+  - first:
+      1: 100362
+    second: keyboard
+  - first:
+      1: 100364
+    second: Kindergarten chair
+  - first:
+      1: 100366
+    second: Kindergarten cupboard A
+  - first:
+      1: 100368
+    second: Kindergarten Cupboard B
+  - first:
+      1: 100370
+    second: Kindergarten picture wall
+  - first:
+      1: 100372
+    second: Kindergarten table
+  - first:
+      1: 100374
+    second: Kitchen Chair
+  - first:
+      1: 100376
+    second: Kitchen oven
+  - first:
+      1: 100378
+    second: Kitchen sink
+  - first:
+      1: 100380
+    second: Kitchen Table A
+  - first:
+      1: 100382
+    second: Kitchen Table B
+  - first:
+      1: 100384
+    second: Lamp A
+  - first:
+      1: 100386
+    second: Lamp B
+  - first:
+      1: 100388
+    second: Lamp C
+  - first:
+      1: 100390
+    second: Locker
+  - first:
+      1: 100392
+    second: mattress
+  - first:
+      1: 100394
+    second: Metal cupboard
+  - first:
+      1: 100396
+    second: Mirror bath
+  - first:
+      1: 100398
+    second: Office chair
+  - first:
+      1: 100400
+    second: Office chair.001
+  - first:
+      1: 100402
+    second: Office table
+  - first:
+      1: 100404
+    second: partition wall
+  - first:
+      1: 100406
+    second: phone
+  - first:
+      1: 100408
+    second: Phone B
+  - first:
+      1: 100410
+    second: Printer A
+  - first:
+      1: 100412
+    second: securety computer screen
+  - first:
+      1: 100414
+    second: Securety desk
+  - first:
+      1: 100416
+    second: Securety room mouse
+  - first:
+      1: 100418
+    second: Server
+  - first:
+      1: 100420
+    second: shelving A
+  - first:
+      1: 100422
+    second: Sign securety only
+  - first:
+      1: 100424
+    second: Sink
+  - first:
+      1: 100426
+    second: Storage box
+  - first:
+      1: 100428
+    second: table B
+  - first:
+      1: 100430
+    second: Toilet
+  - first:
+      1: 100432
+    second: Toilet cabine
+  - first:
+      1: 100434
+    second: Toilet cabine RIG
+  - first:
+      1: 100436
+    second: Toilet RIG
+  - first:
+      1: 100438
+    second: urinal
+  - first:
+      1: 100440
+    second: Urinal wall
+  - first:
+      1: 100442
+    second: Ventilation.001
+  - first:
+      1: 100444
+    second: Building
+  - first:
+      1: 100446
+    second: Floor 1
+  - first:
+      1: 100448
+    second: Floor 2
+  - first:
+      1: 100450
+    second: Floor 3
+  - first:
+      1: 100452
+    second: Floor 4
+  - first:
+      1: 100454
+    second: Floor 5
+  - first:
+      1: 100456
+    second: Floor 6
+  - first:
+      1: 100458
+    second: Kindergarten carpet
+  - first:
+      1: 100460
+    second: Lights
+  - first:
+      1: 100462
+    second: Roof
+  - first:
+      1: 100464
+    second: Bone.001 12
+  - first:
+      1: 100466
+    second: Bone.001 13
+  - first:
+      1: 100468
+    second: Bone.001 14
+  - first:
+      1: 100470
+    second: Bone.001 15
+  - first:
+      1: 100472
+    second: Bone.001 16
+  - first:
+      1: 100474
+    second: Bone.001 17
+  - first:
+      1: 100476
+    second: Bone.001 18
+  - first:
+      1: 100478
+    second: Bone.001_end 10
+  - first:
+      1: 100480
+    second: Bone.001_end 11
+  - first:
+      1: 100482
+    second: Bone.001_end 12
+  - first:
+      1: 100484
+    second: Bone.001_end 13
+  - first:
+      1: 100486
+    second: Bone.001_end 7
+  - first:
+      1: 100488
+    second: Bone.001_end 8
+  - first:
+      1: 100490
+    second: Bone.001_end 9
+  - first:
+      1: 100492
+    second: Bone.002 10
+  - first:
+      1: 100494
+    second: Bone.002 11
+  - first:
+      1: 100496
+    second: Bone.002 12
+  - first:
+      1: 100498
+    second: Bone.002 13
+  - first:
+      1: 100500
+    second: Bone.002 3
+  - first:
+      1: 100502
+    second: Bone.002 4
+  - first:
+      1: 100504
+    second: Bone.002 5
+  - first:
+      1: 100506
+    second: Bone.002 6
+  - first:
+      1: 100508
+    second: Bone.002 7
+  - first:
+      1: 100510
+    second: Bone.002 8
+  - first:
+      1: 100512
+    second: Bone.002 9
+  - first:
+      1: 100514
+    second: Bone.002_end 10
+  - first:
+      1: 100516
+    second: Bone.002_end 11
+  - first:
+      1: 100518
+    second: Bone.002_end 12
+  - first:
+      1: 100520
+    second: Bone.002_end 13
+  - first:
+      1: 100522
+    second: Bone.002_end 3
+  - first:
+      1: 100524
+    second: Bone.002_end 4
+  - first:
+      1: 100526
+    second: Bone.002_end 5
+  - first:
+      1: 100528
+    second: Bone.002_end 6
+  - first:
+      1: 100530
+    second: Bone.002_end 7
+  - first:
+      1: 100532
+    second: Bone.002_end 8
+  - first:
+      1: 100534
+    second: Bone.002_end 9
+  - first:
+      1: 100536
+    second: F1.001
+  - first:
+      1: 100538
+    second: F1.001_end
+  - first:
+      1: 100540
+    second: Wood
+  - first:
+      1: 100542
+    second: Back entry.001
+  - first:
+      1: 100544
+    second: Door Roof.001
+  - first:
+      1: 100546
+    second: Door.000
+  - first:
+      1: 100548
+    second: Door.008
+  - first:
+      1: 100550
+    second: Door.009
+  - first:
+      1: 100552
+    second: Door.010
+  - first:
+      1: 100554
+    second: Door.011
+  - first:
+      1: 100556
+    second: Door.012
+  - first:
+      1: 100558
+    second: Door.013
+  - first:
+      1: 100560
+    second: Door.014
+  - first:
+      1: 100562
+    second: Door.015
+  - first:
+      1: 100564
+    second: Door.016
+  - first:
+      1: 100566
+    second: Door.017
+  - first:
+      1: 100568
+    second: Door.018
+  - first:
+      1: 100570
+    second: Door.019
+  - first:
+      1: 100572
+    second: Elevator Cabin
+  - first:
+      1: 100574
+    second: Enery room door.001
+  - first:
+      1: 100576
+    second: Entry door 1.001
+  - first:
+      1: 100578
+    second: Entry door 1.002
+  - first:
+      1: 100580
+    second: Glass.011
+  - first:
+      1: 100582
+    second: Glass.012
+  - first:
+      1: 100584
+    second: Glass.013
+  - first:
+      1: 100586
+    second: Glass.014
+  - first:
+      1: 100588
+    second: Glass.015
+  - first:
+      1: 100590
+    second: Glass.016
+  - first:
+      1: 100592
+    second: Glass.017
+  - first:
+      1: 100594
+    second: Glass.018
+  - first:
+      1: 100596
+    second: Glass.019
+  - first:
+      1: 100598
+    second: Glass.020
+  - first:
+      1: 100600
+    second: Glass.021
+  - first:
+      1: 100602
+    second: Toilet cabine.001
+  - first:
+      1: 100604
+    second: Toilet.001
+  - first:
+      1: 100606
+    second: Toilet.002
+  - first:
+      1: 100608
+    second: Bone.002 14
+  - first:
+      1: 100610
+    second: Bone.002_end 14
+  - first:
+      1: 100612
+    second: Back entry.002
+  - first:
+      1: 100614
+    second: Door Roof.000
+  - first:
+      1: 100616
+    second: Door Roof.002
+  - first:
+      1: 100618
+    second: Door.020
+  - first:
+      1: 100620
+    second: Door.021
+  - first:
+      1: 100622
+    second: Door.022
+  - first:
+      1: 100624
+    second: Door.023
+  - first:
+      1: 100626
+    second: Door.024
+  - first:
+      1: 100628
+    second: Door.025
+  - first:
+      1: 100630
+    second: Door.026
+  - first:
+      1: 100632
+    second: Door.027
+  - first:
+      1: 100634
+    second: Door.028
+  - first:
+      1: 100636
+    second: Door.029
+  - first:
+      1: 100638
+    second: Glass door.007
+  - first:
+      1: 100640
+    second: Glass door.008
+  - first:
+      1: 100642
+    second: Glass door.009
+  - first:
+      1: 100644
+    second: Glass door.010
+  - first:
+      1: 100646
+    second: Glass door.011
+  - first:
+      1: 100648
+    second: Glass door.012
+  - first:
+      1: 100650
+    second: Glass door.013
+  - first:
+      1: 100652
+    second: Glass door.014
+  - first:
+      1: 100654
+    second: Glass door.015
+  - first:
+      1: 100656
+    second: Glass door.016
+  - first:
+      1: 100658
+    second: Glass door.017
+  - first:
+      1: 100660
+    second: Glass door.018
+  - first:
+      1: 100662
+    second: Glass door.019
+  - first:
+      1: 100664
+    second: Glass door.020
+  - first:
+      1: 100666
+    second: Glass door.021
+  - first:
+      1: 100668
+    second: Glass door.022
+  - first:
+      1: 100670
+    second: Toilet cabine.002
+  - first:
+      1: 100672
+    second: F 1_end_end
+  - first:
+      1: 100674
+    second: F 2_end_end
+  - first:
+      1: 100676
+    second: F 3_end_end
+  - first:
+      1: 100678
+    second: F 4_end_end
+  - first:
+      1: 100680
+    second: F 5_end_end
+  - first:
+      1: 100682
+    second: F 6_end_end
+  - first:
+      1: 100684
+    second: F1.001_end_end
+  - first:
+      1: 100686
+    second: F1_end_end
+  - first:
+      1: 100688
+    second: F2_end_end
+  - first:
+      1: 100690
+    second: F3_end_end
+  - first:
+      1: 100692
+    second: F4_end_end
+  - first:
+      1: 100694
+    second: F5_end_end
+  - first:
+      1: 100696
+    second: F6_end_end
+  - first:
+      1: 100698
+    second: In door left_end_end
+  - first:
+      1: 100700
+    second: In door right_end_end
+  - first:
+      4: 400000
+    second: Back entry
+  - first:
+      4: 400002
+    second: Back entry RIG
+  - first:
+      4: 400004
+    second: Bone
+  - first:
+      4: 400006
+    second: Bone 1
+  - first:
+      4: 400008
+    second: Bone 10
+  - first:
+      4: 400010
+    second: Bone 11
+  - first:
+      4: 400012
+    second: Bone 12
+  - first:
+      4: 400014
+    second: Bone 13
+  - first:
+      4: 400016
+    second: Bone 14
+  - first:
+      4: 400018
+    second: Bone 15
+  - first:
+      4: 400020
+    second: Bone 16
+  - first:
+      4: 400022
+    second: Bone 17
+  - first:
+      4: 400024
+    second: Bone 2
+  - first:
+      4: 400026
+    second: Bone 3
+  - first:
+      4: 400028
+    second: Bone 4
+  - first:
+      4: 400030
+    second: Bone 5
+  - first:
+      4: 400032
+    second: Bone 6
+  - first:
+      4: 400034
+    second: Bone 7
+  - first:
+      4: 400036
+    second: Bone 8
+  - first:
+      4: 400038
+    second: Bone 9
+  - first:
+      4: 400040
+    second: Bone.001
+  - first:
+      4: 400042
+    second: Bone.001 1
+  - first:
+      4: 400044
+    second: Bone.001 10
+  - first:
+      4: 400046
+    second: Bone.001 2
+  - first:
+      4: 400048
+    second: Bone.001 3
+  - first:
+      4: 400050
+    second: Bone.001 4
+  - first:
+      4: 400052
+    second: Bone.001 5
+  - first:
+      4: 400054
+    second: Bone.001 6
+  - first:
+      4: 400056
+    second: Bone.001 7
+  - first:
+      4: 400058
+    second: Bone.001 8
+  - first:
+      4: 400060
+    second: Bone.001 9
+  - first:
+      4: 400062
+    second: Bone.001_end
+  - first:
+      4: 400064
+    second: Bone.001_end 1
+  - first:
+      4: 400066
+    second: Bone.001_end 2
+  - first:
+      4: 400068
+    second: Bone.001_end 3
+  - first:
+      4: 400070
+    second: Bone.001_end 4
+  - first:
+      4: 400072
+    second: Bone.001_end 5
+  - first:
+      4: 400074
+    second: Bone.002
+  - first:
+      4: 400076
+    second: Bone.002 1
+  - first:
+      4: 400078
+    second: Bone.002_end
+  - first:
+      4: 400080
+    second: Bone.002_end 1
+  - first:
+      4: 400082
+    second: Bone.003
+  - first:
+      4: 400084
+    second: Bone.003 1
+  - first:
+      4: 400086
+    second: Bone.003 2
+  - first:
+      4: 400088
+    second: Bone.003 3
+  - first:
+      4: 400090
+    second: Bone.003 4
+  - first:
+      4: 400092
+    second: Bone.003_end
+  - first:
+      4: 400094
+    second: Bone.003_end 1
+  - first:
+      4: 400096
+    second: Bone.003_end 2
+  - first:
+      4: 400098
+    second: Bone.003_end 3
+  - first:
+      4: 400100
+    second: Bone.003_end 4
+  - first:
+      4: 400102
+    second: Bone.004
+  - first:
+      4: 400104
+    second: Bone.004 1
+  - first:
+      4: 400106
+    second: Bone.004 2
+  - first:
+      4: 400108
+    second: Bone.004 3
+  - first:
+      4: 400110
+    second: Bone.004 4
+  - first:
+      4: 400112
+    second: Bone.004_end
+  - first:
+      4: 400114
+    second: Bone.004_end 1
+  - first:
+      4: 400116
+    second: Bone.004_end 2
+  - first:
+      4: 400118
+    second: Bone.004_end 3
+  - first:
+      4: 400120
+    second: Bone.004_end 4
+  - first:
+      4: 400122
+    second: Bone_end
+  - first:
+      4: 400124
+    second: Bone_end 1
+  - first:
+      4: 400126
+    second: Bone_end 10
+  - first:
+      4: 400128
+    second: Bone_end 2
+  - first:
+      4: 400130
+    second: Bone_end 3
+  - first:
+      4: 400132
+    second: Bone_end 4
+  - first:
+      4: 400134
+    second: Bone_end 5
+  - first:
+      4: 400136
+    second: Bone_end 6
+  - first:
+      4: 400138
+    second: Bone_end 7
+  - first:
+      4: 400140
+    second: Bone_end 8
+  - first:
+      4: 400142
+    second: Bone_end 9
+  - first:
+      4: 400144
+    second: Door 00.7 RIG
+  - first:
+      4: 400146
+    second: Door RIG.001
+  - first:
+      4: 400148
+    second: Door Roof
+  - first:
+      4: 400150
+    second: Door Roof RIG
+  - first:
+      4: 400152
+    second: Door.001
+  - first:
+      4: 400154
+    second: Door.001 RIG
+  - first:
+      4: 400156
+    second: Door.002
+  - first:
+      4: 400158
+    second: Door.002 RIG
+  - first:
+      4: 400160
+    second: Door.003
+  - first:
+      4: 400162
+    second: Door.003 RIG
+  - first:
+      4: 400164
+    second: Door.004
+  - first:
+      4: 400166
+    second: Door.004 RIG
+  - first:
+      4: 400168
+    second: Door.005
+  - first:
+      4: 400170
+    second: Door.005 RIG
+  - first:
+      4: 400172
+    second: Door.006
+  - first:
+      4: 400174
+    second: Door.007
+  - first:
+      4: 400176
+    second: Elevator Right
+  - first:
+      4: 400178
+    second: Elevator Right RIG
+  - first:
+      4: 400180
+    second: Enery room door
+  - first:
+      4: 400182
+    second: Enery room door RIG
+  - first:
+      4: 400184
+    second: Entry door 1
+  - first:
+      4: 400186
+    second: Entry door 1 RIG
+  - first:
+      4: 400188
+    second: F 1
+  - first:
+      4: 400190
+    second: F 1_end
+  - first:
+      4: 400192
+    second: F 2
+  - first:
+      4: 400194
+    second: F 2_end
+  - first:
+      4: 400196
+    second: F 3
+  - first:
+      4: 400198
+    second: F 3_end
+  - first:
+      4: 400200
+    second: F 4
+  - first:
+      4: 400202
+    second: F 4_end
+  - first:
+      4: 400204
+    second: F 5
+  - first:
+      4: 400206
+    second: F 5_end
+  - first:
+      4: 400208
+    second: F 6
+  - first:
+      4: 400210
+    second: F 6_end
+  - first:
+      4: 400212
+    second: F1
+  - first:
+      4: 400214
+    second: F1_end
+  - first:
+      4: 400216
+    second: F2
+  - first:
+      4: 400218
+    second: F2_end
+  - first:
+      4: 400220
+    second: F3
+  - first:
+      4: 400222
+    second: F3_end
+  - first:
+      4: 400224
+    second: F4
+  - first:
+      4: 400226
+    second: F4_end
+  - first:
+      4: 400228
+    second: F5
+  - first:
+      4: 400230
+    second: F5_end
+  - first:
+      4: 400232
+    second: F6
+  - first:
+      4: 400234
+    second: F6_end
+  - first:
+      4: 400236
+    second: Glass
+  - first:
+      4: 400238
+    second: Glass door
+  - first:
+      4: 400240
+    second: Glass door RIG
+  - first:
+      4: 400242
+    second: Glass door.001
+  - first:
+      4: 400244
+    second: Glass door.001 RIG
+  - first:
+      4: 400246
+    second: Glass door.002
+  - first:
+      4: 400248
+    second: Glass door.002 RIG
+  - first:
+      4: 400250
+    second: Glass door.003
+  - first:
+      4: 400252
+    second: Glass door.003 RIG
+  - first:
+      4: 400254
+    second: Glass door.004
+  - first:
+      4: 400256
+    second: Glass door.004 RIG
+  - first:
+      4: 400258
+    second: Glass door.005
+  - first:
+      4: 400260
+    second: Glass door.005 RIG
+  - first:
+      4: 400262
+    second: Glass door.006
+  - first:
+      4: 400264
+    second: Glass door.006 RIG
+  - first:
+      4: 400266
+    second: Glass.001
+  - first:
+      4: 400268
+    second: Glass.002
+  - first:
+      4: 400270
+    second: Glass.003
+  - first:
+      4: 400272
+    second: Glass.004
+  - first:
+      4: 400274
+    second: Glass.005
+  - first:
+      4: 400276
+    second: Glass.006
+  - first:
+      4: 400278
+    second: Glass.007
+  - first:
+      4: 400280
+    second: Glass.008
+  - first:
+      4: 400282
+    second: Glass.009
+  - first:
+      4: 400284
+    second: Glass.010
+  - first:
+      4: 400286
+    second: In door left
+  - first:
+      4: 400288
+    second: In door left_end
+  - first:
+      4: 400290
+    second: In door right
+  - first:
+      4: 400292
+    second: In door right_end
+  - first:
+      4: 400294
+    second: Metal 1
+  - first:
+      4: 400296
+    second: Office building
+  - first:
+      4: 400298
+    second: //RootNode
+  - first:
+      4: 400300
+    second: 'Out facade 1 '
+  - first:
+      4: 400302
+    second: Railing
+  - first:
+      4: 400304
+    second: reception
+  - first:
+      4: 400306
+    second: ventilation 1
+  - first:
+      4: 400308
+    second: ventilation 2
+  - first:
+      4: 400310
+    second: ventilation 3
+  - first:
+      4: 400312
+    second: ventilation 4
+  - first:
+      4: 400314
+    second: ventilation 6
+  - first:
+      4: 400316
+    second: ventilation5
+  - first:
+      4: 400318
+    second: Window
+  - first:
+      4: 400320
+    second: Wood sitting
+  - first:
+      4: 400322
+    second: ABC puzzle floor
+  - first:
+      4: 400324
+    second: Bone 18
+  - first:
+      4: 400326
+    second: Bone 19
+  - first:
+      4: 400328
+    second: Bone.001 11
+  - first:
+      4: 400330
+    second: Bone.001_end 6
+  - first:
+      4: 400332
+    second: Bone.002 2
+  - first:
+      4: 400334
+    second: Bone.002_end 2
+  - first:
+      4: 400336
+    second: Bone_end 11
+  - first:
+      4: 400338
+    second: Climb poles
+  - first:
+      4: 400340
+    second: Computer
+  - first:
+      4: 400342
+    second: Computer chair
+  - first:
+      4: 400344
+    second: conference table
+  - first:
+      4: 400346
+    second: Cupboard kitchen
+  - first:
+      4: 400348
+    second: Cylinder
+  - first:
+      4: 400350
+    second: File cupboard
+  - first:
+      4: 400352
+    second: File cupboard 2
+  - first:
+      4: 400354
+    second: filing A
+  - first:
+      4: 400356
+    second: filing B
+  - first:
+      4: 400358
+    second: Folder
+  - first:
+      4: 400360
+    second: Fridge
+  - first:
+      4: 400362
+    second: keyboard
+  - first:
+      4: 400364
+    second: Kindergarten chair
+  - first:
+      4: 400366
+    second: Kindergarten cupboard A
+  - first:
+      4: 400368
+    second: Kindergarten Cupboard B
+  - first:
+      4: 400370
+    second: Kindergarten picture wall
+  - first:
+      4: 400372
+    second: Kindergarten table
+  - first:
+      4: 400374
+    second: Kitchen Chair
+  - first:
+      4: 400376
+    second: Kitchen oven
+  - first:
+      4: 400378
+    second: Kitchen sink
+  - first:
+      4: 400380
+    second: Kitchen Table A
+  - first:
+      4: 400382
+    second: Kitchen Table B
+  - first:
+      4: 400384
+    second: Lamp A
+  - first:
+      4: 400386
+    second: Lamp B
+  - first:
+      4: 400388
+    second: Lamp C
+  - first:
+      4: 400390
+    second: Locker
+  - first:
+      4: 400392
+    second: mattress
+  - first:
+      4: 400394
+    second: Metal cupboard
+  - first:
+      4: 400396
+    second: Mirror bath
+  - first:
+      4: 400398
+    second: Office chair
+  - first:
+      4: 400400
+    second: Office chair.001
+  - first:
+      4: 400402
+    second: Office table
+  - first:
+      4: 400404
+    second: partition wall
+  - first:
+      4: 400406
+    second: phone
+  - first:
+      4: 400408
+    second: Phone B
+  - first:
+      4: 400410
+    second: Printer A
+  - first:
+      4: 400412
+    second: securety computer screen
+  - first:
+      4: 400414
+    second: Securety desk
+  - first:
+      4: 400416
+    second: Securety room mouse
+  - first:
+      4: 400418
+    second: Server
+  - first:
+      4: 400420
+    second: shelving A
+  - first:
+      4: 400422
+    second: Sign securety only
+  - first:
+      4: 400424
+    second: Sink
+  - first:
+      4: 400426
+    second: Storage box
+  - first:
+      4: 400428
+    second: table B
+  - first:
+      4: 400430
+    second: Toilet
+  - first:
+      4: 400432
+    second: Toilet cabine
+  - first:
+      4: 400434
+    second: Toilet cabine RIG
+  - first:
+      4: 400436
+    second: Toilet RIG
+  - first:
+      4: 400438
+    second: urinal
+  - first:
+      4: 400440
+    second: Urinal wall
+  - first:
+      4: 400442
+    second: Ventilation.001
+  - first:
+      4: 400444
+    second: Building
+  - first:
+      4: 400446
+    second: Floor 1
+  - first:
+      4: 400448
+    second: Floor 2
+  - first:
+      4: 400450
+    second: Floor 3
+  - first:
+      4: 400452
+    second: Floor 4
+  - first:
+      4: 400454
+    second: Floor 5
+  - first:
+      4: 400456
+    second: Floor 6
+  - first:
+      4: 400458
+    second: Kindergarten carpet
+  - first:
+      4: 400460
+    second: Lights
+  - first:
+      4: 400462
+    second: Roof
+  - first:
+      4: 400464
+    second: Bone.001 12
+  - first:
+      4: 400466
+    second: Bone.001 13
+  - first:
+      4: 400468
+    second: Bone.001 14
+  - first:
+      4: 400470
+    second: Bone.001 15
+  - first:
+      4: 400472
+    second: Bone.001 16
+  - first:
+      4: 400474
+    second: Bone.001 17
+  - first:
+      4: 400476
+    second: Bone.001 18
+  - first:
+      4: 400478
+    second: Bone.001_end 10
+  - first:
+      4: 400480
+    second: Bone.001_end 11
+  - first:
+      4: 400482
+    second: Bone.001_end 12
+  - first:
+      4: 400484
+    second: Bone.001_end 13
+  - first:
+      4: 400486
+    second: Bone.001_end 7
+  - first:
+      4: 400488
+    second: Bone.001_end 8
+  - first:
+      4: 400490
+    second: Bone.001_end 9
+  - first:
+      4: 400492
+    second: Bone.002 10
+  - first:
+      4: 400494
+    second: Bone.002 11
+  - first:
+      4: 400496
+    second: Bone.002 12
+  - first:
+      4: 400498
+    second: Bone.002 13
+  - first:
+      4: 400500
+    second: Bone.002 3
+  - first:
+      4: 400502
+    second: Bone.002 4
+  - first:
+      4: 400504
+    second: Bone.002 5
+  - first:
+      4: 400506
+    second: Bone.002 6
+  - first:
+      4: 400508
+    second: Bone.002 7
+  - first:
+      4: 400510
+    second: Bone.002 8
+  - first:
+      4: 400512
+    second: Bone.002 9
+  - first:
+      4: 400514
+    second: Bone.002_end 10
+  - first:
+      4: 400516
+    second: Bone.002_end 11
+  - first:
+      4: 400518
+    second: Bone.002_end 12
+  - first:
+      4: 400520
+    second: Bone.002_end 13
+  - first:
+      4: 400522
+    second: Bone.002_end 3
+  - first:
+      4: 400524
+    second: Bone.002_end 4
+  - first:
+      4: 400526
+    second: Bone.002_end 5
+  - first:
+      4: 400528
+    second: Bone.002_end 6
+  - first:
+      4: 400530
+    second: Bone.002_end 7
+  - first:
+      4: 400532
+    second: Bone.002_end 8
+  - first:
+      4: 400534
+    second: Bone.002_end 9
+  - first:
+      4: 400536
+    second: F1.001
+  - first:
+      4: 400538
+    second: F1.001_end
+  - first:
+      4: 400540
+    second: Wood
+  - first:
+      4: 400542
+    second: Back entry.001
+  - first:
+      4: 400544
+    second: Door Roof.001
+  - first:
+      4: 400546
+    second: Door.000
+  - first:
+      4: 400548
+    second: Door.008
+  - first:
+      4: 400550
+    second: Door.009
+  - first:
+      4: 400552
+    second: Door.010
+  - first:
+      4: 400554
+    second: Door.011
+  - first:
+      4: 400556
+    second: Door.012
+  - first:
+      4: 400558
+    second: Door.013
+  - first:
+      4: 400560
+    second: Door.014
+  - first:
+      4: 400562
+    second: Door.015
+  - first:
+      4: 400564
+    second: Door.016
+  - first:
+      4: 400566
+    second: Door.017
+  - first:
+      4: 400568
+    second: Door.018
+  - first:
+      4: 400570
+    second: Door.019
+  - first:
+      4: 400572
+    second: Elevator Cabin
+  - first:
+      4: 400574
+    second: Enery room door.001
+  - first:
+      4: 400576
+    second: Entry door 1.001
+  - first:
+      4: 400578
+    second: Entry door 1.002
+  - first:
+      4: 400580
+    second: Glass.011
+  - first:
+      4: 400582
+    second: Glass.012
+  - first:
+      4: 400584
+    second: Glass.013
+  - first:
+      4: 400586
+    second: Glass.014
+  - first:
+      4: 400588
+    second: Glass.015
+  - first:
+      4: 400590
+    second: Glass.016
+  - first:
+      4: 400592
+    second: Glass.017
+  - first:
+      4: 400594
+    second: Glass.018
+  - first:
+      4: 400596
+    second: Glass.019
+  - first:
+      4: 400598
+    second: Glass.020
+  - first:
+      4: 400600
+    second: Glass.021
+  - first:
+      4: 400602
+    second: Toilet cabine.001
+  - first:
+      4: 400604
+    second: Toilet.001
+  - first:
+      4: 400606
+    second: Toilet.002
+  - first:
+      4: 400608
+    second: Bone.002 14
+  - first:
+      4: 400610
+    second: Bone.002_end 14
+  - first:
+      4: 400612
+    second: Back entry.002
+  - first:
+      4: 400614
+    second: Door Roof.000
+  - first:
+      4: 400616
+    second: Door Roof.002
+  - first:
+      4: 400618
+    second: Door.020
+  - first:
+      4: 400620
+    second: Door.021
+  - first:
+      4: 400622
+    second: Door.022
+  - first:
+      4: 400624
+    second: Door.023
+  - first:
+      4: 400626
+    second: Door.024
+  - first:
+      4: 400628
+    second: Door.025
+  - first:
+      4: 400630
+    second: Door.026
+  - first:
+      4: 400632
+    second: Door.027
+  - first:
+      4: 400634
+    second: Door.028
+  - first:
+      4: 400636
+    second: Door.029
+  - first:
+      4: 400638
+    second: Glass door.007
+  - first:
+      4: 400640
+    second: Glass door.008
+  - first:
+      4: 400642
+    second: Glass door.009
+  - first:
+      4: 400644
+    second: Glass door.010
+  - first:
+      4: 400646
+    second: Glass door.011
+  - first:
+      4: 400648
+    second: Glass door.012
+  - first:
+      4: 400650
+    second: Glass door.013
+  - first:
+      4: 400652
+    second: Glass door.014
+  - first:
+      4: 400654
+    second: Glass door.015
+  - first:
+      4: 400656
+    second: Glass door.016
+  - first:
+      4: 400658
+    second: Glass door.017
+  - first:
+      4: 400660
+    second: Glass door.018
+  - first:
+      4: 400662
+    second: Glass door.019
+  - first:
+      4: 400664
+    second: Glass door.020
+  - first:
+      4: 400666
+    second: Glass door.021
+  - first:
+      4: 400668
+    second: Glass door.022
+  - first:
+      4: 400670
+    second: Toilet cabine.002
+  - first:
+      4: 400672
+    second: F 1_end_end
+  - first:
+      4: 400674
+    second: F 2_end_end
+  - first:
+      4: 400676
+    second: F 3_end_end
+  - first:
+      4: 400678
+    second: F 4_end_end
+  - first:
+      4: 400680
+    second: F 5_end_end
+  - first:
+      4: 400682
+    second: F 6_end_end
+  - first:
+      4: 400684
+    second: F1.001_end_end
+  - first:
+      4: 400686
+    second: F1_end_end
+  - first:
+      4: 400688
+    second: F2_end_end
+  - first:
+      4: 400690
+    second: F3_end_end
+  - first:
+      4: 400692
+    second: F4_end_end
+  - first:
+      4: 400694
+    second: F5_end_end
+  - first:
+      4: 400696
+    second: F6_end_end
+  - first:
+      4: 400698
+    second: In door left_end_end
+  - first:
+      4: 400700
+    second: In door right_end_end
+  - first:
+      21: 2100000
+    second: Default
+  - first:
+      21: 2100002
+    second: No Name
+  - first:
+      21: 2100004
+    second: Cement 2
+  - first:
+      21: 2100006
+    second: Material.010
+  - first:
+      21: 2100008
+    second: Material.005
+  - first:
+      21: 2100010
+    second: Material.008
+  - first:
+      21: 2100012
+    second: Material.009
+  - first:
+      21: 2100014
+    second: Material.007
+  - first:
+      21: 2100016
+    second: Material.006
+  - first:
+      21: 2100018
+    second: Material.001
+  - first:
+      21: 2100020
+    second: Material.002
+  - first:
+      21: 2100022
+    second: Material
+  - first:
+      21: 2100024
+    second: Facade 2
+  - first:
+      21: 2100026
+    second: concrete
+  - first:
+      21: 2100028
+    second: Wall
+  - first:
+      21: 2100030
+    second: A
+  - first:
+      21: 2100032
+    second: Floor Tiles
+  - first:
+      21: 2100034
+    second: cement
+  - first:
+      21: 2100036
+    second: Roof  1
+  - first:
+      21: 2100038
+    second: Roof 2
+  - first:
+      21: 2100040
+    second: Floor 2
+  - first:
+      21: 2100042
+    second: carpet
+  - first:
+      21: 2100044
+    second: Cover tile
+  - first:
+      21: 2100046
+    second: Toilet Wall
+  - first:
+      21: 2100048
+    second: Toilet floor
+  - first:
+      21: 2100050
+    second: Wood cover
+  - first:
+      21: 2100052
+    second: Material.004
+  - first:
+      21: 2100054
+    second: Material.003
+  - first:
+      21: 2100056
+    second: Material.011
+  - first:
+      21: 2100058
+    second: Material.060
+  - first:
+      21: 2100060
+    second: Material.059
+  - first:
+      21: 2100062
+    second: Material.058
+  - first:
+      21: 2100064
+    second: Material.057
+  - first:
+      21: 2100066
+    second: Material.056
+  - first:
+      21: 2100068
+    second: Material.055
+  - first:
+      21: 2100070
+    second: Material.054
+  - first:
+      21: 2100072
+    second: Material.053
+  - first:
+      21: 2100074
+    second: Material.051
+  - first:
+      21: 2100076
+    second: Material.050
+  - first:
+      21: 2100078
+    second: Material.049
+  - first:
+      21: 2100080
+    second: Material.048
+  - first:
+      21: 2100082
+    second: Material.052
+  - first:
+      21: 2100084
+    second: Material.046
+  - first:
+      21: 2100086
+    second: Material.045
+  - first:
+      21: 2100088
+    second: Material.044
+  - first:
+      21: 2100090
+    second: Material.043
+  - first:
+      21: 2100092
+    second: Material.042
+  - first:
+      21: 2100094
+    second: Material.041
+  - first:
+      21: 2100096
+    second: Material.040
+  - first:
+      21: 2100098
+    second: Material.039
+  - first:
+      21: 2100100
+    second: Material.038
+  - first:
+      21: 2100102
+    second: Material.037
+  - first:
+      21: 2100104
+    second: Material.036
+  - first:
+      21: 2100106
+    second: Material.035
+  - first:
+      21: 2100108
+    second: Material.034
+  - first:
+      21: 2100110
+    second: Material.033
+  - first:
+      21: 2100112
+    second: Material.032
+  - first:
+      21: 2100114
+    second: Material.031
+  - first:
+      21: 2100116
+    second: Material.016
+  - first:
+      21: 2100118
+    second: Material.027
+  - first:
+      21: 2100120
+    second: Material.025
+  - first:
+      21: 2100122
+    second: Material.029
+  - first:
+      21: 2100124
+    second: Material.028
+  - first:
+      21: 2100126
+    second: Material.024
+  - first:
+      21: 2100128
+    second: Material.022
+  - first:
+      21: 2100130
+    second: Material.026
+  - first:
+      21: 2100132
+    second: Material.023
+  - first:
+      21: 2100134
+    second: Material.021
+  - first:
+      21: 2100136
+    second: Material.030
+  - first:
+      21: 2100138
+    second: Material.019
+  - first:
+      21: 2100140
+    second: Material.020
+  - first:
+      21: 2100142
+    second: Material.018
+  - first:
+      21: 2100144
+    second: Material.017
+  - first:
+      21: 2100146
+    second: Material.014
+  - first:
+      21: 2100148
+    second: Material.013
+  - first:
+      21: 2100150
+    second: Material.012
+  - first:
+      21: 2100152
+    second: Material.015
+  - first:
+      21: 2100154
+    second: Material.047
+  - first:
+      21: 2100156
+    second: Material.061
+  - first:
+      23: 2300000
+    second: Glass
+  - first:
+      23: 2300002
+    second: Glass.001
+  - first:
+      23: 2300004
+    second: Glass.006
+  - first:
+      23: 2300006
+    second: Glass.009
+  - first:
+      23: 2300008
+    second: Metal 1
+  - first:
+      23: 2300010
+    second: Office building
+  - first:
+      23: 2300012
+    second: 'Out facade 1 '
+  - first:
+      23: 2300014
+    second: Railing
+  - first:
+      23: 2300016
+    second: reception
+  - first:
+      23: 2300018
+    second: ventilation 1
+  - first:
+      23: 2300020
+    second: ventilation 2
+  - first:
+      23: 2300022
+    second: ventilation 3
+  - first:
+      23: 2300024
+    second: ventilation 4
+  - first:
+      23: 2300026
+    second: ventilation 6
+  - first:
+      23: 2300028
+    second: ventilation5
+  - first:
+      23: 2300030
+    second: Window
+  - first:
+      23: 2300032
+    second: Wood sitting
+  - first:
+      23: 2300034
+    second: ABC puzzle floor
+  - first:
+      23: 2300036
+    second: Climb poles
+  - first:
+      23: 2300038
+    second: Computer
+  - first:
+      23: 2300040
+    second: Computer chair
+  - first:
+      23: 2300042
+    second: conference table
+  - first:
+      23: 2300044
+    second: Cupboard kitchen
+  - first:
+      23: 2300046
+    second: Cylinder
+  - first:
+      23: 2300048
+    second: File cupboard
+  - first:
+      23: 2300050
+    second: File cupboard 2
+  - first:
+      23: 2300052
+    second: filing A
+  - first:
+      23: 2300054
+    second: filing B
+  - first:
+      23: 2300056
+    second: Folder
+  - first:
+      23: 2300058
+    second: Fridge
+  - first:
+      23: 2300060
+    second: keyboard
+  - first:
+      23: 2300062
+    second: Kindergarten chair
+  - first:
+      23: 2300064
+    second: Kindergarten cupboard A
+  - first:
+      23: 2300066
+    second: Kindergarten Cupboard B
+  - first:
+      23: 2300068
+    second: Kindergarten picture wall
+  - first:
+      23: 2300070
+    second: Kindergarten table
+  - first:
+      23: 2300072
+    second: Kitchen Chair
+  - first:
+      23: 2300074
+    second: Kitchen oven
+  - first:
+      23: 2300076
+    second: Kitchen sink
+  - first:
+      23: 2300078
+    second: Kitchen Table A
+  - first:
+      23: 2300080
+    second: Kitchen Table B
+  - first:
+      23: 2300082
+    second: Lamp A
+  - first:
+      23: 2300084
+    second: Lamp B
+  - first:
+      23: 2300086
+    second: Lamp C
+  - first:
+      23: 2300088
+    second: Locker
+  - first:
+      23: 2300090
+    second: mattress
+  - first:
+      23: 2300092
+    second: Metal cupboard
+  - first:
+      23: 2300094
+    second: Mirror bath
+  - first:
+      23: 2300096
+    second: Office chair
+  - first:
+      23: 2300098
+    second: Office chair.001
+  - first:
+      23: 2300100
+    second: Office table
+  - first:
+      23: 2300102
+    second: partition wall
+  - first:
+      23: 2300104
+    second: phone
+  - first:
+      23: 2300106
+    second: Phone B
+  - first:
+      23: 2300108
+    second: Printer A
+  - first:
+      23: 2300110
+    second: securety computer screen
+  - first:
+      23: 2300112
+    second: Securety desk
+  - first:
+      23: 2300114
+    second: Securety room mouse
+  - first:
+      23: 2300116
+    second: Server
+  - first:
+      23: 2300118
+    second: shelving A
+  - first:
+      23: 2300120
+    second: Sign securety only
+  - first:
+      23: 2300122
+    second: Sink
+  - first:
+      23: 2300124
+    second: Storage box
+  - first:
+      23: 2300126
+    second: table B
+  - first:
+      23: 2300128
+    second: urinal
+  - first:
+      23: 2300130
+    second: Urinal wall
+  - first:
+      23: 2300132
+    second: Ventilation.001
+  - first:
+      23: 2300134
+    second: Building
+  - first:
+      23: 2300136
+    second: Floor 1
+  - first:
+      23: 2300138
+    second: Floor 2
+  - first:
+      23: 2300140
+    second: Floor 3
+  - first:
+      23: 2300142
+    second: Floor 4
+  - first:
+      23: 2300144
+    second: Floor 5
+  - first:
+      23: 2300146
+    second: Floor 6
+  - first:
+      23: 2300148
+    second: Kindergarten carpet
+  - first:
+      23: 2300150
+    second: Lights
+  - first:
+      23: 2300152
+    second: Roof
+  - first:
+      23: 2300154
+    second: Wood
+  - first:
+      23: 2300156
+    second: Glass.002
+  - first:
+      23: 2300158
+    second: Glass.004
+  - first:
+      23: 2300160
+    second: Back entry
+  - first:
+      23: 2300162
+    second: Back entry.001
+  - first:
+      23: 2300164
+    second: Back entry.002
+  - first:
+      23: 2300166
+    second: Door Roof.000
+  - first:
+      23: 2300168
+    second: Door Roof.001
+  - first:
+      23: 2300170
+    second: Door Roof.002
+  - first:
+      23: 2300172
+    second: Door.000
+  - first:
+      23: 2300174
+    second: Door.001
+  - first:
+      23: 2300176
+    second: Door.002
+  - first:
+      23: 2300178
+    second: Door.003
+  - first:
+      23: 2300180
+    second: Door.004
+  - first:
+      23: 2300182
+    second: Door.005
+  - first:
+      23: 2300184
+    second: Door.006
+  - first:
+      23: 2300186
+    second: Door.007
+  - first:
+      23: 2300188
+    second: Door.008
+  - first:
+      23: 2300190
+    second: Door.009
+  - first:
+      23: 2300192
+    second: Door.010
+  - first:
+      23: 2300194
+    second: Door.011
+  - first:
+      23: 2300196
+    second: Door.012
+  - first:
+      23: 2300198
+    second: Door.013
+  - first:
+      23: 2300200
+    second: Door.014
+  - first:
+      23: 2300202
+    second: Door.015
+  - first:
+      23: 2300204
+    second: Door.016
+  - first:
+      23: 2300206
+    second: Door.017
+  - first:
+      23: 2300208
+    second: Door.018
+  - first:
+      23: 2300210
+    second: Door.019
+  - first:
+      23: 2300212
+    second: Door.020
+  - first:
+      23: 2300214
+    second: Door.021
+  - first:
+      23: 2300216
+    second: Door.022
+  - first:
+      23: 2300218
+    second: Door.023
+  - first:
+      23: 2300220
+    second: Door.024
+  - first:
+      23: 2300222
+    second: Door.025
+  - first:
+      23: 2300224
+    second: Door.026
+  - first:
+      23: 2300226
+    second: Door.027
+  - first:
+      23: 2300228
+    second: Door.028
+  - first:
+      23: 2300230
+    second: Door.029
+  - first:
+      23: 2300232
+    second: Enery room door
+  - first:
+      23: 2300234
+    second: Enery room door.001
+  - first:
+      23: 2300236
+    second: Entry door 1
+  - first:
+      23: 2300238
+    second: Entry door 1.001
+  - first:
+      23: 2300240
+    second: Entry door 1.002
+  - first:
+      23: 2300242
+    second: Glass door
+  - first:
+      23: 2300244
+    second: Glass door.001
+  - first:
+      23: 2300246
+    second: Glass door.002
+  - first:
+      23: 2300248
+    second: Glass door.003
+  - first:
+      23: 2300250
+    second: Glass door.004
+  - first:
+      23: 2300252
+    second: Glass door.005
+  - first:
+      23: 2300254
+    second: Glass door.006
+  - first:
+      23: 2300256
+    second: Glass door.007
+  - first:
+      23: 2300258
+    second: Glass door.008
+  - first:
+      23: 2300260
+    second: Glass door.009
+  - first:
+      23: 2300262
+    second: Glass door.010
+  - first:
+      23: 2300264
+    second: Glass door.011
+  - first:
+      23: 2300266
+    second: Glass door.012
+  - first:
+      23: 2300268
+    second: Glass door.013
+  - first:
+      23: 2300270
+    second: Glass door.014
+  - first:
+      23: 2300272
+    second: Glass door.015
+  - first:
+      23: 2300274
+    second: Glass door.016
+  - first:
+      23: 2300276
+    second: Glass door.017
+  - first:
+      23: 2300278
+    second: Glass door.018
+  - first:
+      23: 2300280
+    second: Glass door.019
+  - first:
+      23: 2300282
+    second: Glass door.020
+  - first:
+      23: 2300284
+    second: Glass door.021
+  - first:
+      23: 2300286
+    second: Glass door.022
+  - first:
+      23: 2300288
+    second: Glass.003
+  - first:
+      23: 2300290
+    second: Glass.005
+  - first:
+      23: 2300292
+    second: Glass.007
+  - first:
+      23: 2300294
+    second: Glass.008
+  - first:
+      23: 2300296
+    second: Glass.011
+  - first:
+      23: 2300298
+    second: Glass.012
+  - first:
+      23: 2300300
+    second: Glass.013
+  - first:
+      23: 2300302
+    second: Glass.014
+  - first:
+      23: 2300304
+    second: Glass.015
+  - first:
+      23: 2300306
+    second: Glass.016
+  - first:
+      23: 2300308
+    second: Glass.017
+  - first:
+      23: 2300310
+    second: Toilet
+  - first:
+      23: 2300312
+    second: Toilet cabine
+  - first:
+      23: 2300314
+    second: Toilet cabine.001
+  - first:
+      23: 2300316
+    second: Toilet cabine.002
+  - first:
+      23: 2300318
+    second: Toilet.001
+  - first:
+      23: 2300320
+    second: Toilet.002
+  - first:
+      23: 2300322
+    second: Elevator Cabin
+  - first:
+      33: 3300000
+    second: Glass
+  - first:
+      33: 3300002
+    second: Glass.001
+  - first:
+      33: 3300004
+    second: Glass.006
+  - first:
+      33: 3300006
+    second: Glass.009
+  - first:
+      33: 3300008
+    second: Metal 1
+  - first:
+      33: 3300010
+    second: Office building
+  - first:
+      33: 3300012
+    second: 'Out facade 1 '
+  - first:
+      33: 3300014
+    second: Railing
+  - first:
+      33: 3300016
+    second: reception
+  - first:
+      33: 3300018
+    second: ventilation 1
+  - first:
+      33: 3300020
+    second: ventilation 2
+  - first:
+      33: 3300022
+    second: ventilation 3
+  - first:
+      33: 3300024
+    second: ventilation 4
+  - first:
+      33: 3300026
+    second: ventilation 6
+  - first:
+      33: 3300028
+    second: ventilation5
+  - first:
+      33: 3300030
+    second: Window
+  - first:
+      33: 3300032
+    second: Wood sitting
+  - first:
+      33: 3300034
+    second: ABC puzzle floor
+  - first:
+      33: 3300036
+    second: Climb poles
+  - first:
+      33: 3300038
+    second: Computer
+  - first:
+      33: 3300040
+    second: Computer chair
+  - first:
+      33: 3300042
+    second: conference table
+  - first:
+      33: 3300044
+    second: Cupboard kitchen
+  - first:
+      33: 3300046
+    second: Cylinder
+  - first:
+      33: 3300048
+    second: File cupboard
+  - first:
+      33: 3300050
+    second: File cupboard 2
+  - first:
+      33: 3300052
+    second: filing A
+  - first:
+      33: 3300054
+    second: filing B
+  - first:
+      33: 3300056
+    second: Folder
+  - first:
+      33: 3300058
+    second: Fridge
+  - first:
+      33: 3300060
+    second: keyboard
+  - first:
+      33: 3300062
+    second: Kindergarten chair
+  - first:
+      33: 3300064
+    second: Kindergarten cupboard A
+  - first:
+      33: 3300066
+    second: Kindergarten Cupboard B
+  - first:
+      33: 3300068
+    second: Kindergarten picture wall
+  - first:
+      33: 3300070
+    second: Kindergarten table
+  - first:
+      33: 3300072
+    second: Kitchen Chair
+  - first:
+      33: 3300074
+    second: Kitchen oven
+  - first:
+      33: 3300076
+    second: Kitchen sink
+  - first:
+      33: 3300078
+    second: Kitchen Table A
+  - first:
+      33: 3300080
+    second: Kitchen Table B
+  - first:
+      33: 3300082
+    second: Lamp A
+  - first:
+      33: 3300084
+    second: Lamp B
+  - first:
+      33: 3300086
+    second: Lamp C
+  - first:
+      33: 3300088
+    second: Locker
+  - first:
+      33: 3300090
+    second: mattress
+  - first:
+      33: 3300092
+    second: Metal cupboard
+  - first:
+      33: 3300094
+    second: Mirror bath
+  - first:
+      33: 3300096
+    second: Office chair
+  - first:
+      33: 3300098
+    second: Office chair.001
+  - first:
+      33: 3300100
+    second: Office table
+  - first:
+      33: 3300102
+    second: partition wall
+  - first:
+      33: 3300104
+    second: phone
+  - first:
+      33: 3300106
+    second: Phone B
+  - first:
+      33: 3300108
+    second: Printer A
+  - first:
+      33: 3300110
+    second: securety computer screen
+  - first:
+      33: 3300112
+    second: Securety desk
+  - first:
+      33: 3300114
+    second: Securety room mouse
+  - first:
+      33: 3300116
+    second: Server
+  - first:
+      33: 3300118
+    second: shelving A
+  - first:
+      33: 3300120
+    second: Sign securety only
+  - first:
+      33: 3300122
+    second: Sink
+  - first:
+      33: 3300124
+    second: Storage box
+  - first:
+      33: 3300126
+    second: table B
+  - first:
+      33: 3300128
+    second: urinal
+  - first:
+      33: 3300130
+    second: Urinal wall
+  - first:
+      33: 3300132
+    second: Ventilation.001
+  - first:
+      33: 3300134
+    second: Building
+  - first:
+      33: 3300136
+    second: Floor 1
+  - first:
+      33: 3300138
+    second: Floor 2
+  - first:
+      33: 3300140
+    second: Floor 3
+  - first:
+      33: 3300142
+    second: Floor 4
+  - first:
+      33: 3300144
+    second: Floor 5
+  - first:
+      33: 3300146
+    second: Floor 6
+  - first:
+      33: 3300148
+    second: Kindergarten carpet
+  - first:
+      33: 3300150
+    second: Lights
+  - first:
+      33: 3300152
+    second: Roof
+  - first:
+      33: 3300154
+    second: Wood
+  - first:
+      33: 3300156
+    second: Glass.002
+  - first:
+      33: 3300158
+    second: Glass.004
+  - first:
+      33: 3300160
+    second: Back entry
+  - first:
+      33: 3300162
+    second: Back entry.001
+  - first:
+      33: 3300164
+    second: Back entry.002
+  - first:
+      33: 3300166
+    second: Door Roof.000
+  - first:
+      33: 3300168
+    second: Door Roof.001
+  - first:
+      33: 3300170
+    second: Door Roof.002
+  - first:
+      33: 3300172
+    second: Door.000
+  - first:
+      33: 3300174
+    second: Door.001
+  - first:
+      33: 3300176
+    second: Door.002
+  - first:
+      33: 3300178
+    second: Door.003
+  - first:
+      33: 3300180
+    second: Door.004
+  - first:
+      33: 3300182
+    second: Door.005
+  - first:
+      33: 3300184
+    second: Door.006
+  - first:
+      33: 3300186
+    second: Door.007
+  - first:
+      33: 3300188
+    second: Door.008
+  - first:
+      33: 3300190
+    second: Door.009
+  - first:
+      33: 3300192
+    second: Door.010
+  - first:
+      33: 3300194
+    second: Door.011
+  - first:
+      33: 3300196
+    second: Door.012
+  - first:
+      33: 3300198
+    second: Door.013
+  - first:
+      33: 3300200
+    second: Door.014
+  - first:
+      33: 3300202
+    second: Door.015
+  - first:
+      33: 3300204
+    second: Door.016
+  - first:
+      33: 3300206
+    second: Door.017
+  - first:
+      33: 3300208
+    second: Door.018
+  - first:
+      33: 3300210
+    second: Door.019
+  - first:
+      33: 3300212
+    second: Door.020
+  - first:
+      33: 3300214
+    second: Door.021
+  - first:
+      33: 3300216
+    second: Door.022
+  - first:
+      33: 3300218
+    second: Door.023
+  - first:
+      33: 3300220
+    second: Door.024
+  - first:
+      33: 3300222
+    second: Door.025
+  - first:
+      33: 3300224
+    second: Door.026
+  - first:
+      33: 3300226
+    second: Door.027
+  - first:
+      33: 3300228
+    second: Door.028
+  - first:
+      33: 3300230
+    second: Door.029
+  - first:
+      33: 3300232
+    second: Enery room door
+  - first:
+      33: 3300234
+    second: Enery room door.001
+  - first:
+      33: 3300236
+    second: Entry door 1
+  - first:
+      33: 3300238
+    second: Entry door 1.001
+  - first:
+      33: 3300240
+    second: Entry door 1.002
+  - first:
+      33: 3300242
+    second: Glass door
+  - first:
+      33: 3300244
+    second: Glass door.001
+  - first:
+      33: 3300246
+    second: Glass door.002
+  - first:
+      33: 3300248
+    second: Glass door.003
+  - first:
+      33: 3300250
+    second: Glass door.004
+  - first:
+      33: 3300252
+    second: Glass door.005
+  - first:
+      33: 3300254
+    second: Glass door.006
+  - first:
+      33: 3300256
+    second: Glass door.007
+  - first:
+      33: 3300258
+    second: Glass door.008
+  - first:
+      33: 3300260
+    second: Glass door.009
+  - first:
+      33: 3300262
+    second: Glass door.010
+  - first:
+      33: 3300264
+    second: Glass door.011
+  - first:
+      33: 3300266
+    second: Glass door.012
+  - first:
+      33: 3300268
+    second: Glass door.013
+  - first:
+      33: 3300270
+    second: Glass door.014
+  - first:
+      33: 3300272
+    second: Glass door.015
+  - first:
+      33: 3300274
+    second: Glass door.016
+  - first:
+      33: 3300276
+    second: Glass door.017
+  - first:
+      33: 3300278
+    second: Glass door.018
+  - first:
+      33: 3300280
+    second: Glass door.019
+  - first:
+      33: 3300282
+    second: Glass door.020
+  - first:
+      33: 3300284
+    second: Glass door.021
+  - first:
+      33: 3300286
+    second: Glass door.022
+  - first:
+      33: 3300288
+    second: Glass.003
+  - first:
+      33: 3300290
+    second: Glass.005
+  - first:
+      33: 3300292
+    second: Glass.007
+  - first:
+      33: 3300294
+    second: Glass.008
+  - first:
+      33: 3300296
+    second: Glass.011
+  - first:
+      33: 3300298
+    second: Glass.012
+  - first:
+      33: 3300300
+    second: Glass.013
+  - first:
+      33: 3300302
+    second: Glass.014
+  - first:
+      33: 3300304
+    second: Glass.015
+  - first:
+      33: 3300306
+    second: Glass.016
+  - first:
+      33: 3300308
+    second: Glass.017
+  - first:
+      33: 3300310
+    second: Toilet
+  - first:
+      33: 3300312
+    second: Toilet cabine
+  - first:
+      33: 3300314
+    second: Toilet cabine.001
+  - first:
+      33: 3300316
+    second: Toilet cabine.002
+  - first:
+      33: 3300318
+    second: Toilet.001
+  - first:
+      33: 3300320
+    second: Toilet.002
+  - first:
+      33: 3300322
+    second: Elevator Cabin
+  - first:
+      43: 4300000
+    second: Back entry
+  - first:
+      43: 4300002
+    second: Glass.010
+  - first:
+      43: 4300004
+    second: Glass door.006
+  - first:
+      43: 4300006
+    second: Door Roof
+  - first:
+      43: 4300008
+    second: Enery room door
+  - first:
+      43: 4300010
+    second: Door.003
+  - first:
+      43: 4300012
+    second: Door.004
+  - first:
+      43: 4300014
+    second: Glass.008
+  - first:
+      43: 4300016
+    second: Glass door.004
+  - first:
+      43: 4300018
+    second: Door.001
+  - first:
+      43: 4300020
+    second: Glass.007
+  - first:
+      43: 4300022
+    second: Glass door.005
+  - first:
+      43: 4300024
+    second: Glass.005
+  - first:
+      43: 4300026
+    second: Glass door
+  - first:
+      43: 4300028
+    second: Glass.003
+  - first:
+      43: 4300030
+    second: Glass door.003
+  - first:
+      43: 4300032
+    second: Door.002
+  - first:
+      43: 4300034
+    second: Door.005
+  - first:
+      43: 4300036
+    second: Door.007
+  - first:
+      43: 4300038
+    second: Glass.004
+  - first:
+      43: 4300040
+    second: Glass door.001
+  - first:
+      43: 4300042
+    second: Door.006
+  - first:
+      43: 4300044
+    second: Glass.002
+  - first:
+      43: 4300046
+    second: Glass door.002
+  - first:
+      43: 4300048
+    second: Entry door 1
+  - first:
+      43: 4300050
+    second: Window
+  - first:
+      43: 4300052
+    second: Elevator Right
+  - first:
+      43: 4300054
+    second: ventilation 2
+  - first:
+      43: 4300056
+    second: ventilation 3
+  - first:
+      43: 4300058
+    second: ventilation 4
+  - first:
+      43: 4300060
+    second: ventilation5
+  - first:
+      43: 4300062
+    second: ventilation 6
+  - first:
+      43: 4300064
+    second: ventilation 1
+  - first:
+      43: 4300066
+    second: Railing
+  - first:
+      43: 4300068
+    second: Metal 1
+  - first:
+      43: 4300070
+    second: 'Out facade 1 '
+  - first:
+      43: 4300072
+    second: Glass.006
+  - first:
+      43: 4300074
+    second: Glass
+  - first:
+      43: 4300076
+    second: Glass.001
+  - first:
+      43: 4300078
+    second: Glass.009
+  - first:
+      43: 4300080
+    second: Office building
+  - first:
+      43: 4300082
+    second: Wood sitting
+  - first:
+      43: 4300084
+    second: reception
+  - first:
+      43: 4300086
+    second: File cupboard 2
+  - first:
+      43: 4300088
+    second: Ventilation.001
+  - first:
+      43: 4300090
+    second: File cupboard
+  - first:
+      43: 4300092
+    second: Office chair.001
+  - first:
+      43: 4300094
+    second: conference table
+  - first:
+      43: 4300096
+    second: partition wall
+  - first:
+      43: 4300098
+    second: Computer
+  - first:
+      43: 4300100
+    second: table B
+  - first:
+      43: 4300102
+    second: Mirror bath
+  - first:
+      43: 4300104
+    second: Urinal wall
+  - first:
+      43: 4300106
+    second: urinal
+  - first:
+      43: 4300108
+    second: Toilet cabine
+  - first:
+      43: 4300110
+    second: Toilet
+  - first:
+      43: 4300112
+    second: Sink
+  - first:
+      43: 4300114
+    second: Locker
+  - first:
+      43: 4300116
+    second: Metal cupboard
+  - first:
+      43: 4300118
+    second: Office chair
+  - first:
+      43: 4300120
+    second: Office table
+  - first:
+      43: 4300122
+    second: mattress
+  - first:
+      43: 4300124
+    second: Climb poles
+  - first:
+      43: 4300126
+    second: Cylinder
+  - first:
+      43: 4300128
+    second: Kindergarten picture wall
+  - first:
+      43: 4300130
+    second: Kindergarten chair
+  - first:
+      43: 4300132
+    second: Kindergarten table
+  - first:
+      43: 4300134
+    second: Kindergarten Cupboard B
+  - first:
+      43: 4300136
+    second: Kindergarten cupboard A
+  - first:
+      43: 4300138
+    second: ABC puzzle floor
+  - first:
+      43: 4300140
+    second: Storage box
+  - first:
+      43: 4300142
+    second: shelving A
+  - first:
+      43: 4300144
+    second: Sign securety only
+  - first:
+      43: 4300146
+    second: Server
+  - first:
+      43: 4300148
+    second: Computer chair
+  - first:
+      43: 4300150
+    second: filing B
+  - first:
+      43: 4300152
+    second: Printer A
+  - first:
+      43: 4300154
+    second: filing A
+  - first:
+      43: 4300156
+    second: Folder
+  - first:
+      43: 4300158
+    second: Securety room mouse
+  - first:
+      43: 4300160
+    second: phone
+  - first:
+      43: 4300162
+    second: keyboard
+  - first:
+      43: 4300164
+    second: securety computer screen
+  - first:
+      43: 4300166
+    second: Securety desk
+  - first:
+      43: 4300168
+    second: Kitchen Chair
+  - first:
+      43: 4300170
+    second: Kitchen Table B
+  - first:
+      43: 4300172
+    second: Kitchen oven
+  - first:
+      43: 4300174
+    second: Cupboard kitchen
+  - first:
+      43: 4300176
+    second: Kitchen sink
+  - first:
+      43: 4300178
+    second: Kitchen Table A
+  - first:
+      43: 4300180
+    second: Lamp C
+  - first:
+      43: 4300182
+    second: Lamp B
+  - first:
+      43: 4300184
+    second: Lamp A
+  - first:
+      43: 4300186
+    second: Fridge
+  - first:
+      43: 4300188
+    second: Phone B
+  - first:
+      43: 4300190
+    second: Lights
+  - first:
+      43: 4300192
+    second: Roof
+  - first:
+      43: 4300194
+    second: Floor 6
+  - first:
+      43: 4300196
+    second: Floor 5
+  - first:
+      43: 4300198
+    second: Floor 4
+  - first:
+      43: 4300200
+    second: Floor 3
+  - first:
+      43: 4300202
+    second: Floor 2
+  - first:
+      43: 4300204
+    second: Floor 1
+  - first:
+      43: 4300206
+    second: Building
+  - first:
+      43: 4300208
+    second: Kindergarten carpet
+  - first:
+      43: 4300210
+    second: Wood
+  - first:
+      43: 4300212
+    second: Back entry.001
+  - first:
+      43: 4300214
+    second: Door.015
+  - first:
+      43: 4300216
+    second: Door.014
+  - first:
+      43: 4300218
+    second: Door.009
+  - first:
+      43: 4300220
+    second: Door Roof.001
+  - first:
+      43: 4300222
+    second: Door.013
+  - first:
+      43: 4300224
+    second: Door.012
+  - first:
+      43: 4300226
+    second: Door.011
+  - first:
+      43: 4300228
+    second: Door.010
+  - first:
+      43: 4300230
+    second: Door.017
+  - first:
+      43: 4300232
+    second: Door.016
+  - first:
+      43: 4300234
+    second: Door.019
+  - first:
+      43: 4300236
+    second: Door.018
+  - first:
+      43: 4300238
+    second: Door.008
+  - first:
+      43: 4300240
+    second: Door.000
+  - first:
+      43: 4300242
+    second: Elevator Cabin
+  - first:
+      43: 4300244
+    second: Enery room door.001
+  - first:
+      43: 4300246
+    second: Entry door 1.002
+  - first:
+      43: 4300248
+    second: Entry door 1.001
+  - first:
+      43: 4300250
+    second: Glass.018
+  - first:
+      43: 4300252
+    second: Glass.017
+  - first:
+      43: 4300254
+    second: Glass.014
+  - first:
+      43: 4300256
+    second: Glass.013
+  - first:
+      43: 4300258
+    second: Glass.012
+  - first:
+      43: 4300260
+    second: Glass.011
+  - first:
+      43: 4300262
+    second: Glass.020
+  - first:
+      43: 4300264
+    second: Glass.019
+  - first:
+      43: 4300266
+    second: Glass.015
+  - first:
+      43: 4300268
+    second: Glass.016
+  - first:
+      43: 4300270
+    second: Glass.021
+  - first:
+      43: 4300272
+    second: Toilet.002
+  - first:
+      43: 4300274
+    second: Toilet.001
+  - first:
+      43: 4300276
+    second: Toilet cabine.001
+  - first:
+      43: 4300278
+    second: Glass door.008
+  - first:
+      43: 4300280
+    second: Glass door.007
+  - first:
+      43: 4300282
+    second: Glass door.009
+  - first:
+      43: 4300284
+    second: Back entry.002
+  - first:
+      43: 4300286
+    second: Door Roof.000
+  - first:
+      43: 4300288
+    second: Door Roof.002
+  - first:
+      43: 4300290
+    second: Door.025
+  - first:
+      43: 4300292
+    second: Door.024
+  - first:
+      43: 4300294
+    second: Door.023
+  - first:
+      43: 4300296
+    second: Door.022
+  - first:
+      43: 4300298
+    second: Door.026
+  - first:
+      43: 4300300
+    second: Door.027
+  - first:
+      43: 4300302
+    second: Door.029
+  - first:
+      43: 4300304
+    second: Door.028
+  - first:
+      43: 4300306
+    second: Door.021
+  - first:
+      43: 4300308
+    second: Door.020
+  - first:
+      43: 4300310
+    second: Glass door.015
+  - first:
+      43: 4300312
+    second: Glass door.014
+  - first:
+      43: 4300314
+    second: Glass door.012
+  - first:
+      43: 4300316
+    second: Glass door.010
+  - first:
+      43: 4300318
+    second: Glass door.011
+  - first:
+      43: 4300320
+    second: Glass door.013
+  - first:
+      43: 4300322
+    second: Glass door.019
+  - first:
+      43: 4300324
+    second: Glass door.017
+  - first:
+      43: 4300326
+    second: Glass door.018
+  - first:
+      43: 4300328
+    second: Glass door.016
+  - first:
+      43: 4300330
+    second: Glass door.021
+  - first:
+      43: 4300332
+    second: Glass door.022
+  - first:
+      43: 4300334
+    second: Glass door.020
+  - first:
+      43: 4300336
+    second: Toilet cabine.002
+  - first:
+      74: 7400000
+    second: Elevator Right RIG|Elevator inside Close
+  - first:
+      74: 7400002
+    second: Elevator Right RIG|Elevator inside Open
+  - first:
+      74: 7400004
+    second: Elevator Right RIG|Floor 1 Close
+  - first:
+      74: 7400006
+    second: Elevator Right RIG|Floor 1 Open
+  - first:
+      74: 7400008
+    second: Elevator Right RIG|Floor 2 Close
+  - first:
+      74: 7400010
+    second: Elevator Right RIG|Floor 2 Open
+  - first:
+      74: 7400012
+    second: Elevator Right RIG|Floor 3 Close
+  - first:
+      74: 7400014
+    second: Elevator Right RIG|Floor 3 Open
+  - first:
+      74: 7400016
+    second: Elevator Right RIG|Floor 4 close
+  - first:
+      74: 7400018
+    second: Elevator Right RIG|Floor 4 Open
+  - first:
+      74: 7400020
+    second: Elevator Right RIG|Floor 5 Close
+  - first:
+      74: 7400022
+    second: Elevator Right RIG|Floor 5 Open
+  - first:
+      74: 7400024
+    second: Elevator Right RIG|Floor 6 Close
+  - first:
+      74: 7400026
+    second: Elevator Right RIG|Floor 6 Close.001
+  - first:
+      74: 7400028
+    second: Elevator Right RIG|Floor 6 Open
+  - first:
+      74: 7400030
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Elevator inside
       Close|Ele
-    7400032: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Elevator inside
+  - first:
+      74: 7400032
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Elevator inside
       Open|Elev
-    7400034: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 1 Close|Elevator
+  - first:
+      74: 7400034
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 1 Close|Elevator
       Ri
-    7400036: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 1 Open|Elevator
+  - first:
+      74: 7400036
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 1 Open|Elevator
       Rig
-    7400038: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 2 Close|Elevator
+  - first:
+      74: 7400038
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 2 Close|Elevator
       Ri
-    7400040: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 2 Open|Elevator
+  - first:
+      74: 7400040
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 2 Open|Elevator
       Rig
-    7400042: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 3 Close|Elevator
+  - first:
+      74: 7400042
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 3 Close|Elevator
       Ri
-    7400044: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 3 Open|Elevator
+  - first:
+      74: 7400044
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 3 Open|Elevator
       Rig
-    7400046: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 4 close|Elevator
+  - first:
+      74: 7400046
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 4 close|Elevator
       Ri
-    7400048: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 4 Open|Elevator
+  - first:
+      74: 7400048
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 4 Open|Elevator
       Rig
-    7400050: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 5 Close|Elevator
+  - first:
+      74: 7400050
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 5 Close|Elevator
       Ri
-    7400052: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 5 Open|Elevator
+  - first:
+      74: 7400052
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 5 Open|Elevator
       Rig
-    7400054: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Close.001|Elevato
-    7400056: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Close|Elevator
+  - first:
+      74: 7400054
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Close.001|Elevato
+  - first:
+      74: 7400056
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Close|Elevator
       Ri
-    7400058: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Open|Elevator
+  - first:
+      74: 7400058
+    second: Elevator Right RIG|Elevator Right RIG|Elevator Right RIG|Floor 6 Open|Elevator
       Rig
-    9500000: //RootNode
-    13700000: Back entry
-    13700002: Door Roof
-    13700004: Door.001
-    13700006: Door.002
-    13700008: Door.003
-    13700010: Door.004
-    13700012: Door.005
-    13700014: Door.006
-    13700016: Door.007
-    13700018: Elevator Right
-    13700020: Enery room door
-    13700022: Entry door 1
-    13700024: Glass door
-    13700026: Glass door.001
-    13700028: Glass door.002
-    13700030: Glass door.003
-    13700032: Glass door.004
-    13700034: Glass door.005
-    13700036: Glass door.006
-    13700038: Glass.002
-    13700040: Glass.003
-    13700042: Glass.004
-    13700044: Glass.005
-    13700046: Glass.007
-    13700048: Glass.008
-    13700050: Glass.010
-    13700052: Toilet
-    13700054: Toilet cabine
-    13700056: Back entry.001
-    13700058: Door Roof.001
-    13700060: Door.000
-    13700062: Door.008
-    13700064: Door.009
-    13700066: Door.010
-    13700068: Door.011
-    13700070: Door.012
-    13700072: Door.013
-    13700074: Door.014
-    13700076: Door.015
-    13700078: Door.016
-    13700080: Door.017
-    13700082: Door.018
-    13700084: Door.019
-    13700086: Elevator Cabin
-    13700088: Enery room door.001
-    13700090: Entry door 1.001
-    13700092: Entry door 1.002
-    13700094: Glass.011
-    13700096: Glass.012
-    13700098: Glass.013
-    13700100: Glass.014
-    13700102: Glass.015
-    13700104: Glass.016
-    13700106: Glass.017
-    13700108: Glass.018
-    13700110: Glass.019
-    13700112: Glass.020
-    13700114: Glass.021
-    13700116: Toilet cabine.001
-    13700118: Toilet.001
-    13700120: Toilet.002
-    2186277476908879412: ImportLogs
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Back entry
+  - first:
+      137: 13700002
+    second: Door Roof
+  - first:
+      137: 13700004
+    second: Door.001
+  - first:
+      137: 13700006
+    second: Door.002
+  - first:
+      137: 13700008
+    second: Door.003
+  - first:
+      137: 13700010
+    second: Door.004
+  - first:
+      137: 13700012
+    second: Door.005
+  - first:
+      137: 13700014
+    second: Door.006
+  - first:
+      137: 13700016
+    second: Door.007
+  - first:
+      137: 13700018
+    second: Elevator Right
+  - first:
+      137: 13700020
+    second: Enery room door
+  - first:
+      137: 13700022
+    second: Entry door 1
+  - first:
+      137: 13700024
+    second: Glass door
+  - first:
+      137: 13700026
+    second: Glass door.001
+  - first:
+      137: 13700028
+    second: Glass door.002
+  - first:
+      137: 13700030
+    second: Glass door.003
+  - first:
+      137: 13700032
+    second: Glass door.004
+  - first:
+      137: 13700034
+    second: Glass door.005
+  - first:
+      137: 13700036
+    second: Glass door.006
+  - first:
+      137: 13700038
+    second: Glass.002
+  - first:
+      137: 13700040
+    second: Glass.003
+  - first:
+      137: 13700042
+    second: Glass.004
+  - first:
+      137: 13700044
+    second: Glass.005
+  - first:
+      137: 13700046
+    second: Glass.007
+  - first:
+      137: 13700048
+    second: Glass.008
+  - first:
+      137: 13700050
+    second: Glass.010
+  - first:
+      137: 13700052
+    second: Toilet
+  - first:
+      137: 13700054
+    second: Toilet cabine
+  - first:
+      137: 13700056
+    second: Back entry.001
+  - first:
+      137: 13700058
+    second: Door Roof.001
+  - first:
+      137: 13700060
+    second: Door.000
+  - first:
+      137: 13700062
+    second: Door.008
+  - first:
+      137: 13700064
+    second: Door.009
+  - first:
+      137: 13700066
+    second: Door.010
+  - first:
+      137: 13700068
+    second: Door.011
+  - first:
+      137: 13700070
+    second: Door.012
+  - first:
+      137: 13700072
+    second: Door.013
+  - first:
+      137: 13700074
+    second: Door.014
+  - first:
+      137: 13700076
+    second: Door.015
+  - first:
+      137: 13700078
+    second: Door.016
+  - first:
+      137: 13700080
+    second: Door.017
+  - first:
+      137: 13700082
+    second: Door.018
+  - first:
+      137: 13700084
+    second: Door.019
+  - first:
+      137: 13700086
+    second: Elevator Cabin
+  - first:
+      137: 13700088
+    second: Enery room door.001
+  - first:
+      137: 13700090
+    second: Entry door 1.001
+  - first:
+      137: 13700092
+    second: Entry door 1.002
+  - first:
+      137: 13700094
+    second: Glass.011
+  - first:
+      137: 13700096
+    second: Glass.012
+  - first:
+      137: 13700098
+    second: Glass.013
+  - first:
+      137: 13700100
+    second: Glass.014
+  - first:
+      137: 13700102
+    second: Glass.015
+  - first:
+      137: 13700104
+    second: Glass.016
+  - first:
+      137: 13700106
+    second: Glass.017
+  - first:
+      137: 13700108
+    second: Glass.018
+  - first:
+      137: 13700110
+    second: Glass.019
+  - first:
+      137: 13700112
+    second: Glass.020
+  - first:
+      137: 13700114
+    second: Glass.021
+  - first:
+      137: 13700116
+    second: Toilet cabine.001
+  - first:
+      137: 13700118
+    second: Toilet.001
+  - first:
+      137: 13700120
+    second: Toilet.002
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -1395,9 +4136,8 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -1418,32 +4158,49 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 60
+    secondaryUVMinObjectScale: 0.5
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -1453,22 +4210,20 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 82282
-  packageName: POLYGON office building
-  packageVersion: 1.0
-  assetPath: Assets/Enviroment/enviroment/Office building/meshes/office building.fbx
-  uploadId: 252208

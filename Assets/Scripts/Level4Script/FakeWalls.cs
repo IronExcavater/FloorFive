@@ -12,11 +12,11 @@ public class FakeWalls : MonoBehaviour, IInteractable
     private Color _originalColor;
 
     public bool CanInteract => true;
-    public string InteractMessage => "EÅ° - °¡Â¥ º® Åë°ú"; // ¸Þ½ÃÁö ±¸Çö
+    public string InteractMessage => "EÅ° - ï¿½ï¿½Â¥ ï¿½ï¿½ ï¿½ï¿½ï¿½"; // ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private void Awake()
     {
-        _renderer = GetComponent<Renderer>(); // Å¸ÀÔ ¸í½Ã
+        _renderer = GetComponent<Renderer>(); // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         _propBlock = new MaterialPropertyBlock();
         _originalColor = _renderer.material.color;
         gameObject.layer = LayerMask.NameToLayer("Interactable");
@@ -40,7 +40,7 @@ public class FakeWalls : MonoBehaviour, IInteractable
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GetComponent<Collider>().isTrigger = true; // Å¸ÀÔ ¸í½Ã
+        GetComponent<Collider>().isTrigger = true; // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         _renderer.material.color = new Color(1, 1, 1, 0.3f);
         StartCoroutine(ReLockCursor());
     }

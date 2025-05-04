@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 272921e50659bf04993ce3788254e258
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264218
+  packageName: Awesome Lamps and Light Pack
+  packageVersion: 1.0
+  assetPath: Assets/Awesome_Lamp_Collection/Modells/Lamp02.fbx
+  uploadId: 618997
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -51,7 +58,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -110,10 +117,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 264218
-  packageName: Awesome Lamps and Light Pack
-  packageVersion: 1.0
-  assetPath: Assets/Awesome_Lamp_Collection/Modells/Lamp02.fbx
-  uploadId: 618997
