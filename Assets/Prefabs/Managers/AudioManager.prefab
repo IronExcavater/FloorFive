@@ -45,8 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 44348c8d7a7f61c409f06986f97876e6, type: 2}
-  step:
-  - {fileID: 8300000, guid: 550c65cc1ad514c438fabdc1a3215f47, type: 3}
-  - {fileID: 8300000, guid: 1a7f96bd3ee9efc46b0c503902f6c35c, type: 3}
-  - {fileID: 8300000, guid: 717cabdc1d0ea074faf1bfd588657357, type: 3}
-  - {fileID: 8300000, guid: a39aaae81c7f0b5439e03382a9d18841, type: 3}
+  audioGroupDictionary: {fileID: 11400000, guid: fa58b28a2a6b3d64283c156034e1a441, type: 2}

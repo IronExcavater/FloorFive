@@ -29,7 +29,7 @@ public class InteractionController : MonoBehaviour
             promptCanvasGroup = promptPanelInstance.GetComponent<CanvasGroup>();
             if (promptCanvasGroup == null)
             {
-                promptCanvasGroup = promptPanelInstance.AddComponent<CanvasGroup>(); // ¾øÀ¸¸é Ãß°¡
+                promptCanvasGroup = promptPanelInstance.AddComponent<CanvasGroup>(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             }
         }
 

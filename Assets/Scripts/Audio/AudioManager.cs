@@ -1,32 +1,18 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using Utils;
 
 namespace Audio
 {
-    public class AudioManager : MonoBehaviour
+    [DoNotDestroySingleton]
+    public class AudioManager : Singleton<AudioManager>
     {
-        public static AudioManager Audio { get; private set; }
-    
         public AudioMixer audioMixer;
-    
-        [Header("SFX Clips:")]
-        public AudioClip[] step;
-    
-        private void Awake()
-        {
-            if (Audio == null)
-            {
-                Audio = this;
-                DontDestroyOnLoad(Audio);
-            }
-            else Destroy(gameObject);
-        }
 
-        public static AudioClip GetRandomClip(AudioClip[] clips)
-        {
-            if (clips == null || clips.Length == 0) return null;
-            return clips[Random.Range(0, clips.Length)];
-        }
+        [Header("Audio Clips:")]
+        public AudioGroupDictionary audioGroupDictionary;
+
+        public static AudioGroupDictionary AudioGroupDictionary => Instance.audioGroupDictionary;
     }
 
 }

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AudioGroupDictionary
+  m_EditorClassIdentifier: Assembly-CSharp:Utils:AudioGroupDictionary
+  entries:
+  - Key: step
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 550c65cc1ad514c438fabdc1a3215f47, type: 3}
+      - {fileID: 8300000, guid: 1a7f96bd3ee9efc46b0c503902f6c35c, type: 3}
+      - {fileID: 8300000, guid: 717cabdc1d0ea074faf1bfd588657357, type: 3}
+      - {fileID: 8300000, guid: a39aaae81c7f0b5439e03382a9d18841, type: 3}
+  - Key: elevatorRide
+    Value:
+      clips:
+      - {fileID: 8300000, guid: ca9e39c66c3bd3c4ca7a04b00de2035c, type: 3}
+  - Key: elevatorOpen
+    Value:
+      clips:
+      - {fileID: 8300000, guid: c238fd294c57f5741a15d07fb7dafcd4, type: 3}
+  - Key: elevatorClose
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 94d41d37f06971c4fb256ecd4a891db6, type: 3}
+  - Key: ding
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 6ee6de723e07ae34cbb38a0b2b17c9d8, type: 3}
+  - Key: doorOpen
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
+  - Key: doorClose
+    Value:
+      clips:
+      - {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
+  - Key: flashlightClick
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 5ccbf456bc3f2cd4bb2fafce2757da77, type: 3}
+  - Key: menuMusic
+    Value:
+      clips:
+      - {fileID: 8300000, guid: edbf722539bd584438c8b99c060a4ed2, type: 3}

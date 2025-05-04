@@ -65,21 +65,21 @@ namespace HomebrewIK
 
         private Vector3 initialForwardVector = new Vector3();
 
-        private void StepSFX(bool isRightFoot)
+        private void StepSfx(bool isRightFoot)
         {
             var audioSource = isRightFoot ? leftFootAudioSource : rightFootAudioSource;
-            var audioClip = AudioManager.GetRandomClip(AudioManager.Audio.step);
+            var audioClip = AudioManager.AudioGroupDictionary.GetValue("step").GetRandomClip();
             audioSource.PlayOneShot(audioClip);
         }
 
         private void OnEnable()
         {
-            OnStep += StepSFX;
+            OnStep += StepSfx;
         }
 
         private void OnDisable()
         {
-            OnStep -= StepSFX;
+            OnStep -= StepSfx;
         }
 
         public float _LengthFromHeelToToes {

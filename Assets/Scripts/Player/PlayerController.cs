@@ -1,6 +1,8 @@
 ﻿using System;
+using Animation;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace Player
 {
@@ -17,12 +19,12 @@ namespace Player
         public float cameraLerpSpeed = 5;
         public float mouseSensitivity = 10;
         public float scrollSensitivity = 10;
+        public float maxCameraDistance = 1;
         
         [Header("Movement")]
         public float walkSpeed = 5;
         public float sprintSpeed = 8;
         public float acceleration = 5;
-        public float jumpHeight = 1;
         public float liftForce = 20;
 
         [Header("Interact")]
@@ -32,7 +34,8 @@ namespace Player
 
         private PlayerInput _input;
         private Rigidbody _rigidbody;
-        private CapsuleCollider _capsuleCollider;
+        private Animator _animator;
+        private AnimatorCache _animatorCache;
         
         private Vector2 _lookRotation;
         private float _targetZoom;
@@ -64,13 +67,26 @@ namespace Player
             }
         }
         
-        private IInteractable _interactTarget;
+        private Interactable _interactTarget;
+
+        private Interactable InteractTarget
+        {
+            get => _interactTarget;
+            set
+            {
+                if (_interactTarget == value) return;
+                _interactTarget?.Hide();
+                _interactTarget = value;
+                _interactTarget?.Show();
+            }
+        }
         
         private void Awake()
         {
             _input = GetComponent<PlayerInput>();
             _rigidbody = GetComponent<Rigidbody>();
-            _capsuleCollider = GetComponent<CapsuleCollider>();
+            _animator = GetComponentInChildren<Animator>();
+            _animatorCache = GetComponentInChildren<AnimatorCache>();
         }
 
         private void Start()
@@ -82,7 +98,6 @@ namespace Player
         private void Update()
         {
             HandleInput();
-            HandleJump();
             HandleLook();
             HandleZoom();
             HandleAttack();
@@ -93,13 +108,6 @@ namespace Player
         {
             HandleMove();
             HandleGrab();
-        }
-
-        private bool IsFPS => _lookZoom <= 0.05;
-
-        private bool IsGrounded(out RaycastHit hit)
-        {
-            return Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 0.2f, interactMask);
         }
 
         private void HandleInput()
@@ -117,19 +125,16 @@ namespace Player
             
             cameraPivot.localRotation = Quaternion.Euler(_lookRotation.x, _lookRotation.y, 0);
 
-            if (IsFPS)
-            {
-                modelPivot.localRotation = Quaternion.Slerp(
-                    modelPivot.localRotation,
-                    Quaternion.Euler(0, _lookRotation.y, 0),
-                    cameraLerpSpeed * Time.deltaTime);
-            }
+            modelPivot.localRotation = Quaternion.Slerp(
+                modelPivot.localRotation,
+                Quaternion.Euler(0, _lookRotation.y, 0),
+                cameraLerpSpeed * Time.deltaTime);
         }
 
         private void HandleZoom()
         {
             float scrollDelta = _input.actions["Zoom"].ReadValue<float>() * Time.deltaTime * scrollSensitivity;
-            _targetZoom = Mathf.Clamp(_targetZoom + scrollDelta, 0, 5);
+            _targetZoom = Mathf.Clamp(_targetZoom + scrollDelta, 0, maxCameraDistance);
             _lookZoom = Mathf.Lerp(_lookZoom, _targetZoom, cameraLerpSpeed * Time.deltaTime);
             
             Vector3 target = Vector3.Lerp(firstPersonTarget.position, thirdPersonTarget.position, _lookZoom);
@@ -139,37 +144,37 @@ namespace Player
             cameraTransform.LookAt(cameraPivot.position + cameraPivot.forward, cameraPivot.up);
 
             // Handle camera collision for TPS
+            Vector3 direction = cameraTransform.position - cameraPivot.position;
             if (Physics.SphereCast(
-                    cameraPivot.position, 0.2f, -cameraTransform.forward,
-                    out var hit, (cameraTransform.position - cameraPivot.position).magnitude, interactMask))
+                    cameraPivot.position, 0.2f, direction.normalized,
+                    out var hit, direction.magnitude, interactMask))
             {
-                cameraTransform.position = hit.point + hit.normal * 0.2f;
+                Vector3 closestPoint = Utils.Utils.ClosestPointOnLine(cameraPivot.position, direction, hit.point + hit.normal * 0.2f);
+                cameraTransform.position = closestPoint;
             }
         }
 
         private void HandleMove()
         {
-            // Handle model rotation for TPS
-            if (!IsFPS & _moveInput != Vector2.zero)
-            {
-                float targetAngle = Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg + cameraPivot.eulerAngles.y;
-                modelPivot.rotation = Quaternion.Slerp(modelPivot.rotation, Quaternion.Euler(0, targetAngle, 0), Time.deltaTime * cameraLerpSpeed);
-            }
-
             float targetSpeed = _input.actions["Sprint"].IsPressed() ? sprintSpeed : walkSpeed;
-            Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y).normalized;
+            Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y).normalized * targetSpeed;
             
             Quaternion yawRotation = Quaternion.Euler(0, cameraPivot.eulerAngles.y, 0);
             Vector3 moveDirection = yawRotation * inputDirection;
-            moveDirection.y = 0;
-            moveDirection.Normalize();
-            
-            Vector3 targetVelocity = moveDirection * targetSpeed;
-            _moveVelocity = Vector3.Lerp(_moveVelocity, targetVelocity, Time.fixedDeltaTime * acceleration);
+            _moveVelocity = Vector3.Lerp(_moveVelocity, moveDirection, Time.fixedDeltaTime * acceleration);
 
             Vector3 currentVelocity = _rigidbody.linearVelocity;
             currentVelocity.y = 0;
             _rigidbody.AddForce(_moveVelocity - currentVelocity, ForceMode.VelocityChange);
+            
+            var actualSpeed = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z).magnitude;
+            var blend = inputDirection.magnitude > 0 ? Mathf.Clamp01(actualSpeed / inputDirection.magnitude) : 0;
+
+            var prevXVel = _animator.GetFloat(_animatorCache.GetHash("xVel"));
+            var prevYVel = _animator.GetFloat(_animatorCache.GetHash("yVel"));
+        
+            _animator.SetFloat(_animatorCache.GetHash("xVel"), Mathf.Lerp(prevXVel, inputDirection.x * blend, Time.deltaTime * 10));
+            _animator.SetFloat(_animatorCache.GetHash("yVel"), Mathf.Lerp(prevYVel, inputDirection.z * blend, Time.deltaTime * 10));
         }
 
         private void HandleGrab()
@@ -189,16 +194,6 @@ namespace Player
             
             Quaternion targetRotation = Quaternion.LookRotation(modelPivot.forward, Vector3.up);
             GrabbedTarget.MoveRotation(Quaternion.Slerp(GrabbedTarget.rotation, targetRotation, Time.fixedDeltaTime * acceleration));
-        }
-
-        private void HandleJump()
-        {
-            if (_input.actions["Jump"].WasPressedThisFrame() && IsGrounded(out RaycastHit hit)
-                && (hit.rigidbody == null || hit.rigidbody != GrabbedTarget))
-            {
-                Vector3 impulse = _rigidbody.mass * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) * Vector3.up;
-                _rigidbody.AddForce(impulse, ForceMode.Impulse);
-            }
         }
 
         private void HandleAttack()
@@ -225,24 +220,18 @@ namespace Player
             if (Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
                     out var hit, interactDistance, interactMask)
-                && hit.collider.TryGetComponent(out IInteractable interactable))
+                && hit.collider.TryGetComponent(out Interactable interactable))
             {
-                if (_interactTarget != interactable)
-                {
-                    _interactTarget?.OnStartHighlight(Color.white);
-                    _interactTarget = interactable;
-                    _interactTarget.OnEndHighlight();
-                }
+                InteractTarget = interactable;
             }
             else
             {
-                _interactTarget?.OnEndHighlight();
-                _interactTarget = null;
+                InteractTarget = null;
             }
 
-            if (_input.actions["Interact"].WasPerformedThisFrame() && _interactTarget != null)
+            if (_input.actions["Interact"].WasPerformedThisFrame())
             {
-                _interactTarget.OnInteract();
+                _interactTarget?.Interact();
             }
         }
         

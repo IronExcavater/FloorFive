@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Elevator.unity
+    guid: 0e915a3d530e92346b1973432eddbf31
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 0.unity
+    guid: 2da93256ded376e4bba968f62f11bff7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: fa0109de9e1992145838e09d99ba41df, type: 3}
   m_UseUCBPForAssetBundles: 0
