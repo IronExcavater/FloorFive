@@ -1,47 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
-using Player;
 
 namespace Tools
 {
     public class CameraController : MonoBehaviour
     {
-        [Header("Camera Settings")]
-        public Camera photoCamera;
-        public RenderTexture renderTexture;
-        public LayerMask normalLayerMask;
-        public LayerMask anomaliesLayerMask; // Anomalies ���̾� ����ũ
-        public Transform photoOutputPoint;
+        [Header("Layer Settings")]
+        public LayerMask normalLayerMask;          // 플레이어가 보는 일반 레이어
+        public LayerMask cameraOnlyLayerMask;      // 카메라에서만 보이는 블랙 미스트 레이어
 
-        [Header("Highlight Settings")]
-        public Color anomalyHighlightColor = Color.red;
-        public float highlightIntensity = 2f;
+        [Header("Camera System")]
+        public Camera photoCamera;                 // 사진 촬영용 카메라
+        public RenderTexture renderTexture;        // 사진 저장용 렌더 텍스처
+        public Transform photoOutputPoint;         // 사진 생성 위치
 
         [Header("Photo Settings")]
-        public GameObject photoPrefab;
-        public int maxPhotos = 4;
-        public float photoCooldown = 1f;
+        public GameObject photoPrefab;             // 사진 프리팹
+        public int maxPhotos = 4;                  // 최대 사진 개수
+        public float photoCooldown = 1f;           // 사진 쿨타임
         private float lastPhotoTime;
 
-        [Header("UI Elements")]
-        public Image photoDisplayUI;
-        public GameObject photoUICanvas;
+        [Header("UI System")]
+        public Image photoDisplayUI;               // 사진 미리보기 UI
+        public GameObject photoUICanvas;           // 사진 UI 캔버스
         private bool isViewingPhoto;
 
         private List<GameObject> photoCollection = new List<GameObject>();
         private PlayerController playerController;
-        private Material highlightMaterial;
 
         void Start()
         {
             playerController = GetComponent<PlayerController>();
-            photoCamera.cullingMask = normalLayerMask;
-
-            //// ���̶���Ʈ ��Ƽ���� ����
-            //highlightMaterial = new Material(Shader.Find("Custom/HighlightShader"));
-            //highlightMaterial.SetColor("_HighlightColor", anomalyHighlightColor);
-            //highlightMaterial.SetFloat("_Intensity", highlightIntensity);
+            photoCamera.cullingMask = normalLayerMask; // 기본적으로 일반 레이어만 렌더링
         }
 
         void Update()
@@ -51,63 +43,69 @@ namespace Tools
         }
 
         void HandlePhotoInput()
-        {   //Get a mouse buttons
+        {
             if (Input.GetMouseButtonDown(0) && Time.time > lastPhotoTime + photoCooldown)
             {
-                StartCoroutine(TakePhotoWithAnomalies());
+                StartCoroutine(CaptureAnomalyPhoto());
                 lastPhotoTime = Time.time;
             }
         }
 
-        System.Collections.IEnumerator TakePhotoWithAnomalies()
+        IEnumerator CaptureAnomalyPhoto()
         {
-            // 1. ���� ��Ƽ���� ������ ���� ��ųʸ�
-            Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
+            // 1. 카메라에 블랙 미스트(이상현상) 레이어 추가
+            photoCamera.cullingMask = normalLayerMask | cameraOnlyLayerMask;
 
-            // 2. Anomalies ���̾� ������Ʈ ã�Ƽ� ���̶���Ʈ ��Ƽ���� ����
-            GameObject[] anomalyObjects = FindGameObjectsWithLayer(anomaliesLayerMask);
-            foreach (GameObject obj in anomalyObjects)
-            {
-                Renderer renderer = obj.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    originalMaterials[renderer] = renderer.materials;
-                    Material[] highlightMaterials = new Material[renderer.materials.Length];
-                    for (int i = 0; i < highlightMaterials.Length; i++)
-                    {
-                        highlightMaterials[i] = highlightMaterial;
-                    }
-                    renderer.materials = highlightMaterials;
-                }
-            }
-
-            // 3. Anomalies ���̾� �߰��Ͽ� ī�޶� ���� ����
-            photoCamera.cullingMask = normalLayerMask | anomaliesLayerMask;
-
-            // 4. �������� ���� �� ������ ���
             yield return new WaitForEndOfFrame();
 
-            // 5. ���� ���
+            // 2. 사진 텍스처 생성
             Texture2D photoTexture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
             RenderTexture.active = renderTexture;
             photoTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             photoTexture.Apply();
             RenderTexture.active = null;
 
-            // 6. ��Ƽ���� ���󺹱�
-            foreach (var kvp in originalMaterials)
-            {
-                kvp.Key.materials = kvp.Value;
-            }
+            // 3. 사진에 찍힌 블랙 미스트를 현실 세계에 드러나게 처리
+            RevealAnomaliesInPhoto();
 
-            // 7. ī�޶� ���� ������� ����
+            // 4. 카메라 레이어 복구
             photoCamera.cullingMask = normalLayerMask;
 
-            // 8. ���� ��ü ����
-            GameObject newPhoto = Instantiate(photoPrefab, photoOutputPoint.position, photoOutputPoint.rotation);
-            newPhoto.GetComponent<Renderer>().material.mainTexture = photoTexture;
+            // 5. 사진 오브젝트 생성 및 관리
+            CreatePhotoObject(photoTexture);
+        }
 
-            // 9. ���� �÷��� ����
+        void RevealAnomaliesInPhoto()
+        {
+            GameObject[] anomalies = FindGameObjectsWithLayer(cameraOnlyLayerMask);
+            foreach (GameObject anomaly in anomalies)
+            {
+                if (IsVisibleInCamera(anomaly))
+                {
+                    // 레이어를 Default(현실 세계)로 변경
+                    anomaly.layer = LayerMask.NameToLayer("Default");
+
+                    // 파티클 등 추가 효과가 있다면 재생
+                    ParticleSystem ps = anomaly.GetComponent<ParticleSystem>();
+                    if (ps != null)
+                        ps.Play();
+                }
+            }
+        }
+
+        bool IsVisibleInCamera(GameObject target)
+        {
+            Vector3 viewportPoint = photoCamera.WorldToViewportPoint(target.transform.position);
+            return viewportPoint.z > 0 &&
+                   viewportPoint.x > 0 && viewportPoint.x < 1 &&
+                   viewportPoint.y > 0 && viewportPoint.y < 1;
+        }
+
+        void CreatePhotoObject(Texture2D texture)
+        {
+            GameObject newPhoto = Instantiate(photoPrefab, photoOutputPoint.position, photoOutputPoint.rotation);
+            newPhoto.GetComponent<Renderer>().material.mainTexture = texture;
+
             photoCollection.Add(newPhoto);
             if (photoCollection.Count > maxPhotos)
             {
@@ -115,28 +113,18 @@ namespace Tools
                 photoCollection.RemoveAt(0);
             }
 
-            // 10. UI ������Ʈ
-            Sprite photoSprite = Sprite.Create(photoTexture,
-                new Rect(0, 0, photoTexture.width, photoTexture.height),
-                new Vector2(0.5f, 0.5f));
-            photoDisplayUI.sprite = photoSprite;
+            // UI 미리보기 업데이트
+            UpdatePhotoUI(texture);
         }
 
-        // Ư�� ���̾ ���� ���� ������Ʈ ã�� �޼���
-        GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
+        void UpdatePhotoUI(Texture2D texture)
         {
-            List<GameObject> objects = new List<GameObject>();
-            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-
-            foreach (GameObject obj in allObjects)
-            {
-                if ((layerMask & (1 << obj.layer)) != 0)
-                {
-                    objects.Add(obj);
-                }
-            }
-
-            return objects.ToArray();
+            Sprite photoSprite = Sprite.Create(
+                texture,
+                new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f)
+            );
+            photoDisplayUI.sprite = photoSprite;
         }
 
         void HandlePhotoInspection()
@@ -149,11 +137,7 @@ namespace Tools
                 if (distance < 2f && Input.GetKeyDown(KeyCode.E))
                 {
                     Texture2D tex = (Texture2D)photo.GetComponent<Renderer>().material.mainTexture;
-                    Sprite photoSprite = Sprite.Create(tex,
-                        new Rect(0, 0, tex.width, tex.height),
-                        new Vector2(0.5f, 0.5f));
-                    photoDisplayUI.sprite = photoSprite;
-
+                    UpdatePhotoUI(tex);
                     TogglePhotoUI(!isViewingPhoto);
                     break;
                 }
@@ -164,9 +148,24 @@ namespace Tools
         {
             isViewingPhoto = state;
             photoUICanvas.SetActive(state);
-            //playerController.ToggleControl(!state);
+            // playerController.ToggleControl(!state); // 필요시 주석 해제
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
+        }
+
+        // 특정 레이어 오브젝트 찾기
+        GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
+        {
+            List<GameObject> objects = new List<GameObject>();
+            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if ((layerMask.value & (1 << obj.layer)) != 0)
+                {
+                    objects.Add(obj);
+                }
+            }
+            return objects.ToArray();
         }
     }
 }
