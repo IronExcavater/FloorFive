@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Anomaly;
+using UnityEngine;
 
 namespace Level
 {
     public class Room : MonoBehaviour
     {
+        public int floorNumber;
+        
         private bool _active = true;
         public bool Active
         {
@@ -22,6 +26,8 @@ namespace Level
         
         public float duration = 180f; // 3 minutes
         private float _remainingTime;
+
+        [SerializeField] private List<AnomalyBase> anomalies;
 
         public void Update()
         {
