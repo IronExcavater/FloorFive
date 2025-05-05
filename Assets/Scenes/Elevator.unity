@@ -4437,6 +4437,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1701441843475187695, guid: 0b438a091a30de246882ccd1222c6d30, type: 3}
+      propertyPath: m_SpotAngle
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 7786823899583923364, guid: 0b438a091a30de246882ccd1222c6d30, type: 3}
       propertyPath: m_Name
       value: Elevator

@@ -31,12 +31,12 @@ namespace Utils
             if (showOutline && _outline != null) _outline.enabled = true;
         }
 
-        public void Interact()
+        public void OnInteract()
         {
             OnInteracted?.Invoke();
-            OnInteract();
+            Interact();
         }
 
-        protected abstract void OnInteract();
+        protected abstract void Interact();
     }
 }

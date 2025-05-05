@@ -19,7 +19,7 @@ namespace Level
             _elevator = GetComponentInParent<Elevator>();
         }
         
-        protected override void OnInteract()
+        protected override void Interact()
         {
             _elevator.OnButtonInteracted(buttonType);
         }

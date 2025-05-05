@@ -1,5 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Animation;
+using Level;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -15,6 +17,11 @@ namespace Player
         public Transform modelPivot;
         public Transform firstPersonTarget;
         public Transform thirdPersonTarget;
+
+        [Header("Model IK")]
+        public Transform headTarget;
+        public Transform handTarget;
+        public Transform toolTarget;
         
         public float cameraLerpSpeed = 5;
         public float mouseSensitivity = 10;
@@ -31,6 +38,27 @@ namespace Player
         public float interactRadius = 0.5f;
         public float interactDistance = 2;
         public LayerMask interactMask;
+        
+        private Dictionary<int, ToolBase> _tools = new();
+        private int _toolIndex;
+
+        public ToolBase EquippedToolBase
+        {
+            get => _tools[_toolIndex];
+            set
+            {
+                if (!_tools.ContainsValue(value)) return;
+                
+                if (_tools.TryGetValue(_toolIndex, out ToolBase tool)) tool.gameObject.SetActive(false);
+            
+                value.gameObject.SetActive(true);
+                value.transform.SetParent(handTarget);
+                value.transform.localPosition = value.toolOffsetPosition;
+                value.transform.localEulerAngles = value.toolOffsetRotation;
+                
+                _toolIndex = _tools.First(pair => pair.Value == value).Key;
+            }
+        }
 
         private PlayerInput _input;
         private Rigidbody _rigidbody;
@@ -98,16 +126,22 @@ namespace Player
         private void Update()
         {
             HandleInput();
-            HandleLook();
-            HandleZoom();
             HandleAttack();
             HandleInteract();
+            HandleToolSwitch();
         }
 
         private void FixedUpdate()
         {
             HandleMove();
             HandleGrab();
+        }
+
+        private void LateUpdate()
+        {
+            HandleLook();
+            HandleZoom();
+            HandleIK();
         }
 
         private void HandleInput()
@@ -137,20 +171,32 @@ namespace Player
             _targetZoom = Mathf.Clamp(_targetZoom + scrollDelta, 0, maxCameraDistance);
             _lookZoom = Mathf.Lerp(_lookZoom, _targetZoom, cameraLerpSpeed * Time.deltaTime);
             
-            Vector3 target = Vector3.Lerp(firstPersonTarget.position, thirdPersonTarget.position, _lookZoom);
-            cameraPivot.position = target;
+            Vector3 pivotTarget = Vector3.Lerp(firstPersonTarget.position, thirdPersonTarget.position, _lookZoom);
+            cameraPivot.position = pivotTarget;
             
-            cameraTransform.localPosition = new Vector3(0, 0.4f, -1) * _lookZoom;
-            cameraTransform.LookAt(cameraPivot.position + cameraPivot.forward, cameraPivot.up);
+            Vector3 cameraTarget = cameraPivot.TransformPoint(new Vector3(0, 0.4f, -1) * _lookZoom);
 
             // Handle camera collision for TPS
-            Vector3 direction = cameraTransform.position - cameraPivot.position;
+            Vector3 direction = cameraTarget - cameraPivot.position;
             if (Physics.SphereCast(
                     cameraPivot.position, 0.2f, direction.normalized,
                     out var hit, direction.magnitude, interactMask))
             {
-                Vector3 closestPoint = Utils.Utils.ClosestPointOnLine(cameraPivot.position, direction, hit.point + hit.normal * 0.2f);
-                cameraTransform.position = closestPoint;
+                cameraTarget = Utils.Utils.ClosestPointOnLine(cameraPivot.position, direction, hit.point + hit.normal * 0.2f);
+            }
+            
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraTarget, Time.deltaTime * cameraLerpSpeed);
+            cameraTransform.LookAt(cameraPivot.position + cameraPivot.forward, cameraPivot.up);
+        }
+
+        private void HandleIK()
+        {
+            headTarget.LookAt(cameraPivot.position + cameraTransform.forward * 3);
+
+            if (_toolIndex != -1)
+            {
+                handTarget.position = toolTarget.transform.position + EquippedToolBase.handOffsetPosition;
+                handTarget.eulerAngles = toolTarget.transform.eulerAngles + EquippedToolBase.handOffsetRotation;
             }
         }
 
@@ -224,20 +270,39 @@ namespace Player
             {
                 InteractTarget = interactable;
             }
-            else
-            {
-                InteractTarget = null;
-            }
+            else InteractTarget = null;
 
             if (_input.actions["Interact"].WasPerformedThisFrame())
             {
-                _interactTarget?.Interact();
+                if (_interactTarget != null) _interactTarget?.OnInteract();
+                else _tools[_toolIndex]?.OnInteract();
             }
         }
-        
-        internal void ToggleControl(bool v)
+
+        private void HandleToolSwitch()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 9; i++)
+            {
+                if (Keyboard.current[(Key)((int)Key.Digit1 + i)].wasPressedThisFrame)
+                {
+                    if (_tools.TryGetValue(i, out ToolBase tool)) EquippedToolBase = tool;
+                }
+            }
+
+            float scroll = _input.actions["Scroll"].ReadValue<float>();
+            if (scroll != 0)
+            {
+                List<int> sortedTools = _tools.Keys.OrderBy(x => x).ToList(); // Not efficient
+                
+                int direction = scroll > 0 ? 1 : -1;
+                int newIndex = sortedTools[(_toolIndex + direction + sortedTools.Count) % sortedTools.Count];
+                EquippedToolBase = _tools[newIndex];
+            }
+        }
+
+        public void AddTool(int keyboardDigit, ToolBase toolBase)
+        {
+            _tools.TryAdd(keyboardDigit, toolBase);
         }
     }
 }

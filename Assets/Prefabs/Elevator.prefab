@@ -83,7 +83,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -250,6 +250,127 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &2088913611822714788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7861506619814288393}
+  - component: {fileID: 1701441843475187695}
+  - component: {fileID: 3359164037596872171}
+  m_Layer: 0
+  m_Name: Point Light (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &7861506619814288393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088913611822714788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0.0000015199182}
+  m_LocalPosition: {x: 0, y: 0, z: 2.802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7786823899584354498}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!108 &1701441843475187695
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088913611822714788}
+  m_Enabled: 1
+  serializedVersion: 11
+  m_Type: 0
+  m_Color: {r: 0.91132075, g: 1, b: 0.99836475, a: 1}
+  m_Intensity: 2
+  m_Range: 3
+  m_SpotAngle: 179
+  m_InnerSpotAngle: 80
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!114 &3359164037596872171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088913611822714788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &2614109264516202487
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +454,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -454,7 +575,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -575,7 +696,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -934,6 +1055,9 @@ PrefabInstance:
       addedObject: {fileID: 1261546919134834595}
     - targetCorrespondingSourceObject: {fileID: 400050, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7861506619814288393}
+    - targetCorrespondingSourceObject: {fileID: 400050, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1508254281665342773}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100052, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
@@ -964,6 +1088,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5709340939180457033}
   m_SourcePrefab: {fileID: 100100000, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
+--- !u!23 &7786823899581930196 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300068, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
+  m_PrefabInstance: {fileID: 7786823899583955568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7786823899581930204 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300076, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
+  m_PrefabInstance: {fileID: 7786823899583955568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7786823899583923330 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100082, guid: 004d4e6ea868951409551976c7faaefe, type: 3}
@@ -1078,6 +1212,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  numberMeshRenderers:
+  - {fileID: 7786823899581930204}
+  - {fileID: 7786823899581930196}
+  numberEmissionTextures:
+  - {fileID: 2800000, guid: 8b6c09afe01a051449f30335520b7429, type: 3}
+  - {fileID: 2800000, guid: ac007774d1f216840aca40d29f45e3a6, type: 3}
+  - {fileID: 2800000, guid: 3682e3a9e6c3de041b2d801776cbfcb8, type: 3}
+  - {fileID: 2800000, guid: f2e58ef878bd3b94baf71f8f9ffb71b1, type: 3}
+  - {fileID: 2800000, guid: 43f3fd800864662419ba84c7cf3abc47, type: 3}
+  - {fileID: 2800000, guid: 65f6b49c6294ae744a35de8d6ddf0f1d, type: 3}
+  - {fileID: 2800000, guid: dd26f7fefcf90374291d50784f218e40, type: 3}
+  - {fileID: 2800000, guid: a3aaa432634fec24997444e6f3205018, type: 3}
+  - {fileID: 2800000, guid: 6b4ebf763202f3c4f9c5e4533825e299, type: 3}
 --- !u!95 &8172895794657097286
 Animator:
   serializedVersion: 7

@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "c7647f3b-d4c4-4807-b6d4-b0f9806bd428",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -216,18 +225,40 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "860152b7-b9f2-4478-9589-ee071a235211",
+                    "name": "Scroll/Y, Space Modifier [Mouse]",
+                    "id": "3c4de784-d8e9-4aa6-a8a8-aa3c7c8da917",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "987dd658-ee98-4c65-bea0-434fc39bf0c2",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "86751690-582b-4501-b17a-dee126a100c1",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Zoom",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "Right Stick Y [Gamepad]",
+                    "name": "Right Stick Y, D-Pad/Down Modifier [Gamepad]",
                     "id": "ed9043e4-db0c-48dd-82e5-7f75043a93c3",
                     "path": "OneModifier",
                     "interactions": "",
@@ -258,6 +289,28 @@
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "882a9d96-f78d-4fc5-9845-b44a8ce882e5",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16be0fe8-0581-4de3-be54-594f6a939e36",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
