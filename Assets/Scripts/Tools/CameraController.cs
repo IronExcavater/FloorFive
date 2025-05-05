@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 
 namespace Tools
 {
@@ -157,7 +158,7 @@ namespace Tools
         GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
         {
             List<GameObject> objects = new List<GameObject>();
-            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+            GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (GameObject obj in allObjects)
             {
                 if ((layerMask.value & (1 << obj.layer)) != 0)
