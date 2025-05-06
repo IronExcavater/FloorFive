@@ -7,6 +7,7 @@ namespace Level
 {
 	public class Door : Interactable
 	{
+		[Header("Door")]
 		[SerializeField] private bool isOpen;
 		[SerializeField] private float openAngle = -90;
 		[SerializeField] private float closedAngle = 0;

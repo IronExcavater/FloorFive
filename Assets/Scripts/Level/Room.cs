@@ -8,19 +8,23 @@ namespace Level
     {
         public int floorNumber;
         
-        private bool _active = true;
-        public bool Active
+        [SerializeField] private State _status = State.Ready;
+
+        public enum State
         {
-            get => _active;
-            private set
+            Ready,
+            Active,
+            Complete
+        }
+        public State Status
+        {
+            get => _status;
+            set
             {
-                if (_active == value) return;
-                _active = value;
-                
-                if (_active)
-                {
-                    _remainingTime = duration;
-                }
+                if (_status == value) return;
+                _status = value;
+                _remainingTime = duration;
+                _remainingAnomalyGap = anomalyGap;
             }
         }
         
@@ -34,24 +38,24 @@ namespace Level
 
         public void Update()
         {
-            if (Active)
+            if (Status == State.Active)
             {
                 _remainingTime -= Time.deltaTime;
                 _remainingAnomalyGap -= Time.deltaTime;
-            }
-            
-            if (_remainingTime <= 0)
-            {
-                Active = false;
-            }
-
-            if (_remainingAnomalyGap <= 0)
-            {
-                TriggerAnomaly();
                 
-                float t = Mathf.Clamp01(1 - _remainingTime / duration);
-                float slope = Mathf.Lerp(anomalyGap, 1, t * t);
-                _remainingAnomalyGap = slope;
+                if (_remainingTime <= 0)
+                {
+                    Status = State.Complete;
+                }
+
+                if (_remainingAnomalyGap <= 0)
+                {
+                    TriggerAnomaly();
+                
+                    float t = Mathf.Clamp01(1 - _remainingTime / duration);
+                    float slope = Mathf.Lerp(anomalyGap, 1, t * t);
+                    _remainingAnomalyGap = slope;
+                }
             }
         }
 

@@ -29,6 +29,12 @@ namespace Level
             _animatorCache = GetComponent<AnimatorCache>();
             _audioSource = GetComponentInChildren<AudioSource>();
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            
+            currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            if (currentRoom != null)
+            {
+                StartCoroutine(ElevatorStage(2, 3));
+            }
         }
 
         private void Update()
@@ -44,11 +50,13 @@ namespace Level
             switch (buttonType)
             {
                 case ElevatorButton.ButtonType.External:
-                    if (!currentRoom.Active) StartCoroutine(ElevatorStage(2, 3));
+                    if (currentRoom.Status == Room.State.Ready) currentRoom.Status = Room.State.Active;
                     break;
                 case ElevatorButton.ButtonType.Internal:
-                    if (currentRoom == null) StartCoroutine(ElevatorStage(1, 3));
-                    else if (currentRoom != null && !currentRoom.Active) StartCoroutine(ElevatorStage(0, 3));
+                    if (currentRoom == null)
+                        StartCoroutine(ElevatorStage(1, 3));
+                    else if (currentRoom != null && currentRoom.Status == Room.State.Complete)
+                        StartCoroutine(ElevatorStage(0, 3));
                     break;
             }
         }
@@ -83,7 +91,7 @@ namespace Level
             ));
             currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
 
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(2);
             UpdateFloorDisplay(currentRoom.floorNumber);
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);

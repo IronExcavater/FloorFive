@@ -197,7 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3275310611155189739}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TPS Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5785433916686118368}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Camera Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 5127125787344284060}
   - component: {fileID: 3881941071362575061}
   - component: {fileID: 4279709403865870782}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -503,6 +503,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 932944541594714220}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7740980004425964290}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 32580feaa00b27742b13c8f7fb235fe9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6261229968308366822}
@@ -870,6 +873,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96075805f1a140909caf35a041b11695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7740980004425964290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7306238889397388428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed1ef0e1f824f79a4ca5f3c9d3c9b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6261229968308366822

@@ -8,10 +8,12 @@ namespace Utils
     [RequireComponent(typeof(Collider))]
     public abstract class Interactable : MonoBehaviour
     {
+        public new bool enabled = true;
+        
         [Header("Interaction")]
         public string promptText = "Press E";
         public bool showOutline = true;
-        public new bool enabled = true;
+        public Vector3 promptOffset;
 
         public event Action OnInteracted;
         
@@ -25,7 +27,7 @@ namespace Utils
         public void Show()
         {
             if (showOutline && _outline != null) _outline.enabled = true;
-            InteractionUI.ShowPrompt(transform, promptText);
+            InteractionUI.ShowPrompt(this, promptText);
         }
 
         public void Hide()

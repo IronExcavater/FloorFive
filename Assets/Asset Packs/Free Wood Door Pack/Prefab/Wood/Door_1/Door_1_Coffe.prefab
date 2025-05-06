@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 65467869537791364}
   - component: {fileID: 82746852874034504}
   - component: {fileID: 114069760473322642}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,11 +220,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731917776111cfd4e8e238be7a676f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  open: 0
-  smooth: 1
-  asource: {fileID: 0}
-  openDoor: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
-  closeDoor: {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
+  enabled: 1
+  promptText: Press E
+  showOutline: 1
+  promptOffset: {x: -1, y: 1, z: 0}
+  isOpen: 0
+  openAngle: -90
+  closedAngle: 0
 --- !u!1 &1371647732391088
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +380,7 @@ GameObject:
   - component: {fileID: 4004210370237546}
   - component: {fileID: 33512376650654044}
   - component: {fileID: 23104369821168468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}

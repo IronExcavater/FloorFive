@@ -6,8 +6,8 @@ namespace Anomaly
 {
     public class AnomalyBase : MonoBehaviour
     {
-        public Vector3 anomalousPosition = Vector3.zero;
-        public Vector3 anomalousRotation = Vector3.zero;
+        public Vector3 anomalousPosition;
+        public Vector3 anomalousRotation;
     
         private Vector3 _startPos;
         private Quaternion _startRot;
@@ -23,24 +23,24 @@ namespace Anomaly
                 
                 if (_active)
                 {
-                    gameObject.transform.position = anomalousPosition;
-                    gameObject.transform.eulerAngles = anomalousRotation;
+                    gameObject.transform.localPosition = anomalousPosition;
+                    gameObject.transform.localEulerAngles = anomalousRotation;
                     StartCoroutine(Alive());
                 }
                 else
                 {
-                    AnimationManager.CreateTween(this, position => transform.position = position,
-                        transform.position, _startPos, 0.3f, Easing.EaseInOutCubic);
-                    AnimationManager.CreateTween(this, rotation => transform.rotation = rotation,
-                        transform.rotation, _startRot, 0.3f, Easing.EaseInOutCubic);
+                    AnimationManager.CreateTween(this, position => transform.localPosition = position,
+                        transform.localPosition, _startPos, 0.3f, Easing.EaseInOutCubic);
+                    AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
+                        transform.localRotation, _startRot, 0.3f, Easing.EaseInOutCubic);
                 }
             }
         }
 
         private void Awake()
         {
-            _startPos = gameObject.transform.position;
-            _startRot = gameObject.transform.rotation;
+            _startPos = gameObject.transform.localPosition;
+            _startRot = gameObject.transform.localRotation;
         }
 
         private IEnumerator Alive()

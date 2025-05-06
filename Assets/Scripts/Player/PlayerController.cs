@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Animation;
-using Level;
+using Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -51,6 +51,7 @@ namespace Player
         private Rigidbody _rigidbody;
         private Animator _animator;
         private AnimatorCache _animatorCache;
+        private AnimatorEventDispatcher _animatorEventDispatcher;
         
         private Vector2 _lookRotation;
         private float _targetZoom;
@@ -102,7 +103,19 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponentInChildren<Animator>();
             _animatorCache = GetComponentInChildren<AnimatorCache>();
+            _animatorEventDispatcher = GetComponentInChildren<AnimatorEventDispatcher>();
+            
             _tools = new();
+        }
+
+        private void OnEnable()
+        {
+            _animatorEventDispatcher.OnAnimatorIKUpdate += OnAnimatorIK;
+        }
+
+        private void OnDisable()
+        {
+            _animatorEventDispatcher.OnAnimatorIKUpdate -= OnAnimatorIK;
         }
 
         private void Start()
@@ -129,6 +142,10 @@ namespace Player
         {
             HandleLook();
             HandleZoom();
+        }
+        
+        private void OnAnimatorIK(int layerIndex)
+        {
             HandleHeadIK();
             HandleHandIK();
         }
@@ -275,7 +292,7 @@ namespace Player
             if (Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
                     out var hit, interactDistance, interactMask)
-                && hit.collider.TryGetComponent(out Interactable interactable)
+                && hit.collider.TryGetComponent(out Interactable interactable) && interactable.enabled
                 && !Physics.Raycast(cameraPivot.position, hit.collider.bounds.center - cameraPivot.position,
                     Vector3.Distance(hit.collider.bounds.center, cameraPivot.position), defaultMask))
             {

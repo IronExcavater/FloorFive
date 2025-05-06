@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Level
+namespace Tools
 {
     public abstract class ToolBase : MonoBehaviour
     {

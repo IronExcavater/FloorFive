@@ -1,11 +1,14 @@
-﻿using Utils;
+﻿using UnityEngine;
+using Utils;
 
 namespace Level
 {
     public class ElevatorButton : Interactable
     {
-        private Elevator _elevator;
+        [Header("Elevator Button")]
         public ButtonType buttonType;
+        
+        private Elevator _elevator;
         
         public enum ButtonType
         {

@@ -6,7 +6,7 @@ namespace UI
 {
     public class InteractionUI : Singleton<InteractionUI>
     {
-        private Transform _target;
+        private Interactable _target;
         private RectTransform _rectTransform;
         private Canvas _canvas;
         private TMP_Text _promptText;
@@ -20,7 +20,7 @@ namespace UI
             _canvas.enabled = false;
         }
         
-        public static void ShowPrompt(Transform target, string promptText)
+        public static void ShowPrompt(Interactable target, string promptText)
         {
             Instance._target = target;
             Instance._promptText.text = promptText;
@@ -37,8 +37,9 @@ namespace UI
             Camera camera = Camera.main;
             if (camera == null || Instance._target == null) return;
 
-            Vector3 direction = Instance._target.position - camera.transform.position;
-            _rectTransform.position = Instance._target.position + Vector3.up * 0.2f - direction.normalized * 0.2f;
+            Vector3 direction = Instance._target.transform.position - camera.transform.position;
+            _rectTransform.position = Instance._target.transform.position
+                + Instance._target.promptOffset + Vector3.up * 0.2f - direction.normalized * 0.2f;
             _rectTransform.forward = camera.transform.forward;
         }
     }
