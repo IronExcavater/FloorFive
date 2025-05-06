@@ -1378,6 +1378,7 @@ GameObject:
   - component: {fileID: 2099606851}
   - component: {fileID: 2099606850}
   - component: {fileID: 2099606849}
+  - component: {fileID: 2099606852}
   m_Layer: 0
   m_Name: FlashBeacon
   m_TagString: Untagged
@@ -1488,6 +1489,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2099606852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099606848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c80570c7723f304489c832c5161b5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolOffsetPosition: {x: 0, y: 0, z: 0}
+  toolOffsetRotation: {x: 0, y: 0, z: 0}
+  handOffsetPosition: {x: 0, y: 0, z: 0}
+  handOffsetRotation: {x: 0, y: 0, z: 0}
+  flashBeaconObj: {fileID: 2099606848}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

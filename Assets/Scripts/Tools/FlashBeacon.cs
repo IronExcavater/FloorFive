@@ -1,28 +1,44 @@
 using UnityEngine;
 
-using Level
+using Level;
 public class FlashBeacon : ToolBase
 {
-    public GameObject FlashBeacon;
-    public bool FlashBeaconActive = false;
+    public GameObject flashBeaconObj;
+    private bool on;
+    private bool off;
 
 
-    public override void OnInteract()
+    void Start()
     {
-        if (FlashBeaconActive == false && Input.GetKeyDown("F"))
+        flashBeaconObj.SetActive(false);
+        off = true;
+        on = false;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            FlashBeacon.SetActive(true);
-            FlashBeaconActive = true;
-            Debug.Log("Let there be light");
+        OnInteract();
         }
         
-        else if (FlashBeaconActive == true && Input.GetKeyDown("F"))
+    }
+    public override void OnInteract()
+    {
+        if (off)
         {
-            FlashBeacon.SetActive(false);
-            FlashBeaconActive = false;
+            flashBeaconObj.SetActive(true);
+            off = false;
+            on = true;
+            Debug.Log("Let there be light");
+        }
+
+        else if (on)
+        {
+            flashBeaconObj.SetActive(false);
+            on = false;
+            off = true;
             Debug.Log("Turned off");
         }
+        
     }
-    
-    
 }
