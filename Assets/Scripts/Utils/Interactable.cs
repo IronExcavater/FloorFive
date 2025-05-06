@@ -1,5 +1,7 @@
 ﻿using System;
+using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Utils
@@ -8,7 +10,7 @@ namespace Utils
     public abstract class Interactable : MonoBehaviour
     {
         [Header("Interaction")]
-        public string prompt = "Press E";
+        public string promptText = "Press E";
         public bool showOutline = true;
         public new bool enabled = true;
 
@@ -24,11 +26,13 @@ namespace Utils
         public void Show()
         {
             if (showOutline && _outline != null) _outline.enabled = true;
+            InteractionUI.ShowPrompt(transform, promptText);
         }
 
         public void Hide()
         {
-            if (showOutline && _outline != null) _outline.enabled = true;
+            if (showOutline && _outline != null) _outline.enabled = false;
+            InteractionUI.HidePrompt();
         }
 
         public void OnInteract()

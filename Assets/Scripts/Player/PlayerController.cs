@@ -17,16 +17,18 @@ namespace Player
         public Transform modelPivot;
         public Transform firstPersonTarget;
         public Transform thirdPersonTarget;
-
-        [Header("Model IK")]
-        public Transform headTarget;
-        public Transform handTarget;
-        public Transform toolTarget;
         
         public float cameraLerpSpeed = 5;
         public float mouseSensitivity = 10;
         public float scrollSensitivity = 10;
         public float maxCameraDistance = 1;
+        public float maxCameraDelta = 10;
+        
+        [Header("Model IK")]
+        public Transform headTransform;
+        public Transform handTransform;
+        public Transform toolTarget;
+
         
         [Header("Movement")]
         public float walkSpeed = 5;
@@ -40,9 +42,9 @@ namespace Player
         public LayerMask interactMask;
         
         private Dictionary<int, ToolBase> _tools = new();
-        private int _toolIndex;
+        private int _toolIndex = -1;
 
-        public ToolBase EquippedToolBase
+        public ToolBase EquippedTool
         {
             get => _tools[_toolIndex];
             set
@@ -52,7 +54,7 @@ namespace Player
                 if (_tools.TryGetValue(_toolIndex, out ToolBase tool)) tool.gameObject.SetActive(false);
             
                 value.gameObject.SetActive(true);
-                value.transform.SetParent(handTarget);
+                value.transform.SetParent(handTransform);
                 value.transform.localPosition = value.toolOffsetPosition;
                 value.transform.localEulerAngles = value.toolOffsetRotation;
                 
@@ -141,7 +143,8 @@ namespace Player
         {
             HandleLook();
             HandleZoom();
-            HandleIK();
+            HandleHeadIK();
+            HandleHandIK();
         }
 
         private void HandleInput()
@@ -189,15 +192,33 @@ namespace Player
             cameraTransform.LookAt(cameraPivot.position + cameraPivot.forward, cameraPivot.up);
         }
 
-        private void HandleIK()
+        private void HandleHeadIK()
         {
-            headTarget.LookAt(cameraPivot.position + cameraTransform.forward * 3);
+            headTransform.LookAt(cameraPivot.position + cameraTransform.forward * 3);
+            Vector3 localAngles = headTransform.localEulerAngles;
 
-            if (_toolIndex != -1)
-            {
-                handTarget.position = toolTarget.transform.position + EquippedToolBase.handOffsetPosition;
-                handTarget.eulerAngles = toolTarget.transform.eulerAngles + EquippedToolBase.handOffsetRotation;
-            }
+            // Convert from [0, 360] → [-180, 180] for clamping
+            localAngles.x = localAngles.x > 180 ? localAngles.x - 360 : localAngles.x;
+            localAngles.y = localAngles.y > 180 ? localAngles.y - 360 : localAngles.y;
+
+            // Clamp
+            localAngles.x = Mathf.Clamp(localAngles.x, -20, 20);
+            localAngles.y = Mathf.Clamp(localAngles.y, -30, 30);
+            localAngles.z = 0;
+
+            // Just use the clamped values
+            headTransform.localEulerAngles = localAngles;
+        }
+        
+        private void HandleHandIK()
+        {
+            if (_toolIndex == -1) return;
+
+            Vector3 handPosition = toolTarget.transform.position + EquippedTool.handOffsetPosition;
+            Quaternion handRotation = Quaternion.Euler(toolTarget.transform.eulerAngles + EquippedTool.handOffsetRotation);
+            
+            handTransform.position = Vector3.Lerp(handTransform.position, handPosition, Time.deltaTime * acceleration);
+            handTransform.rotation = Quaternion.Slerp(handTransform.rotation, handRotation, Time.deltaTime * acceleration);
         }
 
         private void HandleMove()
@@ -285,18 +306,18 @@ namespace Player
             {
                 if (Keyboard.current[(Key)((int)Key.Digit1 + i)].wasPressedThisFrame)
                 {
-                    if (_tools.TryGetValue(i, out ToolBase tool)) EquippedToolBase = tool;
+                    if (_tools.TryGetValue(i, out ToolBase tool)) EquippedTool = tool;
                 }
             }
 
-            float scroll = _input.actions["Scroll"].ReadValue<float>();
-            if (scroll != 0)
+            float scroll = _input.actions["Zoom"].IsPressed() ? 0 : _input.actions["Scroll"].ReadValue<float>();
+            if (scroll != 0 && _tools.Count > 0)
             {
                 List<int> sortedTools = _tools.Keys.OrderBy(x => x).ToList(); // Not efficient
                 
                 int direction = scroll > 0 ? 1 : -1;
                 int newIndex = sortedTools[(_toolIndex + direction + sortedTools.Count) % sortedTools.Count];
-                EquippedToolBase = _tools[newIndex];
+                EquippedTool = _tools[newIndex];
             }
         }
 

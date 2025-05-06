@@ -85,8 +85,8 @@ MonoBehaviour:
   modelPivot: {fileID: 7939609901936762422}
   firstPersonTarget: {fileID: 3569900175327534058}
   thirdPersonTarget: {fileID: 3275310611155189739}
-  headTarget: {fileID: 7723149066484554956}
-  handTarget: {fileID: 3250609745369776567}
+  headTransform: {fileID: 7723149066484554956}
+  handTransform: {fileID: 3250609745369776567}
   toolTarget: {fileID: 5843510513813171318}
   cameraLerpSpeed: 5
   mouseSensitivity: 10
