@@ -20,7 +20,7 @@ public class FlashBeacon : ToolBase
         {
             FlashBeacon.SetActive(false);
             FlashBeaconActive = false;
-            Debug.Log("Turned off")
+            Debug.Log("Turned off");
         }
     }
     
