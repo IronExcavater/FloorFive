@@ -16,7 +16,7 @@ namespace Anomaly
         public bool Active
         {
             get => _active;
-            private set
+            set
             {
                 if (_active == value) return;
                 _active = value;
@@ -29,8 +29,10 @@ namespace Anomaly
                 }
                 else
                 {
-                    gameObject.transform.position = _startPos;
-                    gameObject.transform.rotation = _startRot;
+                    AnimationManager.CreateTween(this, position => transform.position = position,
+                        transform.position, _startPos, 0.3f, Easing.EaseInOutCubic);
+                    AnimationManager.CreateTween(this, rotation => transform.rotation = rotation,
+                        transform.rotation, _startRot, 0.3f, Easing.EaseInOutCubic);
                 }
             }
         }

@@ -93,7 +93,7 @@ namespace Animation
         }
     }
 
-    public static Tween<T> Create<T>(Object target, Action<T> setter, T startValue, T endValue, float duration,
+    public static Tween<T> CreateTween<T>(Object target, Action<T> setter, T startValue, T endValue, float duration,
         Easing easing, bool scaled = true)
     {
         return new Tween<T>(target, setter, startValue, endValue, duration, easing, scaled);

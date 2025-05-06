@@ -47,16 +47,20 @@ namespace Level
 
             if (_remainingAnomalyGap <= 0)
             {
+                TriggerAnomaly();
                 
+                float t = Mathf.Clamp01(1 - _remainingTime / duration);
+                float slope = Mathf.Lerp(anomalyGap, 1, t * t);
+                _remainingAnomalyGap = slope;
             }
         }
 
         private void TriggerAnomaly()
         {
-            foreach (AnomalyBase anomaly in anomalies)
-            {
-                
-            }
+            if (anomalies.Count == 0) return;
+            
+            int index = Random.Range(0, anomalies.Count);
+            anomalies[index].Active = true;
         }
     }
 }
