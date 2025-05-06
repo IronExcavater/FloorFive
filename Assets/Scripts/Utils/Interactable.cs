@@ -1,7 +1,6 @@
 ﻿using System;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Utils

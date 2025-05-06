@@ -4584,24 +4584,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3289080370221427405, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4893344042127816840, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1847825647}
-    - target: {fileID: 4893344042127816840, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815607318137385769, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
-      propertyPath: m_fontSize
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815607318137385769, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 8991395161418245072, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

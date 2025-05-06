@@ -85,22 +85,29 @@ MonoBehaviour:
   modelPivot: {fileID: 7939609901936762422}
   firstPersonTarget: {fileID: 3569900175327534058}
   thirdPersonTarget: {fileID: 3275310611155189739}
-  headTransform: {fileID: 7723149066484554956}
-  handTransform: {fileID: 3250609745369776567}
-  toolTarget: {fileID: 5843510513813171318}
   cameraLerpSpeed: 5
   mouseSensitivity: 10
   scrollSensitivity: 10
   maxCameraDistance: 1
+  maxCameraDelta: 10
+  headTransform: {fileID: 7723149066484554956}
+  handTransform: {fileID: 3250609745369776567}
+  toolTarget: {fileID: 5843510513813171318}
   walkSpeed: 2
   sprintSpeed: 3
   acceleration: 7
   liftForce: 20
   interactRadius: 0.5
   interactDistance: 2
-  interactMask:
+  defaultMask:
     serializedVersion: 2
     m_Bits: 1
+  movableMask:
+    serializedVersion: 2
+    m_Bits: 128
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &7289632497006591245
 MonoBehaviour:
   m_ObjectHideFlags: 0
