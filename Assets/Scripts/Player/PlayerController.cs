@@ -22,7 +22,7 @@ namespace Player
         public float mouseSensitivity = 10;
         public float scrollSensitivity = 10;
         public float maxCameraDistance = 1;
-        public float maxCameraDelta = 10; // TODO: Not implemented
+        public float maxCameraDelta = 10;
         
         [Header("Model IK")]
         public Transform headTransform;
@@ -143,6 +143,8 @@ namespace Player
             Vector2 lookInput = _input.actions["Look"].ReadValue<Vector2>();
             
             Vector2 lookDelta = mouseSensitivity * Time.smoothDeltaTime * new Vector2(-lookInput.y, lookInput.x);
+            lookDelta = Vector3.ClampMagnitude(lookDelta, maxCameraDelta);
+            
             _lookRotation += lookDelta;
             _lookRotation.x = Mathf.Clamp(_lookRotation.x, -90, 90);
             
@@ -274,18 +276,16 @@ namespace Player
                     cameraPivot.position, interactRadius, cameraTransform.forward,
                     out var hit, interactDistance, interactMask)
                 && hit.collider.TryGetComponent(out Interactable interactable)
-                && Physics.Raycast(cameraPivot.position, cameraTransform.forward, out var hit2,
-                    Vector3.Distance(hit.point, cameraPivot.position), defaultMask)
-                && hit.collider.gameObject.Equals(hit2.collider.gameObject))
+                && !Physics.Raycast(cameraPivot.position, hit.collider.bounds.center - cameraPivot.position,
+                    Vector3.Distance(hit.collider.bounds.center, cameraPivot.position), defaultMask))
             {
                 InteractTarget = interactable;
             }
             else InteractTarget = null;
             
-            if (_input.actions["Interact"].WasPerformedThisFrame())
+            if (_input.actions["Interact"].WasPerformedThisFrame() && InteractTarget != null)
             {
-                if (InteractTarget != null) InteractTarget?.OnInteract();
-                else _tools[_toolIndex]?.OnInteract();
+                InteractTarget?.OnInteract();
             }
         }
 

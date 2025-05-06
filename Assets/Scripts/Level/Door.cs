@@ -1,47 +1,33 @@
-﻿using UnityEngine;
+﻿using Animation;
+using Audio;
+using UnityEngine;
+using Utils;
 
-
-
-
-
-// From asset, but redo
 namespace Level
 {
-	[RequireComponent(typeof(AudioSource))]
+	public class Door : Interactable
+	{
+		[SerializeField] private bool isOpen;
+		[SerializeField] private float openAngle = -90;
+		[SerializeField] private float closedAngle = 0;
+		
+		private AudioSource _audioSource;
 
-
-public class Door : MonoBehaviour {
-	public bool open;
-	public float smooth = 1.0f;
-	float DoorOpenAngle = -90.0f;
-    float DoorCloseAngle = 0.0f;
-	public AudioSource asource;
-	public AudioClip openDoor,closeDoor;
-	// Use this for initialization
-	void Start () {
-		asource = GetComponent<AudioSource> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (open)
+		protected override void Awake()
 		{
-            var target = Quaternion.Euler (0, DoorOpenAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * 5 * smooth);
-	
+			base.Awake();
+			_audioSource = GetComponentInChildren<AudioSource>();
 		}
-		else
-		{
-            var target1= Quaternion.Euler (0, DoorCloseAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target1, Time.deltaTime * 5 * smooth);
-	
-		}  
-	}
 
-	public void OpenDoor(){
-		open =!open;
-		asource.clip = open?openDoor:closeDoor;
-		asource.Play ();
+		protected override void Interact()
+		{
+			AnimationManager.RemoveTweens(this);
+			isOpen = !isOpen;
+			_audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue(isOpen ? "doorOpen" : "doorClose").GetFirstClip());
+			
+			AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
+				transform.localRotation, Quaternion.Euler(0, isOpen ? openAngle : closedAngle, 0),
+				1, Easing.EaseOutCubic);
+		}
 	}
-}
 }
