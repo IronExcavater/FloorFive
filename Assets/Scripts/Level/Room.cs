@@ -27,6 +27,9 @@ namespace Level
         public float duration = 180f; // 3 minutes
         private float _remainingTime;
 
+        public float anomalyGap = 10f;
+        private float _remainingAnomalyGap;
+
         [SerializeField] private List<AnomalyBase> anomalies;
 
         public void Update()
@@ -34,11 +37,25 @@ namespace Level
             if (Active)
             {
                 _remainingTime -= Time.deltaTime;
+                _remainingAnomalyGap -= Time.deltaTime;
             }
             
             if (_remainingTime <= 0)
             {
                 Active = false;
+            }
+
+            if (_remainingAnomalyGap <= 0)
+            {
+                
+            }
+        }
+
+        private void TriggerAnomaly()
+        {
+            foreach (AnomalyBase anomaly in anomalies)
+            {
+                
             }
         }
     }
