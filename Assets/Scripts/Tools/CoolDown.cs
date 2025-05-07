@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class CoolDown : MonoBehaviour
+[System.Serializable]
+public class CoolDown
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] public float coolDownTime;
+    private float coolDownTimer;
+
+    public bool coolDownActive
     {
-        
+        get { return Time.time < coolDownTimer; }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartCoolDown()
     {
-        
+        coolDownTimer = Time.time + coolDownTime;
     }
 }

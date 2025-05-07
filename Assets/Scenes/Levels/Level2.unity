@@ -376,6 +376,115 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &618827882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1229992492019899511, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
+  m_PrefabInstance: {fileID: 1860145315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &618827887
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618827882}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &843129259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 843129261}
+  - component: {fileID: 843129260}
+  - component: {fileID: 843129262}
+  m_Layer: 0
+  m_Name: FlashBeaconTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &843129260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843129259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c80570c7723f304489c832c5161b5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolOffsetPosition: {x: 0, y: 0, z: 0}
+  toolOffsetRotation: {x: 0, y: 0, z: 0}
+  handOffsetPosition: {x: 0, y: 0, z: 0}
+  handOffsetRotation: {x: 0, y: 0, z: 0}
+  flashBeaconObj: {fileID: 2099606848}
+  radius: {fileID: 843129262}
+  coolDown:
+    coolDownTime: 3
+  on: 0
+  flashPeriod: 0.5
+--- !u!4 &843129261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843129259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.15, y: -2.58, z: -2.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2099606851}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &843129262
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843129259}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &933391830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1165,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1848352267}
+    - target: {fileID: 1229992492019899511, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
+      propertyPath: m_TagString
+      value: MovingAnomaly
+      objectReference: {fileID: 0}
     - target: {fileID: 1369754563542706255, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
@@ -1192,6 +1305,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 6680aaff95bb29849952fe4447b5498b, type: 2}
+    - target: {fileID: 9041001158052632111, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041001158052632111, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9098560338904904421, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1200,7 +1321,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 9197690399295068728, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1229992492019899511, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 618827887}
   m_SourcePrefab: {fileID: 100100000, guid: e7e5bee8e29db654ab9facba8eac9830, type: 3}
 --- !u!43 &2038171491
 Mesh:
@@ -1378,9 +1502,8 @@ GameObject:
   - component: {fileID: 2099606851}
   - component: {fileID: 2099606850}
   - component: {fileID: 2099606849}
-  - component: {fileID: 2099606852}
   m_Layer: 0
-  m_Name: FlashBeacon
+  m_Name: Light Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1420,7 +1543,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 500
+  m_Intensity: 1000
   m_Range: 3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1432,7 +1555,7 @@ Light:
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.04
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -1482,30 +1605,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099606848}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.15, y: -2.58, z: -2.84}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 843129261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2099606852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099606848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c80570c7723f304489c832c5161b5ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolOffsetPosition: {x: 0, y: 0, z: 0}
-  toolOffsetRotation: {x: 0, y: 0, z: 0}
-  handOffsetPosition: {x: 0, y: 0, z: 0}
-  handOffsetRotation: {x: 0, y: 0, z: 0}
-  flashBeaconObj: {fileID: 2099606848}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1513,4 +1619,4 @@ SceneRoots:
   - {fileID: 144459453}
   - {fileID: 933391832}
   - {fileID: 1860145315}
-  - {fileID: 2099606851}
+  - {fileID: 843129261}
