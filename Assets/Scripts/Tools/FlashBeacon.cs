@@ -4,41 +4,35 @@ using Level;
 public class FlashBeacon : ToolBase
 {
     public GameObject flashBeaconObj;
-    private bool on;
-    private bool off;
-
-
+    
+    public bool on;
+    
     void Start()
     {
-        flashBeaconObj.SetActive(false);
-        off = true;
         on = false;
+        flashBeaconObj.SetActive(false);
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-        OnInteract();
+            OnInteract();
         }
-        
     }
     public override void OnInteract()
     {
-        if (off)
-        {
+        if (!on)
+        { 
             flashBeaconObj.SetActive(true);
-            off = false;
             on = true;
-            Debug.Log("Let there be light");
+            Debug.Log("FlashBeacon on");
         }
 
         else if (on)
         {
             flashBeaconObj.SetActive(false);
             on = false;
-            off = true;
-            Debug.Log("Turned off");
+            Debug.Log("FlashBeacon off");
         }
-        
     }
 }
