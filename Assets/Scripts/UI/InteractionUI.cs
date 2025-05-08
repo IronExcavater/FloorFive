@@ -39,7 +39,8 @@ namespace UI
 
             Vector3 direction = Instance._target.transform.position - camera.transform.position;
             _rectTransform.position = Instance._target.transform.position
-                + Instance._target.promptOffset + Vector3.up * 0.2f - direction.normalized * 0.2f;
+                + Instance._target.transform.TransformDirection(Instance._target.promptOffset)
+                + Vector3.up * 0.2f - direction.normalized * 0.2f;
             _rectTransform.forward = camera.transform.forward;
         }
     }

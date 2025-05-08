@@ -5,12 +5,13 @@ using Utils;
 
 namespace Level
 {
+	[RequireComponent(typeof(AudioSource))]
 	public class Door : Interactable
 	{
 		[Header("Door")]
 		[SerializeField] private bool isOpen;
-		[SerializeField] private float openAngle = -90;
-		[SerializeField] private float closedAngle = 0;
+		[SerializeField] private float openAngle = 0;
+		[SerializeField] private float closedAngle = 90;
 		
 		private AudioSource _audioSource;
 
@@ -24,6 +25,7 @@ namespace Level
 		{
 			AnimationManager.RemoveTweens(this);
 			isOpen = !isOpen;
+			_audioSource.Stop();
 			_audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue(isOpen ? "doorOpen" : "doorClose").GetFirstClip());
 			
 			AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,

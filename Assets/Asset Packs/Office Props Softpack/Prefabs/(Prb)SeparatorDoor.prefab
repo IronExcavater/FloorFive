@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 6270900792870834212}
   - component: {fileID: 6617209366145212269}
   - component: {fileID: 803140083934309334}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6270900792870834212
 Transform:
@@ -103,7 +103,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2802033948886518686
 Transform:
@@ -209,7 +209,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6141248050949583199
 Transform:
@@ -242,12 +242,12 @@ GameObject:
   - component: {fileID: 4952946540369492111}
   - component: {fileID: 157730593848804679}
   - component: {fileID: 8530628881574912088}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3822384493335530904
 Transform:
@@ -335,8 +335,8 @@ MonoBehaviour:
   showOutline: 1
   promptOffset: {x: -1, y: 1, z: 0}
   isOpen: 0
-  openAngle: -90
-  closedAngle: 0
+  openAngle: 0
+  closedAngle: 90
 --- !u!65 &157730593848804679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ AudioSource:
   m_GameObject: {fileID: 6638429207943034089}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8988630566837187699, guid: 44348c8d7a7f61c409f06986f97876e6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -469,7 +469,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6276409764197313900
 Transform:

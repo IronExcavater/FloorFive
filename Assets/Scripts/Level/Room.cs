@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Anomaly;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Level
 {
@@ -8,7 +11,7 @@ namespace Level
     {
         public int floorNumber;
         
-        [SerializeField] private State _status = State.Ready;
+        private State _status = State.Ready;
 
         public enum State
         {
@@ -24,47 +27,73 @@ namespace Level
                 if (_status == value) return;
                 _status = value;
                 _remainingTime = duration;
-                _remainingAnomalyGap = anomalyGap;
+                _remainingAnomalyGap = 3f;
             }
         }
         
         public float duration = 180f; // 3 minutes
         private float _remainingTime;
-
-        public float anomalyGap = 10f;
+        
+        [Header("Anomaly Gap")]
+        public AnimationCurve anomalyCurve = AnimationCurve.EaseInOut(0, 20, 1f, 10f);
         private float _remainingAnomalyGap;
 
-        [SerializeField] private List<AnomalyBase> anomalies;
+        private List<AnomalyBase> _anomalies;
+        
+        [Header("Player Stress")]
+        public int maxActiveAnomalies = 5;
+        public float stress = 0;
+        public AnimationCurve stressCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        public event Action<float> OnStressed;
+        public event Action OnPassedOut;
+        
 
-        public void Update()
+        private void Awake()
         {
-            if (Status == State.Active)
-            {
-                _remainingTime -= Time.deltaTime;
-                _remainingAnomalyGap -= Time.deltaTime;
-                
-                if (_remainingTime <= 0)
-                {
-                    Status = State.Complete;
-                }
+            _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
+        }
 
-                if (_remainingAnomalyGap <= 0)
-                {
-                    TriggerAnomaly();
-                
-                    float t = Mathf.Clamp01(1 - _remainingTime / duration);
-                    float slope = Mathf.Lerp(anomalyGap, 1, t * t);
-                    _remainingAnomalyGap = slope;
-                }
+        private void Update()
+        {
+            if (Status != State.Active) return;
+            
+            _remainingTime -= Time.deltaTime;
+            _remainingAnomalyGap -= Time.deltaTime;
+            
+            if (_remainingTime <= 0)
+            {
+                Status = State.Complete;
             }
+
+            if (_remainingAnomalyGap <= 0)
+            {
+                TriggerAnomaly();
+                
+                float t = Mathf.Clamp01(1 - _remainingTime / duration);
+                float slope = anomalyCurve.Evaluate(t);
+                _remainingAnomalyGap = slope;
+            }
+            
+            HandleStress();
         }
 
         private void TriggerAnomaly()
         {
-            if (anomalies.Count == 0) return;
+            if (_anomalies.Count == 0) return;
             
-            int index = Random.Range(0, anomalies.Count);
-            anomalies[index].Active = true;
+            int index = Random.Range(0, _anomalies.Count);
+            _anomalies[index].Active = true;
+            Debug.Log($"Triggered anomaly: {_anomalies[index].name}");
+        }
+
+        private void HandleStress()
+        {
+            float totalActiveTime = _anomalies.Sum(anomaly => anomaly.activeTime);
+            float stressT = Mathf.Clamp01(totalActiveTime / (maxActiveAnomalies * duration));
+            stress = Mathf.MoveTowards(stress, stressT, Time.deltaTime * 0.1f);
+            
+            OnStressed?.Invoke(stressCurve.Evaluate(stress));
+            if (stress >= 1) OnPassedOut?.Invoke();
         }
     }
 }

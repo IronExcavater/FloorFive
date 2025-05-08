@@ -11,7 +11,8 @@
 
 using System;
 using Animation;
-using Audio; // Convert
+using Audio;
+using Level; // Convert
 using UnityEngine;  // Monobehaviour
 using UnityEditor;  // Handles
 
@@ -67,9 +68,26 @@ namespace HomebrewIK
 
         private void StepSfx(bool isRightFoot)
         {
-            var audioSource = isRightFoot ? leftFootAudioSource : rightFootAudioSource;
-            var audioClip = AudioManager.AudioGroupDictionary.GetValue("step").GetRandomClip();
+            var audioSource = isRightFoot ? rightFootAudioSource : leftFootAudioSource;
+            Vector3 footPos = isRightFoot ? rightFootTransform.position : leftFootTransform.position;
+            
+            SurfaceType surfaceType = GetFootSurface(footPos);
+            string sfxKey = surfaceType.ToString().ToLower() + "Step";
+            
+            var audioClip = AudioManager.AudioGroupDictionary.GetValue(sfxKey).GetRandomClip();
             audioSource.PlayOneShot(audioClip);
+        }
+
+        private SurfaceType GetFootSurface(Vector3 footPosition)
+        {
+            if (Physics.Raycast(footPosition + Vector3.up * 0.1f, Vector3.down, out RaycastHit hit, 0.3f))
+            {
+                if (hit.collider.TryGetComponent(out Surface surface))
+                {
+                    return surface.surfaceType;
+                }
+            }
+            return SurfaceType.Carpet;
         }
 
         private void OnEnable()

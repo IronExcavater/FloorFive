@@ -10,12 +10,16 @@ namespace Level
     [RequireComponent(typeof(Animator), typeof(AnimatorCache))]
     public class Elevator : MonoBehaviour
     {
-        public Room currentRoom;
+        private Room _currentRoom;
 
         public MeshRenderer[] numberMeshRenderers;
         public Texture2D[] numberEmissionTextures;
 
-        public float exitDistance = 2f;
+        public Button externalButton;
+        public Button internalButton;
+        
+        public Collider doorCollider;
+        public float exitDistance = 1f;
 
         private Animator _animator;
         private AnimatorCache _animatorCache;
@@ -28,10 +32,26 @@ namespace Level
             _animator = GetComponent<Animator>();
             _animatorCache = GetComponent<AnimatorCache>();
             _audioSource = GetComponentInChildren<AudioSource>();
+        }
+
+        private void OnEnable()
+        {
+            externalButton.OnInteracted += OnExternalButton;
+            internalButton.OnInteracted += OnInternalButton;
+        }
+
+        private void OnDisable()
+        {
+            externalButton.OnInteracted -= OnExternalButton;
+            internalButton.OnInteracted -= OnInternalButton;
+        }
+
+        private void Start()
+        {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             
-            currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
-            if (currentRoom != null)
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            if (_currentRoom != null)
             {
                 StartCoroutine(ElevatorStage(2, 3));
             }
@@ -43,22 +63,22 @@ namespace Level
             {
                 StartCoroutine(ElevatorStage(0, 1));
             }
+            
+            doorCollider.enabled = !_doorsOpen;
+
+            externalButton.enabled = _currentRoom != null && _currentRoom.Status == Room.State.Ready;
+            internalButton.enabled = _currentRoom == null ||
+                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete;
         }
 
-        public void OnButtonInteracted(ElevatorButton.ButtonType buttonType)
+        private void OnExternalButton()
         {
-            switch (buttonType)
-            {
-                case ElevatorButton.ButtonType.External:
-                    if (currentRoom.Status == Room.State.Ready) currentRoom.Status = Room.State.Active;
-                    break;
-                case ElevatorButton.ButtonType.Internal:
-                    if (currentRoom == null)
-                        StartCoroutine(ElevatorStage(1, 3));
-                    else if (currentRoom != null && currentRoom.Status == Room.State.Complete)
-                        StartCoroutine(ElevatorStage(0, 3));
-                    break;
-            }
+            _currentRoom.Status = Room.State.Active;
+        }
+
+        private void OnInternalButton()
+        {
+            StartCoroutine(ElevatorStage(_currentRoom == null ? 1 : 0, 3));
         }
 
         private IEnumerator ElevatorStage(int startStage, int endStage)
@@ -81,7 +101,7 @@ namespace Level
 
         private IEnumerator ElevatorRide()
         {
-            currentRoom = null;
+            _currentRoom = null;
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorRide").GetFirstClip());
             
             int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
@@ -89,10 +109,10 @@ namespace Level
                 LoadManager.UnloadScene(activeLevelBuildIndex),
                 LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : 1)
             ));
-            currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
 
             yield return new WaitForSeconds(2);
-            UpdateFloorDisplay(currentRoom.floorNumber);
+            UpdateFloorDisplay(_currentRoom.floorNumber);
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);
             

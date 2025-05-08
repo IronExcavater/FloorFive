@@ -29,7 +29,7 @@ namespace Editor
                     
             Transform trans = anomaly.transform;
             Transform parent = trans.parent;
-            Collider collider = trans.GetComponent<Collider>();
+            Renderer renderer = anomaly.GetComponentInChildren<Renderer>();
 
             Vector3 position = parent.TransformPoint(anomaly.anomalousPosition);
             Quaternion rotation = parent.rotation * Quaternion.Euler(anomaly.anomalousRotation);
@@ -37,14 +37,14 @@ namespace Editor
             Handles.color = Color.cyan;
             Handles.DrawDottedLine(trans.position, position, 10f);
             
-            if (collider)
+            if (renderer)
             {
-                Vector3 localOffset = trans.InverseTransformPoint(collider.bounds.center);
-                var matrix = Matrix4x4.TRS(rotation * localOffset + position, rotation, trans.lossyScale);
+                Vector3 localOffset = trans.InverseTransformPoint(renderer.bounds.center);
+                var matrix = Matrix4x4.TRS(rotation * localOffset + position, rotation, trans.localScale);
 
                 using (new Handles.DrawingScope(Color.cyan, matrix))
                 {
-                    Handles.DrawWireCube(Vector3.zero, collider.bounds.size);
+                    Handles.DrawWireCube(Vector3.zero, renderer.localBounds.size);
                 }
             }
             

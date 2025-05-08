@@ -674,14 +674,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: computer mouse Prefab
       objectReference: {fileID: 0}
-    - target: {fileID: 4437974124651744, guid: 3ef7c60670bb53a4eb1d53dce37111c0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.082
-      objectReference: {fileID: 0}
-    - target: {fileID: 4437974124651744, guid: 3ef7c60670bb53a4eb1d53dce37111c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.002
-      objectReference: {fileID: 0}
     - target: {fileID: 4499873317546874, guid: 3ef7c60670bb53a4eb1d53dce37111c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.56120205

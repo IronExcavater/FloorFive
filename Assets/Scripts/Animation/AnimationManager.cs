@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 using Object = UnityEngine.Object;
 
 namespace Animation
@@ -16,21 +17,9 @@ namespace Animation
         EaseOutBounce
     }
     
-    public class AnimationManager : MonoBehaviour
+    public class AnimationManager : Singleton<AnimationManager>
 {
-    private static AnimationManager _instance;
-    
     private readonly List<ITween> _tweens = new();
-    
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(_instance);
-        }
-        else Destroy(gameObject);
-    }
 
     private interface ITween
     {
@@ -67,7 +56,7 @@ namespace Animation
             _scaled = scaled;
 
             IsDirty = false;
-            _instance._tweens.Add(this);
+            Instance._tweens.Add(this);
         }
         
         private float ElapsedTime => (_scaled ? Time.time : Time.unscaledTime) - _startTime;
@@ -101,17 +90,17 @@ namespace Animation
 
     public static bool HasTween(Object target)
     {
-        return _instance._tweens.Any(tween => tween.Target == target);
+        return Instance._tweens.Any(tween => tween.Target == target);
     }
 
     public static List<Tween<T>> GetTweens<T>(Object target)
     {
-        return _instance._tweens.Where(tween => tween.Target == target).Cast<Tween<T>>().ToList();
+        return Instance._tweens.Where(tween => tween.Target == target).Cast<Tween<T>>().ToList();
     }
     
     public static void RemoveTweens(Object target)
     {
-        _instance._tweens.Where(tween => tween.Target == target).ToList().ForEach(tween => tween.IsDirty = true);
+        Instance._tweens.Where(tween => tween.Target == target).ToList().ForEach(tween => tween.IsDirty = true);
     }
 
     public void Update()

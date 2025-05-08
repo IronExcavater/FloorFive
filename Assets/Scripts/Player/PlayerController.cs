@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Animation;
+using Level;
 using Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -46,7 +47,9 @@ namespace Player
         private int _toolIndex = -1;
 
         private ToolBase EquippedTool() => _tools.GetValueOrDefault(_toolIndex, null);
-
+        
+        private Room _currentRoom;
+        
         private PlayerInput _input;
         private Rigidbody _rigidbody;
         private Animator _animator;
@@ -291,9 +294,9 @@ namespace Player
         {
             if (Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
-                    out var hit, interactDistance, interactMask)
-                && hit.collider.TryGetComponent(out Interactable interactable) && interactable.enabled
-                && !Physics.Raycast(cameraPivot.position, hit.collider.bounds.center - cameraPivot.position,
+                    out var hit, interactDistance, interactMask) &&
+                hit.collider.TryGetComponent(out Interactable interactable) && interactable.enabled &&
+                !Physics.Raycast(cameraPivot.position, hit.collider.bounds.center - cameraPivot.position,
                     Vector3.Distance(hit.collider.bounds.center, cameraPivot.position), defaultMask))
             {
                 InteractTarget = interactable;

@@ -303,14 +303,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coffee cup Prefab
       objectReference: {fileID: 0}
-    - target: {fileID: 4766298402704658, guid: a42b76a8ae68dad4fb4fea3eda1ed3d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.092
-      objectReference: {fileID: 0}
-    - target: {fileID: 4766298402704658, guid: a42b76a8ae68dad4fb4fea3eda1ed3d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.218
-      objectReference: {fileID: 0}
     - target: {fileID: 4922469374407738, guid: a42b76a8ae68dad4fb4fea3eda1ed3d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.70864975

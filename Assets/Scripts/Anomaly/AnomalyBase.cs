@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Anomaly
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class AnomalyBase : MonoBehaviour
     {
         public Vector3 anomalousPosition;
@@ -12,7 +13,7 @@ namespace Anomaly
         private Vector3 _startPos;
         private Quaternion _startRot;
     
-        private bool _active = true;
+        private bool _active;
         public bool Active
         {
             get => _active;
@@ -20,6 +21,8 @@ namespace Anomaly
             {
                 if (_active == value) return;
                 _active = value;
+                
+                activeTime = 0;
                 
                 if (_active)
                 {
@@ -37,6 +40,8 @@ namespace Anomaly
             }
         }
 
+        public float activeTime;
+
         private void Awake()
         {
             _startPos = gameObject.transform.localPosition;
@@ -45,7 +50,11 @@ namespace Anomaly
 
         private IEnumerator Alive()
         {
-            yield return new WaitWhile(() => Vector3.Distance(gameObject.transform.position, _startPos) > 0.3f);
+            while (Vector3.Distance(gameObject.transform.localPosition, _startPos) > 0.5f)
+            {
+                activeTime += Time.deltaTime;
+                yield return null;
+            }
             Active = false;
         }
 

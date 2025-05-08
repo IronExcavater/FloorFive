@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AudioGroupDictionary
   m_EditorClassIdentifier: Assembly-CSharp:Utils:AudioGroupDictionary
   entries:
-  - Key: step
+  - Key: carpetStep
     Value:
       clips:
       - {fileID: 8300000, guid: 550c65cc1ad514c438fabdc1a3215f47, type: 3}
@@ -52,3 +52,46 @@ MonoBehaviour:
     Value:
       clips:
       - {fileID: 8300000, guid: edbf722539bd584438c8b99c060a4ed2, type: 3}
+  - Key: tileStep
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 0ea7a4ed11231744aa7cbd1ce1c9b91f, type: 3}
+      - {fileID: 8300000, guid: a5f919ba56ccfc641ada3adf29ec7746, type: 3}
+      - {fileID: 8300000, guid: ea5896b9e16a4d8439e0a2217d60d2e1, type: 3}
+      - {fileID: 8300000, guid: 8cbb7410005a144478ddf61f267c2564, type: 3}
+      - {fileID: 8300000, guid: b3673a320a24b8d4baee1e893f49a7a2, type: 3}
+  - Key: woodStep
+    Value:
+      clips:
+      - {fileID: 8300000, guid: e71354e0f6486314f8a8f0c9787b5d88, type: 3}
+      - {fileID: 8300000, guid: 74782f58fcec29541bc66a636c91fdcf, type: 3}
+      - {fileID: 8300000, guid: a30624a6a564d684d9eb04a54b362b52, type: 3}
+      - {fileID: 8300000, guid: a3f0314776aee1b4f960d838b7092017, type: 3}
+      - {fileID: 8300000, guid: 80e12d52f68945244a0a48c00e3a085d, type: 3}
+  - Key: buttonPress
+    Value:
+      clips:
+      - {fileID: 8300000, guid: f3a9ae1ac2ff6dc45869cdb7140a9d5b, type: 3}
+      - {fileID: 8300000, guid: e6b6a4034d632b643882fd7f2beefed7, type: 3}
+  - Key: leftClick
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 51d4fe88f09d1654fa536dff78cfe12d, type: 3}
+      - {fileID: 8300000, guid: c2c5f2c935fb0234ea5254730c6e6a11, type: 3}
+  - Key: leftDoubleClick
+    Value:
+      clips:
+      - {fileID: 8300000, guid: b31589081a76ab7479a632e72ddd5889, type: 3}
+  - Key: rightClick
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 737f8c5100c4d5548a418c26ed163438, type: 3}
+      - {fileID: 8300000, guid: d8f0d5a7bfda726448054954a73c4804, type: 3}
+  - Key: rightDoubleClick
+    Value:
+      clips:
+      - {fileID: 8300000, guid: d0c8ba98547215145916b094fae7abbd, type: 3}
+  - Key: heartbeat
+    Value:
+      clips:
+      - {fileID: 8300000, guid: fc884bb7ba6c5324b8a56bec130eb7dd, type: 3}
