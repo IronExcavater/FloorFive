@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 654451404607744712}
   - component: {fileID: 7989853879134316299}
   - component: {fileID: 4649934182708080754}
-  - component: {fileID: 6237143115562174203}
+  - component: {fileID: 5389463762448556623}
   m_Layer: 0
   m_Name: Amp_Rack_02
   m_TagString: Untagged
@@ -120,8 +120,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6237143115562174203
-MeshCollider:
+--- !u!65 &5389463762448556623
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -138,7 +138,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: d31353d1f3002254bb9c6dccb795b548, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.0785723, y: 0.5926385, z: 0.58246434}
+  m_Center: {x: -0.001985103, y: -0.20252876, z: -0.0033409446}

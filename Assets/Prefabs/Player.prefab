@@ -1087,6 +1087,7 @@ MonoBehaviour:
   maxFilmGrain: 0.3
   maxHeartbeatVolume: 0.8
   maxHeartbeatPitch: 1.4
+  minCameraFov: 50
 --- !u!82 &5808949438032516500
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1100,7 +1101,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: fc884bb7ba6c5324b8a56bec130eb7dd, type: 3}
   m_Resource: {fileID: 8300000, guid: fc884bb7ba6c5324b8a56bec130eb7dd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -44,25 +44,40 @@ namespace Level
             
             _mainCamera = Camera.main;
             if (_mainCamera != null) _baseFov = _mainCamera.fieldOfView;
+            
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            SubscribeToRoom();
         }
         
         private void OnEnable()
         {
             LoadManager.OnSceneLoaded += OnSceneLoaded;
-            if (_currentRoom != null) _currentRoom.OnStressed += HandleStress;
+            SubscribeToRoom();
         }
 
         private void OnDisable()
         {
             LoadManager.OnSceneLoaded -= OnSceneLoaded;
-            if (_currentRoom != null) _currentRoom.OnStressed -= HandleStress;
+            UnsubscribeFromRoom();
         }
         
         private void OnSceneLoaded(Scene scene)
         {
-            if (_currentRoom != null) _currentRoom.OnStressed -= HandleStress;
+            UnsubscribeFromRoom();
             _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
-            if (_currentRoom != null) _currentRoom.OnStressed += HandleStress;
+            SubscribeToRoom();
+        }
+        
+        private void SubscribeToRoom()
+        {
+            if (_currentRoom == null) return;
+            _currentRoom.OnStressed += HandleStress;
+        }
+        
+        private void UnsubscribeFromRoom()
+        {
+            if (_currentRoom == null) return;
+            _currentRoom.OnStressed -= HandleStress;
         }
         
         private void HandleStress(float stress)

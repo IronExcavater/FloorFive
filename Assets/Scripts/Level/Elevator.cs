@@ -68,7 +68,7 @@ namespace Level
 
             externalButton.enabled = _currentRoom != null && _currentRoom.Status == Room.State.Ready;
             internalButton.enabled = _currentRoom == null ||
-                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete;
+                                     _currentRoom != null && _currentRoom.Status != Room.State.Active;
         }
 
         private void OnExternalButton()
@@ -78,7 +78,12 @@ namespace Level
 
         private void OnInternalButton()
         {
-            StartCoroutine(ElevatorStage(_currentRoom == null ? 1 : 0, 3));
+            if (_currentRoom == null)
+                StartCoroutine(ElevatorStage(1, 3));
+            else if (_currentRoom.Status == Room.State.Complete)
+                StartCoroutine(ElevatorStage(0, 3));
+            else if (_currentRoom.Status == Room.State.Ready)
+                StartCoroutine(ElevatorStage(2, 3));
         }
 
         private IEnumerator ElevatorStage(int startStage, int endStage)

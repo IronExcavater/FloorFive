@@ -28,6 +28,8 @@ namespace Level
                 _status = value;
                 _remainingTime = duration;
                 _remainingAnomalyGap = 3f;
+                
+                if (_status == State.Complete) _anomalies.ForEach(anomaly => anomaly.Active = false);
             }
         }
         
@@ -39,13 +41,17 @@ namespace Level
         private float _remainingAnomalyGap;
 
         private List<AnomalyBase> _anomalies;
-        
+
         [Header("Player Stress")]
-        public int maxActiveAnomalies = 5;
-        public float stress = 0;
+        public float maxActiveTime = 60;
+        public int maxActiveCount = 5;
+        private float _stress = 0;
         public AnimationCurve stressCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         public event Action<float> OnStressed;
         public event Action OnPassedOut;
+
+        private float _normalisedTime;
+        private float _normalisedCount;
         
 
         private void Awake()
@@ -54,6 +60,13 @@ namespace Level
         }
 
         private void Update()
+        {
+
+            HandleTriggering();
+            HandleStress();
+        }
+
+        private void HandleTriggering()
         {
             if (Status != State.Active) return;
             
@@ -73,8 +86,6 @@ namespace Level
                 float slope = anomalyCurve.Evaluate(t);
                 _remainingAnomalyGap = slope;
             }
-            
-            HandleStress();
         }
 
         private void TriggerAnomaly()
@@ -88,12 +99,26 @@ namespace Level
 
         private void HandleStress()
         {
-            float totalActiveTime = _anomalies.Sum(anomaly => anomaly.activeTime);
-            float stressT = Mathf.Clamp01(totalActiveTime / (maxActiveAnomalies * duration));
-            stress = Mathf.MoveTowards(stress, stressT, Time.deltaTime * 0.1f);
+            float activeCount = 0;
+            float totalActiveTime = 0;
+            _anomalies.ForEach(anomaly =>
+            {
+                totalActiveTime += anomaly.activeTime;
+                activeCount += anomaly.Active ? 1 : 0;
+            });
             
-            OnStressed?.Invoke(stressCurve.Evaluate(stress));
-            if (stress >= 1) OnPassedOut?.Invoke();
+            _normalisedTime = Mathf.Clamp01(totalActiveTime / maxActiveTime);
+            _normalisedCount = Mathf.Clamp01(activeCount / maxActiveCount);
+            
+            float stressT = Mathf.Clamp01((_normalisedTime + _normalisedCount) * 0.5f);
+            _stress = Mathf.MoveTowards(_stress, stressT, Time.deltaTime * 0.2f);
+            
+            OnStressed?.Invoke(stressCurve.Evaluate(_stress));
+            if (Status == State.Active && _stress >= 1)
+            {
+                OnPassedOut?.Invoke();
+                Status = State.Ready;
+            }
         }
     }
 }

@@ -17,7 +17,8 @@ namespace Editor
             if (GUILayout.Button("Set Anomalous Transform to Current"))
             {
                 Undo.RecordObject(anomaly, "Set Anomalous Transform to Current");
-                anomaly.anomalousPosition = anomaly.transform.localPosition;
+                Vector3 center = Utils.Utils.GetLocalBounds(anomaly.gameObject).center;
+                anomaly.anomalousPosition = anomaly.transform.localPosition + center;
                 anomaly.anomalousRotation = anomaly.transform.localEulerAngles;
                 EditorUtility.SetDirty(anomaly);
             }
@@ -29,23 +30,19 @@ namespace Editor
                     
             Transform trans = anomaly.transform;
             Transform parent = trans.parent;
-            Renderer renderer = anomaly.GetComponentInChildren<Renderer>();
 
             Vector3 position = parent.TransformPoint(anomaly.anomalousPosition);
             Quaternion rotation = parent.rotation * Quaternion.Euler(anomaly.anomalousRotation);
             
-            Handles.color = Color.cyan;
-            Handles.DrawDottedLine(trans.position, position, 10f);
+            Bounds bounds = Utils.Utils.GetLocalBounds(anomaly.gameObject);
             
-            if (renderer)
-            {
-                Vector3 localOffset = trans.InverseTransformPoint(renderer.bounds.center);
-                var matrix = Matrix4x4.TRS(rotation * localOffset + position, rotation, trans.localScale);
+            Handles.color = Color.cyan;
+            Handles.DrawDottedLine(trans.position + bounds.center, position, 10f);
 
-                using (new Handles.DrawingScope(Color.cyan, matrix))
-                {
-                    Handles.DrawWireCube(Vector3.zero, renderer.localBounds.size);
-                }
+            Matrix4x4 matrix = Matrix4x4.TRS(position, rotation, Vector3.one);
+            using (new Handles.DrawingScope(matrix))
+            {
+                Handles.DrawWireCube(Vector3.zero, bounds.size);
             }
             
             EditorGUI.BeginChangeCheck();
