@@ -13,6 +13,7 @@ namespace Anomaly
         private Vector3 _startPos;
         private Quaternion _startRot;
     
+        private Rigidbody _rigidbody;
         private bool _active;
         public bool Active
         {
@@ -23,6 +24,7 @@ namespace Anomaly
                 _active = value;
                 
                 activeTime = 0;
+                _rigidbody.isKinematic = !value;
                 
                 if (_active)
                 {
@@ -44,8 +46,19 @@ namespace Anomaly
 
         private void Awake()
         {
-            _startPos = gameObject.transform.localPosition;
-            _startRot = gameObject.transform.localRotation;
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.isKinematic = !Active;
+            
+            Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
+            _startPos = center;
+            _startRot = transform.localRotation;
+        }
+        
+        private void Reset()
+        {
+            Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
+            anomalousPosition = transform.localPosition + center;
+            anomalousRotation = transform.localEulerAngles;
         }
 
         private IEnumerator Alive()

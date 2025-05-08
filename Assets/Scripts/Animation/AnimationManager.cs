@@ -92,6 +92,11 @@ namespace Animation
     {
         return Instance._tweens.Any(tween => tween.Target == target);
     }
+    
+    public static bool HasTween<T>(Tween<T> tween)
+    {
+        return Instance._tweens.Any(t => t == tween);
+    }
 
     public static List<Tween<T>> GetTweens<T>(Object target)
     {
