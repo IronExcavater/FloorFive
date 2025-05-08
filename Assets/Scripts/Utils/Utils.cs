@@ -66,5 +66,13 @@ namespace Utils
             
             return combined;
         }
+        
+        public static void SetLayerRecursive(GameObject obj, int layer)
+        {
+            foreach (Transform t in obj.GetComponentsInChildren<Transform>(true))
+            {
+                t.gameObject.layer = layer;
+            }
+        }
     }
 }

@@ -122,6 +122,9 @@ namespace Player
             _startPosition = transform.position;
             
             _tools = new();
+            
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            SubscribeToRoom();
         }
 
         private void OnEnable()
@@ -142,6 +145,7 @@ namespace Player
         {
             UnsubscribeFromRoom();
             _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            Debug.Log($"Loading scene {scene}, room found? {_currentRoom != null}");
             SubscribeToRoom();
         }
         
@@ -295,7 +299,8 @@ namespace Player
             Vector3 holdPosition = cameraPivot.position + cameraTransform.forward;
             Vector3 toTarget = holdPosition - GrabbedTarget.position;
 
-            if (toTarget.magnitude > interactDistance * 1.5f)
+            if (toTarget.magnitude > interactDistance * 1.5f ||
+                GrabbedTarget.isKinematic)
             {
                 GrabbedTarget = null;
                 return;
@@ -313,11 +318,10 @@ namespace Player
                 && GrabbedTarget == null
                 && Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
-                    out var hit, interactDistance, movableMask)
-                && hit.collider.TryGetComponent(out Rigidbody rigidbody)
-                && !rigidbody.isKinematic)
+                    out var hit, interactDistance, movableMask))
             {
-                GrabbedTarget = rigidbody;
+                Rigidbody rigidbody = hit.collider.GetComponentInParent<Rigidbody>();
+                if (rigidbody != null && !rigidbody.isKinematic) GrabbedTarget = rigidbody;
             }
 
             if (_input.actions["Attack"].WasReleasedThisFrame() && GrabbedTarget != null)

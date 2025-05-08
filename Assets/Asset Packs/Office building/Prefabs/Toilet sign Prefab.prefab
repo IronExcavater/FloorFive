@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4700281588171080}
   - component: {fileID: 33540518089611156}
   - component: {fileID: 23688476460740110}
-  - component: {fileID: 763233737487536538}
+  - component: {fileID: 5069138539627200183}
   m_Layer: 0
   m_Name: Toilet sign
   m_TagString: Untagged
@@ -119,7 +119,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &763233737487536538
+--- !u!65 &5069138539627200183
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,5 +138,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.00020611897, y: 0.00020611877, z: 0.0000054421853}
-  m_Center: {x: 9.094954e-11, y: -8.7311436e-11, z: -0.00000020702778}
+  m_Size: {x: 0.00020611899, y: 0.00020611877, z: 0.000017007009}
+  m_Center: {x: 2.0498957e-10, y: 2.5623689e-11, z: 0.00000077298984}
