@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Animation;
+using Audio;
 using Level;
+using Load;
 using Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Player
 {
     [RequireComponent(typeof(PlayerInput), typeof(Rigidbody), typeof(CapsuleCollider))]
+    [RequireComponent(typeof(AudioSource))]
     public class PlayerController : MonoBehaviour
     {
         [Header("Camera")]
@@ -43,6 +48,9 @@ namespace Player
         public LayerMask movableMask;
         public LayerMask interactMask;
         
+        [Header("Transition")]
+        [SerializeField] private CanvasGroup fadeOverlay;
+        
         private Dictionary<int, ToolBase> _tools;
         private int _toolIndex = -1;
 
@@ -55,10 +63,12 @@ namespace Player
         private Animator _animator;
         private AnimatorCache _animatorCache;
         private AnimatorEventDispatcher _animatorEventDispatcher;
+        private AudioSource _audioSource;
         
         private Vector2 _lookRotation;
         private float _targetZoom;
         private float _lookZoom;
+        private Vector3 _startPosition;
         
         private Vector2 _moveInput;
         private Vector3 _moveVelocity;
@@ -107,18 +117,48 @@ namespace Player
             _animator = GetComponentInChildren<Animator>();
             _animatorCache = GetComponentInChildren<AnimatorCache>();
             _animatorEventDispatcher = GetComponentInChildren<AnimatorEventDispatcher>();
+            _audioSource = GetComponent<AudioSource>();
+            
+            _startPosition = transform.position;
             
             _tools = new();
+            
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            SubscribeToRoom();
         }
 
         private void OnEnable()
         {
+            LoadManager.OnSceneLoaded += OnSceneLoaded;
             _animatorEventDispatcher.OnAnimatorIKUpdate += OnAnimatorIK;
+            SubscribeToRoom();
         }
 
         private void OnDisable()
         {
+            LoadManager.OnSceneLoaded -= OnSceneLoaded;
             _animatorEventDispatcher.OnAnimatorIKUpdate -= OnAnimatorIK;
+            UnsubscribeFromRoom();
+        }
+        
+        private void OnSceneLoaded(Scene scene)
+        {
+            UnsubscribeFromRoom();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            Debug.Log($"Loading scene {scene}, room found? {_currentRoom != null}");
+            SubscribeToRoom();
+        }
+        
+        private void SubscribeToRoom()
+        {
+            if (_currentRoom == null) return;
+            _currentRoom.OnPassedOut += HandlePassedOut;
+        }
+        
+        private void UnsubscribeFromRoom()
+        {
+            if (_currentRoom == null) return;
+            _currentRoom.OnPassedOut -= HandlePassedOut;
         }
 
         private void Start()
@@ -259,7 +299,8 @@ namespace Player
             Vector3 holdPosition = cameraPivot.position + cameraTransform.forward;
             Vector3 toTarget = holdPosition - GrabbedTarget.position;
 
-            if (toTarget.magnitude > interactDistance * 1.5f)
+            if (toTarget.magnitude > interactDistance * 1.5f ||
+                GrabbedTarget.isKinematic)
             {
                 GrabbedTarget = null;
                 return;
@@ -277,11 +318,10 @@ namespace Player
                 && GrabbedTarget == null
                 && Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
-                    out var hit, interactDistance, movableMask)
-                && hit.collider.TryGetComponent(out Rigidbody rigidbody)
-                && !rigidbody.isKinematic)
+                    out var hit, interactDistance, movableMask))
             {
-                GrabbedTarget = rigidbody;
+                Rigidbody rigidbody = hit.collider.GetComponentInParent<Rigidbody>();
+                if (rigidbody != null && !rigidbody.isKinematic) GrabbedTarget = rigidbody;
             }
 
             if (_input.actions["Attack"].WasReleasedThisFrame() && GrabbedTarget != null)
@@ -344,6 +384,26 @@ namespace Player
             tool.transform.localEulerAngles = tool.toolOffsetRotation;
                 
             _toolIndex = _tools.First(pair => pair.Value == tool).Key;
+        }
+
+        private void HandlePassedOut()
+        {
+            StartCoroutine(OnPassedOut());
+        }
+
+        private IEnumerator OnPassedOut()
+        {
+            AnimationManager.RemoveTweens(this);
+            var fadeIn = AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
+                fadeOverlay.alpha, 1, 1, Easing.EaseOutBounce);
+            _animator.SetTrigger(_animatorCache.GetHash("PassedOut"));
+            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("passedOut").GetFirstClip());
+            
+            yield return new WaitUntil(() => !AnimationManager.HasTween(fadeIn));
+            transform.position = _startPosition;
+            
+            AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
+                fadeOverlay.alpha, 0, 1, Easing.EaseOutCubic);
         }
     }
 }

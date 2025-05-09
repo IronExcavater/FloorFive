@@ -42,5 +42,37 @@ namespace Utils
             yield return runner.StartCoroutine(coroutine);
             onComplete?.Invoke();
         }
+        
+        public static Bounds GetLocalBounds(GameObject obj)
+        {
+            var renderers = obj.GetComponentsInChildren<Renderer>();
+
+            if (renderers.Length == 0)
+                return new Bounds(obj.transform.position, Vector3.zero);
+
+            Quaternion originalRotation = obj.transform.rotation;
+            obj.transform.rotation = Quaternion.identity;
+            
+            Bounds combined = renderers[0].bounds;
+
+            for (int i = 1; i < renderers.Length; i++)
+                combined.Encapsulate(renderers[i].bounds);
+
+            Vector3 localCenter = obj.transform.InverseTransformPoint(combined.center);
+            obj.transform.rotation = originalRotation;
+            localCenter = obj.transform.rotation * localCenter;
+            localCenter = Vector3.Scale(localCenter, obj.transform.localScale);
+            combined.center = localCenter;
+            
+            return combined;
+        }
+        
+        public static void SetLayerRecursive(GameObject obj, int layer)
+        {
+            foreach (Transform t in obj.GetComponentsInChildren<Transform>(true))
+            {
+                t.gameObject.layer = layer;
+            }
+        }
     }
 }

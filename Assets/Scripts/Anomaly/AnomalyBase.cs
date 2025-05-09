@@ -1,18 +1,20 @@
 using System.Collections;
 using Animation;
+using Audio;
 using UnityEngine;
+using Utils;
 
 namespace Anomaly
 {
-    [RequireComponent(typeof(Rigidbody))]
-    public class AnomalyBase : MonoBehaviour
+    public class AnomalyBase : Movable
     {
+        [Header("Anomaly")]
         public Vector3 anomalousPosition;
         public Vector3 anomalousRotation;
     
         private Vector3 _startPos;
         private Quaternion _startRot;
-    
+        
         private bool _active;
         public bool Active
         {
@@ -23,11 +25,14 @@ namespace Anomaly
                 _active = value;
                 
                 activeTime = 0;
+                _rigidbody.isKinematic = !value;
                 
                 if (_active)
                 {
-                    gameObject.transform.localPosition = anomalousPosition;
-                    gameObject.transform.localEulerAngles = anomalousRotation;
+                    transform.localPosition = anomalousPosition;
+                    transform.localEulerAngles = anomalousRotation;
+                    _audioSource.pitch = Random.Range(0.9f, 1.1f);
+                    _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("anomalyTrigger").GetRandomClip());
                     StartCoroutine(Alive());
                 }
                 else
@@ -40,12 +45,24 @@ namespace Anomaly
             }
         }
 
-        public float activeTime;
+        [HideInInspector] public float activeTime;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _startPos = gameObject.transform.localPosition;
-            _startRot = gameObject.transform.localRotation;
+            base.Awake();
+            Utils.Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Movable"));
+            _rigidbody.isKinematic = !Active;
+            
+            Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
+            _startPos = transform.localPosition + center;
+            _startRot = transform.localRotation;
+        }
+        
+        private void Reset()
+        {
+            Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
+            anomalousPosition = transform.localPosition + center;
+            anomalousRotation = transform.localEulerAngles;
         }
 
         private IEnumerator Alive()

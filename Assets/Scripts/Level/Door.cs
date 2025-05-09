@@ -13,12 +13,15 @@ namespace Level
 		[SerializeField] private float openAngle = 0;
 		[SerializeField] private float closedAngle = 90;
 		
+		private Quaternion _startRotation;
+		
 		private AudioSource _audioSource;
 
 		protected override void Awake()
 		{
 			base.Awake();
 			_audioSource = GetComponentInChildren<AudioSource>();
+			_startRotation = transform.localRotation;
 		}
 
 		protected override void Interact()
@@ -29,7 +32,8 @@ namespace Level
 			_audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue(isOpen ? "doorOpen" : "doorClose").GetFirstClip());
 			
 			AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
-				transform.localRotation, Quaternion.Euler(0, isOpen ? openAngle : closedAngle, 0),
+				transform.localRotation,
+				_startRotation * Quaternion.Euler(0, isOpen ? openAngle : closedAngle, 0),
 				1, Easing.EaseOutCubic);
 		}
 	}

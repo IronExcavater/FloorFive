@@ -14,7 +14,8 @@ using Animation;
 using Audio;
 using Level; // Convert
 using UnityEngine;  // Monobehaviour
-using UnityEditor;  // Handles
+using UnityEditor;
+using Random = UnityEngine.Random; // Handles
 
 
 
@@ -75,6 +76,7 @@ namespace HomebrewIK
             string sfxKey = surfaceType.ToString().ToLower() + "Step";
             
             var audioClip = AudioManager.AudioGroupDictionary.GetValue(sfxKey).GetRandomClip();
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(audioClip);
         }
 

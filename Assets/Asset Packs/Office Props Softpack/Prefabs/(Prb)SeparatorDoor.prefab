@@ -335,8 +335,8 @@ MonoBehaviour:
   showOutline: 1
   promptOffset: {x: -1, y: 1, z: 0}
   isOpen: 0
-  openAngle: 0
-  closedAngle: 90
+  openAngle: 90
+  closedAngle: 0
 --- !u!65 &157730593848804679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -415,7 +415,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
