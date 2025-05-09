@@ -15695,7 +15695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4224994190511514, guid: dd51500d075471044aa9309d772f5b3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0065093
+      value: 0.967
       objectReference: {fileID: 0}
     - target: {fileID: 4224994190511514, guid: dd51500d075471044aa9309d772f5b3e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -33341,8 +33341,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxActiveAnomalies: 5
-  stress: 0
+  maxActiveTime: 60
+  maxActiveCount: 5
   stressCurve:
     serializedVersion: 2
     m_Curve:
