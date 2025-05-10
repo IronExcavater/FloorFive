@@ -10,5 +10,6 @@ namespace Tools
         public Vector3 handOffsetRotation;
 
         public abstract void OnInteract();
+        
     }
 }
