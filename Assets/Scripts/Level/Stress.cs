@@ -45,7 +45,7 @@ namespace Level
             _mainCamera = Camera.main;
             if (_mainCamera != null) _baseFov = _mainCamera.fieldOfView;
             
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
         }
         
@@ -64,7 +64,7 @@ namespace Level
         private void OnSceneLoaded(Scene scene)
         {
             UnsubscribeFromRoom();
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
         }
         

@@ -28,13 +28,4 @@ namespace Utils
         public TKey Key;
         public TValue Value;
     }
-
-    [CreateAssetMenu(menuName = "Audio/AudioGroup Dictionary")]
-    public class AudioGroupDictionary : SerializedDictionary<AudioGroupPair, string, AudioGroup>
-    {
-        public override AudioGroup GetValue(string key) => Dictionary[key];
-    }
-
-    [Serializable]
-    public class AudioGroupPair : KeyValuePair<string, AudioGroup> {}
 }

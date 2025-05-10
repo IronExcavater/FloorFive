@@ -50,7 +50,6 @@ namespace Anomaly
         protected override void Awake()
         {
             base.Awake();
-            Utils.Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Movable"));
             _rigidbody.isKinematic = !Active;
             
             Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
