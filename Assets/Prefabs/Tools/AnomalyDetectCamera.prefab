@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2978756147284083351}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: -0.0064907074, y: 0.05093068, z: -0.052}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7899191075863247394}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!33 &4980552368713936499
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 78abf9c11eb8ed048b7966928193835e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -184,7 +184,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: a3709b9a67f424c4f84896a7a66de6ae, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5668941622141041606, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6336060242458908211, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -377,6 +381,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6710059158045875142, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710059158045875142, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284967697518503544, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9048169468162466977, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -117
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -391,6 +411,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5706855105379101295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5668941622141041606, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+  m_PrefabInstance: {fileID: 116796884652806569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6228697214968350618 stripped
@@ -492,7 +523,7 @@ MonoBehaviour:
     m_Bits: 1
   cameraOnlyLayerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   photoCamera: {fileID: 3696587804725644687}
   renderTexture: {fileID: 8400000, guid: a3709b9a67f424c4f84896a7a66de6ae, type: 2}
   photoOutputPoint: {fileID: 3136273428538339780}
@@ -501,9 +532,9 @@ MonoBehaviour:
   photoCooldown: 1
   photoDisplayUI: {fileID: 1788795740515438545}
   photoUICanvas: {fileID: 3494328580405431709, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
-  clickSound: {fileID: 0}
-  errorSound: {fileID: 0}
-  errorText: {fileID: 0}
+  clickSound: {fileID: 8300000, guid: 748f57c21a910e54cb64356732941acf, type: 3}
+  errorSound: {fileID: 8300000, guid: 9addef69060496b44903b8056be3fe7a, type: 3}
+  errorText: {fileID: 5706855105379101295}
   errorDisplayTime: 1.5
 --- !u!4 &7899191075863247394 stripped
 Transform:
