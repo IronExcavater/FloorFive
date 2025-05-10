@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5396752252431171619}
+  - component: {fileID: 5568138412490531464}
   - component: {fileID: 1378642033484643841}
   - component: {fileID: 7254607273439624270}
   - component: {fileID: 8265784061188143278}
-  - component: {fileID: 5568138412490531464}
   m_Layer: 7
   m_Name: CameraAnomaly
   m_TagString: Untagged
@@ -35,6 +35,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5568138412490531464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685432869393642992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87e4a6e7e95db7648b560a6f9c8a7527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxImpactVelocity: 0
+  minImpactVolume: 0
+  maxImpactVolume: 0
+  movableType: 0
+  anomalousPosition: {x: 0, y: 0, z: 0}
+  anomalousRotation: {x: -0, y: 0, z: 0}
+  activeTime: 0
+  anomalyLayerName: HiddenAnomaly
+  revealLayerName: Default
+  colliderEnableOnReveal: 1
+  revealEffectPrefab: {fileID: 0}
 --- !u!54 &1378642033484643841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -216,26 +239,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5568138412490531464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685432869393642992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87e4a6e7e95db7648b560a6f9c8a7527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxImpactVelocity: 0
-  minImpactVolume: 0
-  maxImpactVolume: 0
-  movableType: 0
-  anomalousPosition: {x: 0, y: 0, z: 0}
-  anomalousRotation: {x: -0, y: 0, z: 0}
-  activeTime: 0
-  anomalyLayerName: HiddenAnomaly
-  revealLayerName: Default
-  colliderEnableOnReveal: 1
-  revealEffectPrefab: {fileID: 0}
