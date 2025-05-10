@@ -6,10 +6,6 @@ namespace Anomaly
     [RequireComponent(typeof(Rigidbody))]
     public class CameraAnomaly : AnomalyBase
     {
-        [Header("Anomaly Positioning (씬에서 조정 가능)")]
-        public Vector3 anomalousPosition;
-        public Vector3 anomalousRotation;
-
         [Header("Layer Settings")]
         [Tooltip("숨겨진 상태에서 사용할 레이어 이름 (예: HiddenAnomaly)")]
         public string anomalyLayerName = "HiddenAnomaly";
@@ -25,7 +21,6 @@ namespace Anomaly
         public GameObject revealEffectPrefab;
 
         private Collider _collider;
-        private Rigidbody _rigidbody;
         private bool _revealed = false;
 
 #if UNITY_EDITOR
@@ -55,7 +50,7 @@ namespace Anomaly
             if (_revealed) return;
             _revealed = true;
 
-            // 레이어 변경 (자식 포함)
+            // 레이어 변경
             int revealLayer = LayerMask.NameToLayer(revealLayerName);
             if (revealLayer < 0)
             {
