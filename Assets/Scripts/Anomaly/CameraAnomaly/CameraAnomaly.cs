@@ -1,11 +1,15 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Anomaly
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class CameraAnomaly : AnomalyBase
     {
+        [Header("Anomaly Positioning (씬에서 조정 가능)")]
+        public Vector3 anomalousPosition;
+        public Vector3 anomalousRotation;
+
         [Header("Layer Settings")]
         [Tooltip("숨겨진 상태에서 사용할 레이어 이름 (예: HiddenAnomaly)")]
         public string anomalyLayerName = "HiddenAnomaly";
@@ -21,56 +25,92 @@ namespace Anomaly
         public GameObject revealEffectPrefab;
 
         private Collider _collider;
+        private Rigidbody _rigidbody;
         private bool _revealed = false;
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+            {
+                _rigidbody = GetComponent<Rigidbody>();
+                if (_rigidbody) _rigidbody.isKinematic = false;
+            }
+        }
+#endif
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
         private void Start()
         {
-            _collider = GetComponent<Collider>();
             SetHiddenState();
         }
 
-        /// <summary>
-        /// 사진에 anomaly가 찍히면 호출됨. 현실에 드러나는 처리.
-        /// </summary>
         public void Reveal()
         {
             if (_revealed) return;
             _revealed = true;
 
-            // 현실 레이어로 변경
+            // 레이어 변경 (자식 포함)
             int revealLayer = LayerMask.NameToLayer(revealLayerName);
-            if (revealLayer >= 0)
-                gameObject.layer = revealLayer;
+            if (revealLayer < 0)
+            {
+                Debug.LogWarning($"Layer '{revealLayerName}' not found. Object will remain in current layer.");
+            }
+            else
+            {
+                SetLayerRecursively(gameObject, revealLayer);
+            }
+
+            // 위치 및 회전 적용
+            transform.position = anomalousPosition;
+            transform.eulerAngles = anomalousRotation;
 
             // 콜라이더 활성화
             if (_collider && colliderEnableOnReveal)
                 _collider.enabled = true;
 
-            // 연출 이펙트(선택)
+            // 이펙트 재생
             if (revealEffectPrefab)
                 Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
 
-            // 상태 활성화 (필요시)
+            // 상태 활성화
             Active = true;
         }
 
-        /// <summary>
-        /// 시작 시 숨김 상태로 세팅 (카메라에만 보이고, 현실에서는 안 보임)
-        /// </summary>
         private void SetHiddenState()
         {
-            // 숨김 레이어로 변경
             int anomalyLayer = LayerMask.NameToLayer(anomalyLayerName);
-            if (anomalyLayer >= 0)
-                gameObject.layer = anomalyLayer;
+            if (anomalyLayer < 0)
+            {
+                Debug.LogWarning($"Layer '{anomalyLayerName}' not found. Object will remain in current layer.");
+            }
+            else
+            {
+                SetLayerRecursively(gameObject, anomalyLayer);
+            }
 
-            // 콜라이더 비활성화
             if (_collider)
                 _collider.enabled = false;
 
-            // 상태 비활성화
             Active = false;
             _revealed = false;
+        }
+
+        /// <summary>
+        /// 자식까지 포함한 레이어 변경
+        /// </summary>
+        private void SetLayerRecursively(GameObject obj, int newLayer)
+        {
+            obj.layer = newLayer;
+            foreach (Transform child in obj.transform)
+            {
+                SetLayerRecursively(child.gameObject, newLayer);
+            }
         }
     }
 }
