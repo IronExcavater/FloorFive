@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Level;
+using Tools;
+
 public class FlashBeacon : ToolBase
 {
     public GameObject flashBeaconObj;
@@ -16,6 +18,7 @@ public class FlashBeacon : ToolBase
         on = false;
         flashBeaconObj.SetActive(false);
 		radius.enabled = false;
+		Debug.Log("okey lesh do this");
     }
 
     void Update()
