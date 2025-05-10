@@ -50,7 +50,7 @@ namespace Level
         {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             if (_currentRoom != null)
             {
                 StartCoroutine(ElevatorStage(2, 3));
