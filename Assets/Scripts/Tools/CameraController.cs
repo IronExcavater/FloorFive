@@ -33,8 +33,8 @@ namespace Tools
         private PlayerController playerController;
 
         [Header("Audio")]
-        public AudioSource clickSound;
-        public AudioSource errorSound;
+        public AudioClip clickSound;
+        public AudioClip errorSound;
 
         [Header("UI Feedback")]
         public TextMeshProUGUI errorText;
@@ -58,17 +58,30 @@ namespace Tools
             {
                 if (Time.time > lastPhotoTime + photoCooldown)
                 {
-                    clickSound?.Play();
+                    // 클릭 소리가 null이 아니면 재생
+                    if (clickSound != null)
+                    {
+                        AudioSource.PlayClipAtPoint(clickSound, transform.position);
+                    }
+
+                    // 사진 촬영 코루틴 시작
                     StartCoroutine(CaptureAnomalyPhoto());
                     lastPhotoTime = Time.time;
                 }
                 else
                 {
-                    errorSound?.Play();
+                    // 쿨타임이 지나지 않은 경우 에러 소리 재생
+                    if (errorSound != null)
+                    {
+                        AudioSource.PlayClipAtPoint(errorSound, transform.position);
+                    }
+
+                    // 에러 메시지 표시
                     StartCoroutine(ShowError("Camera needs to cool-down"));
                 }
             }
         }
+
 
         IEnumerator ShowError(string message)
         {

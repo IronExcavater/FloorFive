@@ -377,6 +377,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8284967697518503544, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -492,7 +496,7 @@ MonoBehaviour:
     m_Bits: 1
   cameraOnlyLayerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   photoCamera: {fileID: 3696587804725644687}
   renderTexture: {fileID: 8400000, guid: a3709b9a67f424c4f84896a7a66de6ae, type: 2}
   photoOutputPoint: {fileID: 3136273428538339780}
