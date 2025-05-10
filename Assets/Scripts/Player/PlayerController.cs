@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using Audio;
+using HomebrewIK;
 using Level;
 using Load;
 using Tools;
@@ -28,7 +29,7 @@ namespace Player
         public float mouseSensitivity = 10;
         public float scrollSensitivity = 10;
         public float maxCameraDistance = 1;
-        public float maxCameraDelta = 10;
+        public float maxCameraDelta = 5;
         
         [Header("Model IK")]
         public Transform headTransform;
@@ -64,6 +65,7 @@ namespace Player
         private AnimatorCache _animatorCache;
         private AnimatorEventDispatcher _animatorEventDispatcher;
         private AudioSource _audioSource;
+        private CsHomebrewIK _homebrewIK;
         
         private Vector2 _lookRotation;
         private float _targetZoom;
@@ -118,6 +120,7 @@ namespace Player
             _animatorCache = GetComponentInChildren<AnimatorCache>();
             _animatorEventDispatcher = GetComponentInChildren<AnimatorEventDispatcher>();
             _audioSource = GetComponent<AudioSource>();
+            _homebrewIK = GetComponentInChildren<CsHomebrewIK>();
             
             _startPosition = transform.position;
             
@@ -145,7 +148,6 @@ namespace Player
         {
             UnsubscribeFromRoom();
             _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
-            Debug.Log($"Loading scene {scene}, room found? {_currentRoom != null}");
             SubscribeToRoom();
         }
         
@@ -394,6 +396,8 @@ namespace Player
         private IEnumerator OnPassedOut()
         {
             AnimationManager.RemoveTweens(this);
+            _homebrewIK.Mute = true;
+            
             var fadeIn = AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
                 fadeOverlay.alpha, 1, 1, Easing.EaseOutBounce);
             _animator.SetTrigger(_animatorCache.GetHash("PassedOut"));
@@ -402,8 +406,11 @@ namespace Player
             yield return new WaitUntil(() => !AnimationManager.HasTween(fadeIn));
             transform.position = _startPosition;
             
-            AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
+            var fadeOut = AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
                 fadeOverlay.alpha, 0, 1, Easing.EaseOutCubic);
+            
+            yield return new WaitUntil(() => !AnimationManager.HasTween(fadeOut));
+            _homebrewIK.Mute = false;
         }
     }
 }

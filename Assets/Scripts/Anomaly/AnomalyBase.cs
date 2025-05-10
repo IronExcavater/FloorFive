@@ -14,6 +14,8 @@ namespace Anomaly
     
         private Vector3 _startPos;
         private Quaternion _startRot;
+
+        private Vector3 _localCenter;
         
         private bool _active;
         public bool Active
@@ -26,6 +28,7 @@ namespace Anomaly
                 
                 activeTime = 0;
                 _rigidbody.isKinematic = !value;
+                AnimationManager.RemoveTweens(this);
                 
                 if (_active)
                 {
@@ -38,7 +41,7 @@ namespace Anomaly
                 else
                 {
                     AnimationManager.CreateTween(this, position => transform.localPosition = position,
-                        transform.localPosition, _startPos, 0.3f, Easing.EaseInOutCubic);
+                        transform.localPosition, _startPos - _localCenter, 0.3f, Easing.EaseInOutCubic);
                     AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
                         transform.localRotation, _startRot, 0.3f, Easing.EaseInOutCubic);
                 }
@@ -52,8 +55,8 @@ namespace Anomaly
             base.Awake();
             _rigidbody.isKinematic = !Active;
             
-            Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;
-            _startPos = transform.localPosition + center;
+            _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
+            _startPos = transform.localPosition + _localCenter;
             _startRot = transform.localRotation;
         }
         
@@ -66,7 +69,7 @@ namespace Anomaly
 
         private IEnumerator Alive()
         {
-            while (Vector3.Distance(gameObject.transform.localPosition, _startPos) > 0.5f)
+            while (Vector3.Distance(gameObject.transform.localPosition + _localCenter, _startPos) > 0.5f)
             {
                 activeTime += Time.deltaTime;
                 yield return null;
@@ -74,16 +77,18 @@ namespace Anomaly
             Active = false;
         }
 
-        /*private bool SeenByPlayer()
+        public Bounds GetNormalBounds()
         {
-            var cam = Camera.main;
-            if (!cam) return false;
+            Bounds bounds = Utils.Utils.GetLocalBounds(gameObject);
+            bounds.center = transform.position + bounds.center;
+            return bounds;
+        }
 
-            var toObject = target.transform.position - cam.transform.position;
-            if (toObject.magnitude > seenDistance) return false;
-
-            var dot = Vector3.Dot(cam.transform.forward, toObject.normalized);
-            return dot > Mathf.Cos(seenAngle * Mathf.Deg2Rad);
-        }*/
+        public Bounds GetAnomalousBounds()
+        {
+            Bounds bounds = Utils.Utils.GetLocalBounds(gameObject);
+            bounds.center = anomalousPosition;
+            return bounds;
+        }
     }
 }

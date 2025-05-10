@@ -206,16 +206,16 @@ MonoBehaviour:
   mouseSensitivity: 10
   scrollSensitivity: 10
   maxCameraDistance: 1
-  maxCameraDelta: 10
+  maxCameraDelta: 5
   headTransform: {fileID: 7723149066484554956}
   handTransform: {fileID: 3250609745369776567}
   toolTarget: {fileID: 5843510513813171318}
   walkSpeed: 2
-  sprintSpeed: 3
+  sprintSpeed: 4
   acceleration: 7
   liftForce: 20
   interactRadius: 0.5
-  interactDistance: 2
+  interactDistance: 1
   defaultMask:
     serializedVersion: 2
     m_Bits: 1
@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 5127125787344284060}
   - component: {fileID: 3881941071362575061}
   - component: {fileID: 4279709403865870782}
+  - component: {fileID: 2326068490568449701}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -634,6 +635,31 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!169 &2326068490568449701
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541782252490869630}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.68167347
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &9102648479151580833
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +959,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1060,7 +1086,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1104,7 +1130,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1378,6 +1404,7 @@ MonoBehaviour:
   maxHeartbeatVolume: 0.8
   maxHeartbeatPitch: 1.4
   minCameraFov: 50
+  minLowPassFilter: 1000
 --- !u!82 &5808949438032516500
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1435,7 +1462,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

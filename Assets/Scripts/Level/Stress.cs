@@ -19,6 +19,10 @@ namespace Level
         [SerializeField] private float maxHeartbeatVolume = 0.8f;
         [SerializeField] private float maxHeartbeatPitch = 1.4f;
         [SerializeField] private float minCameraFov = 50;
+        [SerializeField] private float minLowPassFilter = 1000;
+        
+        private float _baseFov;
+        private float _baseLowPassFilter;
         
         private Vignette _vignette;
         private MotionBlur _motionBlur;
@@ -27,8 +31,8 @@ namespace Level
         private FilmGrain _filmGrain;
         
         private Camera _mainCamera;
-        private float _baseFov;
         private AudioSource _audioSource;
+        private AudioLowPassFilter _audioLowPassFilter;
         
         private Room _currentRoom;
 
@@ -43,7 +47,9 @@ namespace Level
             postProcessingVolume.profile.TryGet(out _filmGrain);
             
             _mainCamera = Camera.main;
+            _audioLowPassFilter = _mainCamera?.GetComponent<AudioLowPassFilter>();
             if (_mainCamera != null) _baseFov = _mainCamera.fieldOfView;
+            if (_audioLowPassFilter != null) _baseLowPassFilter = _audioLowPassFilter.cutoffFrequency;
             
             _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
@@ -91,6 +97,8 @@ namespace Level
             
             _audioSource.volume = Mathf.Lerp(0, maxHeartbeatVolume, stress);
             _audioSource.pitch = Mathf.Lerp(1, maxHeartbeatPitch, stress);
+            
+            if (_audioLowPassFilter != null) _audioLowPassFilter.cutoffFrequency = Mathf.Lerp(_baseLowPassFilter, minLowPassFilter, stress);
         }
     }
 }
