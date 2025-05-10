@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 98ee625a6037458a97fa36f2dfdfd49d, type: 3}
   m_Name: AudioGroupDictionary
   m_EditorClassIdentifier: Assembly-CSharp:Utils:AudioGroupDictionary
   entries:
@@ -111,6 +111,5 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 620f7b4a6c8c7874e9d6f2861ee727da, type: 3}
       - {fileID: 8300000, guid: df9630ab965f1554da98e90c4a9c02b7, type: 3}
       - {fileID: 8300000, guid: 085652513f4cc5b4eb9061fd9139f791, type: 3}
-      - {fileID: 8300000, guid: fcec45b14d6beb44c853c91139f815d5, type: 3}
       - {fileID: 8300000, guid: 916bab3aa01594543ace5d2fde363f2b, type: 3}
       - {fileID: 8300000, guid: d21751a1c86d8a34bb4fca6ce7a45c6a, type: 3}

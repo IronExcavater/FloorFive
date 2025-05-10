@@ -22,6 +22,8 @@ namespace Utils
         protected virtual void Awake()
         {
             _outline = GetComponent<Outline>();
+            
+            Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Interact"));
         }
 
         public void Show()

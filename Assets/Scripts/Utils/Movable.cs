@@ -27,6 +27,8 @@ namespace Utils
         {
             _rigidbody = GetComponent<Rigidbody>();
             _audioSource = GetComponent<AudioSource>();
+            
+            Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Movable"));
         }
         
         private void OnCollisionEnter(Collision collision)

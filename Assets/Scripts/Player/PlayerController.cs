@@ -123,7 +123,7 @@ namespace Player
             
             _tools = new();
             
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
         }
 
