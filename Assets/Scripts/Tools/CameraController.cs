@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using TMPro;
 
 namespace Tools
 {
@@ -36,7 +37,7 @@ namespace Tools
         public AudioSource errorSound;
 
         [Header("UI Feedback")]
-        public Text errorText;
+        public TextMeshProUGUI errorText;
         public float errorDisplayTime = 1.5f;
 
         void Start()
@@ -139,6 +140,7 @@ namespace Tools
         }
 
         // 카메라 뷰포트 내에 anomaly가 실제로 보이는지 체크
+        
         bool IsVisibleInCamera(GameObject target)
         {
             if (target == null) return false;
@@ -210,18 +212,26 @@ namespace Tools
             Cursor.visible = state;
         }
 
-        // 특정 레이어 오브젝트 찾기 (최적화)
         GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
         {
-            var allObjects = GameObject.FindObjectsOfType<GameObject>(true);
+            var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             var result = new List<GameObject>();
             int mask = layerMask.value;
+
             foreach (var obj in allObjects)
             {
+                // Hierarchy에 있는 오브젝트만 필터링 (씬에 존재하는 오브젝트)
+                if (obj.hideFlags == HideFlags.NotEditable || obj.hideFlags == HideFlags.HideAndDontSave)
+                    continue;
+                if (Application.IsPlaying(obj) == false)
+                    continue;
+
                 if ((mask & (1 << obj.layer)) != 0)
                     result.Add(obj);
             }
+
             return result.ToArray();
         }
+
     }
 }
