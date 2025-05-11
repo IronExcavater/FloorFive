@@ -174,8 +174,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3785294630174689691}
-  - component: {fileID: 6780876994791855996}
+  - component: {fileID: -5387841869157672571}
   - component: {fileID: 2587350751610611716}
+  - component: {fileID: 1695779305145287928}
   m_Layer: 7
   m_Name: CloakAnomaly
   m_TagString: Untagged
@@ -199,7 +200,7 @@ Transform:
   - {fileID: 2222974871039808582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6780876994791855996
+--- !u!114 &-5387841869157672571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,16 +209,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4029805553080784048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6d4c9c8c64b479f9ae47f9d8dc7170d, type: 3}
+  m_Script: {fileID: 11500000, guid: f84e70da6ffcdbd4d9ac2cda1b470957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxImpactVelocity: 4
+  maxImpactVelocity: 0
   minImpactVolume: 0
-  maxImpactVolume: 1
+  maxImpactVolume: 0
   movableType: 0
   anomalousPosition: {x: 0, y: 0, z: 0}
   anomalousRotation: {x: -0, y: 0, z: 0}
   activeTime: 0
+  detectAngle: 30
+  changeRate: 0.5
 --- !u!54 &2587350751610611716
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -245,3 +248,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1695779305145287928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029805553080784048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a2c8c4075bd4d4cbf0e8e648a756c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startValue: 0
+  endValue: 1
+  stealthObject: {fileID: 0}
+  activationDirection: {x: 0, y: 1, z: 0}
+  sizeOffset: 1
+  activationDuration: 1
+  deactivationDuration: 1

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8446803880195761171
+--- !u!114 &-7846128162411185358
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,34 +20,31 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stealth 1
-  m_Shader: {fileID: -6465566751694194690, guid: 8ce15943691e4984a9721af9f98b49a3, type: 3}
+  m_Name: '[Stealth] KitchenChairB'
+  m_Shader: {fileID: -6465566751694194690, guid: 31606e1744e62df45bef0f59a31df869, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords:
-  - _RECEIVE_SHADOWS_OFF
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3001
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
-  - SHADOWCASTER
   - MOTIONVECTORS
-  m_LockedProperties: _AlphaClip
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Base:
-        m_Texture: {fileID: 2800000, guid: fa00f122aab3ad446a459a3f219bd8d0, type: 3}
+        m_Texture: {fileID: 2800000, guid: a1cbf0d492b250f4da359b47a02725fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a1cbf0d492b250f4da359b47a02725fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -66,24 +63,28 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a1cbf0d492b250f4da359b47a02725fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+    - _Metal:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Noise_Texture:
-        m_Texture: {fileID: 2800000, guid: 8f42e4964a1865b47ab1353aec813e71, type: 3}
+    - _Normal:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -112,73 +113,51 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 1
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 0
     - _BumpScale: 1
-    - _CastShadows: 0
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Disortion: 0.289
-    - _Dissolve_Strength: 0
-    - _Distortion: 0.25
     - _DstBlend: 10
     - _DstBlendAlpha: 0
-    - _Edge_Thickness: 1
+    - _Emission_Strength: 0
     - _EnvironmentReflections: 1
-    - _Fade_In: 1
-    - _Fresnel_Activated: 1
-    - _Fresnel_Power: 10.2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Invert_Twirl_Direction: 0
     - _Metallic: 0
-    - _Noise: -1.71
-    - _Noise_Rotation: 0.05
-    - _Noise_Scale: 200
-    - _Noise_Twirl: 0
-    - _Noise_twirl: 1
-    - _Object_SIze: 1.9
-    - _Object_Size: 3
+    - _Metalness: 0
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
-    - _QueueOffset: 1
-    - _ReceiveShadows: 0
-    - _Rotation: 0.1
-    - _Simple_Noise_Scale: 200
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.1
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
-    - _Stealth_Amount: 0.5
-    - _Stealth_Rotation: 0.15
-    - _Stealth_Twirl: 1
     - _Surface: 1
-    - _Twirl_Strength: 1
-    - _Use_Noise_Texture: 1
-    - _Use_Texture: 1
-    - _Voronoi_Cell_Density: 3
+    - _Use_Metal_Texture: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 1
     m_Colors:
-    - _Activation_Direction: {r: 1, g: 0, b: 0, a: 0}
-    - _Activation_direction: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 0.83515644, b: 1, a: 0}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Noise_Color: {r: 6.955023, g: 0, b: 12.319412, a: 1}
+    - _Emission_Color: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Stealth_Color: {r: 0.046462633, g: 0.014373446, b: 0.1792453, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

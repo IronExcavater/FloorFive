@@ -1,6 +1,8 @@
-﻿using Audio;
+﻿using System;
+using Audio;
 using Level;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Utils
 {
@@ -19,6 +21,9 @@ namespace Utils
         [SerializeField] private float maxImpactVolume;
         
         public MovableType movableType = MovableType.Default;
+
+        public event Action OnGrabbed;
+        public event Action OnImpacted;
         
         protected Rigidbody _rigidbody;
         protected AudioSource _audioSource;
@@ -58,6 +63,14 @@ namespace Utils
             AudioClip clip = AudioManager.AudioGroupDictionary.GetValue(sfxKey).GetRandomClip();
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
             _audioSource.PlayOneShot(clip, volume);
+            OnImpacted?.Invoke();
         }
+
+        public void OnGrab()
+        {
+            OnGrabbed?.Invoke();
+        }
+        
+        protected virtual void Grab() {}
     }
 }
