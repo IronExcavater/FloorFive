@@ -222,7 +222,7 @@ namespace Tools
             return result.ToArray();
         }
 
-        // ToolBase의 추상 메서드 구현
+        
         protected override void Use(PlayerController player)
         {
             StartCoroutine(CaptureAnomalyPhoto());
