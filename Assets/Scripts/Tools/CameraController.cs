@@ -4,6 +4,7 @@ using System.Collections;
 using Player;
 using TMPro;
 using Tools;
+using System.Collections.Generic;
 
 namespace Tools
 {
@@ -15,7 +16,8 @@ namespace Tools
         public LayerMask cameraOnlyLayerMask;
 
         [Header("Camera System")]
-        public Camera photoCamera;
+        public Camera photoCamera;         // 사진 촬영용 카메라 (별도 오브젝트, 평소엔 꺼짐)
+        public Camera playerCamera;        // 플레이어 시점 카메라 (MainCamera)
         public RenderTexture renderTexture;
 
         [Header("Photo Settings")]
@@ -25,7 +27,7 @@ namespace Tools
         [Header("UI System")]
         public Image photoDisplayUI;
         public GameObject photoUICanvas;
-        public float photoDisplayTime = 2f; // 사진이 UI에 표시되는 시간(초)
+        public float photoDisplayTime = 2f;
         private Coroutine photoDisplayCoroutine;
 
         [Header("Audio")]
@@ -44,6 +46,8 @@ namespace Tools
             base.Awake();
             playerController = GetComponent<PlayerController>();
             SetPhotoCameraToNormal();
+            if (photoCamera != null)
+                photoCamera.enabled = false; // 사진 카메라는 평소엔 꺼둠
         }
 
         protected override void Update()
@@ -88,12 +92,26 @@ namespace Tools
 
         private IEnumerator CaptureAnomalyPhoto()
         {
+            // 1. 사진 카메라 위치/회전 플레이어 카메라에 맞추기
+            if (photoCamera != null && playerCamera != null)
+            {
+                photoCamera.transform.position = playerCamera.transform.position;
+                photoCamera.transform.rotation = playerCamera.transform.rotation;
+                photoCamera.fieldOfView = playerCamera.fieldOfView;
+                photoCamera.enabled = true;
+            }
+
             SetPhotoCameraToAnomaly();
             yield return new WaitForEndOfFrame();
 
             Texture2D photoTexture = CapturePhotoTexture();
             RevealAnomaliesInPhoto();
             SetPhotoCameraToNormal();
+
+            // 2. 사진 카메라 끄기
+            if (photoCamera != null)
+                photoCamera.enabled = false;
+
             ShowPhotoOnUI(photoTexture);
         }
 
@@ -158,18 +176,21 @@ namespace Tools
             );
             photoDisplayUI.sprite = photoSprite;
 
-            // 기존에 표시 중인 사진이 있다면 코루틴 중지
             if (photoDisplayCoroutine != null)
                 StopCoroutine(photoDisplayCoroutine);
 
-            photoDisplayCoroutine = StartCoroutine(ShowPhotoTemporarily());
+            photoDisplayCoroutine = StartCoroutine(ShowPhotoTemporarily(texture));
         }
 
-        private IEnumerator ShowPhotoTemporarily()
+        private IEnumerator ShowPhotoTemporarily(Texture2D texture)
         {
             TogglePhotoUI(true);
             yield return new WaitForSeconds(photoDisplayTime);
             TogglePhotoUI(false);
+            if (photoDisplayUI != null)
+                photoDisplayUI.sprite = null;
+            if (texture != null)
+                Destroy(texture);
         }
 
         public void TogglePhotoUI(bool state)

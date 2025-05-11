@@ -46073,6 +46073,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3867456849717048495, guid: 81330ddd14a262447898979eee32e087, type: 3}
+      propertyPath: m_TagString
+      value: PhotoCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 5107989167530520621, guid: 81330ddd14a262447898979eee32e087, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -46084,6 +46088,14 @@ PrefabInstance:
     - target: {fileID: 5198996790597525239, guid: 81330ddd14a262447898979eee32e087, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
+      propertyPath: errorText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
+      propertyPath: photoDisplayUI
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
       propertyPath: handOffsetRotation.x
