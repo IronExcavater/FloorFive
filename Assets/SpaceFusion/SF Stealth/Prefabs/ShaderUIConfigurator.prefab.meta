@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 757c6bcc34e7b684484d667f1788a360
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/Prefabs/ShaderUIConfigurator.prefab
+  uploadId: 717411

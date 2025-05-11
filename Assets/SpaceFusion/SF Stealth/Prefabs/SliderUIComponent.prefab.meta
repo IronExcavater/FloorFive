@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b5d1abb46d091764e8aae9cec0ec4a6f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/Prefabs/SliderUIComponent.prefab
+  uploadId: 717411

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 413bcea020ca04442ba60dd5eba20480
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/Shared/CameraController/SimpleCameraController.cs
+  uploadId: 717411

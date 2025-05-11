@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 21a2c8c4075bd4d4cbf0e8e648a756c1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/Scripts/StealthController.cs
+  uploadId: 717411

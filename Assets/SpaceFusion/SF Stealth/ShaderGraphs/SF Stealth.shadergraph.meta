@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8ce15943691e4984a9721af9f98b49a3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/ShaderGraphs/SF Stealth.shadergraph
+  uploadId: 717411
