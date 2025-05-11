@@ -24,8 +24,10 @@ namespace Level
         private Animator _animator;
         private AnimatorCache _animatorCache;
         private AudioSource _audioSource;
-        private bool _doorsOpen;
         private PlayerController _player;
+        
+        private bool _doorsOpen;
+        private bool _isAnimating;
 
         private void Awake()
         {
@@ -67,9 +69,9 @@ namespace Level
             doorCollider.enabled = !_doorsOpen;
 
             externalButton.enabled = _currentRoom != null && _currentRoom.Status == Room.State.Ready;
-            internalButton.enabled = _currentRoom == null ||
-                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete ||
-                                     _currentRoom != null && _currentRoom.Status == Room.State.Ready && !_doorsOpen;
+            internalButton.enabled = _currentRoom == null && !_isAnimating ||
+                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete && !_doorsOpen ||
+                                     _currentRoom != null && _currentRoom.Status == Room.State.Ready && !_isAnimating && !_doorsOpen;
         }
 
         private void OnExternalButton()
@@ -89,9 +91,11 @@ namespace Level
 
         private IEnumerator ElevatorStage(int startStage, int endStage)
         {
+            _isAnimating = true;
             if (startStage <= 0 && endStage > 0) yield return StartCoroutine(ElevatorClose());
             if (startStage <= 1 && endStage > 1) yield return StartCoroutine(ElevatorRide());
             if (startStage <= 2 && endStage > 2) yield return StartCoroutine(ElevatorOpen());
+            _isAnimating = false;
         }
         
         private IEnumerator ElevatorClose(float waitTime = 0)
@@ -115,19 +119,21 @@ namespace Level
                 LoadManager.UnloadScene(activeLevelBuildIndex),
                 LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : 1)
             ));
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
+            if (_currentRoom) _currentRoom.Mute = true;
 
             yield return new WaitForSeconds(2);
-            UpdateFloorDisplay(_currentRoom.floorNumber);
+            if (_currentRoom) UpdateFloorDisplay(_currentRoom.floorNumber);
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);
-            
-            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("ding").GetFirstClip());
+            if (_currentRoom) _currentRoom.Mute = false;
         }
         
         private IEnumerator ElevatorOpen(float waitTime = 0)
         {
             _doorsOpen = true;
+            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("ding").GetFirstClip());
+            
             yield return new WaitForSeconds(waitTime);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorOpen").GetFirstClip());

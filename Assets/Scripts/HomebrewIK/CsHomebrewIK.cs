@@ -25,6 +25,18 @@ namespace HomebrewIK
     {
         public AudioSource leftFootAudioSource;
         public AudioSource rightFootAudioSource;
+
+        private bool _mute;
+        public bool Mute
+        {
+            get => _mute;
+            set
+            {
+                _mute = value;
+                leftFootAudioSource.mute = _mute;
+                rightFootAudioSource.mute = _mute;
+            }
+        }
         
         public bool enableFootLocking = true;
         public Action<bool> OnStep; // bool => isRightFoot

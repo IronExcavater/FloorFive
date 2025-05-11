@@ -1,4 +1,5 @@
 ﻿using Audio;
+using Player;
 using UnityEngine;
 using Utils;
 
@@ -15,7 +16,7 @@ namespace Level
             _audioSource = GetComponent<AudioSource>();
         }
         
-        protected override void Interact()
+        protected override void Interact(PlayerController player)
         {
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("buttonPress").GetRandomClip());
         }

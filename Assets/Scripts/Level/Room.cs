@@ -29,7 +29,19 @@ namespace Level
                 _remainingTime = duration;
                 _remainingAnomalyGap = 3f;
                 
-                if (_status == State.Complete) _anomalies.ForEach(anomaly => anomaly.Active = false);
+                if (_status != State.Active) _anomalies.ForEach(anomaly => anomaly.Active = false);
+            }
+        }
+
+        private bool _mute;
+
+        public bool Mute
+        {
+            get => _mute;
+            set
+            {
+                _mute = value;
+                _audioSources.ForEach(audioSource => audioSource.mute = _mute);
             }
         }
         
@@ -41,6 +53,7 @@ namespace Level
         private float _remainingAnomalyGap;
 
         private List<AnomalyBase> _anomalies;
+        private List<AudioSource> _audioSources;
 
         [Header("Player Stress")]
         public float maxActiveTime = 60;
@@ -57,6 +70,8 @@ namespace Level
         private void Awake()
         {
             _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
+            
+            _audioSources = GetComponentsInChildren<AudioSource>().ToList();
         }
 
         private void Update()
@@ -92,9 +107,22 @@ namespace Level
         {
             if (_anomalies.Count == 0) return;
             
-            int index = Random.Range(0, _anomalies.Count);
-            _anomalies[index].Active = true;
-            Debug.Log($"Triggered anomaly: {_anomalies[index].name}");
+            Camera camera = Camera.main;
+            if (camera == null) return;
+            
+            Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
+
+            List<AnomalyBase> validAnomalies = _anomalies.Where(anomaly =>
+                !anomaly.Active &&
+                !GeometryUtility.TestPlanesAABB(frustumPlanes, anomaly.GetNormalBounds()) &&
+                !GeometryUtility.TestPlanesAABB(frustumPlanes, anomaly.GetAnomalousBounds())
+            ).ToList();
+            
+            if (validAnomalies.Count == 0) return;
+            
+            int index = Random.Range(0, validAnomalies.Count);
+            validAnomalies[index].Active = true;
+            Debug.Log($"Triggered anomaly: {validAnomalies[index].name}");
         }
 
         private void HandleStress()

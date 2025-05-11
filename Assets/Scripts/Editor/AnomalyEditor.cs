@@ -47,6 +47,8 @@ namespace Editor
             
             EditorGUI.BeginChangeCheck();
             
+            Handles.DrawLine(trans.position, trans.position + bounds.center);
+            
             switch (UnityEditor.Tools.current)
             {
                 case Tool.Move:
