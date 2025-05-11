@@ -4,32 +4,34 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using TMPro;
+using Tools;
 
 namespace Tools
 {
-    public class CameraController : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody))]
+    public class CameraController : ToolBase
     {
         [Header("Layer Settings")]
-        public LayerMask normalLayerMask;          // 플레이어가 보는 일반 레이어
-        public LayerMask cameraOnlyLayerMask;      // 카메라에서만 보이는 anomaly(블랙 미스트) 레이어
+        public LayerMask normalLayerMask;
+        public LayerMask cameraOnlyLayerMask;
 
         [Header("Camera System")]
-        public Camera photoCamera;                 // 사진 촬영용 카메라
-        public RenderTexture renderTexture;        // 사진 저장용 렌더 텍스처
-        public Transform photoOutputPoint;         // 사진 생성 위치
+        public Camera photoCamera;
+        public RenderTexture renderTexture;
+        public Transform photoOutputPoint;
 
         [Header("Photo Settings")]
-        public GameObject photoPrefab;             // 사진 프리팹
-        public int maxPhotos = 4;                  // 최대 사진 개수
-        public float photoCooldown = 1f;           // 사진 쿨타임
+        public GameObject photoPrefab;
+        public int maxPhotos = 4;
+        public float photoCooldown = 1f;
         private float lastPhotoTime;
 
         [Header("UI System")]
-        public Image photoDisplayUI;               // 사진 미리보기 UI
-        public GameObject photoUICanvas;           // 사진 UI 캔버스
+        public Image photoDisplayUI;
+        public GameObject photoUICanvas;
         private bool isViewingPhoto;
 
-        private List<GameObject> photoCollection = new List<GameObject>();
+        private readonly List<GameObject> photoCollection = new List<GameObject>();
         private PlayerController playerController;
 
         [Header("Audio")]
@@ -40,50 +42,44 @@ namespace Tools
         public TextMeshProUGUI errorText;
         public float errorDisplayTime = 1.5f;
 
-        void Start()
+        protected override void Awake()
         {
+            base.Awake();
             playerController = GetComponent<PlayerController>();
             SetPhotoCameraToNormal();
         }
 
-        void Update()
+        protected override void Update()
         {
-            HandlePhotoInput();
-            HandlePhotoInspection();
+            base.Update();
+            ProcessPhotoInput();
+            ProcessPhotoInspection();
         }
 
-        void HandlePhotoInput()
+        private void ProcessPhotoInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!Input.GetMouseButtonDown(0)) return;
+
+            if (Time.time > lastPhotoTime + photoCooldown)
             {
-                if (Time.time > lastPhotoTime + photoCooldown)
-                {
-                    // 클릭 소리가 null이 아니면 재생
-                    if (clickSound != null)
-                    {
-                        AudioSource.PlayClipAtPoint(clickSound, transform.position);
-                    }
-
-                    // 사진 촬영 코루틴 시작
-                    StartCoroutine(CaptureAnomalyPhoto());
-                    lastPhotoTime = Time.time;
-                }
-                else
-                {
-                    // 쿨타임이 지나지 않은 경우 에러 소리 재생
-                    if (errorSound != null)
-                    {
-                        AudioSource.PlayClipAtPoint(errorSound, transform.position);
-                    }
-
-                    // 에러 메시지 표시
-                    StartCoroutine(ShowError("Camera needs to cool-down"));
-                }
+                PlaySound(clickSound);
+                StartCoroutine(CaptureAnomalyPhoto());
+                lastPhotoTime = Time.time;
+            }
+            else
+            {
+                PlaySound(errorSound);
+                StartCoroutine(ShowError("Camera needs to cool-down"));
             }
         }
 
+        private void PlaySound(AudioClip clip)
+        {
+            if (clip != null)
+                AudioSource.PlayClipAtPoint(clip, transform.position);
+        }
 
-        IEnumerator ShowError(string message)
+        private IEnumerator ShowError(string message)
         {
             if (errorText != null)
             {
@@ -94,38 +90,34 @@ namespace Tools
             }
         }
 
-        IEnumerator CaptureAnomalyPhoto()
+        private IEnumerator CaptureAnomalyPhoto()
         {
-            // 1. anomaly 레이어를 카메라에 추가
             SetPhotoCameraToAnomaly();
-
             yield return new WaitForEndOfFrame();
 
-            // 2. 사진 촬영
             Texture2D photoTexture = CapturePhotoTexture();
-
-            // 3. anomaly 노출
             RevealAnomaliesInPhoto();
-
-            // 4. 카메라 레이어 복구
             SetPhotoCameraToNormal();
-
-            // 5. 사진 오브젝트 생성 및 UI 갱신
             CreatePhotoObject(photoTexture);
         }
 
-        void SetPhotoCameraToNormal()
+        private void SetPhotoCameraToNormal()
         {
-            photoCamera.cullingMask = normalLayerMask;
+            if (photoCamera != null)
+                photoCamera.cullingMask = normalLayerMask;
         }
 
-        void SetPhotoCameraToAnomaly()
+        private void SetPhotoCameraToAnomaly()
         {
-            photoCamera.cullingMask = normalLayerMask | cameraOnlyLayerMask;
+            if (photoCamera != null)
+                photoCamera.cullingMask = normalLayerMask | cameraOnlyLayerMask;
         }
 
-        Texture2D CapturePhotoTexture()
+        private Texture2D CapturePhotoTexture()
         {
+            if (renderTexture == null || photoCamera == null)
+                return null;
+
             Texture2D texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
             RenderTexture.active = renderTexture;
             photoCamera.targetTexture = renderTexture;
@@ -137,37 +129,33 @@ namespace Tools
             return texture;
         }
 
-        void RevealAnomaliesInPhoto()
+        private void RevealAnomaliesInPhoto()
         {
-            // 해당 레이어에 속한 모든 anomaly 찾기
             var anomalies = FindGameObjectsWithLayer(cameraOnlyLayerMask);
             foreach (var anomaly in anomalies)
             {
                 if (IsVisibleInCamera(anomaly))
                 {
                     var cameraAnomaly = anomaly.GetComponent<Anomaly.CameraAnomaly>();
-                    if (cameraAnomaly != null)
-                        cameraAnomaly.Reveal();
+                    cameraAnomaly?.Reveal();
                 }
             }
         }
 
-        // 카메라 뷰포트 내에 anomaly가 실제로 보이는지 체크
-        
-        bool IsVisibleInCamera(GameObject target)
+        private bool IsVisibleInCamera(GameObject target)
         {
             if (target == null) return false;
             var renderer = target.GetComponent<Renderer>();
             if (renderer == null) return false;
 
-            // 카메라의 frustum에 실제로 포함되는지 체크
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(photoCamera);
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 
-        void CreatePhotoObject(Texture2D texture)
+        private void CreatePhotoObject(Texture2D texture)
         {
-            if (photoPrefab == null || photoOutputPoint == null) return;
+            if (photoPrefab == null || photoOutputPoint == null || texture == null) return;
+
             GameObject newPhoto = Instantiate(photoPrefab, photoOutputPoint.position, photoOutputPoint.rotation);
             var renderer = newPhoto.GetComponent<Renderer>();
             if (renderer != null)
@@ -183,7 +171,7 @@ namespace Tools
             UpdatePhotoUI(texture);
         }
 
-        void UpdatePhotoUI(Texture2D texture)
+        private void UpdatePhotoUI(Texture2D texture)
         {
             if (photoDisplayUI == null || texture == null) return;
             Sprite photoSprite = Sprite.Create(
@@ -194,7 +182,7 @@ namespace Tools
             photoDisplayUI.sprite = photoSprite;
         }
 
-        void HandlePhotoInspection()
+        private void ProcessPhotoInspection()
         {
             if (photoCollection.Count == 0) return;
 
@@ -220,12 +208,11 @@ namespace Tools
             isViewingPhoto = state;
             if (photoUICanvas != null)
                 photoUICanvas.SetActive(state);
-            // playerController.ToggleControl(!state); // 필요시 주석 해제
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
         }
 
-        GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
+        private GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
         {
             var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             var result = new List<GameObject>();
@@ -233,10 +220,9 @@ namespace Tools
 
             foreach (var obj in allObjects)
             {
-                // Hierarchy에 있는 오브젝트만 필터링 (씬에 존재하는 오브젝트)
                 if (obj.hideFlags == HideFlags.NotEditable || obj.hideFlags == HideFlags.HideAndDontSave)
                     continue;
-                if (Application.IsPlaying(obj) == false)
+                if (!Application.IsPlaying(obj))
                     continue;
 
                 if ((mask & (1 << obj.layer)) != 0)
@@ -246,5 +232,10 @@ namespace Tools
             return result.ToArray();
         }
 
+        // ToolBase의 추상 메서드 구현
+        protected override void Use(PlayerController player)
+        {
+            StartCoroutine(CaptureAnomalyPhoto());
+        }
     }
 }
