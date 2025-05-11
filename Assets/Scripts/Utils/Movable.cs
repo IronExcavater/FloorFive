@@ -37,7 +37,8 @@ namespace Utils
         {
             float velocity = collision.relativeVelocity.magnitude;
 
-            if (velocity < 0.5f || _audioSource == null) return; // Ignore tiny taps
+            if (_rigidbody.linearVelocity.magnitude < 0.5f || velocity < 0.5f ||
+                _audioSource == null) return; // Ignore tiny taps
 
             float t = Mathf.Clamp01(velocity / maxImpactVelocity);
             float volume = Mathf.Lerp(minImpactVolume, maxImpactVolume, t);
