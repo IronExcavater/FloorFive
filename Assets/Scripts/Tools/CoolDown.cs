@@ -8,11 +8,11 @@ public class CoolDown
 
     public bool coolDownActive
     {
-        get { return Time.time < coolDownTimer; }
+        get { return Time.deltaTime < coolDownTimer; }
     }
 
     public void StartCoolDown()
     {
-        coolDownTimer = Time.time + coolDownTime;
+        coolDownTimer = Time.deltaTime + coolDownTime;
     }
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eb8dbb409b0f1c849a06fd46dd6f0785
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/Materials/Ship Inner Base.mat
+  uploadId: 717411

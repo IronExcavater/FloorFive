@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 40faa919e6155ed468cc26ecafda1dff
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/Shared/CameraController/Readme.md
+  uploadId: 717411

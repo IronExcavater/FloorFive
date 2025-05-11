@@ -18,9 +18,10 @@ public class FlashBeacon : ToolBase
 		radius.enabled = false;
 		Debug.Log("okey lesh do this");
     }
-
-    void Update()
+/*
+    protected override void Update()
     {
+		base.Update();
         if (coolDown.coolDownActive) return;
         
         if (Input.GetKeyDown(KeyCode.F))
@@ -35,6 +36,7 @@ public class FlashBeacon : ToolBase
             Debug.Log("FlashBeacon ready to flash some underage anomalies babyyy");
         }
     }
+*/
 
     void Activate()
     {
@@ -67,6 +69,10 @@ public class FlashBeacon : ToolBase
 
     protected override void Use(PlayerController player)
     {
-        throw new System.NotImplementedException();
+		if (coolDown.coolDownActive) return;
+		Debug.Log("thing is happening");
+        Activate();
+		StartCoroutine(Flashing());
+        coolDown.StartCoolDown();
     }
 }

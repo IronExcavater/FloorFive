@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 81c22093ddf919a4a99926c4e3935a0e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290724
+  packageName: SciFi Stealth Shader
+  packageVersion: 1.0.1
+  assetPath: Assets/SpaceFusion/SF Stealth/Materials/Stealth 7.mat
+  uploadId: 717411

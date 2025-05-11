@@ -1,6 +1,8 @@
-﻿using Audio;
+﻿using System;
+using Audio;
 using Level;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Utils
 {
@@ -19,6 +21,9 @@ namespace Utils
         [SerializeField] private float maxImpactVolume;
         
         public MovableType movableType = MovableType.Default;
+
+        public event Action OnGrabbed;
+        public event Action OnImpacted;
         
         protected Rigidbody _rigidbody;
         protected AudioSource _audioSource;
@@ -37,7 +42,8 @@ namespace Utils
         {
             float velocity = collision.relativeVelocity.magnitude;
 
-            if (velocity < 0.5f || _audioSource == null) return; // Ignore tiny taps
+            if (_rigidbody.linearVelocity.magnitude < 0.5f || velocity < 0.5f ||
+                _audioSource == null) return; // Ignore tiny taps
 
             float t = Mathf.Clamp01(velocity / maxImpactVelocity);
             float volume = Mathf.Lerp(minImpactVolume, maxImpactVolume, t);
@@ -57,6 +63,14 @@ namespace Utils
             AudioClip clip = AudioManager.AudioGroupDictionary.GetValue(sfxKey).GetRandomClip();
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
             _audioSource.PlayOneShot(clip, volume);
+            OnImpacted?.Invoke();
         }
+
+        public void OnGrab()
+        {
+            OnGrabbed?.Invoke();
+        }
+        
+        protected virtual void Grab() {}
     }
 }
