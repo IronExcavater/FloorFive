@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 using Player;
 using TMPro;
 using Tools;
@@ -18,21 +17,16 @@ namespace Tools
         [Header("Camera System")]
         public Camera photoCamera;
         public RenderTexture renderTexture;
-        public Transform photoOutputPoint;
 
         [Header("Photo Settings")]
-        public GameObject photoPrefab;
-        public int maxPhotos = 4;
         public float photoCooldown = 1f;
         private float lastPhotoTime;
 
         [Header("UI System")]
         public Image photoDisplayUI;
         public GameObject photoUICanvas;
-        private bool isViewingPhoto;
-
-        private readonly List<GameObject> photoCollection = new List<GameObject>();
-        private PlayerController playerController;
+        public float photoDisplayTime = 2f; // 사진이 UI에 표시되는 시간(초)
+        private Coroutine photoDisplayCoroutine;
 
         [Header("Audio")]
         public AudioClip clickSound;
@@ -41,6 +35,9 @@ namespace Tools
         [Header("UI Feedback")]
         public TextMeshProUGUI errorText;
         public float errorDisplayTime = 1.5f;
+
+        private PlayerController playerController;
+        private bool isViewingPhoto;
 
         protected override void Awake()
         {
@@ -53,7 +50,6 @@ namespace Tools
         {
             base.Update();
             ProcessPhotoInput();
-            ProcessPhotoInspection();
         }
 
         private void ProcessPhotoInput()
@@ -98,7 +94,7 @@ namespace Tools
             Texture2D photoTexture = CapturePhotoTexture();
             RevealAnomaliesInPhoto();
             SetPhotoCameraToNormal();
-            CreatePhotoObject(photoTexture);
+            ShowPhotoOnUI(photoTexture);
         }
 
         private void SetPhotoCameraToNormal()
@@ -152,26 +148,7 @@ namespace Tools
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 
-        private void CreatePhotoObject(Texture2D texture)
-        {
-            if (photoPrefab == null || photoOutputPoint == null || texture == null) return;
-
-            GameObject newPhoto = Instantiate(photoPrefab, photoOutputPoint.position, photoOutputPoint.rotation);
-            var renderer = newPhoto.GetComponent<Renderer>();
-            if (renderer != null)
-                renderer.material.mainTexture = texture;
-
-            photoCollection.Add(newPhoto);
-            if (photoCollection.Count > maxPhotos)
-            {
-                Destroy(photoCollection[0]);
-                photoCollection.RemoveAt(0);
-            }
-
-            UpdatePhotoUI(texture);
-        }
-
-        private void UpdatePhotoUI(Texture2D texture)
+        private void ShowPhotoOnUI(Texture2D texture)
         {
             if (photoDisplayUI == null || texture == null) return;
             Sprite photoSprite = Sprite.Create(
@@ -180,27 +157,19 @@ namespace Tools
                 new Vector2(0.5f, 0.5f)
             );
             photoDisplayUI.sprite = photoSprite;
+
+            // 기존에 표시 중인 사진이 있다면 코루틴 중지
+            if (photoDisplayCoroutine != null)
+                StopCoroutine(photoDisplayCoroutine);
+
+            photoDisplayCoroutine = StartCoroutine(ShowPhotoTemporarily());
         }
 
-        private void ProcessPhotoInspection()
+        private IEnumerator ShowPhotoTemporarily()
         {
-            if (photoCollection.Count == 0) return;
-
-            foreach (GameObject photo in photoCollection)
-            {
-                float distance = Vector3.Distance(transform.position, photo.transform.position);
-                if (distance < 2f && Input.GetKeyDown(KeyCode.E))
-                {
-                    var renderer = photo.GetComponent<Renderer>();
-                    if (renderer != null)
-                    {
-                        Texture2D tex = renderer.material.mainTexture as Texture2D;
-                        UpdatePhotoUI(tex);
-                        TogglePhotoUI(!isViewingPhoto);
-                        break;
-                    }
-                }
-            }
+            TogglePhotoUI(true);
+            yield return new WaitForSeconds(photoDisplayTime);
+            TogglePhotoUI(false);
         }
 
         public void TogglePhotoUI(bool state)
