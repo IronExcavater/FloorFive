@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-
-using Level;
+using Player;
 using Tools;
 
 public class FlashBeacon : ToolBase
@@ -27,7 +25,6 @@ public class FlashBeacon : ToolBase
         
         if (Input.GetKeyDown(KeyCode.F))
         {
-            OnInteract();
             Activate();
             StartCoroutine(Flashing());
             coolDown.StartCoolDown();
@@ -37,12 +34,6 @@ public class FlashBeacon : ToolBase
         {
             Debug.Log("FlashBeacon ready to flash some underage anomalies babyyy");
         }
-    }
-
-    public override void OnInteract()
-    {
-        Debug.Log("I dont consent to being picked up >:(");
-	
     }
 
     void Activate()
@@ -72,5 +63,10 @@ public class FlashBeacon : ToolBase
 		radius.enabled = false;
         on = false;
         Debug.Log("FlashBeacon on cooldown");
-    } 
+    }
+
+    protected override void Use(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
 }

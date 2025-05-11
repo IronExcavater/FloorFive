@@ -215,7 +215,7 @@ MonoBehaviour:
   acceleration: 7
   liftForce: 20
   interactRadius: 0.5
-  interactDistance: 1
+  interactDistance: 1.5
   defaultMask:
     serializedVersion: 2
     m_Bits: 1
@@ -226,6 +226,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   fadeOverlay: {fileID: 7201358145052352779}
+  _toolIndex: -1
 --- !u!114 &7289632497006591245
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Animation;
 using Audio;
 using HomebrewIK;
@@ -44,7 +43,7 @@ namespace Player
 
         [Header("Interact")]
         public float interactRadius = 0.5f;
-        public float interactDistance = 2;
+        public float interactDistance = 1.5f;
         public LayerMask defaultMask;
         public LayerMask movableMask;
         public LayerMask interactMask;
@@ -52,10 +51,32 @@ namespace Player
         [Header("Transition")]
         [SerializeField] private CanvasGroup fadeOverlay;
         
-        private Dictionary<int, ToolBase> _tools;
+        private List<ToolBase> _tools;
         private int _toolIndex = -1;
 
-        private ToolBase EquippedTool() => _tools.GetValueOrDefault(_toolIndex, null);
+        public int ToolIndex
+        {
+            get => _toolIndex;
+            set
+            {
+                if (_toolIndex == value) return;
+
+                ToolBase prevTool = EquippedTool();
+                if (prevTool) prevTool.gameObject.SetActive(false);
+                
+                _toolIndex = value;
+                
+                ToolBase newTool = EquippedTool();
+                if (newTool == null) return;
+                
+                newTool.gameObject.SetActive(true);
+                newTool.transform.SetParent(toolTarget);
+                newTool.transform.localPosition = newTool.toolOffsetPosition;
+                newTool.transform.localEulerAngles = newTool.toolOffsetRotation;
+            }
+        }
+
+        private ToolBase EquippedTool() => _toolIndex >= 0 && _toolIndex < _tools.Count ? _tools[_toolIndex] : null;
         
         private Room _currentRoom;
         
@@ -147,7 +168,7 @@ namespace Player
         private void OnSceneLoaded(Scene scene)
         {
             UnsubscribeFromRoom();
-            _currentRoom = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
         }
         
@@ -174,7 +195,8 @@ namespace Player
             HandleInput();
             HandleAttack();
             HandleInteract();
-            HandleToolSwitch();
+            HandleUse();
+            HandleTool();
         }
 
         private void FixedUpdate()
@@ -208,7 +230,7 @@ namespace Player
             lookDelta = Vector3.ClampMagnitude(lookDelta, maxCameraDelta);
             
             _lookRotation += lookDelta;
-            _lookRotation.x = Mathf.Clamp(_lookRotation.x, -90, 90);
+            _lookRotation.x = Mathf.Clamp(_lookRotation.x, -85, 85);
             
             cameraPivot.localRotation = Quaternion.Euler(_lookRotation.x, _lookRotation.y, 0);
 
@@ -244,31 +266,28 @@ namespace Player
 
         private void HandleHeadIK()
         {
-            headTransform.LookAt(cameraPivot.position + cameraTransform.forward * 3);
-            Vector3 localAngles = headTransform.localEulerAngles;
-
-            // Convert from [0, 360] → [-180, 180] for clamping
-            localAngles.x = localAngles.x > 180 ? localAngles.x - 360 : localAngles.x;
-            localAngles.y = localAngles.y > 180 ? localAngles.y - 360 : localAngles.y;
-
-            // Clamp
-            localAngles.x = Mathf.Clamp(localAngles.x, -20, 20);
-            localAngles.y = Mathf.Clamp(localAngles.y, -30, 30);
-            localAngles.z = 0;
-
-            // Just use the clamped values
-            headTransform.localEulerAngles = localAngles;
+            _animator.SetLookAtWeight(
+                1f,
+                0f,
+                1f,
+                0.5f,
+                0.7f
+            );
+            _animator.SetLookAtPosition(cameraPivot.position + cameraTransform.forward * 3);
         }
         
         private void HandleHandIK()
         {
             if (EquippedTool() == null) return;
 
-            Vector3 handPosition = toolTarget.transform.position + EquippedTool().handOffsetPosition;
-            Quaternion handRotation = Quaternion.Euler(toolTarget.transform.eulerAngles + EquippedTool().handOffsetRotation);
+            Quaternion handRotation = Quaternion.Euler(toolTarget.eulerAngles + EquippedTool().handOffsetRotation);
+            Vector3 handPosition = toolTarget.position + toolTarget.rotation * EquippedTool().handOffsetPosition;
             
-            handTransform.position = Vector3.Lerp(handTransform.position, handPosition, Time.deltaTime * acceleration);
-            handTransform.rotation = Quaternion.Slerp(handTransform.rotation, handRotation, Time.deltaTime * acceleration);
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+
+            _animator.SetIKPosition(AvatarIKGoal.RightHand, handPosition);
+            _animator.SetIKRotation(AvatarIKGoal.RightHand, handRotation);
         }
 
         private void HandleMove()
@@ -337,55 +356,65 @@ namespace Player
             if (Physics.SphereCast(
                     cameraPivot.position, interactRadius, cameraTransform.forward,
                     out var hit, interactDistance, interactMask) &&
-                hit.collider.TryGetComponent(out Interactable interactable) && interactable.enabled &&
                 !Physics.Raycast(cameraPivot.position, hit.collider.bounds.center - cameraPivot.position,
                     Vector3.Distance(hit.collider.bounds.center, cameraPivot.position), defaultMask))
             {
-                InteractTarget = interactable;
+                Interactable interactable = hit.collider.GetComponentInParent<Interactable>();
+                if (interactable != null && interactable.enabled)
+                {
+                    InteractTarget = interactable;
+                }
+                else InteractTarget = null;
             }
             else InteractTarget = null;
             
             if (_input.actions["Interact"].WasPerformedThisFrame() && InteractTarget != null)
             {
-                InteractTarget?.OnInteract();
+                InteractTarget?.OnInteract(this);
             }
         }
 
-        private void HandleToolSwitch()
+        private void HandleUse()
         {
+            if (_input.actions["Use"].WasPressedThisFrame())
+            {
+                Debug.Log("Tool used");
+                EquippedTool()?.OnUse(this);
+            }
+        }
+
+        private void HandleTool()
+        {
+            toolTarget.rotation = headTransform.rotation;
+            
             for (int i = 0; i < 9; i++)
             {
                 if (Keyboard.current[(Key)((int)Key.Digit1 + i)].wasPressedThisFrame)
                 {
-                    if (_tools.TryGetValue(i, out ToolBase tool))
-                        _toolIndex = _tools.First(pair => pair.Value == tool).Key;;
+                    if (i < _tools.Count)
+                    {
+                        if (_tools[i] == EquippedTool()) ToolIndex = -1;
+                        else ToolIndex = i;
+                    }
                 }
             }
 
             float scroll = _input.actions["Zoom"].IsPressed() ? 0 : _input.actions["Scroll"].ReadValue<float>();
             if (scroll != 0 && _tools.Count > 0)
             {
-                List<int> sortedTools = _tools.Keys.OrderBy(x => x).ToList(); // Not efficient
-                
                 int direction = scroll > 0 ? 1 : -1;
-                _toolIndex = sortedTools[(_toolIndex + direction + sortedTools.Count) % sortedTools.Count];
+                int newIndex = (_toolIndex + direction + _tools.Count) % _tools.Count;
+                ToolIndex = newIndex;
             }
         }
 
-        public void AddTool(int keyboardDigit, ToolBase tool)
+        public void AddTool(ToolBase tool)
         {
-            if (!_tools.ContainsValue(tool)) return;
+            _tools.Add(tool);
             
-            _tools.TryAdd(keyboardDigit, tool);
+            Debug.Log($"Adding tool {tool.gameObject.name}");
             
-            if (_tools.TryGetValue(_toolIndex, out ToolBase currentTool)) currentTool.gameObject.SetActive(false);
-            
-            tool.gameObject.SetActive(true);
-            tool.transform.SetParent(handTransform);
-            tool.transform.localPosition = tool.toolOffsetPosition;
-            tool.transform.localEulerAngles = tool.toolOffsetRotation;
-                
-            _toolIndex = _tools.First(pair => pair.Value == tool).Key;
+            ToolIndex = _tools.Count - 1;
         }
 
         private void HandlePassedOut()

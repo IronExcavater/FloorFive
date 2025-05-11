@@ -1,5 +1,6 @@
 ﻿using Animation;
 using Audio;
+using Player;
 using UnityEngine;
 using Utils;
 
@@ -24,7 +25,7 @@ namespace Level
 			_startRotation = transform.localRotation;
 		}
 
-		protected override void Interact()
+		protected override void Interact(PlayerController player)
 		{
 			AnimationManager.RemoveTweens(this);
 			isOpen = !isOpen;

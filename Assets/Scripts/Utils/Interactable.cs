@@ -1,11 +1,11 @@
 ﻿using System;
+using Player;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Utils
 {
-    [RequireComponent(typeof(Collider))]
     public abstract class Interactable : MonoBehaviour
     {
         public new bool enabled = true;
@@ -18,10 +18,12 @@ namespace Utils
         public event Action OnInteracted;
         
         private Outline _outline;
+        protected Collider _collider;
 
         protected virtual void Awake()
         {
             _outline = GetComponent<Outline>();
+            _collider = GetComponentInChildren<Collider>();
             
             Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Interact"));
         }
@@ -38,12 +40,12 @@ namespace Utils
             InteractionUI.HidePrompt();
         }
 
-        public void OnInteract()
+        public void OnInteract(PlayerController player)
         {
             OnInteracted?.Invoke();
-            Interact();
+            Interact(player);
         }
 
-        protected abstract void Interact();
+        protected abstract void Interact(PlayerController player);
     }
 }
