@@ -233,7 +233,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1745200269}
+    m_TransformParent: {fileID: 1527748597}
     m_Modifications:
     - target: {fileID: 7392696886638971600, guid: 21fbefa747884b14f9fea35cfed100bc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5823,7 +5823,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1745200269}
+    m_TransformParent: {fileID: 1527748597}
     m_Modifications:
     - target: {fileID: 6947743330601564212, guid: aef7e4fb0fe33184e9004223fc91f827, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31821,7 +31821,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1745200269}
+    m_TransformParent: {fileID: 1527748597}
     m_Modifications:
     - target: {fileID: 696138771650917292, guid: dde3f333a59b59145881bb7300449976, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33540,7 +33540,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 195233522}
+  - {fileID: 1442658235}
+  - {fileID: 12937059}
   m_Father: {fileID: 111735471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1531077687
@@ -38393,14 +38396,11 @@ Transform:
   - {fileID: 1545500591}
   - {fileID: 67051186}
   - {fileID: 25966949}
-  - {fileID: 195233522}
   - {fileID: 1225304767}
   - {fileID: 687869958}
   - {fileID: 1990734839}
   - {fileID: 1756773612}
   - {fileID: 1629966989}
-  - {fileID: 1442658235}
-  - {fileID: 12937059}
   - {fileID: 1534260164}
   - {fileID: 91401428}
   - {fileID: 594449945}
@@ -49660,6 +49660,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
       propertyPath: errorText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
+      propertyPath: photoCamera
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
