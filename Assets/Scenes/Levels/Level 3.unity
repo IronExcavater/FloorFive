@@ -17774,8 +17774,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorNumber: 0
+  subtitleSequence: {fileID: 0}
   duration: 180
   remainingTime: 0
+  initialAnomalyGap: 3
   anomalyCurve:
     serializedVersion: 2
     m_Curve:
@@ -20824,6 +20826,10 @@ PrefabInstance:
     - target: {fileID: 1337760290519314, guid: fbf5b725007fd0b4eb57c499977f128d, type: 3}
       propertyPath: m_Name
       value: Folder red prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337760290519314, guid: fbf5b725007fd0b4eb57c499977f128d, type: 3}
+      propertyPath: m_TagString
+      value: Anomaly
       objectReference: {fileID: 0}
     - target: {fileID: 4713316215712276, guid: fbf5b725007fd0b4eb57c499977f128d, type: 3}
       propertyPath: m_LocalPosition.x

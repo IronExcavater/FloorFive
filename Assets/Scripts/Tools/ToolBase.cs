@@ -19,7 +19,7 @@ namespace Tools
 
         public event Action OnUsed;
         
-        protected Rigidbody _rigidbody;
+        [HideInInspector] public new Rigidbody rigidbody;
         protected AudioSource _audioSource;
 
         public bool equipped;
@@ -61,7 +61,7 @@ namespace Tools
         protected override void Awake()
         {
             base.Awake();
-            _rigidbody = GetComponent<Rigidbody>();
+            rigidbody = GetComponent<Rigidbody>();
             _audioSource = GetComponentInChildren<AudioSource>();
         }
 
@@ -74,10 +74,7 @@ namespace Tools
 
         protected override void Interact(PlayerController player)
         {
-            _rigidbody.isKinematic = true;
-            _collider.enabled = false;
             player.AddTool(this);
-            equipped = true;
         }
         
         public void OnUse(PlayerController player)

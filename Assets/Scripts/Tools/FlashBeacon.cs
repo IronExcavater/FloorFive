@@ -6,73 +6,56 @@ using Tools;
 public class FlashBeacon : ToolBase
 {
     public GameObject flashBeaconObj;
-	public Collider radius;
+    public Collider radius;
     [SerializeField] public CoolDown coolDown;
-    public bool on;
-    public float flashPeriod;
-    
+    public float flashPeriod = 2f;
+    private bool on = false;
+
     void Start()
     {
         on = false;
         flashBeaconObj.SetActive(false);
-		radius.enabled = false;
-		Debug.Log("okey lesh do this");
+        radius.enabled = false;
     }
-/*
-    protected override void Update()
+
+    // ToolBase에서 호출되는 사용 함수
+    protected override void Use(PlayerController player)
     {
-		base.Update();
         if (coolDown.coolDownActive) return;
-        
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Activate();
-            StartCoroutine(Flashing());
-            coolDown.StartCoolDown();
-        }
-
-        if (!coolDown.coolDownActive)
-        {
-            Debug.Log("FlashBeacon ready to flash some underage anomalies babyyy");
-        }
+        Activate();
+        StartCoroutine(Flashing());
+        coolDown.StartCoolDown();
     }
-*/
 
-    void Activate()
+    private void Activate()
     {
         if (!on)
-        { 
-        flashBeaconObj.SetActive(true);
-		radius.enabled = true;
-        on = true;
-
-        Debug.Log("FlashBeacon Flashing");
+        {
+            flashBeaconObj.SetActive(true);
+            radius.enabled = true;
+            on = true;
         }
     }
 
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.tag == "MovingAnomaly") 
+    // FlashBeacon의 범위에 들어온 MovingAnomaly를 정지시킴
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MovingAnomaly"))
         {
-         	Debug.Log("Anomaly detected weeem woooo weeee woooooo");
+            var anomaly = other.GetComponent<MovingAnomaly>();
+            if (anomaly != null)
+            {
+                anomaly.Freeze(flashPeriod); // flashPeriod 동안 정지
+            }
         }
-	}
+    }
 
-    public IEnumerator Flashing()
+    // flashPeriod 후 비활성화
+    private IEnumerator Flashing()
     {
         yield return new WaitForSeconds(flashPeriod);
         flashBeaconObj.SetActive(false);
-		radius.enabled = false;
+        radius.enabled = false;
         on = false;
-        Debug.Log("FlashBeacon on cooldown");
-    }
-
-    protected override void Use(PlayerController player)
-    {
-		if (coolDown.coolDownActive) return;
-		Debug.Log("thing is happening");
-        Activate();
-		StartCoroutine(Flashing());
-        coolDown.StartCoolDown();
     }
 }

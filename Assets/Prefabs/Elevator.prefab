@@ -1571,6 +1571,12 @@ MonoBehaviour:
   internalButton: {fileID: 2550470970611196234}
   doorCollider: {fileID: 1290844166991505583}
   exitDistance: 2
+  toolPrefabs:
+  - {fileID: 8639893821649540723, guid: 0d93d762ff961da46991b508d054f4ef, type: 3}
+  - {fileID: 0}
+  - {fileID: 4778798516462714029, guid: dee67a136019b9d41b85b161d407ee0f, type: 3}
+  - {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
+  levelBuildIndex: -1
 --- !u!95 &8172895794657097286
 Animator:
   serializedVersion: 7

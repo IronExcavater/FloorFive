@@ -34,7 +34,6 @@ namespace Player
         
         [Header("Model IK")]
         public Transform headTransform;
-        public Transform handTransform;
         public Transform toolTarget;
         
         [Header("Movement")]
@@ -422,6 +421,9 @@ namespace Player
 
         public void AddTool(ToolBase tool)
         {
+            tool.rigidbody.isKinematic = true;
+            tool.collider.enabled = false;
+            tool.equipped = true;
             _tools.Add(tool);
             
             Debug.Log($"Adding tool {tool.gameObject.name}");
