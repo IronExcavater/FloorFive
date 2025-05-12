@@ -12,4 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
   m_Name: TutorialSubtitleSequence
   m_EditorClassIdentifier: 
-  Steps: []
+  Steps:
+  - subtitleEvent: 11
+    text: Explore the room, take note of what you see.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 0
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 12
+    text: When you are ready, call the elevator to begin.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 0
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 0
+    text: Did you hear that? Something has moved.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 10
+    subStepText: So you don't know what moved? The anomaly is highlighted now.
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 0
+    text: Where did it belong? Place it there.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
