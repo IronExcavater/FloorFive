@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Room
   - MovingAnomaly
+  - door
+  - PhotoCamera
   layers:
   - Default
   - TransparentFX

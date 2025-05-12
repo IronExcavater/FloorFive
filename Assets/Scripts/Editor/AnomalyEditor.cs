@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor
 {
-    [CustomEditor(typeof(AnomalyBase))]
+    [CustomEditor(typeof(AnomalyBase), true)]
     public class AnomalyEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()

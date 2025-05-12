@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Animation;
 using Audio;
@@ -53,6 +54,8 @@ namespace Player
         
         private List<ToolBase> _tools;
         private int _toolIndex = -1;
+
+        public event Action<ToolBase> OnToolAdded;
 
         public int ToolIndex
         {
@@ -342,8 +345,15 @@ namespace Player
                     out var hit, interactDistance, movableMask))
             {
                 Rigidbody rigidbody = hit.collider.GetComponentInParent<Rigidbody>();
-                if (rigidbody != null && !rigidbody.isKinematic) GrabbedTarget = rigidbody;
+                if (rigidbody != null && !rigidbody.isKinematic)
+                {
+                    GrabbedTarget = rigidbody;
+                    GrabbedTarget.TryGetComponent(out Movable movable);
+                    movable.OnGrab();
+                }
+                else GrabbedTarget = null;
             }
+            else GrabbedTarget = null;
 
             if (_input.actions["Attack"].WasReleasedThisFrame() && GrabbedTarget != null)
             {
@@ -413,6 +423,7 @@ namespace Player
             _tools.Add(tool);
             
             Debug.Log($"Adding tool {tool.gameObject.name}");
+            OnToolAdded?.Invoke(tool);
             
             ToolIndex = _tools.Count - 1;
         }

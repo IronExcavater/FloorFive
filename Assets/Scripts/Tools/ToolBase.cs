@@ -20,8 +20,9 @@ namespace Tools
         public event Action OnUsed;
         
         protected Rigidbody _rigidbody;
+        protected AudioSource _audioSource;
 
-        protected bool _equipped;
+        public bool equipped;
 
         private Room _currentRoom;
         protected float _stress;
@@ -61,11 +62,12 @@ namespace Tools
         {
             base.Awake();
             _rigidbody = GetComponent<Rigidbody>();
+            _audioSource = GetComponentInChildren<AudioSource>();
         }
 
         protected virtual void Update()
         {
-            if (!_equipped) return;
+            if (!equipped) return;
             transform.localPosition = toolOffsetPosition;
             transform.localRotation = Quaternion.Euler(toolOffsetRotation);
         }
@@ -75,7 +77,7 @@ namespace Tools
             _rigidbody.isKinematic = true;
             _collider.enabled = false;
             player.AddTool(this);
-            _equipped = true;
+            equipped = true;
         }
         
         public void OnUse(PlayerController player)

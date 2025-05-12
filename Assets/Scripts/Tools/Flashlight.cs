@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Audio;
+using Player;
 using UnityEngine;
 
 namespace Tools
@@ -18,6 +19,8 @@ namespace Tools
         private float _flickerDuration;
         private float _flickerCooldown;
 
+        public bool IsOn => _light.enabled;
+
         protected override void Awake()
         {
             base.Awake();
@@ -28,7 +31,7 @@ namespace Tools
         {
             base.Update();
             
-            if (!_light.enabled || !_equipped) return;
+            if (!IsOn || !equipped) return;
             
             float intensity = Mathf.Lerp(minIntensity, maxIntensity, 1 - _stress);
 
@@ -50,6 +53,8 @@ namespace Tools
         {
             Debug.Log("Flashlight used");
             _light.enabled = !_light.enabled;
+            _audioSource.pitch = Random.Range(0.8f, 1.2f);
+            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("flashlightClick").GetFirstClip());
         }
     }
 }
