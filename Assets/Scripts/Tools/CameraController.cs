@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using Player;
 using TMPro;
-using Tools;
 using System.Collections.Generic;
 
 namespace Tools
@@ -16,8 +15,8 @@ namespace Tools
         public LayerMask cameraOnlyLayerMask;
 
         [Header("Camera System")]
-        public Camera photoCamera;         // 사진 촬영용 카메라 (별도 오브젝트, 평소엔 꺼짐)
-        public Camera playerCamera;        // 플레이어 시점 카메라 (MainCamera)
+        public Camera photoCamera;         // 사진 촬영용 카메라 (비활성화 상태)
+        public Camera playerCamera;        // 플레이어 시점 카메라
         public RenderTexture renderTexture;
 
         [Header("Photo Settings")]
@@ -47,7 +46,7 @@ namespace Tools
             playerController = GetComponent<PlayerController>();
             SetPhotoCameraToNormal();
             if (photoCamera != null)
-                photoCamera.enabled = false; // 사진 카메라는 평소엔 꺼둠
+                photoCamera.enabled = false;
         }
 
         protected override void Update()
@@ -92,25 +91,24 @@ namespace Tools
 
         private IEnumerator CaptureAnomalyPhoto()
         {
-            // 1. 사진 카메라 위치/회전 플레이어 카메라에 맞추기
+            // 플레이어 카메라의 위치/회전/시야각 동기화
             if (photoCamera != null && playerCamera != null)
             {
-                photoCamera.transform.position = playerCamera.transform.position;
-                photoCamera.transform.rotation = playerCamera.transform.rotation;
+                photoCamera.transform.SetPositionAndRotation(
+                    playerCamera.transform.position,
+                    playerCamera.transform.rotation
+                );
                 photoCamera.fieldOfView = playerCamera.fieldOfView;
-                photoCamera.enabled = true;
+                photoCamera.nearClipPlane = playerCamera.nearClipPlane;
+                photoCamera.farClipPlane = playerCamera.farClipPlane;
             }
 
             SetPhotoCameraToAnomaly();
-            yield return new WaitForEndOfFrame();
+            yield return null; // 한 프레임 대기
 
             Texture2D photoTexture = CapturePhotoTexture();
             RevealAnomaliesInPhoto();
             SetPhotoCameraToNormal();
-
-            // 2. 사진 카메라 끄기
-            if (photoCamera != null)
-                photoCamera.enabled = false;
 
             ShowPhotoOnUI(photoTexture);
         }
@@ -222,7 +220,6 @@ namespace Tools
             return result.ToArray();
         }
 
-        
         protected override void Use(PlayerController player)
         {
             StartCoroutine(CaptureAnomalyPhoto());

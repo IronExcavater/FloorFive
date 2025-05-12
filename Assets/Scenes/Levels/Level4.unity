@@ -36091,6 +36091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorNumber: 0
   duration: 180
+  remainingTime: 0
   anomalyCurve:
     serializedVersion: 2
     m_Curve:
@@ -41618,7 +41619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
       propertyPath: anomalousPosition.x
-      value: 7.8481073
+      value: 14.123346
       objectReference: {fileID: 0}
     - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
       propertyPath: anomalousPosition.y
@@ -41626,7 +41627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
       propertyPath: anomalousPosition.z
-      value: -6.342623
+      value: -18.130854
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
