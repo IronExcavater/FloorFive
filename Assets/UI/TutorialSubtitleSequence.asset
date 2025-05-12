@@ -12,14 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
   m_Name: TutorialSubtitleSequence
   m_EditorClassIdentifier: 
-  Steps:
-  - EventId: 
-    Text: 
-    AudioClip: {fileID: 0}
-    Delay: 0
-    Duration: 0
-  - EventId: 
-    Text: 
-    AudioClip: {fileID: 0}
-    Delay: 0
-    Duration: 0
+  Steps: []
