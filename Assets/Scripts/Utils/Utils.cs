@@ -42,6 +42,11 @@ namespace Utils
             yield return runner.StartCoroutine(coroutine);
             onComplete?.Invoke();
         }
+
+        public static IEnumerator WaitForSeconds(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+        }
         
         public static Bounds GetLocalBounds(GameObject obj)
         {

@@ -7,6 +7,7 @@ using HomebrewIK;
 using Level;
 using Load;
 using Tools;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -350,6 +351,7 @@ namespace Player
                     GrabbedTarget = rigidbody;
                     GrabbedTarget.TryGetComponent(out Movable movable);
                     movable.OnGrab();
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnGrabbed);
                 }
                 else GrabbedTarget = null;
             }
@@ -424,6 +426,7 @@ namespace Player
             
             Debug.Log($"Adding tool {tool.gameObject.name}");
             OnToolAdded?.Invoke(tool);
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnToolAdded);
             
             ToolIndex = _tools.Count - 1;
         }
