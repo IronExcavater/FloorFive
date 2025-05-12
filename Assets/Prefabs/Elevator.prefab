@@ -1319,6 +1319,7 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
+  collider: {fileID: 0}
 --- !u!82 &6092291241415495245
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1573,7 +1574,7 @@ MonoBehaviour:
   exitDistance: 2
   toolPrefabs:
   - {fileID: 8639893821649540723, guid: 0d93d762ff961da46991b508d054f4ef, type: 3}
-  - {fileID: 0}
+  - {fileID: 2757960404005597, guid: 55087f740d885074390755780189414d, type: 3}
   - {fileID: 4778798516462714029, guid: dee67a136019b9d41b85b161d407ee0f, type: 3}
   - {fileID: 5224150121166151559, guid: 81330ddd14a262447898979eee32e087, type: 3}
   levelBuildIndex: -1
@@ -1653,6 +1654,7 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
+  collider: {fileID: 0}
 --- !u!82 &8179126650910975757
 AudioSource:
   m_ObjectHideFlags: 0

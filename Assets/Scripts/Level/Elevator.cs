@@ -186,17 +186,24 @@ namespace Level
 
         private IEnumerator LoadLevel()
         {
+            int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
+            
             if (levelBuildIndex == -1)
             {
-                levelBuildIndex = LoadManager.MainMenuSceneIndex;
-                for (int i = 0; i < levelBuildIndex - 3; i++)
+                if (activeLevelBuildIndex != -1)
                 {
-                    if (toolPrefabs[i] != null) _player.AddTool(Instantiate(toolPrefabs[i]));
+                    levelBuildIndex = LoadManager.ActiveLevelBuildIndex;
+                }
+                else
+                {
+                    levelBuildIndex = LoadManager.MainMenuSceneIndex;
+                    for (int i = 0; i < levelBuildIndex - 3; i++)
+                    {
+                        if (toolPrefabs[i] != null) _player.AddTool(Instantiate(toolPrefabs[i]));
+                    }
                 }
             }
             else levelBuildIndex++;
-            
-            int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
             
             LoadManager.UnloadScene(activeLevelBuildIndex);
             LoadManager.LoadScene(levelBuildIndex);

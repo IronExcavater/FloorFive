@@ -23,7 +23,7 @@ namespace Load
 
         public static bool IsLoading;
 
-        public static int MainMenuSceneIndex = 1;
+        public static int MainMenuSceneIndex = 2;
 
         public static int ActiveLevelBuildIndex
         {
