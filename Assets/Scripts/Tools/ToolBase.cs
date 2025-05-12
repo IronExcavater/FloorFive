@@ -24,8 +24,14 @@ namespace Tools
 
         public bool equipped;
 
-        private Room _currentRoom;
+        protected Room _currentRoom;
         protected float _stress;
+
+        private void Start()
+        {
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
+            SubscribeToRoom();
+        }
         
         private void OnEnable()
         {

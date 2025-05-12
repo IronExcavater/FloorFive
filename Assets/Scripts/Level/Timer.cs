@@ -14,8 +14,12 @@ namespace Level
 
         private void Awake()
         {
-            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
             _texts = GetComponentsInChildren<TMP_Text>().ToList();
+        }
+
+        private void Start()
+        {
+            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
         }
 
         void Update()

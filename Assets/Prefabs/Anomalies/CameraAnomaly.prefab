@@ -54,6 +54,9 @@ MonoBehaviour:
   anomalousPosition: {x: 0, y: 0, z: 0}
   anomalousRotation: {x: -0, y: 0, z: 0}
   activeTime: 0
+  minHumVolume: 0.4
+  maxHumVolume: 1
+  maxHumActiveTime: 10
   anomalyLayerName: HiddenAnomaly
   revealLayerName: Default
   colliderEnableOnReveal: 1

@@ -1,7 +1,6 @@
 using UnityEngine;
 using Anomaly;
 
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(SphereCollider))]
 public class MovingAnomaly : AnomalyBase
 {
@@ -10,9 +9,7 @@ public class MovingAnomaly : AnomalyBase
     public float stopDistance = 1.5f;
     public AudioClip awakeSound;
     public AudioClip deactivateSound;
-
-    private AudioSource audioSource;
-
+    
     private enum State { Dormant, Awake }
     private State currentState = State.Dormant;
 
@@ -21,13 +18,11 @@ public class MovingAnomaly : AnomalyBase
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
 
-        audioSource = GetComponent<AudioSource>();
-
-        // Collider ¼¼ÆÃ: Æ®¸®°Å·Î ¼³Á¤
+        // Collider ï¿½ï¿½ï¿½ï¿½: Æ®ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½
         var col = GetComponent<SphereCollider>();
         col.isTrigger = true;
 
-        // Rigidbody°¡ ÀÖ´Ù¸é isKinematicÀ¸·Î
+        // Rigidbodyï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ isKinematicï¿½ï¿½ï¿½ï¿½
         var rb = GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
     }
@@ -45,7 +40,7 @@ public class MovingAnomaly : AnomalyBase
         }
     }
 
-    // Æ®¸®°Å·Î ÇÃ·¹ÀÌ¾î °¨Áö
+    // Æ®ï¿½ï¿½ï¿½Å·ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     void OnTriggerEnter(Collider other)
     {
         if (currentState == State.Dormant && other.CompareTag("Player"))
@@ -54,7 +49,7 @@ public class MovingAnomaly : AnomalyBase
         }
     }
 
-    // FlashBeacon µî¿¡¼­ ÀÌ ¸Þ¼­µå¸¦ È£Ãâ
+    // FlashBeacon ï¿½î¿¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ È£ï¿½ï¿½
     public void OnFlash()
     {
         if (currentState == State.Dormant)
@@ -70,16 +65,16 @@ public class MovingAnomaly : AnomalyBase
     void BecomeAwake()
     {
         currentState = State.Awake;
-        if (awakeSound != null) audioSource.PlayOneShot(awakeSound);
-        // ÇÊ¿äÇÏ´Ù¸é ÀÌÆåÆ®/¾Ö´Ï¸ÞÀÌ¼Ç µî Ãß°¡
+        if (awakeSound != null) _audioSource.PlayOneShot(awakeSound);
+        // ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®/ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
         Debug.Log("Anomaly is now awake!");
     }
 
     void BecomeDormant()
     {
         currentState = State.Dormant;
-        if (deactivateSound != null) audioSource.PlayOneShot(deactivateSound);
-        // ÇÊ¿äÇÏ´Ù¸é ÀÌÆåÆ®/¾Ö´Ï¸ÞÀÌ¼Ç µî Ãß°¡
+        if (deactivateSound != null) _audioSource.PlayOneShot(deactivateSound);
+        // ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®/ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
         Debug.Log("Anomaly is now dormant!");
     }
 }

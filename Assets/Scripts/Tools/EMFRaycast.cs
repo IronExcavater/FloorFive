@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Player;
 
@@ -23,8 +24,7 @@ namespace Tools
         {
             base.Update();
 
-            if (!equipped)
-                return;
+            if (!equipped) return;
 
             UpdateAnomalyDistanceLightmap();
         }
@@ -40,10 +40,11 @@ namespace Tools
         /// </summary>
         private void UpdateAnomalyDistanceLightmap()
         {
-            GameObject[] anomalies = GameObject.FindGameObjectsWithTag("Anomaly");
+            var anomalies = _currentRoom._anomalies;
             float closestDistance = float.MaxValue;
 
-            foreach (var obj in anomalies)
+            var validAnomalies = anomalies.Where(anomaly => anomaly.Active);
+            foreach (var obj in validAnomalies)
             {
                 float dist = Vector3.Distance(transform.position, obj.transform.position);
                 if (dist < closestDistance)

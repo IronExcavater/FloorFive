@@ -219,8 +219,9 @@ MonoBehaviour:
   anomalousPosition: {x: 0, y: 0, z: 0}
   anomalousRotation: {x: -0, y: 0, z: 0}
   activeTime: 0
-  detectAngle: 30
-  changeRate: 0.5
+  minHumVolume: 0.4
+  maxHumVolume: 1
+  maxHumActiveTime: 10
 --- !u!54 &2587350751610611716
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -50,7 +50,10 @@ namespace Level
             _audioLowPassFilter = _mainCamera?.GetComponent<AudioLowPassFilter>();
             if (_mainCamera != null) _baseFov = _mainCamera.fieldOfView;
             if (_audioLowPassFilter != null) _baseLowPassFilter = _audioLowPassFilter.cutoffFrequency;
-            
+        }
+
+        private void Start()
+        {
             _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             SubscribeToRoom();
         }

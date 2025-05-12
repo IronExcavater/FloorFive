@@ -18,12 +18,12 @@ namespace Utils
         public event Action OnInteracted;
         
         private Outline _outline;
-        [HideInInspector] public new Collider collider;
+        [HideInInspector] public new Collider[] colliders;
 
         protected virtual void Awake()
         {
             _outline = GetComponent<Outline>();
-            collider = GetComponentInChildren<Collider>();
+            colliders = GetComponentsInChildren<Collider>();
             
             Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Interact"));
         }

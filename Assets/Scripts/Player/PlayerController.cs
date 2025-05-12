@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Animation;
 using Audio;
 using HomebrewIK;
@@ -95,6 +96,7 @@ namespace Player
         private float _targetZoom;
         private float _lookZoom;
         private Vector3 _startPosition;
+        private Quaternion _startRotation;
         
         private Vector2 _moveInput;
         private Vector3 _moveVelocity;
@@ -147,12 +149,11 @@ namespace Player
             _homebrewIK = GetComponentInChildren<CsHomebrewIK>();
             
             _startPosition = transform.position;
+            _startRotation = transform.rotation;
             
             _tools = new();
-            
-            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
-            SubscribeToRoom();
         }
+        
 
         private void OnEnable()
         {
@@ -191,6 +192,9 @@ namespace Player
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
+            SubscribeToRoom();
         }
 
         private void Update()
@@ -420,7 +424,7 @@ namespace Player
         public void AddTool(ToolBase tool)
         {
             tool.rigidbody.isKinematic = true;
-            tool.collider.enabled = false;
+            tool.colliders.ToList().ForEach(collider => collider.enabled = false);
             tool.equipped = true;
             _tools.Add(tool);
             
@@ -446,8 +450,10 @@ namespace Player
             _animator.SetTrigger(_animatorCache.GetHash("PassedOut"));
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("passedOut").GetFirstClip());
             
-            yield return new WaitUntil(() => !AnimationManager.HasTween(fadeIn));
+            yield return new WaitUntil(() => !AnimationManager.HasTween(fadeIn) && !_audioSource.isPlaying);
+            yield return new WaitForSeconds(3);
             transform.position = _startPosition;
+            transform.rotation = _startRotation;
             
             var fadeOut = AnimationManager.CreateTween(this, alpha => fadeOverlay.alpha = alpha,
                 fadeOverlay.alpha, 0, 1, Easing.EaseOutCubic);

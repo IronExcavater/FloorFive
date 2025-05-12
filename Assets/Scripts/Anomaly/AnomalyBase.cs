@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Animation;
 using Audio;
@@ -73,7 +72,6 @@ namespace Anomaly
         {
             base.Awake();
             _rigidbody.isKinematic = !Active;
-            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
             
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
@@ -82,6 +80,7 @@ namespace Anomaly
 
         private void Start()
         {
+            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
             _humAudioSource = gameObject.AddComponent<AudioSource>();
             _humAudioSource.clip = AudioManager.AudioGroupDictionary.GetValue("energyHum").GetFirstClip();
             _humAudioSource.loop = true;

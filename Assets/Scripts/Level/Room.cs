@@ -76,7 +76,7 @@ namespace Level
         public AnimationCurve anomalyCurve = AnimationCurve.EaseInOut(0, 20, 1f, 10f);
         private float _remainingAnomalyGap;
 
-        private List<AnomalyBase> _anomalies;
+        public List<AnomalyBase> _anomalies;
         private List<AudioSource> _audioSources;
 
         [Header("Player Stress")]
@@ -93,6 +93,8 @@ namespace Level
 
         private void Awake()
         {
+            gameObject.tag = "Room";
+            
             _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
             _roomTool = GetComponentInChildren<ToolBase>();
             

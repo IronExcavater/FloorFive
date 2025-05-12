@@ -74,17 +74,25 @@ namespace Level
 
         private void Update()
         {
-            if (_doorsOpen && Vector3.Distance(_player.transform.position, transform.position) >= exitDistance)
-            {
-                StartCoroutine(ElevatorStage(0, 1));
-            }
-            
             doorCollider.enabled = !_doorsOpen;
 
             externalButton.enabled = _currentRoom != null && !_isAnimating && _currentRoom.Status == Room.State.Ready && _currentRoom.IsToolEquipped;
             internalButton.enabled = _currentRoom == null && !_isAnimating ||
-                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete && !_doorsOpen ||
+                                     _currentRoom != null && _currentRoom.Status == Room.State.Complete && !_isAnimating ||
                                      _currentRoom != null && _currentRoom.Status == Room.State.Ready && !_isAnimating && !_doorsOpen;
+
+            if (_currentRoom == null) return;
+
+            if (_currentRoom.Status == Room.State.Ready && _doorsOpen &&
+                Vector3.Distance(_player.transform.position, transform.position) >= exitDistance && !_isAnimating)
+            {
+                StartCoroutine(ElevatorStage(0, 1));
+            }
+            
+            if (_currentRoom.Status == Room.State.Complete && !_doorsOpen && !_isAnimating)
+            {
+                StartCoroutine(ElevatorStage(2, 3));
+            }
         }
 
         private void OnExternalButton()
@@ -176,9 +184,9 @@ namespace Level
             
             yield return new WaitForSeconds(waitTime);
             
-            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorCrash").GetFirstClip());
+            //_audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorCrash").GetFirstClip());
             
-            yield return new WaitForSeconds(10);
+            //yield return new WaitForSeconds(10);
             _currentRoom.Status = Room.State.Active;
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);

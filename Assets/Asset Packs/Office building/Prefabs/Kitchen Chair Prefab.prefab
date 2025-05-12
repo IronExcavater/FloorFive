@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4835735321587758}
   - component: {fileID: 33134924301482634}
   - component: {fileID: 23270818277485670}
-  - component: {fileID: 64846597321410528}
+  - component: {fileID: 506441145851488840}
+  - component: {fileID: 6347676627132392097}
   m_Layer: 0
   m_Name: Kitchen Chair
   m_TagString: Untagged
@@ -87,8 +88,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64846597321410528
-MeshCollider:
+--- !u!65 &506441145851488840
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,10 +106,30 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300168, guid: 18cd780e6948a554a850b2d047ebf8fb, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.005994703, y: 0.0060060997, z: 0.0061824415}
+  m_Center: {x: -0.00000014251194, y: 0.0001411985, z: 0.0030336867}
+--- !u!65 &6347676627132392097
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071934772937630}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.005994703, y: 0.0008337485, z: 0.0044520074}
+  m_Center: {x: -0.00000014267424, y: -0.0029003276, z: 0.007949224}
 --- !u!1 &1649240418256278
 GameObject:
   m_ObjectHideFlags: 0

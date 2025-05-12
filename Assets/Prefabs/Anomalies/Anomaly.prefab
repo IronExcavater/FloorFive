@@ -218,8 +218,8 @@ MonoBehaviour:
   anomalousPosition: {x: 0, y: 0, z: 0}
   anomalousRotation: {x: -0, y: 0, z: 0}
   activeTime: 0
-  minHumVolume: 0.1
-  maxHumVolume: 0.5
+  minHumVolume: 0.4
+  maxHumVolume: 1
   maxHumActiveTime: 10
 --- !u!54 &2587350751610611716
 Rigidbody:
