@@ -1,17 +1,20 @@
 using UnityEngine;
 using Anomaly;
+using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(SphereCollider))]
 public class MovingAnomaly : AnomalyBase
 {
     public GameObject player;
-    public float moveSpeed = 2f;
-    public float stopDistance = 1.5f;
     public AudioClip awakeSound;
     public AudioClip deactivateSound;
-
+    public Color flashColor = Color.red;         
+    public float flashDuration = 0.2f;             
     private AudioSource audioSource;
+    private Renderer anomalyRenderer;
+    private Color originalColor;
+    private bool isFlashing = false;
 
     private enum State { Dormant, Awake }
     private State currentState = State.Dormant;
@@ -23,29 +26,24 @@ public class MovingAnomaly : AnomalyBase
 
         audioSource = GetComponent<AudioSource>();
 
-        // Collider 세팅: 트리거로 설정
         var col = GetComponent<SphereCollider>();
         col.isTrigger = true;
 
-        // Rigidbody가 있다면 isKinematic으로
         var rb = GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
-    }
 
-    void Update()
-    {
-        if (currentState == State.Awake && player != null)
+        anomalyRenderer = GetComponent<Renderer>();
+        if (anomalyRenderer != null)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            if (distanceToPlayer > stopDistance)
-            {
-                Vector3 direction = (player.transform.position - transform.position).normalized;
-                transform.position += direction * moveSpeed * Time.deltaTime;
-            }
+            originalColor = anomalyRenderer.material.color;
+        }
+        else
+        {
+            Debug.LogWarning("No Renderer found on anomaly object!");
         }
     }
+    
 
-    // 트리거로 플레이어 감지
     void OnTriggerEnter(Collider other)
     {
         if (currentState == State.Dormant && other.CompareTag("Player"))
@@ -54,16 +52,22 @@ public class MovingAnomaly : AnomalyBase
         }
     }
 
-    // FlashBeacon 등에서 이 메서드를 호출
     public void OnFlash()
     {
-        if (currentState == State.Dormant)
+        StartCoroutine(FlashRed());
+    }
+
+    IEnumerator FlashRed()
+    {
+        if (anomalyRenderer != null && !isFlashing)
         {
-            BecomeAwake();
-        }
-        else if (currentState == State.Awake)
-        {
-            BecomeDormant();
+            isFlashing = true;
+            anomalyRenderer.material.color = flashColor;
+
+            yield return new WaitForSeconds(flashDuration);
+
+            anomalyRenderer.material.color = originalColor;
+            isFlashing = false;
         }
     }
 
@@ -71,7 +75,6 @@ public class MovingAnomaly : AnomalyBase
     {
         currentState = State.Awake;
         if (awakeSound != null) audioSource.PlayOneShot(awakeSound);
-        // 필요하다면 이펙트/애니메이션 등 추가
         Debug.Log("Anomaly is now awake!");
     }
 
@@ -79,7 +82,6 @@ public class MovingAnomaly : AnomalyBase
     {
         currentState = State.Dormant;
         if (deactivateSound != null) audioSource.PlayOneShot(deactivateSound);
-        // 필요하다면 이펙트/애니메이션 등 추가
         Debug.Log("Anomaly is now dormant!");
     }
 }
