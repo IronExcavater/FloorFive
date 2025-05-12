@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class MovingAnomaly : MonoBehaviour
+using Anomaly
+public class MovingAnomaly : AnomalyBase
 {
     public GameObject player;
     public float moveSpeed;
@@ -24,5 +24,16 @@ public class MovingAnomaly : MonoBehaviour
             transform.position = newPosition;
             Debug.Log("Anomaly detected weeem woooo weeee woooooo");
         }
+        
+        if (player.gameObject.tag == "FlashBeacon") 
+        {   
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
+            transform.position = newPosition;
+            Debug.Log("Anomaly detected weeem woooo weeee woooooo");
+        }
+        
+        
+        
+        
     }
 }
