@@ -33,7 +33,10 @@ namespace Utils
             _rigidbody = GetComponent<Rigidbody>();
             _audioSource = GetComponentInChildren<AudioSource>();
 
-            _audioSource.gameObject.transform.localPosition = Utils.GetLocalBounds(gameObject).center;
+            if (_audioSource.gameObject != gameObject)
+            {
+                _audioSource.gameObject.transform.localPosition = Utils.GetLocalBounds(gameObject).center;
+            }
             
             Utils.SetLayerRecursive(gameObject, LayerMask.NameToLayer("Movable"));
         }

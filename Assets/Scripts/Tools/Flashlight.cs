@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Audio;
+using Player;
 using UnityEngine;
 
 namespace Tools
@@ -30,7 +31,7 @@ namespace Tools
         {
             base.Update();
             
-            if (!IsOn || !_equipped) return;
+            if (!IsOn || !equipped) return;
             
             float intensity = Mathf.Lerp(minIntensity, maxIntensity, 1 - _stress);
 
@@ -52,6 +53,8 @@ namespace Tools
         {
             Debug.Log("Flashlight used");
             _light.enabled = !_light.enabled;
+            _audioSource.pitch = Random.Range(0.8f, 1.2f);
+            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("flashlightClick").GetFirstClip());
         }
     }
 }

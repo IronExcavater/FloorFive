@@ -113,3 +113,7 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 085652513f4cc5b4eb9061fd9139f791, type: 3}
       - {fileID: 8300000, guid: 916bab3aa01594543ace5d2fde363f2b, type: 3}
       - {fileID: 8300000, guid: d21751a1c86d8a34bb4fca6ce7a45c6a, type: 3}
+  - Key: elevatorCrash
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 24885668fcf72f24eb213d4defa9e0ef, type: 3}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Anomaly;
+using Tools;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -54,6 +55,10 @@ namespace Level
         
         public float duration = 180f; // 3 minutes
         public float remainingTime;
+
+        private ToolBase _roomTool;
+
+        public bool IsToolEquipped => _roomTool == null || _roomTool.equipped;
         
         [Header("Anomaly Gap")]
         public AnimationCurve anomalyCurve = AnimationCurve.EaseInOut(0, 20, 1f, 10f);
@@ -77,13 +82,13 @@ namespace Level
         private void Awake()
         {
             _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
+            _roomTool = GetComponentInChildren<ToolBase>();
             
             _audioSources = GetComponentsInChildren<AudioSource>().ToList();
         }
 
         private void Update()
         {
-
             HandleTriggering();
             HandleStress();
         }
