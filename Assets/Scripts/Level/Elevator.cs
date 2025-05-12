@@ -128,6 +128,14 @@ namespace Level
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorRide").GetFirstClip());
             
             int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
+            if (activeLevelBuildIndex == -1)
+            {
+                for (int i = 0; i < sceneIndex; i++)
+                {
+                    _player.AddTool(toolPrefabs[i - 2]);
+                }
+            }
+            
             yield return StartCoroutine(Utils.Utils.WaitForAll(this,
                 LoadManager.UnloadScene(activeLevelBuildIndex),
                 LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : sceneIndex)
