@@ -6,6 +6,7 @@ using Utils;
 
 namespace UI
 {
+    [DoNotDestroySingleton]
     public class SubtitleUI : Singleton<SubtitleUI>
     {
     
@@ -23,6 +24,7 @@ namespace UI
 
         protected override void Awake()
         {
+            base.Awake();
             _audioSource = GetComponent<AudioSource>();
             _canvasGroup = GetComponentInChildren<CanvasGroup>();
             _canvasGroup.alpha = 0;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -20,6 +21,10 @@ namespace Load
         public static event Action<Scene> OnSceneLoaded;
         public static event Action<float> OnSceneUnloaded; // float => buildIndex
 
+        public static bool IsLoading;
+
+        public static int MainMenuSceneIndex = 1;
+
         public static int ActiveLevelBuildIndex
         {
             get
@@ -27,8 +32,8 @@ namespace Load
                 for (int i = 0; i < SceneManager.sceneCount; i++)
                 {
                     Scene scene = SceneManager.GetSceneAt(i);
-                    // Assumed that elevator scene has buildIndex of 0
-                    if (scene.buildIndex != 0) return scene.buildIndex;
+                    // Assumed that elevator scene has buildIndex of 1
+                    if (scene.buildIndex > 1) return scene.buildIndex;
                 }
 
                 return -1;
@@ -71,21 +76,42 @@ namespace Load
             }
         }
 
-        public static IEnumerator LoadScene(int buildIndex, LoadSceneMode loadMode = LoadSceneMode.Additive)
+        public static void LoadScene(int buildIndex, LoadSceneMode mode = LoadSceneMode.Additive)
         {
-            if (!IsValidBuildIndex(buildIndex)) yield break;
-            Debug.Log($"Loading scene {buildIndex}");
-            yield return SceneManager.LoadSceneAsync(buildIndex, loadMode);
-            Scene scene = SceneManager.GetSceneByBuildIndex(buildIndex);
-            OnSceneLoaded?.Invoke(scene);
+            Instance.StartCoroutine(Instance.LoadSceneCoroutine(buildIndex, mode));
         }
 
-        public static IEnumerator UnloadScene(int buildIndex)
+        private IEnumerator LoadSceneCoroutine(int buildIndex, LoadSceneMode loadMode = LoadSceneMode.Additive)
+        {
+            if (!IsValidBuildIndex(buildIndex)) yield break;
+            IsLoading = true;
+            Debug.Log($"Loading scene {buildIndex}");
+            if (loadMode == LoadSceneMode.Single && TransitionUI.Instance != null)
+                yield return TransitionUI.FadeTransition(false);
+            
+            yield return SceneManager.LoadSceneAsync(buildIndex, loadMode);
+            Scene scene = SceneManager.GetSceneByBuildIndex(buildIndex);
+            IsLoading = false;
+            OnSceneLoaded?.Invoke(scene);
+            
+            Debug.Log($"Loaded scene {buildIndex}");
+            if (loadMode == LoadSceneMode.Single && TransitionUI.Instance != null)
+                yield return TransitionUI.FadeTransition(true);
+        }
+
+        public static void UnloadScene(int buildIndex)
+        {
+            Instance.StartCoroutine(Instance.UnloadSceneCoroutine(buildIndex));
+        }
+
+        private IEnumerator UnloadSceneCoroutine(int buildIndex)
         {
             if (!IsValidBuildIndex(buildIndex)) yield break;
             Debug.Log($"Unloading scene {buildIndex}");
             yield return SceneManager.UnloadSceneAsync(buildIndex);
             OnSceneUnloaded?.Invoke(buildIndex);
+            
+            Debug.Log($"Unloaded scene {buildIndex}");
         }
 
         private static bool IsValidBuildIndex(int buildIndex)
