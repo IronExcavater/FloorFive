@@ -25,6 +25,7 @@ namespace UI
         {
             _audioSource = GetComponent<AudioSource>();
             _canvasGroup = GetComponentInChildren<CanvasGroup>();
+            _canvasGroup.alpha = 0;
             _subtitleText = GetComponentInChildren<TMP_Text>();
         }
 
