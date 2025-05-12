@@ -3,52 +3,62 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private string sceneName;
-    public int EsceneIndex;
+    [SerializeField] private string mainSceneName;    // your gameplay Scene
+    [SerializeField] private string pauseSceneName;   // e.g. "PauseMenu"
+
+    public int EsceneIndex { get; private set; }
+
+    private bool isPaused = false;
+
     private void Awake()
     {
-        // Prevent this object from being destroyed between scenes
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadLevel1()
+    private void Update()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        EsceneIndex = 1;
+        if (Input.GetKeyDown(KeyCode.P))
+            TogglePause();
     }
-    public void LoadLevel2()
+
+    public void TogglePause()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        EsceneIndex = 2;
+        if (isPaused)
+            Unpause();
+        else
+            Pause();
     }
-    public void LoadLevel3()
+
+    private void Pause()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        EsceneIndex = 3;
+        // Load the pause Scene additively
+        SceneManager.LoadSceneAsync(pauseSceneName, LoadSceneMode.Additive);
+        Time.timeScale = 0;
+        isPaused = true;
     }
-    public void LoadLevel4()
+
+    private void Unpause()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        EsceneIndex = 4;
+        // Unload the pause Scene
+        SceneManager.UnloadSceneAsync(pauseSceneName);
+        Time.timeScale = 1;
+        isPaused = false;
     }
-    public void LoadLevel5()
+
+    public void LoadLevel(int index, string sceneToLoad)
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-        EsceneIndex = 5;
+        // Unpause in case you came from a paused state
+        if (isPaused) Unpause();
+
+        EsceneIndex = index;
+        // Load the chosen gameplay Scene (single mode)
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
+
+    // Convenience methods for your buttons
+    public void LoadLevel1() => LoadLevel(1, mainSceneName);
+    public void LoadLevel2() => LoadLevel(2, mainSceneName);
+    public void LoadLevel3() => LoadLevel(3, mainSceneName);
+    public void LoadLevel4() => LoadLevel(4, mainSceneName);
+    public void LoadLevel5() => LoadLevel(5, mainSceneName);
 }
