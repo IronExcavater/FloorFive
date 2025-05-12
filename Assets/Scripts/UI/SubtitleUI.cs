@@ -45,7 +45,7 @@ namespace UI
 
         public static SubtitleStep GetNextEvent()
         {
-            return Instance._currentSequence.Steps[Instance._sequenceIndex++];
+            return Instance._currentSequence == null ? null : Instance._currentSequence.Steps[Instance._sequenceIndex];
         }
         
         public static void TriggerEvent(SubtitleEvent subtitleEvent)

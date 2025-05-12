@@ -99,6 +99,11 @@ namespace Level
             _audioSources = GetComponentsInChildren<AudioSource>().ToList();
         }
 
+        private void Start()
+        {
+            SubtitleUI.LoadSequence(subtitleSequence);
+        }
+
         private void Update()
         {
             HandleTriggering();
@@ -150,7 +155,7 @@ namespace Level
             OnAnomalyTriggered?.Invoke(anomaly);
             Debug.Log($"Triggered anomaly: {anomaly.name}");
             
-            if (SubtitleUI.GetNextEvent().subtitleEvent is SubtitleEvent.OnAnomalyTriggered)
+            if (SubtitleUI.GetNextEvent()?.subtitleEvent is SubtitleEvent.OnAnomalyTriggered)
             {
                 SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyTriggered);
             }
@@ -172,7 +177,7 @@ namespace Level
         {
             OnAnomalyCompleted?.Invoke(anomaly);
             
-            if (SubtitleUI.GetNextEvent().subtitleEvent is SubtitleEvent.OnAnomalyCompleted)
+            if (SubtitleUI.GetNextEvent()?.subtitleEvent is SubtitleEvent.OnAnomalyCompleted)
             {
                 SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyCompleted);
             }

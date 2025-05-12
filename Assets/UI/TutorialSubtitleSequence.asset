@@ -40,11 +40,41 @@ MonoBehaviour:
     duration: 5
     hasSubStep: 1
     subStepDelay: 10
-    subStepText: So you don't know what moved? The anomaly is highlighted now.
+    subStepText: So you don't know what moved? It's very obvious, for now.
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 0
-    text: Where did it belong? Place it there.
+  - subtitleEvent: 9
+    text: Where did it belong? Drag it to its original position.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 3
+    text: Well done, but hang on, there might be another one
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 3
+    text: The remaining level time is on the ceiling clock.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 3
+    text: Lets get out of here, head to the elevator
     audioClip: {fileID: 0}
     delay: 0
     duration: 5

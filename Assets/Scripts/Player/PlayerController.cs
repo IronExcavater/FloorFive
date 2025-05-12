@@ -352,9 +352,7 @@ namespace Player
                     movable.OnGrab();
                     SubtitleUI.TriggerEvent(SubtitleEvent.OnGrabbed);
                 }
-                else GrabbedTarget = null;
             }
-            else GrabbedTarget = null;
 
             if (_input.actions["Attack"].WasReleasedThisFrame() && GrabbedTarget != null)
             {

@@ -119,3 +119,7 @@ MonoBehaviour:
     Value:
       clips:
       - {fileID: 8300000, guid: 24885668fcf72f24eb213d4defa9e0ef, type: 3}
+  - Key: energyHum
+    Value:
+      clips:
+      - {fileID: 8300000, guid: 9cfb976a90486114b90d068390bad640, type: 3}

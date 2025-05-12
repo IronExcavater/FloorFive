@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using Animation;
 using Audio;
 using Level;
 using UnityEngine;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Anomaly
 {
@@ -76,7 +78,10 @@ namespace Anomaly
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
             _startRot = transform.localRotation;
-            
+        }
+
+        private void Start()
+        {
             _humAudioSource = gameObject.AddComponent<AudioSource>();
             _humAudioSource.clip = AudioManager.AudioGroupDictionary.GetValue("energyHum").GetFirstClip();
             _humAudioSource.loop = true;
@@ -84,7 +89,7 @@ namespace Anomaly
             _humAudioSource.volume = minHumVolume;
             _humAudioSource.spatialBlend = 1;
         }
-        
+
         private void Reset()
         {
             Vector3 center = Utils.Utils.GetLocalBounds(gameObject).center;

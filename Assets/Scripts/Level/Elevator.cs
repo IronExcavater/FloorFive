@@ -81,7 +81,7 @@ namespace Level
             
             doorCollider.enabled = !_doorsOpen;
 
-            externalButton.enabled = _currentRoom != null && _currentRoom.Status == Room.State.Ready && _currentRoom.IsToolEquipped;
+            externalButton.enabled = _currentRoom != null && !_isAnimating && _currentRoom.Status == Room.State.Ready && _currentRoom.IsToolEquipped;
             internalButton.enabled = _currentRoom == null && !_isAnimating ||
                                      _currentRoom != null && _currentRoom.Status == Room.State.Complete && !_doorsOpen ||
                                      _currentRoom != null && _currentRoom.Status == Room.State.Ready && !_isAnimating && !_doorsOpen;
