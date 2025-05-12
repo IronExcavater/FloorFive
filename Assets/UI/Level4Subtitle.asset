@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
+  m_Name: Level4Subtitle
+  m_EditorClassIdentifier: 
+  Steps:
+  - subtitleEvent: 11
+    text: 'Now you might be wonder. What if there is somethnig that you can make
+      a record! '
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 0
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 12
+    text: When you are ready, call the elevator to begin.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 0
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 0
+    text: Did you hear that? Something has moved.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 10
+    subStepText: So you don't know what moved? The anomaly is highlighted now.
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
+  - subtitleEvent: 0
+    text: Where did it belong? Place it there.
+    audioClip: {fileID: 0}
+    delay: 0
+    duration: 5
+    hasSubStep: 1
+    subStepDelay: 0
+    subStepText: 
+    subStepAudioClip: {fileID: 0}
+    subStepDuration: 0
