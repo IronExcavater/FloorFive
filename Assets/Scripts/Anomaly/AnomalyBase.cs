@@ -1,6 +1,7 @@
 using System.Collections;
 using Animation;
 using Audio;
+using Level;
 using UnityEngine;
 using Utils;
 
@@ -16,6 +17,8 @@ namespace Anomaly
         private Quaternion _startRot;
 
         private Vector3 _localCenter;
+        
+        private Room _room;
         
         private bool _active;
         public bool Active
@@ -59,6 +62,7 @@ namespace Anomaly
         {
             base.Awake();
             _rigidbody.isKinematic = !Active;
+            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
             
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
@@ -80,6 +84,7 @@ namespace Anomaly
                 yield return null;
             }
             Active = false;
+            _room.AnomalyCompleted();
         }
 
         public Bounds GetNormalBounds()
