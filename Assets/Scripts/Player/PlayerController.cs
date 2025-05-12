@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Animation;
 using Audio;
@@ -53,6 +54,8 @@ namespace Player
         
         private List<ToolBase> _tools;
         private int _toolIndex = -1;
+
+        public event Action<ToolBase> OnToolAdded;
 
         public int ToolIndex
         {
@@ -420,6 +423,7 @@ namespace Player
             _tools.Add(tool);
             
             Debug.Log($"Adding tool {tool.gameObject.name}");
+            OnToolAdded?.Invoke(tool);
             
             ToolIndex = _tools.Count - 1;
         }

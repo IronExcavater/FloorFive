@@ -16,7 +16,7 @@ namespace Tools
         {
             base.Update();
 
-            if (!_equipped) return;
+            if (!equipped) return;
 
             SimulateConeRaycast();
         }

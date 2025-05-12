@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1100443675751415571}
   - component: {fileID: 3406258414653161363}
-  - component: {fileID: 5956456963198029712}
+  - component: {fileID: 2049745211576670592}
   m_Layer: 0
   m_Name: (Prb)CeilingFan
   m_TagString: Untagged
@@ -223,23 +223,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!111 &5956456963198029712
-Animation:
+--- !u!114 &2049745211576670592
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292275607453869481}
   m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 8b2a5960e5e0b764ebf0c6926bab44da, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 8b2a5960e5e0b764ebf0c6926bab44da, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 1
-  m_UpdateMode: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdf55d27542bc64196ca08be7e469ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnSpeed: 20
+  ceilingFanPivot: {fileID: 309425780385294429}
 --- !u!1 &2277311738623514599
 GameObject:
   m_ObjectHideFlags: 0
