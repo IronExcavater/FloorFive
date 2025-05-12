@@ -18,7 +18,7 @@ public class FlashBeacon : ToolBase
         radius.enabled = false;
     }
 
-    // ToolBase¿¡¼­ È£ÃâµÇ´Â »ç¿ë ÇÔ¼ö
+    // ToolBaseï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     protected override void Use(PlayerController player)
     {
         if (coolDown.coolDownActive) return;
@@ -37,7 +37,7 @@ public class FlashBeacon : ToolBase
         }
     }
 
-    // FlashBeaconÀÇ ¹üÀ§¿¡ µé¾î¿Â MovingAnomaly¸¦ Á¤Áö½ÃÅ´
+    // FlashBeaconï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ MovingAnomalyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("MovingAnomaly"))
@@ -45,12 +45,12 @@ public class FlashBeacon : ToolBase
             var anomaly = other.GetComponent<MovingAnomaly>();
             if (anomaly != null)
             {
-                anomaly.Freeze(flashPeriod); // flashPeriod µ¿¾È Á¤Áö
+                anomaly.Freeze(); // flashPeriod ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }
 
-    // flashPeriod ÈÄ ºñÈ°¼ºÈ­
+    // flashPeriod ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
     private IEnumerator Flashing()
     {
         yield return new WaitForSeconds(flashPeriod);
