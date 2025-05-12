@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Animation;
 using Audio;
 using Load;
 using Player;
+using Tools;
 
 namespace Level
 {
@@ -20,6 +22,8 @@ namespace Level
         
         public Collider doorCollider;
         public float exitDistance = 1f;
+
+        [SerializeField] private List<ToolBase> toolPrefabs;
 
         public int sceneIndex;
 
