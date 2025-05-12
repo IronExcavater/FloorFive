@@ -191,7 +191,7 @@ namespace Level
                 levelBuildIndex = LoadManager.MainMenuSceneIndex;
                 for (int i = 0; i < levelBuildIndex - 3; i++)
                 {
-                    _player.AddTool(Instantiate(toolPrefabs[i]));
+                    if (toolPrefabs[i] != null) _player.AddTool(Instantiate(toolPrefabs[i]));
                 }
             }
             else levelBuildIndex++;
