@@ -4721,7 +4721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8612068158820580142, guid: 0b438a091a30de246882ccd1222c6d30, type: 3}
       propertyPath: sceneIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8612068158820580142, guid: 0b438a091a30de246882ccd1222c6d30, type: 3}
       propertyPath: toolPrefabs.Array.size
