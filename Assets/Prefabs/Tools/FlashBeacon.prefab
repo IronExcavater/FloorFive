@@ -49,19 +49,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  promptText: Press F
+  promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
+  collider: {fileID: 0}
   toolOffsetPosition: {x: 0, y: 0, z: 0}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
   handOffsetPosition: {x: 0, y: 0, z: 0}
   handOffsetRotation: {x: 0, y: 0, z: 0}
+  rigidbody: {fileID: 0}
   equipped: 0
   flashBeaconObj: {fileID: 6389458366604189548}
   radius: {fileID: 5310241483652795107}
   coolDown:
     coolDownTime: 3
-  on: 0
   flashPeriod: 0.5
 --- !u!135 &5310241483652795107
 SphereCollider:
