@@ -140,17 +140,13 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
-  toolOffsetPosition: {x: -0.1, y: 0.3, z: 0.05}
+  collider: {fileID: 0}
+  toolOffsetPosition: {x: -0.1, y: 0.2, z: 0.08}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
-  handOffsetPosition: {x: 0, y: 0.3, z: 0}
+  handOffsetPosition: {x: 0, y: 0.2, z: 0}
   handOffsetRotation: {x: 0, y: -80, z: 180}
+  rigidbody: {fileID: 0}
   equipped: 1
-  coneAngle: 25
-  coneDistance: 10
-  rayCount: 50
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 0
   targetMaterial: {fileID: 2100000, guid: ca2952084e8a52842a5909e45fdcd326, type: 2}
   lightmap1: {fileID: 2800000, guid: 32a43b98282e88245b7af6760511b14f, type: 3}
   lightmap2: {fileID: 2800000, guid: 46dccb58f3390374bad7a3802988f21f, type: 3}
