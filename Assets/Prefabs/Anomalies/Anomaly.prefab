@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2587350751610611716}
   m_Layer: 7
   m_Name: Anomaly
-  m_TagString: Untagged
+  m_TagString: Anomaly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,6 +218,9 @@ MonoBehaviour:
   anomalousPosition: {x: 0, y: 0, z: 0}
   anomalousRotation: {x: -0, y: 0, z: 0}
   activeTime: 0
+  minHumVolume: 0.1
+  maxHumVolume: 0.5
+  maxHumActiveTime: 10
 --- !u!54 &2587350751610611716
 Rigidbody:
   m_ObjectHideFlags: 0

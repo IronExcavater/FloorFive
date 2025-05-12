@@ -8,6 +8,7 @@ TagManager:
   - MovingAnomaly
   - door
   - PhotoCamera
+  - Anomaly
   layers:
   - Default
   - TransparentFX
