@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4073725011537040}
   - component: {fileID: 33632247632230096}
   - component: {fileID: 23809698734382686}
-  - component: {fileID: 64717698709122400}
+  - component: {fileID: 4292697597503674969}
   m_Layer: 0
   m_Name: Couch office 1
   m_TagString: Untagged
@@ -119,8 +119,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64717698709122400
-MeshCollider:
+--- !u!65 &4292697597503674969
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,7 +137,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 86bcf36b28c4876428c0e80590d3eb22, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.0068467194, y: 0.007953595, z: 0.0075632646}
+  m_Center: {x: 0.0002672287, y: -0.00027285382, z: 0.0027205502}
