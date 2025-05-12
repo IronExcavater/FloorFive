@@ -49,6 +49,8 @@ public class FlashBeacon : ToolBase
             }
         }
     }
+    
+    
 
     // flashPeriod �� ��Ȱ��ȭ
     private IEnumerator Flashing()
