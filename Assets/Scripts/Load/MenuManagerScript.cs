@@ -1,15 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
-public class SceneLoader : MonoBehaviour
+[DoNotDestroySingleton]
+public class SceneLoader : Singleton<SceneLoader>
 {
     [SerializeField] private string sceneName;
     public int EsceneIndex;
-    private void Awake()
-    {
-        // Prevent this object from being destroyed between scenes
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     public void LoadLevel1()
     {

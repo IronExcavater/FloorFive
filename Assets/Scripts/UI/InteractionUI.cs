@@ -4,6 +4,7 @@ using Utils;
 
 namespace UI
 {
+    [DoNotDestroySingleton]
     public class InteractionUI : Singleton<InteractionUI>
     {
         private Interactable _target;
@@ -37,6 +38,8 @@ namespace UI
 
         private void Update()
         {
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            
             if (_mainCamera == null || Instance._target == null) return;
             
             _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, _targetAlpha, Time.deltaTime * 2f);

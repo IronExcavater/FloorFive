@@ -17,6 +17,7 @@ namespace Animation
         EaseOutBounce
     }
     
+    [DoNotDestroySingleton]
     public class AnimationManager : Singleton<AnimationManager>
 {
     private readonly List<ITween> _tweens = new();

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Load;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -51,21 +53,63 @@ namespace UI
     }
 
     // Toggle Level Selection UI
-    public void ToggleLevelSelection()
+    public void OnLevelSelect()
     {
+        Debug.Log("OnLevelSelect");
         CurrentCanvasGroup = levelSelectCanvasGroup;
     }
 
     // Toggle Settings UI
-    public void ToggleSettings()
+    public void OnOptions()
     {
         CurrentCanvasGroup = settingsCanvasGroup;
     }
 
     // Toggle Credits UI
-    public void ToggleCredits()
+    public void OnCredits()
     {
         CurrentCanvasGroup = creditsCanvasGroup;
+    }
+
+    public void OnStart()
+    {
+        LoadManager.MainMenuSceneIndex = 2;
+        LoadElevator();
+    }
+
+    public void OnTutorial()
+    {
+        LoadManager.MainMenuSceneIndex = 2;
+        LoadElevator();
+    }
+
+    public void OnLevel1()
+    {
+        LoadManager.MainMenuSceneIndex = 3;
+        LoadElevator();
+    }
+
+    public void OnLevel2()
+    {
+        LoadManager.MainMenuSceneIndex = 4;
+        LoadElevator();
+    }
+
+    public void OnLevel3()
+    {
+        LoadManager.MainMenuSceneIndex = 5;
+        LoadElevator();
+    }
+
+    public void OnLevel4()
+    {
+        LoadManager.MainMenuSceneIndex = 6;
+        LoadElevator();
+    }
+
+    private void LoadElevator()
+    {
+        LoadManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     // Fade in a CanvasGroup

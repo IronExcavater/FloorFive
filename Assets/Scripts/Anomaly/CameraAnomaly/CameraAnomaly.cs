@@ -2,22 +2,20 @@ using UnityEngine;
 
 namespace Anomaly
 {
-    [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class CameraAnomaly : AnomalyBase
     {
         [Header("Layer Settings")]
-        [Tooltip("¼û°ÜÁø »óÅÂ¿¡¼­ »ç¿ëÇÒ ·¹ÀÌ¾î ÀÌ¸§ (¿¹: HiddenAnomaly)")]
+        [Tooltip("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Ì¸ï¿½ (ï¿½ï¿½: HiddenAnomaly)")]
         public string anomalyLayerName = "HiddenAnomaly";
 
-        [Tooltip("Çö½Ç¿¡ µå·¯³¯ ¶§ »ç¿ëÇÒ ·¹ÀÌ¾î ÀÌ¸§ (¿¹: Default ¶Ç´Â AnomalyRevealed)")]
+        [Tooltip("ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½å·¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Ì¸ï¿½ (ï¿½ï¿½: Default ï¿½Ç´ï¿½ AnomalyRevealed)")]
         public string revealLayerName = "Default";
 
         [Header("Reveal Settings")]
-        [Tooltip("Çö½ÇÈ­ ½Ã ÄÝ¶óÀÌ´õ È°¼ºÈ­ ¿©ºÎ")]
+        [Tooltip("ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½")]
         public bool colliderEnableOnReveal = true;
 
-        [Tooltip("Çö½ÇÈ­ ½Ã Àç»ýÇÒ ÀÌÆåÆ® ÇÁ¸®ÆÕ (¼±ÅÃ)")]
+        [Tooltip("ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)")]
         public GameObject revealEffectPrefab;
 
         private Collider _collider;
@@ -34,10 +32,10 @@ namespace Anomaly
         }
 #endif
 
-        private void Awake()
+        protected override void Awake()
         {
-            _collider = GetComponent<Collider>();
-            _rigidbody = GetComponent<Rigidbody>();
+            base.Awake();
+            _collider = GetComponentInChildren<Collider>();
         }
 
         private void Start()
@@ -50,7 +48,7 @@ namespace Anomaly
             if (_revealed) return;
             _revealed = true;
 
-            // ·¹ÀÌ¾î º¯°æ
+            // ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
             int revealLayer = LayerMask.NameToLayer(revealLayerName);
             if (revealLayer < 0)
             {
@@ -61,19 +59,19 @@ namespace Anomaly
                 SetLayerRecursively(gameObject, revealLayer);
             }
 
-            // À§Ä¡ ¹× È¸Àü Àû¿ë
+            // ï¿½ï¿½Ä¡ ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             transform.position = anomalousPosition;
             transform.eulerAngles = anomalousRotation;
 
-            // ÄÝ¶óÀÌ´õ È°¼ºÈ­
+            // ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ È°ï¿½ï¿½È­
             if (_collider && colliderEnableOnReveal)
                 _collider.enabled = true;
 
-            // ÀÌÆåÆ® Àç»ý
+            // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
             if (revealEffectPrefab)
                 Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
 
-            // »óÅÂ È°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
             Active = true;
         }
 
@@ -97,7 +95,7 @@ namespace Anomaly
         }
 
         /// <summary>
-        /// ÀÚ½Ä±îÁö Æ÷ÇÔÇÑ ·¹ÀÌ¾î º¯°æ
+        /// ï¿½Ú½Ä±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void SetLayerRecursively(GameObject obj, int newLayer)
         {

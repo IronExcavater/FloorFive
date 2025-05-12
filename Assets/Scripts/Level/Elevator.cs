@@ -27,7 +27,7 @@ namespace Level
 
         [SerializeField] private List<ToolBase> toolPrefabs;
 
-        public int sceneIndex;
+        public int levelBuildIndex;
 
         private Animator _animator;
         private AnimatorCache _animatorCache;
@@ -95,10 +95,10 @@ namespace Level
         private void OnInternalButton()
         {
             if (_currentRoom == null)
-                StartCoroutine(ElevatorStage(1, 3));
+                StartCoroutine(ElevatorStage(2, 3));
             else if (_currentRoom.Status == Room.State.Complete)
                 StartCoroutine(ElevatorStage(0, 3));
-            else if (_currentRoom.Status == Room.State.Ready && !_doorsOpen)
+            else if (_currentRoom.Status == Room.State.Ready)
                 StartCoroutine(ElevatorStage(2, 3));
         }
         
@@ -139,28 +139,8 @@ namespace Level
             SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorRode);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorRide").GetFirstClip());
-            
-            SceneLoader menuManagers = FindObjectOfType<SceneLoader>();
 
-            if (menuManagers != null)
-            {
-                sceneIndex = menuManagers.EsceneIndex;
-                Debug.Log("Scene Index retrieved from MenuManagers: " + sceneIndex);
-            }
-            int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
-            if (activeLevelBuildIndex == -1)
-            {
-                for (int i = 0; i < sceneIndex; i++)
-                {
-                    _player.AddTool(toolPrefabs[i - 2]);
-                }
-            }
-            
-            yield return StartCoroutine(Utils.Utils.WaitForAll(this,
-                LoadManager.UnloadScene(activeLevelBuildIndex),
-                LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : sceneIndex)
-            ));
-            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
+            yield return StartCoroutine(LoadLevel());
             if (_currentRoom) _currentRoom.Mute = true;
 
             yield return new WaitForSeconds(2);
@@ -175,6 +155,9 @@ namespace Level
             _doorsOpen = true;
             OnElevatorOpened?.Invoke();
             SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorOpened);
+
+            if (_currentRoom == null) yield return StartCoroutine(LoadLevel());
+            if (_currentRoom) UpdateFloorDisplay(_currentRoom.floorNumber);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("ding").GetFirstClip());
             
@@ -199,6 +182,27 @@ namespace Level
             _currentRoom.Status = Room.State.Active;
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);
+        }
+
+        private IEnumerator LoadLevel()
+        {
+            if (levelBuildIndex == -1)
+            {
+                levelBuildIndex = LoadManager.MainMenuSceneIndex;
+                for (int i = 0; i < levelBuildIndex - 3; i++)
+                {
+                    _player.AddTool(Instantiate(toolPrefabs[i]));
+                }
+            }
+            else levelBuildIndex++;
+            
+            int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
+            
+            LoadManager.UnloadScene(activeLevelBuildIndex);
+            LoadManager.LoadScene(levelBuildIndex);
+            yield return new WaitUntil(() => !LoadManager.IsLoading);
+            
+            _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
         }
 
         private void UpdateFloorDisplay(int floorNumber)
