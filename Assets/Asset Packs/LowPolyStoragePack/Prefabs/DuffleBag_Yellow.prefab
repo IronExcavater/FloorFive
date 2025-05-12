@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400745664300560485}
   - component: {fileID: 1355214185501261823}
   - component: {fileID: 7046126904098304466}
-  - component: {fileID: 4481992741524413464}
+  - component: {fileID: 7028098101068137634}
   m_Layer: 0
   m_Name: Bag_02_Yellow
   m_TagString: Untagged
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4481992741524413464
-MeshCollider:
+--- !u!65 &7028098101068137634
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,10 +105,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 32b26dc006e7b5d45a08ff5c9c89ab4f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.7500001, y: 0.4169628, z: 0.36576602}
+  m_Center: {x: 5.4345687e-17, y: 0.030593663, z: 0.013499105}
 --- !u!1 &8263034326098972084
 GameObject:
   m_ObjectHideFlags: 0
