@@ -127,6 +127,13 @@ namespace Level
             _currentRoom = null;
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorRide").GetFirstClip());
             
+            SceneLoader menuManagers = FindObjectOfType<SceneLoader>();
+
+            if (menuManagers != null)
+            {
+                sceneIndex = menuManagers.EsceneIndex;
+                Debug.Log("Scene Index retrieved from MenuManagers: " + sceneIndex);
+            }
             int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
             yield return StartCoroutine(Utils.Utils.WaitForAll(this,
                 LoadManager.UnloadScene(activeLevelBuildIndex),
