@@ -25385,9 +25385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5715c5e3387545aeb94fcfd6b38ca27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorNumber: 0
+  floorNumber: 1
+  subtitleSequence: {fileID: 0}
   duration: 180
   remainingTime: 0
+  initialAnomalyGap: 3
   anomalyCurve:
     serializedVersion: 2
     m_Curve:
@@ -26319,6 +26321,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1113394179}
     m_Modifications:
+    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
+      propertyPath: movableType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
+      propertyPath: anomalousPosition.x
+      value: -0.24824858
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
+      propertyPath: anomalousPosition.y
+      value: -2.529
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
+      propertyPath: anomalousPosition.z
+      value: -0.6708721
+      objectReference: {fileID: 0}
     - target: {fileID: -5387841869157672571, guid: 9f521e5f24a948542b8de6b8c9204541, type: 3}
       propertyPath: anomalousPosition.x
       value: -0.24824858
@@ -26378,22 +26396,6 @@ PrefabInstance:
     - target: {fileID: 4029805553080784048, guid: 9f521e5f24a948542b8de6b8c9204541, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
-      propertyPath: movableType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
-      propertyPath: anomalousPosition.x
-      value: -0.24824858
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
-      propertyPath: anomalousPosition.y
-      value: -2.529
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780876994791855996, guid: 9e40eec5871cdf4418175c1ab1a9e9c4, type: 3}
-      propertyPath: anomalousPosition.z
-      value: -0.6708721
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
