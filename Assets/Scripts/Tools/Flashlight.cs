@@ -18,6 +18,8 @@ namespace Tools
         private float _flickerDuration;
         private float _flickerCooldown;
 
+        public bool IsOn => _light.enabled;
+
         protected override void Awake()
         {
             base.Awake();
@@ -28,7 +30,7 @@ namespace Tools
         {
             base.Update();
             
-            if (!_light.enabled || !_equipped) return;
+            if (!IsOn || !_equipped) return;
             
             float intensity = Mathf.Lerp(minIntensity, maxIntensity, 1 - _stress);
 

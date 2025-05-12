@@ -21,6 +21,8 @@ namespace Level
         public Collider doorCollider;
         public float exitDistance = 1f;
 
+        public int sceneIndex;
+
         private Animator _animator;
         private AnimatorCache _animatorCache;
         private AudioSource _audioSource;
@@ -117,7 +119,7 @@ namespace Level
             int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
             yield return StartCoroutine(Utils.Utils.WaitForAll(this,
                 LoadManager.UnloadScene(activeLevelBuildIndex),
-                LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : 1)
+                LoadManager.LoadScene(activeLevelBuildIndex != -1 ? activeLevelBuildIndex + 1 : sceneIndex)
             ));
             _currentRoom = GameObject.FindGameObjectWithTag("Room")?.GetComponent<Room>();
             if (_currentRoom) _currentRoom.Mute = true;

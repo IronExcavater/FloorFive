@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using Player;
 using TMPro;
-using Tools;
 using System.Collections.Generic;
 
 namespace Tools
@@ -11,20 +10,20 @@ namespace Tools
     [RequireComponent(typeof(Rigidbody))]
     public class CameraController : ToolBase
     {
-        [Header("Layer Settings")]
+        [Header("Layers")]
         public LayerMask normalLayerMask;
         public LayerMask cameraOnlyLayerMask;
 
-        [Header("Camera System")]
-        public Camera photoCamera;         // 사진 촬영용 카메라 (별도 오브젝트, 평소엔 꺼짐)
-        public Camera playerCamera;        // 플레이어 시점 카메라 (MainCamera)
+        [Header("Cameras")]
+        public Camera photoCamera;   // Disabled by default, used only for taking photos
+        public Camera playerCamera;  // Main player camera
         public RenderTexture renderTexture;
 
         [Header("Photo Settings")]
         public float photoCooldown = 1f;
         private float lastPhotoTime;
 
-        [Header("UI System")]
+        [Header("UI")]
         public Image photoDisplayUI;
         public GameObject photoUICanvas;
         public float photoDisplayTime = 2f;
@@ -38,81 +37,69 @@ namespace Tools
         public TextMeshProUGUI errorText;
         public float errorDisplayTime = 1.5f;
 
-        private PlayerController playerController;
-        private bool isViewingPhoto;
+        private bool hasCameraTool = false;
+
+        // Call this when the player picks up the camera
+        public void AcquireCameraTool() => hasCameraTool = true;
 
         protected override void Awake()
         {
             base.Awake();
-            playerController = GetComponent<PlayerController>();
-            SetPhotoCameraToNormal();
             if (photoCamera != null)
-                photoCamera.enabled = false; // 사진 카메라는 평소엔 꺼둠
+                photoCamera.enabled = false;
+            SetPhotoCameraToNormal();
         }
 
         protected override void Update()
         {
             base.Update();
-            ProcessPhotoInput();
+            if (hasCameraTool && Input.GetMouseButtonDown(0))
+                TryTakePhoto();
         }
 
-        private void ProcessPhotoInput()
+        private void TryTakePhoto()
         {
-            if (!Input.GetMouseButtonDown(0)) return;
-
-            if (Time.time > lastPhotoTime + photoCooldown)
-            {
-                PlaySound(clickSound);
-                StartCoroutine(CaptureAnomalyPhoto());
-                lastPhotoTime = Time.time;
-            }
-            else
+            if (Time.time < lastPhotoTime + photoCooldown)
             {
                 PlaySound(errorSound);
                 StartCoroutine(ShowError("Camera needs to cool-down"));
-            }
-        }
-
-        private void PlaySound(AudioClip clip)
-        {
-            if (clip != null)
-                AudioSource.PlayClipAtPoint(clip, transform.position);
-        }
-
-        private IEnumerator ShowError(string message)
-        {
-            if (errorText != null)
-            {
-                errorText.text = message;
-                errorText.enabled = true;
-                yield return new WaitForSeconds(errorDisplayTime);
-                errorText.enabled = false;
-            }
-        }
-
-        private IEnumerator CaptureAnomalyPhoto()
-        {
-            // 1. 사진 카메라 위치/회전 플레이어 카메라에 맞추기
-            if (photoCamera != null && playerCamera != null)
-            {
-                photoCamera.transform.position = playerCamera.transform.position;
-                photoCamera.transform.rotation = playerCamera.transform.rotation;
-                photoCamera.fieldOfView = playerCamera.fieldOfView;
-                photoCamera.enabled = true;
+                return;
             }
 
+            PlaySound(clickSound);
+            lastPhotoTime = Time.time;
+            StartCoroutine(CapturePhotoSequence());
+        }
+
+        private IEnumerator CapturePhotoSequence()
+        {
+            // Sync photo camera to player's view
+            SyncPhotoCameraToPlayer();
+
+            // Set culling mask to reveal anomalies
             SetPhotoCameraToAnomaly();
-            yield return new WaitForEndOfFrame();
+            yield return null; // Wait a frame
 
-            Texture2D photoTexture = CapturePhotoTexture();
+            // Capture photo
+            Texture2D photo = CapturePhotoTexture();
+
+            // Reveal anomalies in view
             RevealAnomaliesInPhoto();
+
+            // Restore camera mask
             SetPhotoCameraToNormal();
 
-            // 2. 사진 카메라 끄기
-            if (photoCamera != null)
-                photoCamera.enabled = false;
+            // Show photo on UI
+            ShowPhotoOnUI(photo);
+        }
 
-            ShowPhotoOnUI(photoTexture);
+        private void SyncPhotoCameraToPlayer()
+        {
+            if (photoCamera == null || playerCamera == null) return;
+            photoCamera.transform.SetPositionAndRotation(playerCamera.transform.position, playerCamera.transform.rotation);
+            photoCamera.fieldOfView = playerCamera.fieldOfView;
+            photoCamera.nearClipPlane = playerCamera.nearClipPlane;
+            photoCamera.farClipPlane = playerCamera.farClipPlane;
         }
 
         private void SetPhotoCameraToNormal()
@@ -129,18 +116,17 @@ namespace Tools
 
         private Texture2D CapturePhotoTexture()
         {
-            if (renderTexture == null || photoCamera == null)
-                return null;
+            if (renderTexture == null || photoCamera == null) return null;
 
-            Texture2D texture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+            Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
             RenderTexture.active = renderTexture;
             photoCamera.targetTexture = renderTexture;
             photoCamera.Render();
-            texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-            texture.Apply();
+            tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            tex.Apply();
             RenderTexture.active = null;
             photoCamera.targetTexture = null;
-            return texture;
+            return tex;
         }
 
         private void RevealAnomaliesInPhoto()
@@ -169,11 +155,7 @@ namespace Tools
         private void ShowPhotoOnUI(Texture2D texture)
         {
             if (photoDisplayUI == null || texture == null) return;
-            Sprite photoSprite = Sprite.Create(
-                texture,
-                new Rect(0, 0, texture.width, texture.height),
-                new Vector2(0.5f, 0.5f)
-            );
+            Sprite photoSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
             photoDisplayUI.sprite = photoSprite;
 
             if (photoDisplayCoroutine != null)
@@ -187,19 +169,33 @@ namespace Tools
             TogglePhotoUI(true);
             yield return new WaitForSeconds(photoDisplayTime);
             TogglePhotoUI(false);
-            if (photoDisplayUI != null)
-                photoDisplayUI.sprite = null;
-            if (texture != null)
-                Destroy(texture);
+            if (photoDisplayUI != null) photoDisplayUI.sprite = null;
+            if (texture != null) Destroy(texture);
         }
 
         public void TogglePhotoUI(bool state)
         {
-            isViewingPhoto = state;
             if (photoUICanvas != null)
                 photoUICanvas.SetActive(state);
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
+        }
+
+        private void PlaySound(AudioClip clip)
+        {
+            if (clip != null)
+                AudioSource.PlayClipAtPoint(clip, transform.position);
+        }
+
+        private IEnumerator ShowError(string message)
+        {
+            if (errorText != null)
+            {
+                errorText.text = message;
+                errorText.enabled = true;
+                yield return new WaitForSeconds(errorDisplayTime);
+                errorText.enabled = false;
+            }
         }
 
         private GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
@@ -222,10 +218,11 @@ namespace Tools
             return result.ToArray();
         }
 
-        // ToolBase의 추상 메서드 구현
+        // Optional: ToolBase override, if needed for interaction
         protected override void Use(PlayerController player)
         {
-            StartCoroutine(CaptureAnomalyPhoto());
+            if (hasCameraTool)
+                StartCoroutine(CapturePhotoSequence());
         }
     }
 }

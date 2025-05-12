@@ -45,14 +45,6 @@ namespace SpaceFusion.SF_Stealth.Scripts {
         }
 
         private void Update() {
-            if (!inProgress) {
-                if (Input.GetKeyDown(KeyCode.X)) {
-                    ChangeStealthVisibility();
-                }
-
-                return;
-            }
-
             UpdateStealthAmount(meshInfoList, GetUpdatedValue());
             if (elapsedTime >= duration) {
                 inProgress = false;

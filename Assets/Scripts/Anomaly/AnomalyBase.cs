@@ -1,6 +1,7 @@
 using System.Collections;
 using Animation;
 using Audio;
+using Level;
 using UnityEngine;
 using Utils;
 
@@ -17,6 +18,8 @@ namespace Anomaly
 
         private Vector3 _localCenter;
         
+        private Room _room;
+        
         private bool _active;
         public bool Active
         {
@@ -26,34 +29,40 @@ namespace Anomaly
                 if (_active == value) return;
                 _active = value;
                 
-                activeTime = 0;
-                _rigidbody.isKinematic = !value;
-                AnimationManager.RemoveTweens(this);
-                
-                if (_active)
-                {
-                    transform.localPosition = anomalousPosition;
-                    transform.localEulerAngles = anomalousRotation;
-                    _audioSource.pitch = Random.Range(0.9f, 1.1f);
-                    _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("anomalyTrigger").GetRandomClip());
-                    StartCoroutine(Alive());
-                }
-                else
-                {
-                    AnimationManager.CreateTween(this, position => transform.localPosition = position,
-                        transform.localPosition, _startPos - _localCenter, 0.3f, Easing.EaseInOutCubic);
-                    AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
-                        transform.localRotation, _startRot, 0.3f, Easing.EaseInOutCubic);
-                }
+                Activate(_active);
             }
         }
 
         [HideInInspector] public float activeTime;
 
+        protected virtual void Activate(bool active)
+        {
+            activeTime = 0;
+            _rigidbody.isKinematic = !active;
+            AnimationManager.RemoveTweens(this);
+                
+            if (_active)
+            {
+                transform.localPosition = anomalousPosition;
+                transform.localEulerAngles = anomalousRotation;
+                _audioSource.pitch = Random.Range(0.9f, 1.1f);
+                _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("anomalyTrigger").GetRandomClip());
+                StartCoroutine(Alive());
+            }
+            else
+            {
+                AnimationManager.CreateTween(this, position => transform.localPosition = position,
+                    transform.localPosition, _startPos - _localCenter, 0.3f, Easing.EaseInOutCubic);
+                AnimationManager.CreateTween(this, rotation => transform.localRotation = rotation,
+                    transform.localRotation, _startRot, 0.3f, Easing.EaseInOutCubic);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
             _rigidbody.isKinematic = !Active;
+            _room = GameObject.FindGameObjectWithTag("Room").GetComponent<Room>();
             
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
@@ -75,6 +84,7 @@ namespace Anomaly
                 yield return null;
             }
             Active = false;
+            _room.AnomalyCompleted();
         }
 
         public Bounds GetNormalBounds()

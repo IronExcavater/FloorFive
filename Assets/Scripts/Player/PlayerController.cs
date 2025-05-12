@@ -342,8 +342,15 @@ namespace Player
                     out var hit, interactDistance, movableMask))
             {
                 Rigidbody rigidbody = hit.collider.GetComponentInParent<Rigidbody>();
-                if (rigidbody != null && !rigidbody.isKinematic) GrabbedTarget = rigidbody;
+                if (rigidbody != null && !rigidbody.isKinematic)
+                {
+                    GrabbedTarget = rigidbody;
+                    GrabbedTarget.TryGetComponent(out Movable movable);
+                    movable.OnGrab();
+                }
+                else GrabbedTarget = null;
             }
+            else GrabbedTarget = null;
 
             if (_input.actions["Attack"].WasReleasedThisFrame() && GrabbedTarget != null)
             {

@@ -26,9 +26,11 @@ namespace Level
             {
                 if (_status == value) return;
                 _status = value;
-                _remainingTime = duration;
+                remainingTime = duration;
                 _remainingAnomalyGap = 3f;
                 
+                if (_status == State.Active) OnRoomActivated?.Invoke();
+                if (_status == State.Complete) OnRoomCompleted?.Invoke();
                 if (_status != State.Active) _anomalies.ForEach(anomaly => anomaly.Active = false);
             }
         }
@@ -44,9 +46,14 @@ namespace Level
                 _audioSources.ForEach(audioSource => audioSource.mute = _mute);
             }
         }
+
+        public event Action OnAnomalyTriggered;
+        public event Action OnAnomalyCompleted;
+        public event Action OnRoomActivated;
+        public event Action OnRoomCompleted;
         
         public float duration = 180f; // 3 minutes
-        private float _remainingTime;
+        public float remainingTime;
         
         [Header("Anomaly Gap")]
         public AnimationCurve anomalyCurve = AnimationCurve.EaseInOut(0, 20, 1f, 10f);
@@ -85,10 +92,10 @@ namespace Level
         {
             if (Status != State.Active) return;
             
-            _remainingTime -= Time.deltaTime;
+            remainingTime -= Time.deltaTime;
             _remainingAnomalyGap -= Time.deltaTime;
             
-            if (_remainingTime <= 0)
+            if (remainingTime <= 0)
             {
                 Status = State.Complete;
             }
@@ -97,7 +104,7 @@ namespace Level
             {
                 TriggerAnomaly();
                 
-                float t = Mathf.Clamp01(1 - _remainingTime / duration);
+                float t = Mathf.Clamp01(1 - remainingTime / duration);
                 float slope = anomalyCurve.Evaluate(t);
                 _remainingAnomalyGap = slope;
             }
@@ -122,7 +129,13 @@ namespace Level
             
             int index = Random.Range(0, validAnomalies.Count);
             validAnomalies[index].Active = true;
+            OnAnomalyTriggered?.Invoke();
             Debug.Log($"Triggered anomaly: {validAnomalies[index].name}");
+        }
+
+        public void AnomalyCompleted()
+        {
+            OnAnomalyCompleted?.Invoke();
         }
 
         private void HandleStress()
