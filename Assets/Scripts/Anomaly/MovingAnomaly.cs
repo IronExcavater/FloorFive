@@ -18,9 +18,9 @@ public class MovingAnomaly : MonoBehaviour
     
     void OnTriggerEnter(Collider player)
     {
-        if (player.gameObject.tag == "MovingAnomaly") 
+        if (player.gameObject.tag == "Player") 
         {   
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, player.transform,position, moveSpeed * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
             transform.position = newPosition;
             Debug.Log("Anomaly detected weeem woooo weeee woooooo");
         }
