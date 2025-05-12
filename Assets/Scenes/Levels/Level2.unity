@@ -2942,15 +2942,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4109637614643586103, guid: 55087f740d885074390755780189414d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4109637614643586103, guid: 55087f740d885074390755780189414d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.51
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4109637614643586103, guid: 55087f740d885074390755780189414d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: -8.24
       objectReference: {fileID: 0}
     - target: {fileID: 4109637614643586103, guid: 55087f740d885074390755780189414d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2986,7 +2986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6312746498485872798, guid: 55087f740d885074390755780189414d, type: 3}
       propertyPath: m_Intensity
-      value: 100
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312746498485872798, guid: 55087f740d885074390755780189414d, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3895
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
