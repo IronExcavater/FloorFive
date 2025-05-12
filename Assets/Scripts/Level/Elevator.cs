@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using Audio;
 using Load;
 using Player;
 using Tools;
+using UI;
 
 namespace Level
 {
@@ -34,6 +36,11 @@ namespace Level
         
         private bool _doorsOpen;
         private bool _isAnimating;
+
+        public event Action OnElevatorOpened;
+        public event Action OnElevatorRode;
+        public event Action OnElevatorClosed;
+        public event Action OnElevatorCrashed;
 
         private void Awake()
         {
@@ -114,6 +121,9 @@ namespace Level
         private IEnumerator ElevatorClose(float waitTime = 0)
         {
             _doorsOpen = false;
+            OnElevatorClosed?.Invoke();
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorClosed);
+            
             yield return new WaitForSeconds(waitTime);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorClose").GetFirstClip());
@@ -125,6 +135,9 @@ namespace Level
         private IEnumerator ElevatorRide()
         {
             _currentRoom = null;
+            OnElevatorRode?.Invoke();
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorRode);
+            
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorRide").GetFirstClip());
             
             int activeLevelBuildIndex = LoadManager.ActiveLevelBuildIndex;
@@ -153,6 +166,9 @@ namespace Level
         private IEnumerator ElevatorOpen(float waitTime = 0)
         {
             _doorsOpen = true;
+            OnElevatorOpened?.Invoke();
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorOpened);
+            
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("ding").GetFirstClip());
             
             yield return new WaitForSeconds(waitTime);
@@ -165,6 +181,9 @@ namespace Level
         
         private IEnumerator ElevatorCrash(float waitTime = 0)
         {
+            OnElevatorCrashed?.Invoke();
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorCrashed);
+            
             yield return new WaitForSeconds(waitTime);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorCrash").GetFirstClip());

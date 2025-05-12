@@ -108,7 +108,7 @@ namespace Anomaly
                 yield return null;
             }
             Active = false;
-            _room.AnomalyCompleted();
+            _room.AnomalyCompleted(this);
         }
 
         public Bounds GetNormalBounds()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Anomaly;
 using Tools;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ namespace Level
     public class Room : MonoBehaviour
     {
         public int floorNumber;
+        public SubtitleSequence subtitleSequence;
         
         private State _status = State.Ready;
 
@@ -28,10 +30,19 @@ namespace Level
                 if (_status == value) return;
                 _status = value;
                 remainingTime = duration;
-                _remainingAnomalyGap = 3f;
-                
-                if (_status == State.Active) OnRoomActivated?.Invoke();
-                if (_status == State.Complete) OnRoomCompleted?.Invoke();
+                _remainingAnomalyGap = initialAnomalyGap;
+
+                if (_status == State.Active)
+                {
+                    OnRoomActivated?.Invoke();
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomActivated);
+                }
+
+                if (_status == State.Complete)
+                {
+                    OnRoomCompleted?.Invoke();
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomCompleted);
+                }
                 if (_status != State.Active) _anomalies.ForEach(anomaly => anomaly.Active = false);
             }
         }
@@ -48,8 +59,8 @@ namespace Level
             }
         }
 
-        public event Action OnAnomalyTriggered;
-        public event Action OnAnomalyCompleted;
+        public event Action<AnomalyBase> OnAnomalyTriggered;
+        public event Action<AnomalyBase> OnAnomalyCompleted;
         public event Action OnRoomActivated;
         public event Action OnRoomCompleted;
         
@@ -61,6 +72,7 @@ namespace Level
         public bool IsToolEquipped => _roomTool == null || _roomTool.equipped;
         
         [Header("Anomaly Gap")]
+        public float initialAnomalyGap = 3f;
         public AnimationCurve anomalyCurve = AnimationCurve.EaseInOut(0, 20, 1f, 10f);
         private float _remainingAnomalyGap;
 
@@ -133,14 +145,49 @@ namespace Level
             if (validAnomalies.Count == 0) return;
             
             int index = Random.Range(0, validAnomalies.Count);
-            validAnomalies[index].Active = true;
-            OnAnomalyTriggered?.Invoke();
-            Debug.Log($"Triggered anomaly: {validAnomalies[index].name}");
+            var anomaly = validAnomalies[index];
+            anomaly.Active = true;
+            OnAnomalyTriggered?.Invoke(anomaly);
+            Debug.Log($"Triggered anomaly: {anomaly.name}");
+            
+            if (SubtitleUI.GetNextEvent().subtitleEvent is SubtitleEvent.OnAnomalyTriggered)
+            {
+                SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyTriggered);
+            }
+            else
+            {
+                switch (anomaly)
+                {
+                    case CloakAnomaly _:
+                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyTriggered);
+                        break;
+                    case CameraAnomaly _:
+                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyTriggered);
+                        break;
+                }
+            }
         }
 
-        public void AnomalyCompleted()
+        public void AnomalyCompleted(AnomalyBase anomaly)
         {
-            OnAnomalyCompleted?.Invoke();
+            OnAnomalyCompleted?.Invoke(anomaly);
+            
+            if (SubtitleUI.GetNextEvent().subtitleEvent is SubtitleEvent.OnAnomalyCompleted)
+            {
+                SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyCompleted);
+            }
+            else
+            {
+                switch (anomaly)
+                {
+                    case CloakAnomaly _:
+                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyCompleted);
+                        break;
+                    case CameraAnomaly _:
+                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyCompleted);
+                        break;
+                }
+            }
         }
 
         private void HandleStress()
@@ -163,6 +210,7 @@ namespace Level
             if (Status == State.Active && _stress >= 1)
             {
                 OnPassedOut?.Invoke();
+                SubtitleUI.TriggerEvent(SubtitleEvent.OnPassedOut);
                 Status = State.Ready;
             }
         }
