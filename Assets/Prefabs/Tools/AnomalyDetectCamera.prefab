@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   promptText: Press E
-  showOutline: 1
+  showOutline: 0
   promptOffset: {x: 0, y: 0, z: 0}
   toolOffsetPosition: {x: 0, y: 0, z: 0}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
