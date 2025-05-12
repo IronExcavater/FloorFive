@@ -39,6 +39,14 @@ namespace Tools
 
         private PlayerController playerController;
         private bool isViewingPhoto;
+        private bool hasCameraTool = false;
+
+        //this needs to be called 
+        public void AcquireCameraTool()
+        {
+            hasCameraTool = true;
+        }
+
 
         protected override void Awake()
         {
@@ -57,6 +65,13 @@ namespace Tools
 
         private void ProcessPhotoInput()
         {
+            if (!hasCameraTool)
+            {
+                PlaySound(errorSound);
+                StartCoroutine(ShowError("You need a camera to take photos."));
+                return;
+            }
+
             if (!Input.GetMouseButtonDown(0)) return;
 
             if (Time.time > lastPhotoTime + photoCooldown)
@@ -71,6 +86,7 @@ namespace Tools
                 StartCoroutine(ShowError("Camera needs to cool-down"));
             }
         }
+
 
         private void PlaySound(AudioClip clip)
         {
