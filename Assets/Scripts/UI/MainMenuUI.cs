@@ -52,60 +52,60 @@ namespace UI
         }
     }
 
-    // Toggle Level Selection UI
     public void OnLevelSelect()
     {
-        Debug.Log("OnLevelSelect");
         CurrentCanvasGroup = levelSelectCanvasGroup;
     }
 
-    // Toggle Settings UI
-    public void OnOptions()
-    {
-        CurrentCanvasGroup = settingsCanvasGroup;
-    }
-
-    // Toggle Credits UI
     public void OnCredits()
     {
         CurrentCanvasGroup = creditsCanvasGroup;
     }
 
+    public void OnExit()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #elif UNITY_STANDALONE
+        Application.Quit();
+        #elif UNITY_WEBGL
+        Application.ExternalEval("window.close();"); // May not work due to browser restrictions
+        #endif
+    }
+
     public void OnStart()
     {
-        Debug.Log("OnStart");
-        LoadManager.MainMenuSceneIndex = 2;
-        Debug.Log("About to load elevator");
+        LoadManager.UILevelIndexPressed = 2;
         LoadElevator();
     }
 
     public void OnTutorial()
     {
-        LoadManager.MainMenuSceneIndex = 2;
+        LoadManager.UILevelIndexPressed = 2;
         LoadElevator();
     }
 
     public void OnLevel1()
     {
-        LoadManager.MainMenuSceneIndex = 3;
+        LoadManager.UILevelIndexPressed = 3;
         LoadElevator();
     }
 
     public void OnLevel2()
     {
-        LoadManager.MainMenuSceneIndex = 4;
+        LoadManager.UILevelIndexPressed = 4;
         LoadElevator();
     }
 
     public void OnLevel3()
     {
-        LoadManager.MainMenuSceneIndex = 5;
+        LoadManager.UILevelIndexPressed = 5;
         LoadElevator();
     }
 
     public void OnLevel4()
     {
-        LoadManager.MainMenuSceneIndex = 6;
+        LoadManager.UILevelIndexPressed = 6;
         LoadElevator();
     }
 

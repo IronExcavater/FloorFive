@@ -7,7 +7,7 @@ using Audio;
 using Load;
 using Player;
 using Tools;
-using UI;
+using Subtitle;
 
 namespace Level
 {
@@ -205,7 +205,7 @@ namespace Level
                 }
                 else
                 {
-                    levelBuildIndex = LoadManager.MainMenuSceneIndex;
+                    levelBuildIndex = LoadManager.UILevelIndexPressed;
                     for (int i = 0; i < levelBuildIndex - 3; i++)
                     {
                         if (toolPrefabs[i] != null) _player.AddTool(Instantiate(toolPrefabs[i]));

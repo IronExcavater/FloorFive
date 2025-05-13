@@ -2277,6 +2277,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1904118987}
+    - target: {fileID: 2351826978707749891, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1081
+      objectReference: {fileID: 0}
     - target: {fileID: 2448629672327683278, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2293,6 +2297,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2046549716}
+    - target: {fileID: 2875699896265030546, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1787
+      objectReference: {fileID: 0}
     - target: {fileID: 3094468979618961497, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
       propertyPath: m_Name
       value: Timer
@@ -2309,10 +2317,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 359158980}
+    - target: {fileID: 5326348885211558857, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1381
+      objectReference: {fileID: 0}
     - target: {fileID: 6236480487921014229, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1256755268}
+    - target: {fileID: 6236480487921014229, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 998
+      objectReference: {fileID: 0}
     - target: {fileID: 6576637856138688809, guid: 145004c6ed9279e4e9ab959484ee1a3d, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -12365,7 +12381,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 490752255}
-  m_VersionIndex: 2053
+  m_VersionIndex: 2056
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

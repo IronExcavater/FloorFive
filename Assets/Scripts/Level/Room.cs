@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Anomaly;
 using Tools;
-using UI;
+using Subtitle;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -154,21 +154,17 @@ namespace Level
             OnAnomalyTriggered?.Invoke(anomaly);
             Debug.Log($"Triggered anomaly: {anomaly.name}");
             
-            if (SubtitleUI.GetNextEvent()?.subtitleEvent is SubtitleEvent.OnAnomalyTriggered)
+            switch (anomaly)
             {
-                SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyTriggered);
-            }
-            else
-            {
-                switch (anomaly)
-                {
-                    case CloakAnomaly _:
-                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyTriggered);
-                        break;
-                    case CameraAnomaly _:
-                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyTriggered);
-                        break;
-                }
+                case CloakAnomaly _:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyTriggered);
+                    break;
+                case CameraAnomaly _:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyTriggered);
+                    break;
+                case not null:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyTriggered);
+                    break;
             }
         }
 
@@ -176,21 +172,17 @@ namespace Level
         {
             OnAnomalyCompleted?.Invoke(anomaly);
             
-            if (SubtitleUI.GetNextEvent()?.subtitleEvent is SubtitleEvent.OnAnomalyCompleted)
+            switch (anomaly)
             {
-                SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyCompleted);
-            }
-            else
-            {
-                switch (anomaly)
-                {
-                    case CloakAnomaly _:
-                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyCompleted);
-                        break;
-                    case CameraAnomaly _:
-                        SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyCompleted);
-                        break;
-                }
+                case CloakAnomaly _:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnCloakAnomalyCompleted);
+                    break;
+                case CameraAnomaly _:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnCameraAnomalyCompleted);
+                    break;
+                case not null:
+                    SubtitleUI.TriggerEvent(SubtitleEvent.OnAnomalyCompleted);
+                    break;
             }
         }
 

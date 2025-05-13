@@ -50,7 +50,7 @@ namespace Anomaly
                 
             if (_active)
             {
-                transform.localPosition = anomalousPosition;
+                transform.localPosition = anomalousPosition - _localCenter;
                 transform.localEulerAngles = anomalousRotation;
                 _audioSource.pitch = Random.Range(0.9f, 1.1f);
                 _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("anomalyTrigger").GetRandomClip());

@@ -52,7 +52,7 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
-  collider: {fileID: 0}
+  colliders: []
   toolOffsetPosition: {x: 0, y: 0, z: 0}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
   handOffsetPosition: {x: 0, y: 0, z: 0}
@@ -61,9 +61,8 @@ MonoBehaviour:
   equipped: 0
   flashBeaconObj: {fileID: 6389458366604189548}
   radius: {fileID: 5310241483652795107}
-  coolDown:
-    coolDownTime: 3
   flashPeriod: 0.5
+  coolDownTime: 5
 --- !u!135 &5310241483652795107
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -224,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 3
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 1
+  m_AdditionalLightsShadowResolutionTier: 0
   m_LightLayerMask: 1
   m_RenderingLayers: 1
   m_CustomShadowLayers: 0
@@ -241,6 +240,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4109637614643586103}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -280,6 +291,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e6f7bf259e1cfa946939f7029d56c515, type: 3}
       propertyPath: m_Name
