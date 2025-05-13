@@ -5,17 +5,17 @@ namespace Anomaly
     public class CameraAnomaly : AnomalyBase
     {
         [Header("Layer Settings")]
-        [Tooltip("������ ���¿��� ����� ���̾� �̸� (��: HiddenAnomaly)")]
+        [Tooltip("Layer name used when the object is hidden (e.g., HiddenAnomaly)")]
         public string anomalyLayerName = "HiddenAnomaly";
 
-        [Tooltip("���ǿ� �巯�� �� ����� ���̾� �̸� (��: Default �Ǵ� AnomalyRevealed)")]
+        [Tooltip("Layer name used when the object is revealed (e.g., Default or AnomalyRevealed)")]
         public string revealLayerName = "Default";
 
         [Header("Reveal Settings")]
-        [Tooltip("����ȭ �� �ݶ��̴� Ȱ��ȭ ����")]
+        [Tooltip("Enable collider when the object is revealed")]
         public bool colliderEnableOnReveal = true;
 
-        //[Tooltip("����ȭ �� ����� ����Ʈ ������ (����)")]
+        //[Tooltip("Effect prefab to instantiate when the object is revealed (optional)")]
         //public GameObject revealEffectPrefab;
 
         private Collider _collider;
@@ -48,7 +48,7 @@ namespace Anomaly
             if (_revealed) return;
             _revealed = true;
 
-            // ���̾� ����
+            // Set layer to reveal layer
             int revealLayer = LayerMask.NameToLayer(revealLayerName);
             if (revealLayer < 0)
             {
@@ -59,19 +59,19 @@ namespace Anomaly
                 SetLayerRecursively(gameObject, revealLayer);
             }
 
-            // ��ġ �� ȸ�� ����
+            // Apply position and rotation
             transform.position = anomalousPosition;
             transform.eulerAngles = anomalousRotation;
 
-            // �ݶ��̴� Ȱ��ȭ
+            // Enable collider
             if (_collider && colliderEnableOnReveal)
                 _collider.enabled = true;
 
-            //// ����Ʈ ���
+            //// Instantiate reveal effect
             //if (revealEffectPrefab)
             //    Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
 
-            // ���� Ȱ��ȭ
+            // Activate object
             Active = true;
         }
 
@@ -95,7 +95,7 @@ namespace Anomaly
         }
 
         /// <summary>
-        /// �ڽı��� ������ ���̾� ����
+        /// Set the layer for this object and all its children
         /// </summary>
         private void SetLayerRecursively(GameObject obj, int newLayer)
         {

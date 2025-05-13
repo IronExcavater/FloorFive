@@ -208,7 +208,6 @@ MonoBehaviour:
   maxCameraDistance: 1
   maxCameraDelta: 5
   headTransform: {fileID: 7723149066484554956}
-  handTransform: {fileID: 3250609745369776567}
   toolTarget: {fileID: 5843510513813171318}
   walkSpeed: 2
   sprintSpeed: 4
@@ -226,7 +225,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   fadeOverlay: {fileID: 7201358145052352779}
-  _toolIndex: -1
 --- !u!114 &7289632497006591245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,7 +570,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
