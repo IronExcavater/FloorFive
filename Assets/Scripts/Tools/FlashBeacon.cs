@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using System.Linq;
 using Player;
 using Tools;
+using particleSystem;
 
 
 public class FlashBeacon : ToolBase
@@ -33,15 +33,10 @@ public class FlashBeacon : ToolBase
         Activate();
         StartCoroutine(Flashing());
         StartCoroutine(CoolDownRoutine());
+
         
-        var anomalies = _currentRoom._anomalies;
-        var validAnomalies = anomalies.Where(anomaly => anomaly.Active);
-        
-        foreach (var obj in validAnomalies)
-        {
-            
-        }
     }
+    
     
 
     private void Activate()
