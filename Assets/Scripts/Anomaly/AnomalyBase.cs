@@ -19,7 +19,7 @@ namespace Anomaly
 
         private Vector3 _localCenter;
         
-        private Room _room;
+        protected Room _room;
         
         private bool _active;
         public bool Active
