@@ -15,11 +15,9 @@ namespace Anomaly
         [Tooltip("Enable collider when the object is revealed")]
         public bool colliderEnableOnReveal = true;
 
-        //[Tooltip("Effect prefab to instantiate when the object is revealed (optional)")]
-        //public GameObject revealEffectPrefab;
-
         private Collider _collider;
         private bool _revealed = false;
+        private Room _room;
 
 #if UNITY_EDITOR
         private void OnValidate()
@@ -40,6 +38,11 @@ namespace Anomaly
 
         private void Start()
         {
+            // Room 오브젝트 찾기 (Room 태그가 있다고 가정)
+            GameObject roomObj = GameObject.FindGameObjectWithTag("Room");
+            if (roomObj != null)
+                _room = roomObj.GetComponent<Room>();
+
             SetHiddenState();
         }
 
@@ -67,31 +70,34 @@ namespace Anomaly
             if (_collider && colliderEnableOnReveal)
                 _collider.enabled = true;
 
-            //// Instantiate reveal effect
-            //if (revealEffectPrefab)
-            //    Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
-
-            // Activate object
             Active = true;
         }
 
         private void SetHiddenState()
         {
-            int anomalyLayer = LayerMask.NameToLayer(anomalyLayerName);
-            if (anomalyLayer < 0)
+            // Room이 활성화되어 있을 때만 HiddenAnomaly 레이어로 전환
+            if (_room != null && _room.gameObject.activeInHierarchy)
             {
-                Debug.LogWarning($"Layer '{anomalyLayerName}' not found. Object will remain in current layer.");
+                int anomalyLayer = LayerMask.NameToLayer(anomalyLayerName);
+                if (anomalyLayer < 0)
+                {
+                    Debug.LogWarning($"Layer '{anomalyLayerName}' not found. Object will remain in current layer.");
+                }
+                else
+                {
+                    SetLayerRecursively(gameObject, anomalyLayer);
+                }
+
+                if (_collider)
+                    _collider.enabled = false;
+
+                Active = false;
+                _revealed = false;
             }
             else
             {
-                SetLayerRecursively(gameObject, anomalyLayer);
+                Debug.Log($"Room is not active. CameraAnomaly will not switch to HiddenAnomaly layer.");
             }
-
-            if (_collider)
-                _collider.enabled = false;
-
-            Active = false;
-            _revealed = false;
         }
 
         /// <summary>
