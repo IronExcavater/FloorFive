@@ -1,81 +1,87 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 using Player;
-using Tools;
-using particleSystem;
 
-
-public class FlashBeacon : ToolBase
+namespace Tools
 {
-    public GameObject flashBeaconObj;
-    public Collider radius;
-    [Header("FlashBeacon Settings")]
-    public float flashPeriod = 2f;
-    public float coolDownTime = 5f; // 쿨타임을 public으로 지정
-
-    private bool on = false;
-    private bool coolDownActive = false;
-    
-    public GameObject particleEffect;
-    public Material laser;
-
-    void Start()
+    public class FlashBeacon : ToolBase
     {
-        on = false;
-        flashBeaconObj.SetActive(false);
-        radius.enabled = false;
-    }
+        [Header("FlashBeacon Settings")]
+        public float flashPeriod = 2f;
+        public float coolDownTime = 5f;
 
-    // ToolBase에서 호출되는 메인 함수
-    protected override void Use(PlayerController player)
-    {
-        if (coolDownActive) return;
-        Activate();
-        StartCoroutine(Flashing());
-        StartCoroutine(CoolDownRoutine());
-
+        private bool on = false;
+        private bool coolDownActive = false;
         
-    }
-    
-    
+        public GameObject particleEffect;
+        public Material laser;
 
-    private void Activate()
-    {
-        if (!on)
+        void Start()
         {
-            flashBeaconObj.SetActive(true);
-            radius.enabled = true;
-            on = true;
+            on = false;
         }
-    }
-
-    // FlashBeacon 범위 내 MovingAnomaly 트리거
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("MovingAnomaly"))
+        
+        protected override void Use(PlayerController player)
         {
-            var anomaly = other.GetComponent<MovingAnomaly>();
-            if (anomaly != null)
+            if (coolDownActive) return;
+            Activate();
+            StartCoroutine(Flashing());
+            StartCoroutine(CoolDownRoutine());
+            
+            var anomalies = _currentRoom._anomalies;
+            var validAnomalies = anomalies.Where(anomaly => anomaly.Active);
+
+            foreach (var obj in validAnomalies)
             {
-                anomaly.OnFlash(); // anomaly의 OnFlash()를 호출 (Freeze 또는 상태 변환)
+                Vector3 origin = obj._startPos;
+                Vector3 currentPosition = obj.transform.position;
+
+                GameObject originMarker = Instantiate(particleEffect, origin, Quaternion.identity);
+                GameObject currentPositionMarker = Instantiate(particleEffect, currentPosition, Quaternion.identity);
+
+                connectPoints(origin, currentPosition);
+
+                Destroy(originMarker, 2f);
+                Destroy(currentPositionMarker, 2f);
+
             }
         }
-    }
 
-    // flashPeriod 후 비활성화
-    private IEnumerator Flashing()
-    {
-        yield return new WaitForSeconds(flashPeriod);
-        flashBeaconObj.SetActive(false);
-        radius.enabled = false;
-        on = false;
-    }
+        private void connectPoints(Vector3 start, Vector3 end)
+        {
+            GameObject line = new GameObject("line");
+            var lineRenderer = line.AddComponent<LineRenderer>();
 
-    // 쿨타임 처리
-    private IEnumerator CoolDownRoutine()
-    {
-        coolDownActive = true;
-        yield return new WaitForSeconds(coolDownTime);
-        coolDownActive = false;
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, start);
+            lineRenderer.SetPosition(1, end);
+
+            lineRenderer.material = laser;
+            lineRenderer.startWidth = 0.05f;
+            lineRenderer.endWidth = 0.05f;
+
+            Destroy(line, 2f);
+        }
+
+        private void Activate()
+        {
+            on = true;
+        }
+
+        // flashPeriod 후 비활성화
+        private IEnumerator Flashing()
+        {
+            yield return new WaitForSeconds(flashPeriod);
+            on = false;
+        }
+
+        // 쿨타임 처리
+        private IEnumerator CoolDownRoutine()
+        {
+            coolDownActive = true;
+            yield return new WaitForSeconds(coolDownTime);
+            coolDownActive = false;
+        }
     }
 }
