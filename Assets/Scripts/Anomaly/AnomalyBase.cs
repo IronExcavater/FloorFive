@@ -15,9 +15,11 @@ namespace Anomaly
         public Vector3 anomalousRotation;
     
         public Vector3 _startPos;
+
+        public Vector3 startPosGlobal;
         public Quaternion _startRot;
 
-        private Vector3 _localCenter;
+        public Vector3 _localCenter;
         
         protected Room _room;
         
@@ -76,6 +78,7 @@ namespace Anomaly
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
             _startRot = transform.localRotation;
+            startPosGlobal = transform.localPosition + _localCenter;
         }
 
         private void Start()
