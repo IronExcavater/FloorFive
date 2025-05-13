@@ -17,8 +17,7 @@ namespace Anomaly
 
         private Collider _collider;
         private bool _revealed = false;
-        private Room _room;
-
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -38,11 +37,6 @@ namespace Anomaly
 
         private void Start()
         {
-            // Room 오브젝트 찾기 (Room 태그가 있다고 가정)
-            GameObject roomObj = GameObject.FindGameObjectWithTag("Room");
-            if (roomObj != null)
-                _room = roomObj.GetComponent<Room>();
-
             SetHiddenState();
         }
 
