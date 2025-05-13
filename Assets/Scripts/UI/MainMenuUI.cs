@@ -73,7 +73,9 @@ namespace UI
 
     public void OnStart()
     {
+        Debug.Log("OnStart");
         LoadManager.MainMenuSceneIndex = 2;
+        Debug.Log("About to load elevator");
         LoadElevator();
     }
 
