@@ -22,7 +22,7 @@ namespace UI
                 _canvasGroup.alpha = _isPaused ? 1 : 0;
                 _canvasGroup.blocksRaycasts = _isPaused;
                 _canvasGroup.interactable = _isPaused;
-                Time.timeScale = _isPaused ? 1 : 0;
+                Time.timeScale = _isPaused ? 0 : 1;
                 
                 Cursor.lockState = _isPaused ? CursorLockMode.None : CursorLockMode.Locked;
                 Cursor.visible = _isPaused;
@@ -63,7 +63,8 @@ namespace UI
 
         public void OnExitButton()
         {
-            IsPaused = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             LoadManager.LoadScene(LoadManager.MainMenuSceneIndex, LoadSceneMode.Single);
         }
     }

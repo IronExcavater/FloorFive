@@ -56,6 +56,7 @@ namespace Load
             
             yield return SceneManager.LoadSceneAsync(buildIndex, loadMode);
             Scene scene = SceneManager.GetSceneByBuildIndex(buildIndex);
+            Time.timeScale = 1f;
             IsLoading = false;
             OnSceneLoaded?.Invoke(scene);
             

@@ -15,6 +15,8 @@ namespace UI
         {
             base.Awake();
             _canvasGroup = GetComponentInChildren<CanvasGroup>();
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
             _canvasGroup.alpha = 0f;
         }
 

@@ -22,6 +22,10 @@ namespace UI
             _canvasGroup = GetComponent<CanvasGroup>();
             _promptText = GetComponentInChildren<TMP_Text>();
             _mainCamera = Camera.main;
+            
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+            _canvasGroup.alpha = 0f;
         }
         
         public static void ShowPrompt(Interactable target, string promptText)

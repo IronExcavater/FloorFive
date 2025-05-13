@@ -693,8 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSelectCanvasGroup: {fileID: 6761835292838336704}
-  settingsCanvasGroup: {fileID: 0}
-  creditsCanvasGroup: {fileID: 0}
+  creditsCanvasGroup: {fileID: 4657750951650069659}
   fadeDuration: 0.5
 --- !u!223 &2532391789040785603
 Canvas:
@@ -958,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 869174698260869675, guid: 2d037223a107f424cb0310f9e7414fe5, type: 3}
       propertyPath: m_text
-      value: 'Level 4 (Broken)
+      value: 'Level 4
 
 '
       objectReference: {fileID: 0}
@@ -1154,7 +1153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6272920328472759804, guid: be766db32846e464fb0a2d243fff3d97, type: 3}
       propertyPath: m_Name
-      value: Options Button
+      value: Credits Button
       objectReference: {fileID: 0}
     - target: {fileID: 7509251889238998428, guid: be766db32846e464fb0a2d243fff3d97, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1166,7 +1165,7 @@ PrefabInstance:
       objectReference: {fileID: 7070621810139357317}
     - target: {fileID: 7509251889238998428, guid: be766db32846e464fb0a2d243fff3d97, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnOptions
+      value: OnCredits
       objectReference: {fileID: 0}
     - target: {fileID: 7509251889238998428, guid: be766db32846e464fb0a2d243fff3d97, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1174,7 +1173,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7920751814710656881, guid: be766db32846e464fb0a2d243fff3d97, type: 3}
       propertyPath: m_text
-      value: Options
+      value: 'Credits
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
