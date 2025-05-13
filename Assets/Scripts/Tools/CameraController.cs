@@ -34,8 +34,8 @@ namespace Tools
         public AudioClip errorSound;
 
         [Header("UI Feedback")]
-        public TextMeshProUGUI errorText;
-        public float errorDisplayTime = 1.5f;
+        //public TextMeshProUGUI errorText;
+        //public float errorDisplayTime = 1.5f;
 
         private bool hasCameraTool = false;
 
@@ -59,12 +59,20 @@ namespace Tools
                 TryTakePhoto();
         }
 
+        private void PlaySound(AudioClip clip)
+        {
+            if (_audioSource != null && clip != null)
+            {
+                _audioSource.PlayOneShot(clip);
+            }
+        }
+
         private void TryTakePhoto()
         {
             if (Time.time < lastPhotoTime + photoCooldown)
             {
                 PlaySound(errorSound);
-                StartCoroutine(ShowError("Camera needs to cool-down"));
+                //StartCoroutine(ShowError("Camera needs to cool-down"));
                 return;
             }
 
@@ -189,16 +197,16 @@ namespace Tools
                 AudioSource.PlayClipAtPoint(clip, transform.position);
         }
 
-        private IEnumerator ShowError(string message)
-        {
-            if (errorText != null)
-            {
-                errorText.text = message;
-                errorText.enabled = true;
-                yield return new WaitForSeconds(errorDisplayTime);
-                errorText.enabled = false;
-            }
-        }
+        //private IEnumerator ShowError(string message)
+        //{
+        //    if (errorText != null)
+        //    {
+        //        errorText.text = message;
+        //        errorText.enabled = true;
+        //        yield return new WaitForSeconds(errorDisplayTime);
+        //        errorText.enabled = false;
+        //    }
+        //}
 
         private GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
         {
