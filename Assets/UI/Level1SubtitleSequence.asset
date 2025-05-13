@@ -12,4 +12,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
   m_Name: Level1SubtitleSequence
   m_EditorClassIdentifier: 
-  entries: []
+  entries:
+  - steps:
+    - subtitleEvent: 13
+      autoTriggerDelay: -1
+      text: Explore the room again, like last time. But bigger!
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 2
+      text: Pick up the torch, its very handy.
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 4
+      text: This level is much bigger! Good luck >:)
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 2
+      text: When you are ready, call the elevator to begin.
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 16
+      autoTriggerDelay: -1
+      text: Well, there goes the elevator, again...
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 8
+      autoTriggerDelay: -1
+      text: Ready, set, go!
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 2
+      autoTriggerDelay: -1
+      text: The anomaly just triggered is cloaked. Keep your eyes extra peeled.
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
+      text: 'Tip: Cloaked anomlies have active camoflauge, similar to Halo'
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 5
+      autoTriggerDelay: -1
+      text: Nice job finding the cloaked anomaly.
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 9
+      autoTriggerDelay: -1
+      text: Great job! Head to the elevator and press the button inside
+      audioClip: {fileID: 0}
+      duration: 5

@@ -15,19 +15,28 @@ MonoBehaviour:
   entries:
   - steps:
     - subtitleEvent: 13
-      autoTriggerDelay: 0
+      autoTriggerDelay: -1
+      text: Explore the room, you know the drill.
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
       text: 'Lights! You love lights! '
       audioClip: {fileID: 0}
-      duration: 0
+      duration: 4
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
+      text: When you are ready, call the elevator to begin.
+      audioClip: {fileID: 0}
+      duration: 5
   - steps:
     - subtitleEvent: 10
-      autoTriggerDelay: 0
-      text: This will froze the certain type
+      autoTriggerDelay: -1
+      text: The flashbeacon will help you locate the original position of anomalies
       audioClip: {fileID: 0}
-      duration: 0
-  - steps:
-    - subtitleEvent: 1
-      autoTriggerDelay: 0
-      text: See how it goes
+      duration: 8
+    - subtitleEvent: 0
+      autoTriggerDelay: 2
+      text: When used, the tool will leave traces of smoke.
       audioClip: {fileID: 0}
-      duration: 0
+      duration: 8
