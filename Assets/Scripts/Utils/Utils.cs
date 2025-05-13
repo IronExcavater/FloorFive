@@ -53,7 +53,7 @@ namespace Utils
             var renderers = obj.GetComponentsInChildren<Renderer>();
 
             if (renderers.Length == 0)
-                return new Bounds(obj.transform.position, Vector3.zero);
+                return new Bounds(Vector3.zero, Vector3.zero);
 
             Quaternion originalRotation = obj.transform.rotation;
             obj.transform.rotation = Quaternion.identity;
@@ -68,6 +68,24 @@ namespace Utils
             localCenter = obj.transform.rotation * localCenter;
             localCenter = Vector3.Scale(localCenter, obj.transform.localScale);
             combined.center = localCenter;
+            
+            return combined;
+        }
+
+        /// <summary>
+        /// Doesn't change the objects transform, but is rough and works for things at runtime.
+        /// </summary>
+        /// <returns></returns>
+        public static Bounds GetBoundsRough(GameObject obj)
+        {
+            var renderers = obj.GetComponentsInChildren<Renderer>();
+            
+            if (renderers.Length == 0)
+                return new Bounds(Vector3.zero, Vector3.zero);
+            
+            Bounds combined = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+                combined.Encapsulate(renderers[i].bounds);
             
             return combined;
         }
