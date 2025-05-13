@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using Player;
-using TMPro;
 using System.Collections.Generic;
 
 namespace Tools
@@ -23,19 +21,9 @@ namespace Tools
         public float photoCooldown = 1f;
         private float lastPhotoTime;
 
-        [Header("UI")]
-        public Image photoDisplayUI;
-        //public GameObject photoUICanvas;
-        public float photoDisplayTime = 2f;
-        private Coroutine photoDisplayCoroutine;
-
         [Header("Audio")]
         public AudioClip clickSound;
         public AudioClip errorSound;
-
-        [Header("UI Feedback")]
-        //public TextMeshProUGUI errorText;
-        //public float errorDisplayTime = 1.5f;
 
         private bool hasCameraTool = false;
 
@@ -50,21 +38,12 @@ namespace Tools
             SetPhotoCameraToNormal();
         }
 
-      
-
         protected override void Update()
         {
             base.Update();
-            if (hasCameraTool && Input.GetMouseButtonDown(0))
+            // 마우스 왼쪽 버튼 또는 F키로 사진 찍기
+            if (hasCameraTool && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F)))
                 TryTakePhoto();
-        }
-
-        private void PlaySound(AudioClip clip)
-        {
-            if (_audioSource != null && clip != null)
-            {
-                _audioSource.PlayOneShot(clip);
-            }
         }
 
         private void TryTakePhoto()
@@ -72,11 +51,9 @@ namespace Tools
             if (Time.time < lastPhotoTime + photoCooldown)
             {
                 PlaySound(errorSound);
-                //StartCoroutine(ShowError("Camera needs to cool-down"));
                 return;
             }
 
-            PlaySound(clickSound);
             lastPhotoTime = Time.time;
             StartCoroutine(CapturePhotoSequence());
         }
@@ -90,6 +67,9 @@ namespace Tools
             SetPhotoCameraToAnomaly();
             yield return null; // Wait a frame
 
+            // 사진이 실제로 찍히는 순간 소리 재생!
+            PlaySound(clickSound);
+
             // Capture photo
             Texture2D photo = CapturePhotoTexture();
 
@@ -99,8 +79,9 @@ namespace Tools
             // Restore camera mask
             SetPhotoCameraToNormal();
 
-            // Show photo on UI
-            ShowPhotoOnUI(photo);
+            // 캡처된 사진 Texture2D는 더 이상 사용하지 않으니 바로 파괴
+            if (photo != null)
+                Destroy(photo);
         }
 
         private void SyncPhotoCameraToPlayer()
@@ -162,51 +143,14 @@ namespace Tools
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 
-        private void ShowPhotoOnUI(Texture2D texture)
-        {
-            if (photoDisplayUI == null || texture == null) return;
-            Sprite photoSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            photoDisplayUI.sprite = photoSprite;
-
-            if (photoDisplayCoroutine != null)
-                StopCoroutine(photoDisplayCoroutine);
-
-            photoDisplayCoroutine = StartCoroutine(ShowPhotoTemporarily(texture));
-        }
-
-        private IEnumerator ShowPhotoTemporarily(Texture2D texture)
-        {
-            TogglePhotoUI(true);
-            yield return new WaitForSeconds(photoDisplayTime);
-            TogglePhotoUI(false);
-            if (photoDisplayUI != null) photoDisplayUI.sprite = null;
-            if (texture != null) Destroy(texture);
-        }
-
-        public void TogglePhotoUI(bool state)
-        {
-            //if (photoUICanvas != null)
-            //    photoUICanvas.SetActive(state);
-            Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = state;
-        }
-
+        // PlaySound 함수는 AudioSource의 PlayOneShot을 사용!
         private void PlaySound(AudioClip clip)
         {
-            if (clip != null)
-                AudioSource.PlayClipAtPoint(clip, transform.position);
+            if (_audioSource != null && clip != null)
+            {
+                _audioSource.PlayOneShot(clip);
+            }
         }
-
-        //private IEnumerator ShowError(string message)
-        //{
-        //    if (errorText != null)
-        //    {
-        //        errorText.text = message;
-        //        errorText.enabled = true;
-        //        yield return new WaitForSeconds(errorDisplayTime);
-        //        errorText.enabled = false;
-        //    }
-        //}
 
         private GameObject[] FindGameObjectsWithLayer(LayerMask layerMask)
         {
@@ -228,7 +172,7 @@ namespace Tools
             return result.ToArray();
         }
 
-        // Optional: ToolBase override, if needed for interaction
+        // ToolBase의 추상 메서드 구현 (playerCamera 자동 할당)
         protected override void Use(PlayerController player)
         {
             // playerCamera가 비어 있으면 자동 할당
@@ -241,8 +185,5 @@ namespace Tools
 
             StartCoroutine(CapturePhotoSequence());
         }
-
-
-
     }
 }
