@@ -330,6 +330,7 @@ namespace HomebrewIK
 
         private void OnAnimatorIK(int layerIndex)
         {
+            if (Time.timeScale == 0) return;
             LerpIKBufferToTarget();
 
             ApplyFootIK();
