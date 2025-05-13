@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - steps:
-    - subtitleEvent: 12
+    - subtitleEvent: 13
       autoTriggerDelay: -1
       text: Explore the room, isn't there so much detail.
       audioClip: {fileID: 0}
       duration: 5
     - subtitleEvent: 0
-      autoTriggerDelay: 2
+      autoTriggerDelay: 4
       text: Objects will move, and you'll need to drag them back.
       audioClip: {fileID: 0}
       duration: 5
@@ -47,7 +47,34 @@ MonoBehaviour:
       audioClip: {fileID: 0}
       duration: 5
     - subtitleEvent: 0
-      autoTriggerDelay: 2
-      text: 'Tip: Anomalies emit '
+      autoTriggerDelay: 1
+      text: 'Tip: Anomalies emit a humming sound'
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
+      text: When you found it, grab it by holding Left Click
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 4
+      autoTriggerDelay: -1
+      text: Well done! You're first anomaly completed.
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
+      text: 'Tip: The remaining level time is on the ceiling clock'
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 1
+      text: The anomalies are commonly large, unique objects.
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 9
+      autoTriggerDelay: -1
+      text: Great job! Head to the elevator and press the button inside
       audioClip: {fileID: 0}
       duration: 5
