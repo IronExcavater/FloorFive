@@ -16,11 +16,15 @@ public class MovingAnomaly : AnomalyBase
     private Color originalColor;
     private bool isFlashing = false;
 
+    
     private enum State { Dormant, Awake }
     private State currentState = State.Dormant;
 
+    
+
     void Start()
     {
+        
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
 
@@ -54,20 +58,14 @@ public class MovingAnomaly : AnomalyBase
 
     public void OnFlash()
     {
-        StartCoroutine(FlashRed());
+        StartCoroutine(showPosition());
     }
 
-    IEnumerator FlashRed()
+    IEnumerator showPosition();
     {
         if (anomalyRenderer != null && !isFlashing)
         {
-            isFlashing = true;
-            anomalyRenderer.material.color = flashColor;
-
-            yield return new WaitForSeconds(flashDuration);
-
-            anomalyRenderer.material.color = originalColor;
-            isFlashing = false;
+            
         }
     }
 
