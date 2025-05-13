@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using Player;
-using TMPro;
 using System.Collections.Generic;
 
 namespace Tools
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
     public class CameraController : ToolBase
     {
         [Header("Layers")]
@@ -15,32 +14,21 @@ namespace Tools
         public LayerMask cameraOnlyLayerMask;
 
         [Header("Cameras")]
-        public Camera photoCamera;   // Disabled by default, used only for taking photos
-        public Camera playerCamera;  // Main player camera
+        public Camera photoCamera;
+        public Camera playerCamera;
         public RenderTexture renderTexture;
 
         [Header("Photo Settings")]
         public float photoCooldown = 1f;
         private float lastPhotoTime;
 
-        [Header("UI")]
-        public Image photoDisplayUI;
-        //public GameObject photoUICanvas;
-        public float photoDisplayTime = 2f;
-        private Coroutine photoDisplayCoroutine;
-
         [Header("Audio")]
         public AudioClip clickSound;
         public AudioClip errorSound;
 
-        [Header("UI Feedback")]
-        public TextMeshProUGUI errorText;
-        public float errorDisplayTime = 1.5f;
-
-        private bool hasCameraTool = false;
-
-        // Call this when the player picks up the camera
-        public void AcquireCameraTool() => hasCameraTool = true;
+        // AudioSource는 ToolBase에서 protected _audioSource로 선언되어 있다고 가정
+        // 만약 ToolBase에 없다면, 아래와 같이 선언하세요:
+        // private AudioSource _audioSource;
 
         protected override void Awake()
         {
@@ -48,15 +36,18 @@ namespace Tools
             if (photoCamera != null)
                 photoCamera.enabled = false;
             SetPhotoCameraToNormal();
-        }
 
-      
+            // AudioSource를 반드시 할당
+            if (_audioSource == null)
+                _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
+                _audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
         protected override void Update()
         {
             base.Update();
-            if (hasCameraTool && Input.GetMouseButtonDown(0))
-                TryTakePhoto();
+            // 입력 체크 없음 (F키 입력은 PlayerController에서 처리)
         }
 
         private void TryTakePhoto()
@@ -64,35 +55,24 @@ namespace Tools
             if (Time.time < lastPhotoTime + photoCooldown)
             {
                 PlaySound(errorSound);
-                StartCoroutine(ShowError("Camera needs to cool-down"));
                 return;
             }
 
-            PlaySound(clickSound);
             lastPhotoTime = Time.time;
             StartCoroutine(CapturePhotoSequence());
         }
 
         private IEnumerator CapturePhotoSequence()
         {
-            // Sync photo camera to player's view
             SyncPhotoCameraToPlayer();
-
-            // Set culling mask to reveal anomalies
             SetPhotoCameraToAnomaly();
-            yield return null; // Wait a frame
+            yield return null;
 
-            // Capture photo
             Texture2D photo = CapturePhotoTexture();
-
-            // Reveal anomalies in view
             RevealAnomaliesInPhoto();
-
-            // Restore camera mask
             SetPhotoCameraToNormal();
-
-            // Show photo on UI
-            ShowPhotoOnUI(photo);
+            if (photo != null)
+                Destroy(photo);
         }
 
         private void SyncPhotoCameraToPlayer()
@@ -154,49 +134,11 @@ namespace Tools
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 
-        private void ShowPhotoOnUI(Texture2D texture)
-        {
-            if (photoDisplayUI == null || texture == null) return;
-            Sprite photoSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            photoDisplayUI.sprite = photoSprite;
-
-            if (photoDisplayCoroutine != null)
-                StopCoroutine(photoDisplayCoroutine);
-
-            photoDisplayCoroutine = StartCoroutine(ShowPhotoTemporarily(texture));
-        }
-
-        private IEnumerator ShowPhotoTemporarily(Texture2D texture)
-        {
-            TogglePhotoUI(true);
-            yield return new WaitForSeconds(photoDisplayTime);
-            TogglePhotoUI(false);
-            if (photoDisplayUI != null) photoDisplayUI.sprite = null;
-            if (texture != null) Destroy(texture);
-        }
-
-        public void TogglePhotoUI(bool state)
-        {
-            //if (photoUICanvas != null)
-            //    photoUICanvas.SetActive(state);
-            Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = state;
-        }
-
         private void PlaySound(AudioClip clip)
         {
-            if (clip != null)
-                AudioSource.PlayClipAtPoint(clip, transform.position);
-        }
-
-        private IEnumerator ShowError(string message)
-        {
-            if (errorText != null)
+            if (_audioSource != null && clip != null)
             {
-                errorText.text = message;
-                errorText.enabled = true;
-                yield return new WaitForSeconds(errorDisplayTime);
-                errorText.enabled = false;
+                _audioSource.PlayOneShot(clip);
             }
         }
 
@@ -220,21 +162,15 @@ namespace Tools
             return result.ToArray();
         }
 
-        // Optional: ToolBase override, if needed for interaction
         protected override void Use(PlayerController player)
         {
-            // playerCamera가 비어 있으면 자동 할당
             if (playerCamera == null && player != null && player.cameraTransform != null)
             {
                 playerCamera = player.cameraTransform.GetComponent<Camera>();
             }
-            if (!hasCameraTool)
-                AcquireCameraTool();
 
-            StartCoroutine(CapturePhotoSequence());
+            PlaySound(clickSound);
+            TryTakePhoto();
         }
-
-
-
     }
 }
