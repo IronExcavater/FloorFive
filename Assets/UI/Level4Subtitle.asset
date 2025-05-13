@@ -19,16 +19,16 @@ MonoBehaviour:
       text: The last one.. let's see how you can do it
       audioClip: {fileID: 0}
       duration: 5
-  - steps:
     - subtitleEvent: 8
       autoTriggerDelay: -1
       text: Random Anomaly will be given to you
       audioClip: {fileID: 0}
       duration: 5
+  - steps: []
   - steps:
     - subtitleEvent: 10
       autoTriggerDelay: 1
-      text: Camera works
+      text: Camera will show the hidden, reveals it
       audioClip: {fileID: 0}
       duration: 0
     - subtitleEvent: 1
