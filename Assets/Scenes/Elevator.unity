@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.25524208, g: 0.26420635, b: 0.28223732, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.06
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: db4fc3e82ff95431c86e6faa7eb2aeca, type: 2}
   m_HaloStrength: 0.5
@@ -3078,10 +3078,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuUI
       objectReference: {fileID: 0}
-    - target: {fileID: 5664469269507856091, guid: 276558dd2cf44314b90315d7922387df, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4073,11 +4069,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &1847825647 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5127125787344284060, guid: ee489bcf861dbff40bf2f368165a51d8, type: 3}
-  m_PrefabInstance: {fileID: 8006272786970532109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1871564874
 Mesh:
   m_ObjectHideFlags: 0
@@ -4768,10 +4759,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3245334425542876159, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3473407769875823490, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4852,10 +4839,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5942440402283005844, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1847825647}
     - target: {fileID: 7413469257783184664, guid: a2dfd53523ef14e44993f3f6bc3d5ed7, type: 3}
       propertyPath: m_Name
       value: InteractUI
