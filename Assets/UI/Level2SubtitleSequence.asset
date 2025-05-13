@@ -12,44 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
   m_Name: Level2SubtitleSequence
   m_EditorClassIdentifier: 
-  Steps:
-  - subtitleEvent: 6
-    text: There's a flashlight, pick it up.
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 13
-    text: Call the elevator after looking around
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 7
-    text: You can change tools pressing 0-9
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 1
-    text: This anomaly is cloaked with active camoflauge
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
+  entries:
+  - steps:
+    - subtitleEvent: 13
+      autoTriggerDelay: 0
+      text: 'Lights! You love lights! '
+      audioClip: {fileID: 0}
+      duration: 0
+  - steps:
+    - subtitleEvent: 10
+      autoTriggerDelay: 0
+      text: This will froze the certain type
+      audioClip: {fileID: 0}
+      duration: 0
+  - steps:
+    - subtitleEvent: 1
+      autoTriggerDelay: 0
+      text: See how it goes
+      audioClip: {fileID: 0}
+      duration: 0

@@ -97,10 +97,14 @@ namespace Level
             
             _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
             _roomTool = GetComponentInChildren<ToolBase>();
-            SubtitleUI.LoadSequence(subtitleSequence);
-            SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomLoaded);
             
             _audioSources = GetComponentsInChildren<AudioSource>().ToList();
+        }
+
+        private void Start()
+        {
+            SubtitleUI.LoadSequence(subtitleSequence);
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomLoaded);
         }
 
         private void Update()
@@ -124,10 +128,6 @@ namespace Level
             if (_remainingAnomalyGap <= 0)
             {
                 TriggerAnomaly();
-                
-                float t = Mathf.Clamp01(1 - remainingTime / duration);
-                float slope = anomalyCurve.Evaluate(t);
-                _remainingAnomalyGap = slope;
             }
         }
 
@@ -153,6 +153,10 @@ namespace Level
             anomaly.Active = true;
             OnAnomalyTriggered?.Invoke(anomaly);
             Debug.Log($"Triggered anomaly: {anomaly.name}");
+            
+            float t = Mathf.Clamp01(1 - remainingTime / duration);
+            float slope = anomalyCurve.Evaluate(t);
+            _remainingAnomalyGap = slope;
             
             switch (anomaly)
             {

@@ -1,3 +1,4 @@
+using Level;
 using UnityEngine;
 
 namespace Anomaly
@@ -17,8 +18,7 @@ namespace Anomaly
 
         private Collider _collider;
         private bool _revealed = false;
-        private Room _room;
-
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -38,12 +38,28 @@ namespace Anomaly
 
         private void Start()
         {
+
             // Room 오브젝트 찾기 (Room 태그가 있다고 가정)
             GameObject roomObj = GameObject.FindGameObjectWithTag("Room");
             if (roomObj != null)
                 _room = roomObj.GetComponent<Room>();
 
-            SetHiddenState();
+            // 초기에는 오브젝트를 숨기지 않음
+        }
+
+        /// <summary>
+        /// AnomalyBase의 Activate를 오버라이드해서,
+        /// Active = true가 될 때만 숨김 처리되도록 설정
+        /// </summary>
+        protected override void Activate(bool active)
+        {
+            base.Activate(active);
+
+            if (active)
+            {
+                SetHiddenState(); // 이제 active 상태일 때만 숨김 처리
+            }
+
         }
 
         public void Reveal()
@@ -75,7 +91,6 @@ namespace Anomaly
 
         private void SetHiddenState()
         {
-            // Room이 활성화되어 있을 때만 HiddenAnomaly 레이어로 전환
             if (_room != null && _room.gameObject.activeInHierarchy)
             {
                 int anomalyLayer = LayerMask.NameToLayer(anomalyLayerName);
@@ -91,7 +106,6 @@ namespace Anomaly
                 if (_collider)
                     _collider.enabled = false;
 
-                Active = false;
                 _revealed = false;
             }
             else

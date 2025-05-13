@@ -16,7 +16,9 @@ namespace Subtitle
 
         private SubtitleSequence _sequence;
         private List<int> _entryIndices;
+        private List<float> _lastStepFinishTimes;
         private Coroutine _coroutine;
+        private int _currentEntryPriority = -1;
         private float _targetAlpha;
 
         protected override void Awake()
@@ -31,18 +33,42 @@ namespace Subtitle
         private void Update()
         {
             _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, _targetAlpha, Time.deltaTime * 2f);
+            
+            if (_sequence == null || _entryIndices == null) return;
+            
+            for (int i = 0; i < _sequence.entries.Count; i++)
+            {
+                var entry = _sequence.entries[i];
+                int stepIndex = _entryIndices[i];
+
+                if (stepIndex >= entry.steps.Count) continue;
+
+                var step = entry.steps[stepIndex];
+                if (step.autoTriggerDelay > 0 &&
+                    Time.unscaledTime >= _lastStepFinishTimes[i] + step.autoTriggerDelay &&
+                    i >= _currentEntryPriority)
+                {
+                    if (_coroutine != null) StopCoroutine(_coroutine);
+                    _coroutine = StartCoroutine(PlayStep(step, i));
+                    Debug.Log("Subtitle triggered through time: " + step.text);
+                }
+            }
         }
 
         public static void LoadSequence(SubtitleSequence sequence)
         {
+            if (sequence == null) return;
             Instance._sequence = sequence;
             Instance._entryIndices = new List<int>(new int[sequence.entries.Count]);
+            Instance._lastStepFinishTimes = new List<float>(new float[sequence.entries.Count]);
         }
         
         public static void TriggerEvent(SubtitleEvent triggeredEvent)
         {
             if (Instance._sequence == null || Instance._entryIndices == null) return;
-
+            
+            Debug.Log("Triggering event: " + triggeredEvent);
+            
             for (int i = 0; i < Instance._sequence.entries.Count; i++)
             {
                 var entry = Instance._sequence.entries[i];
@@ -51,19 +77,25 @@ namespace Subtitle
                 if (stepIndex >= entry.steps.Count) continue;
                 
                 var step = entry.steps[stepIndex];
-                if (SubtitleUtils.Matches(step.subtitleEvent, triggeredEvent))
+                if (step.subtitleEvent != SubtitleEvent.None &&
+                    SubtitleUtils.Matches(step.subtitleEvent, triggeredEvent) &&
+                    i >= Instance._currentEntryPriority)
                 {
                     if (Instance._coroutine != null) Instance.StopCoroutine(Instance._coroutine);
 
-                    Instance._coroutine = Instance.StartCoroutine(Instance.PlayStep(step));
-                    Instance._entryIndices[i]++;
+                    Instance._coroutine = Instance.StartCoroutine(Instance.PlayStep(step, i));
+                    Debug.Log("Subtitle triggered through event: " + step.text);
                     return;
                 }
             }
         }
 
-        private IEnumerator PlayStep(SubtitleStep step)
+        private IEnumerator PlayStep(SubtitleStep step, int entryIndex)
         {
+            _entryIndices[entryIndex]++;
+            _currentEntryPriority = entryIndex;
+            _lastStepFinishTimes[entryIndex] = Time.unscaledTime + step.duration;
+            
             if (_canvasGroup.alpha > 0)
             {
                 _targetAlpha = 0;
@@ -79,6 +111,8 @@ namespace Subtitle
                 Utils.Utils.WaitForSeconds(step.duration));
             
             _targetAlpha = 0;
+            
+            _currentEntryPriority = -1;
             _coroutine = null;
         }
     }

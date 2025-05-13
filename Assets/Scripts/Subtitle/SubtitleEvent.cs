@@ -4,6 +4,8 @@ namespace Subtitle
 {
     public enum SubtitleEvent
     {
+        None,
+        
         OnAnomalyTriggered,
         OnCloakAnomalyTriggered,
         OnCameraAnomalyTriggered,

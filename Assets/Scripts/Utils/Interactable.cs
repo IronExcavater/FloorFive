@@ -18,7 +18,7 @@ namespace Utils
         public event Action OnInteracted;
         
         private Outline _outline;
-        [HideInInspector] public new Collider[] colliders;
+        [HideInInspector] public Collider[] colliders;
 
         protected virtual void Awake()
         {

@@ -46,6 +46,7 @@ namespace Player
         [Header("Interact")]
         public float interactRadius = 0.5f;
         public float interactDistance = 1.5f;
+        public float grabOffset = 1.5f;
         public LayerMask defaultMask;
         public LayerMask movableMask;
         public LayerMask interactMask;
@@ -324,8 +325,8 @@ namespace Player
         {
             if (GrabbedTarget == null) return;
 
-            Vector3 holdPosition = cameraPivot.position + cameraTransform.forward;
-            Vector3 toTarget = holdPosition - GrabbedTarget.position;
+            Vector3 holdPosition = cameraPivot.position + cameraTransform.forward * grabOffset;
+            Vector3 toTarget = holdPosition - Utils.Utils.GetBoundsRough(GrabbedTarget.gameObject).center;
 
             if (toTarget.magnitude > interactDistance * 1.5f ||
                 GrabbedTarget.isKinematic)
@@ -334,10 +335,10 @@ namespace Player
                 return;
             }
             
-            GrabbedTarget.AddForce(liftForce * toTarget - GrabbedTarget.linearVelocity, ForceMode.Acceleration);
+            Quaternion targetRotation = Quaternion.LookRotation(-modelPivot.forward, Vector3.up);
+            GrabbedTarget.rotation = Quaternion.Slerp(GrabbedTarget.rotation, targetRotation, Time.fixedDeltaTime * acceleration);
             
-            Quaternion targetRotation = Quaternion.LookRotation(modelPivot.forward, Vector3.up);
-            GrabbedTarget.MoveRotation(Quaternion.Slerp(GrabbedTarget.rotation, targetRotation, Time.fixedDeltaTime * acceleration));
+            GrabbedTarget.AddForce(liftForce * toTarget - GrabbedTarget.linearVelocity, ForceMode.Acceleration);
         }
 
         private void HandleAttack()

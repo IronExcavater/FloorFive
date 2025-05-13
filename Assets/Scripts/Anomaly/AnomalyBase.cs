@@ -14,12 +14,12 @@ namespace Anomaly
         public Vector3 anomalousPosition;
         public Vector3 anomalousRotation;
     
-        private Vector3 _startPos;
-        private Quaternion _startRot;
+        public Vector3 _startPos;
+        public Quaternion _startRot;
 
         private Vector3 _localCenter;
         
-        private Room _room;
+        protected Room _room;
         
         private bool _active;
         public bool Active
