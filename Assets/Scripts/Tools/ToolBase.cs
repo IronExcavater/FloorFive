@@ -25,6 +25,7 @@ namespace Tools
         public bool equipped;
 
         protected Room _currentRoom;
+        protected Camera _camera;
         protected float _stress;
 
         private void Start()

@@ -47,6 +47,13 @@ namespace Tools
 
                 GameObject originMarker = Instantiate(particleEffect, origin, Quaternion.identity);
                 GameObject currentPositionMarker = Instantiate(particleEffect, currentPosition, Quaternion.identity);
+                
+                Camera cam = Camera.main;
+                if (cam != null)
+                {
+                    originMarker.transform.LookAt(cam.transform);
+                    currentPositionMarker.transform.LookAt(cam.transform);
+                }
 
                 connectPoints(origin, currentPosition);
 

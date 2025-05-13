@@ -101,7 +101,7 @@ namespace Anomaly
 
         private IEnumerator Alive()
         {
-            while (Vector3.Distance(gameObject.transform.localPosition + _localCenter, _startPos) > 0.5f)
+            while (Vector3.Distance(gameObject.transform.localPosition + _localCenter, _startPos) > 1f)
             {
                 activeTime += Time.deltaTime;
                 
