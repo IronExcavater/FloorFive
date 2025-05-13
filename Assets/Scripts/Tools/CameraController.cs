@@ -36,13 +36,16 @@ namespace Tools
             if (photoCamera != null)
                 photoCamera.enabled = false;
             SetPhotoCameraToNormal();
+
+            if (_audioSource == null)
+                _audioSource = GetComponentInChildren<AudioSource>();
         }
 
         protected override void Update()
         {
             base.Update();
-            // 마우스 왼쪽 버튼 또는 F키로 사진 찍기
-            if (hasCameraTool && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F)))
+            // 마우스 왼쪽 버튼으로 사진 찍기 (F키 입력은 PlayerController에서 처리)
+            if (hasCameraTool && Input.GetMouseButtonDown(0))
                 TryTakePhoto();
         }
 
@@ -60,26 +63,15 @@ namespace Tools
 
         private IEnumerator CapturePhotoSequence()
         {
-            // Sync photo camera to player's view
             SyncPhotoCameraToPlayer();
-
-            // Set culling mask to reveal anomalies
             SetPhotoCameraToAnomaly();
-            yield return null; // Wait a frame
+            yield return null;
 
-            // 사진이 실제로 찍히는 순간 소리 재생!
-            PlaySound(clickSound);
+            // 사진 찍는 소리는 Use에서만 재생 (여기서는 재생하지 않음)
 
-            // Capture photo
             Texture2D photo = CapturePhotoTexture();
-
-            // Reveal anomalies in view
             RevealAnomaliesInPhoto();
-
-            // Restore camera mask
             SetPhotoCameraToNormal();
-
-            // 캡처된 사진 Texture2D는 더 이상 사용하지 않으니 바로 파괴
             if (photo != null)
                 Destroy(photo);
         }
@@ -182,6 +174,8 @@ namespace Tools
             }
             if (!hasCameraTool)
                 AcquireCameraTool();
+
+            PlaySound(clickSound); // F키로 직접 Use 호출 시 소리 재생
 
             StartCoroutine(CapturePhotoSequence());
         }
