@@ -14,31 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - steps:
+    - subtitleEvent: 10
+      autoTriggerDelay: 1
+      text: Taking photos with the camera will reveal hidden anomalies.
+      audioClip: {fileID: 0}
+      duration: 5
+    - subtitleEvent: 0
+      autoTriggerDelay: 2
+      text: When you are ready, call the elevator to begin.
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
     - subtitleEvent: 16
       autoTriggerDelay: -1
-      text: The last one.. let's see how you can do it
+      text: The last one.. let's see how you can do it.
       audioClip: {fileID: 0}
       duration: 5
     - subtitleEvent: 8
       autoTriggerDelay: -1
-      text: Random Anomaly will be given to you
+      text: Though, slightly easier.
       audioClip: {fileID: 0}
       duration: 5
-  - steps: []
   - steps:
-    - subtitleEvent: 10
-      autoTriggerDelay: 1
-      text: Camera will show the hidden, reveals it
+    - subtitleEvent: 9
+      autoTriggerDelay: 0
+      text: Congrats, you finished the game. Unfortunately there is no prize :P
       audioClip: {fileID: 0}
-      duration: 0
-    - subtitleEvent: 1
-      autoTriggerDelay: 1
-      text: Something is going around
-      audioClip: {fileID: 0}
-      duration: 0
-  - steps:
-    - subtitleEvent: 10
-      autoTriggerDelay: 1
-      text: Camera works
-      audioClip: {fileID: 0}
-      duration: 0
+      duration: 20

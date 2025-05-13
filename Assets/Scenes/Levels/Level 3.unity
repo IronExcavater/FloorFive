@@ -18833,7 +18833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorNumber: 3
-  subtitleSequence: {fileID: 0}
+  subtitleSequence: {fileID: 11400000, guid: b8fb26ff025ae6947a6d2fa39864b87b, type: 2}
   duration: 180
   remainingTime: 0
   initialAnomalyGap: 3

@@ -25233,7 +25233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorNumber: 1
-  subtitleSequence: {fileID: 11400000, guid: 7a2199b37a06d424f95fe7e2aeb23754, type: 2}
+  subtitleSequence: {fileID: 11400000, guid: 4f10746d29fde9c4387bdd3381e3089a, type: 2}
   duration: 180
   remainingTime: 0
   initialAnomalyGap: 3
@@ -25243,15 +25243,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 20
-      inSlope: -18.977459
-      outSlope: -18.977459
+      inSlope: -7.1388245
+      outSlope: -7.1388245
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.09440429
+      outWeight: 0.083333336
     - serializedVersion: 3
       time: 1
-      value: 15
+      value: 18
       inSlope: -1.6553969
       outSlope: -1.6553969
       tangentMode: 0
