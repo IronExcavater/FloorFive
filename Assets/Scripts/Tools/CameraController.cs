@@ -50,6 +50,8 @@ namespace Tools
             SetPhotoCameraToNormal();
         }
 
+      
+
         protected override void Update()
         {
             base.Update();
@@ -221,8 +223,18 @@ namespace Tools
         // Optional: ToolBase override, if needed for interaction
         protected override void Use(PlayerController player)
         {
-            if (hasCameraTool)
-                StartCoroutine(CapturePhotoSequence());
+            // playerCamera가 비어 있으면 자동 할당
+            if (playerCamera == null && player != null && player.cameraTransform != null)
+            {
+                playerCamera = player.cameraTransform.GetComponent<Camera>();
+            }
+            if (!hasCameraTool)
+                AcquireCameraTool();
+
+            StartCoroutine(CapturePhotoSequence());
         }
+
+
+
     }
 }
