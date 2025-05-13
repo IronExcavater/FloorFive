@@ -161,11 +161,12 @@ namespace Level
         private IEnumerator ElevatorOpen(float waitTime = 0)
         {
             _doorsOpen = true;
-            OnElevatorOpened?.Invoke();
-            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorOpened);
 
             if (_currentRoom == null) yield return StartCoroutine(LoadLevel());
             if (_currentRoom) UpdateFloorDisplay(_currentRoom.floorNumber);
+            
+            OnElevatorOpened?.Invoke();
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnElevatorOpened);
             
             _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("ding").GetFirstClip());
             
