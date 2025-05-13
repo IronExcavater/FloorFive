@@ -12,44 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
   m_Name: Level4Subtitle
   m_EditorClassIdentifier: 
-  Steps:
-  - subtitleEvent: 6
-    text: 'There is a camera grab it '
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 13
-    text: Call the elevator after looking around
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 0
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 0
-    text: Did you hear that? Something has moved.
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 1
-    subStepDelay: 10
-    subStepText: So you don't know what moved? The anomaly is highlighted now.
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
-  - subtitleEvent: 0
-    text: Where did it belong? Place it there.
-    audioClip: {fileID: 0}
-    delay: 0
-    duration: 5
-    hasSubStep: 1
-    subStepDelay: 0
-    subStepText: 
-    subStepAudioClip: {fileID: 0}
-    subStepDuration: 0
+  entries:
+  - steps:
+    - subtitleEvent: 16
+      autoTriggerDelay: -1
+      text: The last one.. let's see how you can do it
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 8
+      autoTriggerDelay: -1
+      text: Random Anomaly will be given to you
+      audioClip: {fileID: 0}
+      duration: 5
+  - steps:
+    - subtitleEvent: 10
+      autoTriggerDelay: 1
+      text: Camera works
+      audioClip: {fileID: 0}
+      duration: 0
+    - subtitleEvent: 1
+      autoTriggerDelay: 1
+      text: Something is going around
+      audioClip: {fileID: 0}
+      duration: 0
+  - steps:
+    - subtitleEvent: 10
+      autoTriggerDelay: 1
+      text: Camera works
+      audioClip: {fileID: 0}
+      duration: 0
