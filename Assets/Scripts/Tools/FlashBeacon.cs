@@ -13,13 +13,18 @@ namespace Tools
 
         private bool on = false;
         private bool coolDownActive = false;
+
+        public GameObject lightSource;
         
         public GameObject particleEffect;
         public Material laser;
+        
 
         void Start()
         {
             on = false;
+            lightSource.SetActive(false);
+            
         }
         
         protected override void Use(PlayerController player)
@@ -28,10 +33,13 @@ namespace Tools
             Activate();
             StartCoroutine(Flashing());
             StartCoroutine(CoolDownRoutine());
-            
+        }
+
+        private void revealAnomalies()
+        {
             var anomalies = _currentRoom._anomalies;
             var validAnomalies = anomalies.Where(anomaly => anomaly.Active);
-
+            
             foreach (var obj in validAnomalies)
             {
                 Vector3 origin = obj._startPos;
@@ -67,6 +75,8 @@ namespace Tools
         private void Activate()
         {
             on = true;
+            lightSource.SetActive(true);
+            revealAnomalies();
         }
 
         // flashPeriod 후 비활성화
@@ -74,6 +84,7 @@ namespace Tools
         {
             yield return new WaitForSeconds(flashPeriod);
             on = false;
+            lightSource.SetActive(false);
         }
 
         // 쿨타임 처리
