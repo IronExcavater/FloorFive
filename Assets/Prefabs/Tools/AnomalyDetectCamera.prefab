@@ -370,10 +370,12 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 0
   promptOffset: {x: 0, y: 0, z: 0}
+  colliders: []
   toolOffsetPosition: {x: 0, y: 0, z: 0}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
   handOffsetPosition: {x: 0, y: 0, z: 0}
   handOffsetRotation: {x: 0, y: 0, z: 0}
+  rigidbody: {fileID: 0}
   equipped: 0
   normalLayerMask:
     serializedVersion: 2
@@ -385,13 +387,8 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   renderTexture: {fileID: 8400000, guid: a3709b9a67f424c4f84896a7a66de6ae, type: 2}
   photoCooldown: 1
-  photoDisplayUI: {fileID: 0}
-  photoUICanvas: {fileID: 3494328580405431709, guid: a46ed6d02ffc5db4098adce4b57468a3, type: 3}
-  photoDisplayTime: 2
   clickSound: {fileID: 8300000, guid: 748f57c21a910e54cb64356732941acf, type: 3}
   errorSound: {fileID: 8300000, guid: 9addef69060496b44903b8056be3fe7a, type: 3}
-  errorText: {fileID: 0}
-  errorDisplayTime: 1.5
 --- !u!54 &5198996790597525239
 Rigidbody:
   m_ObjectHideFlags: 0
