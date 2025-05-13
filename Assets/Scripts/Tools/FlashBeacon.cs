@@ -43,7 +43,7 @@ namespace Tools
             foreach (var obj in validAnomalies)
             {
                 Vector3 origin = obj.startPosGlobal;
-                Vector3 currentPosition = obj.transform.position;
+                Vector3 currentPosition = obj.transform.position + obj._localCenter;
 
                 GameObject originMarker = Instantiate(particleEffect, origin, Quaternion.identity);
                 GameObject currentPositionMarker = Instantiate(particleEffect, currentPosition, Quaternion.identity);

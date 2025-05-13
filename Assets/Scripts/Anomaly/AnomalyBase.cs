@@ -78,7 +78,7 @@ namespace Anomaly
             _localCenter = Utils.Utils.GetLocalBounds(gameObject).center;
             _startPos = transform.localPosition + _localCenter;
             _startRot = transform.localRotation;
-            startPosGlobal = transform.localPosition + _localCenter;
+            startPosGlobal = transform.position + _localCenter;
         }
 
         private void Start()
