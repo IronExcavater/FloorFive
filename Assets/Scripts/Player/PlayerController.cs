@@ -94,6 +94,7 @@ namespace Player
         private CsHomebrewIK _homebrewIK;
         
         private Vector2 _lookRotation;
+        private Vector2 _lookVelocity;
         private float _targetZoom;
         private float _lookZoom;
         private Vector3 _startPosition;
@@ -233,13 +234,17 @@ namespace Player
         private void HandleLook()
         {
             Vector2 lookInput = _input.actions["Look"].ReadValue<Vector2>();
-            
-            Vector2 lookDelta = mouseSensitivity * Time.smoothDeltaTime * new Vector2(-lookInput.y, lookInput.x);
-            lookDelta = Vector3.ClampMagnitude(lookDelta, maxCameraDelta);
-            
+    
+            // Smoothly interpolate toward input — "velocity" style
+            Vector2 targetVelocity = mouseSensitivity * new Vector2(-lookInput.y, lookInput.x);
+            _lookVelocity = Vector2.Lerp(_lookVelocity, targetVelocity, Time.deltaTime * cameraLerpSpeed);
+
+            Vector2 lookDelta = _lookVelocity * Time.deltaTime;
+            lookDelta = Vector2.ClampMagnitude(lookDelta, maxCameraDelta);
+
             _lookRotation += lookDelta;
             _lookRotation.x = Mathf.Clamp(_lookRotation.x, -85, 85);
-            
+
             cameraPivot.localRotation = Quaternion.Euler(_lookRotation.x, _lookRotation.y, 0);
 
             modelPivot.localRotation = Quaternion.Slerp(
