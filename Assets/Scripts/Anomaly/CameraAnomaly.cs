@@ -38,7 +38,7 @@ namespace Anomaly
 
         private void Start()
         {
-<<<<<<< HEAD:Assets/Scripts/Anomaly/CameraAnomaly/CameraAnomaly.cs
+
             // Room 오브젝트 찾기 (Room 태그가 있다고 가정)
             GameObject roomObj = GameObject.FindGameObjectWithTag("Room");
             if (roomObj != null)
@@ -59,9 +59,7 @@ namespace Anomaly
             {
                 SetHiddenState(); // 이제 active 상태일 때만 숨김 처리
             }
-=======
-            SetHiddenState();
->>>>>>> df22b92f6d72b3d351e631a2a07fc4c69e566d6e:Assets/Scripts/Anomaly/CameraAnomaly.cs
+
         }
 
         public void Reveal()
