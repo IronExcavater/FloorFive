@@ -13,8 +13,8 @@ namespace Tools
         public LayerMask cameraOnlyLayerMask;
 
         [Header("Cameras")]
-        public Camera photoCamera;   // Disabled by default, used only for taking photos
-        public Camera playerCamera;  // Main player camera
+        public Camera photoCamera;
+        public Camera playerCamera;
         public RenderTexture renderTexture;
 
         [Header("Photo Settings")]
@@ -24,11 +24,6 @@ namespace Tools
         [Header("Audio")]
         public AudioClip clickSound;
         public AudioClip errorSound;
-
-        private bool hasCameraTool = false;
-
-        // Call this when the player picks up the camera
-        public void AcquireCameraTool() => hasCameraTool = true;
 
         protected override void Awake()
         {
@@ -44,9 +39,7 @@ namespace Tools
         protected override void Update()
         {
             base.Update();
-            // 마우스 왼쪽 버튼으로 사진 찍기 (F키 입력은 PlayerController에서 처리)
-            if (hasCameraTool && Input.GetMouseButtonDown(0))
-                TryTakePhoto();
+            // 입력 체크 없음 (F키 입력은 PlayerController에서 처리)
         }
 
         private void TryTakePhoto()
@@ -66,8 +59,6 @@ namespace Tools
             SyncPhotoCameraToPlayer();
             SetPhotoCameraToAnomaly();
             yield return null;
-
-            // 사진 찍는 소리는 Use에서만 재생 (여기서는 재생하지 않음)
 
             Texture2D photo = CapturePhotoTexture();
             RevealAnomaliesInPhoto();
@@ -135,7 +126,6 @@ namespace Tools
             return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
         }
 
-        // PlaySound 함수는 AudioSource의 PlayOneShot을 사용!
         private void PlaySound(AudioClip clip)
         {
             if (_audioSource != null && clip != null)
@@ -164,20 +154,15 @@ namespace Tools
             return result.ToArray();
         }
 
-        // ToolBase의 추상 메서드 구현 (playerCamera 자동 할당)
         protected override void Use(PlayerController player)
         {
-            // playerCamera가 비어 있으면 자동 할당
             if (playerCamera == null && player != null && player.cameraTransform != null)
             {
                 playerCamera = player.cameraTransform.GetComponent<Camera>();
             }
-            if (!hasCameraTool)
-                AcquireCameraTool();
 
-            PlaySound(clickSound); // F키로 직접 Use 호출 시 소리 재생
-
-            StartCoroutine(CapturePhotoSequence());
+            PlaySound(clickSound);
+            TryTakePhoto();
         }
     }
 }
