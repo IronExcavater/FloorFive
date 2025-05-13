@@ -25,7 +25,7 @@ namespace Tools
 
         [Header("UI")]
         public Image photoDisplayUI;
-        public GameObject photoUICanvas;
+        //public GameObject photoUICanvas;
         public float photoDisplayTime = 2f;
         private Coroutine photoDisplayCoroutine;
 
@@ -177,8 +177,8 @@ namespace Tools
 
         public void TogglePhotoUI(bool state)
         {
-            if (photoUICanvas != null)
-                photoUICanvas.SetActive(state);
+            //if (photoUICanvas != null)
+            //    photoUICanvas.SetActive(state);
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
         }
