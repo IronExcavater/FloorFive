@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace Tools
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
     public class CameraController : ToolBase
     {
         [Header("Layers")]
@@ -25,6 +26,10 @@ namespace Tools
         public AudioClip clickSound;
         public AudioClip errorSound;
 
+        // AudioSource는 ToolBase에서 protected _audioSource로 선언되어 있다고 가정
+        // 만약 ToolBase에 없다면, 아래와 같이 선언하세요:
+        // private AudioSource _audioSource;
+
         protected override void Awake()
         {
             base.Awake();
@@ -32,8 +37,11 @@ namespace Tools
                 photoCamera.enabled = false;
             SetPhotoCameraToNormal();
 
+            // AudioSource를 반드시 할당
             if (_audioSource == null)
-                _audioSource = GetComponentInChildren<AudioSource>();
+                _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
+                _audioSource = gameObject.AddComponent<AudioSource>();
         }
 
         protected override void Update()
