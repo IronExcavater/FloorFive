@@ -15,8 +15,8 @@ namespace Anomaly
         [Tooltip("����ȭ �� �ݶ��̴� Ȱ��ȭ ����")]
         public bool colliderEnableOnReveal = true;
 
-        [Tooltip("����ȭ �� ����� ����Ʈ ������ (����)")]
-        public GameObject revealEffectPrefab;
+        //[Tooltip("����ȭ �� ����� ����Ʈ ������ (����)")]
+        //public GameObject revealEffectPrefab;
 
         private Collider _collider;
         private bool _revealed = false;
@@ -67,9 +67,9 @@ namespace Anomaly
             if (_collider && colliderEnableOnReveal)
                 _collider.enabled = true;
 
-            // ����Ʈ ���
-            if (revealEffectPrefab)
-                Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
+            //// ����Ʈ ���
+            //if (revealEffectPrefab)
+            //    Instantiate(revealEffectPrefab, transform.position, Quaternion.identity);
 
             // ���� Ȱ��ȭ
             Active = true;
