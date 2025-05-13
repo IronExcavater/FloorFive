@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level4Subtitle
   m_EditorClassIdentifier: 
   Steps:
-  - subtitleEvent: 11
+  - subtitleEvent: 6
     text: 'Now you might be wonder. What if there is somethnig that you can make
       a record! '
     audioClip: {fileID: 0}
@@ -24,7 +24,7 @@ MonoBehaviour:
     subStepText: 
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 12
+  - subtitleEvent: 13
     text: When you are ready, call the elevator to begin.
     audioClip: {fileID: 0}
     delay: 0

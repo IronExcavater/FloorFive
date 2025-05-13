@@ -45,7 +45,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
-  m_Range: 10
+  m_Range: 20
   m_SpotAngle: 98.6046
   m_InnerSpotAngle: 62.38512
   m_CookieSize: 10
@@ -282,17 +282,20 @@ MonoBehaviour:
   promptText: Press E
   showOutline: 1
   promptOffset: {x: 0, y: 0, z: 0}
+  colliders: []
   toolOffsetPosition: {x: -0.02, y: -0.02, z: 0.08}
   toolOffsetRotation: {x: 0, y: 0, z: 0}
   handOffsetPosition: {x: 0, y: 0, z: 0}
   handOffsetRotation: {x: 10.94, y: 15.77, z: -46.5}
-  minIntensity: 0.8
+  rigidbody: {fileID: 0}
+  equipped: 0
+  minIntensity: 2.5
   maxIntensity: 3
   minChance: 0.05
-  maxChance: 0.4
+  maxChance: 0.3
   minDuration: 0.05
   maxDuration: 0.2
-  minCooldown: 0.05
+  minCooldown: 2
 --- !u!54 &3620596253355790070
 Rigidbody:
   m_ObjectHideFlags: 0

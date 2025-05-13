@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TutorialSubtitleSequence
   m_EditorClassIdentifier: 
   Steps:
-  - subtitleEvent: 11
+  - subtitleEvent: 6
     text: Explore the room, take note of what you see.
     audioClip: {fileID: 0}
     delay: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     subStepText: 
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 12
+  - subtitleEvent: 13
     text: When you are ready, call the elevator to begin.
     audioClip: {fileID: 0}
     delay: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     subStepText: So you don't know what moved? It's very obvious, for now.
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 9
+  - subtitleEvent: 10
     text: Where did it belong? Drag it to its original position.
     audioClip: {fileID: 0}
     delay: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     subStepText: 
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 3
+  - subtitleEvent: 8
     text: Lets get out of here, head to the elevator
     audioClip: {fileID: 0}
     delay: 0

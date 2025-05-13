@@ -12,6 +12,7 @@ namespace UI
         OnCloakAnomalyCompleted,
         OnCameraAnomalyCompleted,
         
+        OnRoomLoaded,
         OnRoomActivated,
         OnRoomCompleted,
         
