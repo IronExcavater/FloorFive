@@ -25,7 +25,7 @@ namespace Tools
 
         [Header("UI")]
         public Image photoDisplayUI;
-        public GameObject photoUICanvas;
+        //public GameObject photoUICanvas;
         public float photoDisplayTime = 2f;
         private Coroutine photoDisplayCoroutine;
 
@@ -49,6 +49,8 @@ namespace Tools
                 photoCamera.enabled = false;
             SetPhotoCameraToNormal();
         }
+
+      
 
         protected override void Update()
         {
@@ -175,8 +177,8 @@ namespace Tools
 
         public void TogglePhotoUI(bool state)
         {
-            if (photoUICanvas != null)
-                photoUICanvas.SetActive(state);
+            //if (photoUICanvas != null)
+            //    photoUICanvas.SetActive(state);
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
         }
@@ -221,8 +223,18 @@ namespace Tools
         // Optional: ToolBase override, if needed for interaction
         protected override void Use(PlayerController player)
         {
-            if (hasCameraTool)
-                StartCoroutine(CapturePhotoSequence());
+            // playerCamera가 비어 있으면 자동 할당
+            if (playerCamera == null && player != null && player.cameraTransform != null)
+            {
+                playerCamera = player.cameraTransform.GetComponent<Camera>();
+            }
+            if (!hasCameraTool)
+                AcquireCameraTool();
+
+            StartCoroutine(CapturePhotoSequence());
         }
+
+
+
     }
 }

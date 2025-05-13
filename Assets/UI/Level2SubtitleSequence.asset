@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff25572353944d39b99fced8806b100, type: 3}
-  m_Name: Level4Subtitle
+  m_Name: Level2SubtitleSequence
   m_EditorClassIdentifier: 
   Steps:
   - subtitleEvent: 6
-    text: 'There is a camera grab it '
+    text: There's a flashlight, pick it up.
     audioClip: {fileID: 0}
     delay: 0
     duration: 5
@@ -33,22 +33,22 @@ MonoBehaviour:
     subStepText: 
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 0
-    text: Did you hear that? Something has moved.
+  - subtitleEvent: 7
+    text: You can change tools pressing 0-9
     audioClip: {fileID: 0}
     delay: 0
     duration: 5
-    hasSubStep: 1
-    subStepDelay: 10
-    subStepText: So you don't know what moved? The anomaly is highlighted now.
+    hasSubStep: 0
+    subStepDelay: 0
+    subStepText: 
     subStepAudioClip: {fileID: 0}
     subStepDuration: 0
-  - subtitleEvent: 0
-    text: Where did it belong? Place it there.
+  - subtitleEvent: 1
+    text: This anomaly is cloaked with active camoflauge
     audioClip: {fileID: 0}
     delay: 0
     duration: 5
-    hasSubStep: 1
+    hasSubStep: 0
     subStepDelay: 0
     subStepText: 
     subStepAudioClip: {fileID: 0}
