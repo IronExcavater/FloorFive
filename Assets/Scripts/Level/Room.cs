@@ -97,10 +97,14 @@ namespace Level
             
             _anomalies = GetComponentsInChildren<AnomalyBase>().ToList();
             _roomTool = GetComponentInChildren<ToolBase>();
-            SubtitleUI.LoadSequence(subtitleSequence);
-            SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomLoaded);
             
             _audioSources = GetComponentsInChildren<AudioSource>().ToList();
+        }
+
+        private void Start()
+        {
+            SubtitleUI.LoadSequence(subtitleSequence);
+            SubtitleUI.TriggerEvent(SubtitleEvent.OnRoomLoaded);
         }
 
         private void Update()
