@@ -185,9 +185,9 @@ namespace Level
             
             yield return new WaitForSeconds(waitTime);
             
-            //_audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorCrash").GetFirstClip());
+            _audioSource.PlayOneShot(AudioManager.AudioGroupDictionary.GetValue("elevatorCrash").GetFirstClip());
             
-            //yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(10);
             _currentRoom.Status = Room.State.Active;
             
             yield return new WaitUntil(() => !_audioSource.isPlaying);
